@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Some Basic Concepts of Chemistry | Class 11</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.2); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .calc-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .calc-table th, .calc-table td { padding: 0.5rem; border: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.85rem; }
+    .sim-tab-header { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .sim-tab-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+  </style>
+</head>
+<body data-theme="solutions">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+
+  <div class="presentation-container">
+    <!-- Slide 1: Title -->
+    <section class="slide active">
+      <div class="badge">Class 11 · Unit I</div>
+      <h1>Some Basic Concepts of Chemistry</h1>
+      <p class="subtitle">Focusing on laws of chemical combinations, mole concept, stoichiometry, and empirical formulas.</p>
+    </section>
+
+    <!-- Slide 2: Objectives -->
+    <section class="slide">
+      <h2>Learning Objectives</h2>
+      <ul class="reveal-list">
+        <li class="reveal-item">Understand the laws of chemical combinations.</li>
+        <li class="reveal-item">Master the concept of the Mole and Avogadro's Number.</li>
+        <li class="reveal-item">Calculate empirical and molecular formulas from chemical percentages.</li>
+        <li class="reveal-item">Perform stoichiometry and limiting reactant calculations.</li>
+      </ul>
+    </section>
+
+    <!-- Slide 3: Laws of Combination -->
+    <section class="slide">
+      <h2>Laws of Chemical Combinations</h2>
+      <div class="cols-2">
+        <div>
+          <h3>1. Law of Conservation of Mass</h3>
+          <p>Mass is neither created nor destroyed in a chemical reaction (Lavoisier, 1789).</p>
+          <p>$$\sum \text{Mass of Reactants} = \sum \text{Mass of Products}$$</p>
+        </div>
+        <div>
+          <h3>2. Law of Definite Proportions</h3>
+          <p>A chemical compound always contains exactly the same proportion of elements by mass (Proust, 1799).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: Multiple Proportions -->
+    <section class="slide">
+      <h2>Law of Multiple Proportions</h2>
+      <p>If two elements combine to form more than one compound, the masses of one element that combine with a fixed mass of the other are in the ratio of small whole numbers (Dalton, 1803).</p>
+      <div class="note-box">
+        <strong>Example:</strong> Carbon and Oxygen form $CO$ and $CO_2$. For 12g Carbon, Oxygen masses are 16g and 32g. Ratio: $$16:32 = 1:2$$
+      </div>
+    </section>
+
+    <!-- Slide 5: The Mole Concept -->
+    <section class="slide">
+      <h2>The Mole Concept</h2>
+      <p>One mole is the amount of substance containing as many entities (atoms, molecules, ions) as there are atoms in exactly 12g of Carbon-12.</p>
+      <p>$$N_A = 6.022 \times 10^{23} \text{ entities/mol}$$</p>
+      <div class="cols-2">
+        <div class="note-box">
+          <strong>Moles from Mass:</strong>
+          $$n = \frac{\text{Given Mass (g)}}{\text{Molar Mass (g/mol)}}$$
+        </div>
+        <div class="note-box">
+          <strong>Moles from Gas Volume (STP):</strong>
+          $$n = \frac{\text{Volume (L)}}{22.4 \text{ L}}$$
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 6: Empirical vs Molecular Formula -->
+    <section class="slide">
+      <h2>Empirical vs Molecular Formulas</h2>
+      <p><strong>Empirical Formula:</strong> Represents the simplest whole-number ratio of various atoms present in a compound.</p>
+      <p><strong>Molecular Formula:</strong> Represents the exact number of various types of atoms present in a molecule of a compound.</p>
+      <p>$$\text{Molecular Formula} = n \times \text{Empirical Formula}$$</p>
+      <p>$$n = \frac{\text{Molar Mass}}{\text{Empirical Formula Mass}}$$</p>
+    </section>
+
+    <!-- Slide 7: Stoichiometry -->
+    <section class="slide">
+      <h2>Stoichiometry and Calculations</h2>
+      <p>Stoichiometry deals with calculation of masses (or volumes) of reactants and products involved in chemical reactions.</p>
+      <div class="note-box">
+        <strong>Limiting Reagent:</strong> The reactant which is completely consumed first in a reaction, limiting the amount of product formed.
+      </div>
+    </section>
+
+    <!-- Slide 8: Interactive Lab Callout -->
+    <section class="slide">
+      <h2>Interactive Mole & Stoichiometry Lab</h2>
+      <p>Launch the laboratory overlay to simulate mole conversions, empirical formula table building, and limiting reactant combustion assays.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+
+  <!-- HUD Controls -->
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 8</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+
+  <!-- Simulator Overlay -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3>🧪 Stoichiometry & Empirical Formula Solver</h3>
+        </div>
+        <button id="close-overlay" class="close-btn">✕</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-tab-header">
+          <button class="sim-tab-btn active" onclick="switchTab(0)">Stoichiometry & LR</button>
+          <button class="sim-tab-btn" onclick="switchTab(1)">Empirical Formula Solver</button>
+        </div>
+
+        <div class="sim-grid">
+          <!-- Tab 1 -->
+          <div id="tab-lr" class="sim-visualizer">
+            <h4>Stoichiometry: Combustion of Propane</h4>
+            <p style="font-size:0.85rem; color:#9ca3af;">$$C_3H_8 + 5O_2 \rightarrow 3CO_2 + 4H_2O$$</p>
+            <div style="display:flex; gap:1rem; margin-top:1rem;">
+              <div class="control-group">
+                <label>Propane ($C_3H_8$) Mass (g)</label>
+                <input type="range" id="mass-c3h8" min="5" max="100" value="44">
+                <span id="label-c3h8">44.0 g</span>
+              </div>
+              <div class="control-group">
+                <label>Oxygen ($O_2$) Mass (g)</label>
+                <input type="range" id="mass-o2" min="10" max="300" value="160">
+                <span id="label-o2">160.0 g</span>
+              </div>
+            </div>
+            <button class="sim-btn" onclick="runStoichiometry()" style="background:#38bdf8; color:#000; padding:0.5rem; border:none; border-radius:4px; margin-top:1rem; cursor:pointer;">Calculate Yield</button>
+          </div>
+
+          <!-- Tab 2 -->
+          <div id="tab-emp" class="sim-visualizer" style="display:none;">
+            <h4>Empirical Formula Table Builder</h4>
+            <p style="font-size:0.8rem; color:#9ca3af;">Compound: Carbon (40%), Hydrogen (6.7%), Oxygen (53.3%)</p>
+            <table class="calc-table">
+              <thead>
+                <tr>
+                  <th>Element</th>
+                  <th>% Mass</th>
+                  <th>Atomic Mass</th>
+                  <th>Atomic Ratio</th>
+                  <th>Simplest Ratio</th>
+                </tr>
+              </thead>
+              <tbody id="emp-table-body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+            <button class="sim-btn" onclick="solveEmpirical()" style="background:#38bdf8; color:#000; padding:0.5rem; border:none; border-radius:4px; margin-top:1rem; cursor:pointer;">Deduce Formula</button>
+          </div>
+
+          <!-- Sidebar Outputs -->
+          <div class="sim-sidebar" style="background:rgba(255,255,255,0.02); padding:1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.05); display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <h3>Calculation HUD</h3>
+              <div id="calc-status" style="margin-top:1rem; font-size:0.9rem; color:#e2e8f0; line-height:1.5;">Select tab and hit calculate.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab switching
+    function switchTab(idx) {
+      const tabs = document.querySelectorAll(".sim-tab-btn");
+      tabs.forEach((tab, i) => {
+        if (i === idx) tab.classList.add("active");
+        else tab.classList.remove("active");
+      });
+      document.getElementById("tab-lr").style.display = idx === 0 ? "flex" : "none";
+      document.getElementById("tab-emp").style.display = idx === 1 ? "flex" : "none";
+      if (idx === 0) {
+        runStoichiometry();
+      } else {
+        solveEmpirical();
+      }
+    }
+
+    const sliderC3H8 = document.getElementById("mass-c3h8");
+    const sliderO2 = document.getElementById("mass-o2");
+    sliderC3H8.addEventListener("input", (e) => {
+      document.getElementById("label-c3h8").textContent = parseFloat(e.target.value).toFixed(1) + " g";
+    });
+    sliderO2.addEventListener("input", (e) => {
+      document.getElementById("label-o2").textContent = parseFloat(e.target.value).toFixed(1) + " g";
+    });
+
+    function runStoichiometry() {
+      const massC3H8 = parseFloat(sliderC3H8.value);
+      const massO2 = parseFloat(sliderO2.value);
+      
+      const molC3H8 = massC3H8 / 44.1; // C3H8 molar mass
+      const molO2 = massO2 / 32.0;
+
+      // Ratio required C3H8:O2 is 1:5
+      const o2RequiredForC3H8 = molC3H8 * 5;
+      let lr = "C₃H₈";
+      let co2ProducedMol = 0;
+      
+      if (molO2 < o2RequiredForC3H8) {
+        lr = "O₂";
+        co2ProducedMol = (molO2 / 5) * 3;
+      } else {
+        lr = "C₃H₈";
+        co2ProducedMol = molC3H8 * 3;
+      }
+      
+      const massCO2 = co2ProducedMol * 44.0;
+      
+      document.getElementById("calc-status").innerHTML = `
+        <strong>Stoichiometry Analysis:</strong><br>
+        • Propane: ${molC3H8.toFixed(2)} moles<br>
+        • Oxygen: ${molO2.toFixed(2)} moles<br>
+        • <strong>Limiting Reagent: ${lr}</strong><br><br>
+        • CO₂ Produced: ${massCO2.toFixed(1)} g (${co2ProducedMol.toFixed(2)} moles)
+      `;
+    }
+
+    function solveEmpirical() {
+      const body = document.getElementById("emp-table-body");
+      body.innerHTML = `
+        <tr><td>Carbon</td><td>40.0%</td><td>12.0</td><td>3.33</td><td>1</td></tr>
+        <tr><td>Hydrogen</td><td>6.7%</td><td>1.0</td><td>6.70</td><td>2</td></tr>
+        <tr><td>Oxygen</td><td>53.3%</td><td>16.0</td><td>3.33</td><td>1</td></tr>
+      `;
+      document.getElementById("calc-status").innerHTML = `
+        <strong>Empirical Formula Analysis:</strong><br>
+        • C : H : O ratio is 1 : 2 : 1<br>
+        • <strong>Empirical Formula: CH₂O</strong><br><br>
+        • If molar mass is 60 g/mol, molecular formula is <strong>C₂H₄O₂</strong> (Acetic Acid).
+      `;
+    }
+
+    runStoichiometry();
+  </script>
+</body>
+</html>
