@@ -1009,6 +1009,7 @@
     let volumeAdded = 0.0;
     let titrationActive = false;
     let titrationInterval;
+    let dripTimeout;
 
     function initTitrationLab() {
       resetTitration();
@@ -1053,8 +1054,11 @@
       volumeAdded += 0.1;
       if (volumeAdded > 50.0) volumeAdded = 50.0;
       
+      clearTimeout(dripTimeout);
+      titrationDrip.classList.remove("drip-animation");
+      void titrationDrip.offsetWidth; // Force reflow to restart animation
       titrationDrip.classList.add("drip-animation");
-      setTimeout(() => {
+      dripTimeout = setTimeout(() => {
         titrationDrip.classList.remove("drip-animation");
       }, 350);
 

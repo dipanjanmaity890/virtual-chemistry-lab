@@ -172,6 +172,11 @@
       });
       document.getElementById("tab-bohr").style.display = idx === 0 ? "flex" : "none";
       document.getElementById("tab-aufbau").style.display = idx === 1 ? "flex" : "none";
+      if (idx === 0) {
+        document.getElementById("calc-status").innerHTML = "Click any orbit level in Tab 1 to transition the electron.";
+      } else {
+        fillAufbau();
+      }
     }
 
     const electron = document.getElementById("e-node");

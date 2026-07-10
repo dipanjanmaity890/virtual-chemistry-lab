@@ -160,6 +160,8 @@
     let simActive = false;
     function drawAtom9(){
       if (!simActive) return;
+      a9c.width = a9c.clientWidth || 350;
+      a9c.height = a9c.clientHeight || 200;
       a9x.clearRect(0,0,a9c.width,a9c.height);
       const cx=a9c.width/2,cy=a9c.height/2;
       const el=elData[a9El];
