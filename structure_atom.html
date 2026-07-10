@@ -129,6 +129,7 @@
                 <option value="C">Carbon (C) - Z=6</option>
                 <option value="N">Nitrogen (N) - Z=7</option>
                 <option value="O">Oxygen (O) - Z=8</option>
+                <option value="F">Fluorine (F) - Z=9</option>
                 <option value="Ne">Neon (Ne) - Z=10</option>
               </select>
             </div>
@@ -236,6 +237,9 @@
       } else if (el === "O") {
         s1s.textContent = "↑↓"; s2s.textContent = "↑↓"; px.textContent = "↑↓"; py.textContent = "↑"; pz.textContent = "↑";
         document.getElementById("calc-status").innerHTML = "Oxygen Z=8. Configuration: 1s² 2s² 2p⁴";
+      } else if (el === "F") {
+        s1s.textContent = "↑↓"; s2s.textContent = "↑↓"; px.textContent = "↑↓"; py.textContent = "↑↓"; pz.textContent = "↑";
+        document.getElementById("calc-status").innerHTML = "Fluorine Z=9. Configuration: 1s² 2s² 2p⁵";
       } else if (el === "Ne") {
         s1s.textContent = "↑↓"; s2s.textContent = "↑↓"; px.textContent = "↑↓"; py.textContent = "↑↓"; pz.textContent = "↑↓";
         document.getElementById("calc-status").innerHTML = "Neon Z=10. Configuration: 1s² 2s² 2p⁶ (Fully filled noble gas shell)";
