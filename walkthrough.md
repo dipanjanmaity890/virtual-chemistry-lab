@@ -92,9 +92,11 @@ I analyzed and resolved several core glitches that were impacting performance an
 
 *   Ran the compiler validator script `validate_scripts.py` on all workspace pages:
     ```
-    Found 40 HTML files to validate.
+    Found 41 HTML files to validate.
     ✅ All inline scripts parsed successfully without syntax errors!
     ```
+*   **Concepts 11 Restoration**: Successfully restored the missing `concepts_11.html` page to resolve homepage 404 errors.
+*   **Bring to Flame Button Workflow**: Disabled the "Bring to Flame" button in the qualitative salt analysis lab on load and reset until the platinum wire loop has been dipped in the HCl/cation paste, preventing click events on inactive states.
 *   To launch the server locally:
     ```bash
     python3 -m http.server 8001
