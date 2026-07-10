@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chemical Equilibrium | Class 11</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.2); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .sim-tab-header { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .sim-tab-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+  </style>
+</head>
+<body data-theme="kinetics">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 11 · Unit VII</div>
+      <h1>Equilibrium</h1>
+      <p class="subtitle">Dynamic nature of equilibrium, Le Chatelier's principle, ionic equilibrium, pH scale, Henderson-Hasselbalch equation.</p>
+    </section>
+
+    <section class="slide">
+      <h2>Le Chatelier's Principle</h2>
+      <p>If a system at equilibrium is subjected to a change in concentration, temperature, or pressure, the system shifts to counteract the imposed change.</p>
+      <div class="note-box">
+        <strong>Haber Process:</strong> $$N_2(g) + 3H_2(g) \rightleftharpoons 2NH_3(g) \quad (\Delta H = -92 \text{ kJ/mol})$$
+        • **High Pressure**: shifts to right (fewer gaseous moles).
+        • **Low Temperature**: shifts to right (exothermic).
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Ionic Equilibrium & pH</h2>
+      <p>Water auto-ionization constant:</p>
+      <p>$$K_w = [H^+][OH^-] = 1.0 \times 10^{-14} \quad (\text{at } 298\text{ K})$$</p>
+      <p>$$pH = -\log[H^+]$$</p>
+      <div class="note-box">
+        <strong>Buffer Solutions:</strong> Resist changes in pH upon addition of small amounts of acid/base.
+        • **Acidic Buffer**: Weak acid + conjugate salt.
+        • **Basic Buffer**: Weak base + conjugate salt.
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Henderson-Hasselbalch Equation</h2>
+      <p>Used to calculate pH of buffer solutions:</p>
+      <p>$$pH = pK_a + \log \left( \frac{[\text{Conjugate Base}]}{[\text{Acid}]} \right)$$</p>
+      <p>When $[\text{Base}] = [\text{Acid}]$, $pH = pK_a$. This forms the maximum buffering capacity.</p>
+    </section>
+
+    <section class="slide">
+      <h2>Interactive Equilibrium & Buffer Lab</h2>
+      <p>Launch the simulator to adjust Haber process parameters (Le Chatelier's shifts) and construct virtual buffers to calculate pH.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 5</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3>🧪 Equilibrium & Buffer Lab</h3>
+        </div>
+        <button id="close-overlay" class="close-btn">✕</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-tab-header">
+          <button class="sim-tab-btn active" onclick="switchTab(0)">Le Chatelier Slider</button>
+          <button class="sim-tab-btn" onclick="switchTab(1)">Henderson pH Calculator</button>
+        </div>
+
+        <div class="sim-grid">
+          <!-- Tab 1 -->
+          <div id="tab-lc" class="sim-visualizer">
+            <h4>Haber Process Equilibrium</h4>
+            <div class="control-group">
+              <label>Temperature</label>
+              <select id="lc-temp" onchange="runLeChatelier()" style="background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px;">
+                <option value="low">Low Temperature (Fosters NH₃)</option>
+                <option value="high">High Temperature (Reverse shift)</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label>Pressure</label>
+              <select id="lc-pres" onchange="runLeChatelier()" style="background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px;">
+                <option value="high">High Pressure (Forward shift)</option>
+                <option value="low">Low Pressure (Reverse shift)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Tab 2 -->
+          <div id="tab-henderson" class="sim-visualizer" style="display:none;">
+            <h4>Acidic Buffer (Acetic Acid / Acetate, $pK_a = 4.76$)</h4>
+            <div class="control-group">
+              <label>Salt [Conjugate Base] (M)</label>
+              <input type="range" id="buf-salt" min="1" max="10" value="5" oninput="calcBufferpH()">
+              <span id="buf-salt-val">0.5 M</span>
+            </div>
+            <div class="control-group">
+              <label>Weak Acid (M)</label>
+              <input type="range" id="buf-acid" min="1" max="10" value="5" oninput="calcBufferpH()">
+              <span id="buf-acid-val">0.5 M</span>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <div>
+              <h3>Equilibrium HUD</h3>
+              <div id="calc-status" style="margin-top:1rem; font-size:0.85rem; color:#e2e8f0; line-height:1.5;">Select tab parameters to see Le Chatelier predictions or Henderson calculated pH.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    function switchTab(idx) {
+      document.querySelectorAll(".sim-tab-btn").forEach((t, i) => {
+        t.classList.toggle("active", i === idx);
+      });
+      document.getElementById("tab-lc").style.display = idx === 0 ? "flex" : "none";
+      document.getElementById("tab-henderson").style.display = idx === 1 ? "flex" : "none";
+      if (idx === 0) runLeChatelier();
+      else calcBufferpH();
+    }
+
+    function runLeChatelier() {
+      const T = document.getElementById("lc-temp").value;
+      const P = document.getElementById("lc-pres").value;
+
+      if (T === "low" && P === "high") {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Optimum Conditions:</strong><br>
+          • Low Temp favors exothermic forward step.<br>
+          • High Pressure shifts toward fewer gaseous moles (2 NH₃).<br>
+          • <strong>Result: Maximum NH₃ yield.</strong>
+        `;
+      } else {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Sub-optimal Conditions:</strong><br>
+          • Shifts equilibrium backward (reducing NH₃ yield).
+        `;
+      }
+    }
+
+    function calcBufferpH() {
+      const saltVal = parseFloat(document.getElementById("buf-salt").value) / 10;
+      const acidVal = parseFloat(document.getElementById("buf-acid").value) / 10;
+
+      document.getElementById("buf-salt-val").textContent = saltVal.toFixed(1) + " M";
+      document.getElementById("buf-acid-val").textContent = acidVal.toFixed(1) + " M";
+
+      const pKa = 4.76;
+      const pH = pKa + Math.log10(saltVal / acidVal);
+
+      document.getElementById("calc-status").innerHTML = `
+        <strong>Buffer pH Calculation:</strong><br>
+        • pH = pKa + log10([Salt] / [Acid])<br>
+        • pH = 4.76 + log10(${saltVal.toFixed(1)} / ${acidVal.toFixed(1)})<br>
+        • <strong>Calculated pH = ${pH.toFixed(2)}</strong>
+      `;
+    }
+  </script>
+</body>
+</html>

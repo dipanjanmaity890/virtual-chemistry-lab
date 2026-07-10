@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metals and Non-Metals | Class 10</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .sim-tab-header { display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .sim-tab-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+    .sim-canvas { width:100%; height:200px; background:#030712; border-radius:12px; border:1px solid rgba(255,255,255,0.05); }
+    .rxn-step { background: rgba(255,255,255,0.04); border-left: 3px solid #38bdf8; border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.5rem; font-size: 0.88rem; line-height: 1.5; }
+  </style>
+</head>
+<body data-theme="kinetics">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 10 &middot; Unit III</div>
+      <h1>Metals and Non-Metals</h1>
+      <p class="subtitle">Physical and chemical properties, ionic bonding, reactivity series, extraction of metals, and corrosion.</p>
+    </section>
+    <section class="slide">
+      <h2>Physical Properties</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Metals</h3>
+          <ul>
+            <li><strong>Lustrous</strong> (shiny, reflect light)</li>
+            <li><strong>Hard and strong</strong> (except Na, K: soft; Hg: liquid at room temp)</li>
+            <li><strong>Malleable</strong> (can be hammered into sheets)</li>
+            <li><strong>Ductile</strong> (can be drawn into wires)</li>
+            <li><strong>Good conductors</strong> of heat and electricity (free electrons)</li>
+            <li><strong>High melting and boiling points</strong> (except Hg and Ga)</li>
+            <li><strong>Sonorous</strong> (ring when struck)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Non-Metals</h3>
+          <ul>
+            <li><strong>Non-lustrous</strong> (dull, except Iodine which is lustrous)</li>
+            <li><strong>Brittle</strong> when solid (break/crumble)</li>
+            <li><strong>Non-malleable and non-ductile</strong></li>
+            <li><strong>Poor conductors</strong> of heat and electricity (exception: Graphite is a good conductor)</li>
+            <li><strong>Low melting and boiling points</strong> (many are gases at room temp)</li>
+            <li><strong>Non-sonorous</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Chemical Reactions of Metals</h2>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>With Oxygen:</strong> 4Na+O2 gives 2Na2O | 2Mg+O2 gives 2MgO (bright white flame) | 2Cu+O2 gives 2CuO (black on heating)</li>
+        <li class="reveal-item"><strong>With Water:</strong> 2Na+2H2O gives 2NaOH+H2 (violent) | Ca+2H2O gives Ca(OH)2+H2 (vigorous) | 3Fe+4H2O(steam) gives Fe3O4+4H2 (at high temp)</li>
+        <li class="reveal-item"><strong>With Dilute Acids:</strong> Zn+H2SO4 gives ZnSO4+H2 | Fe+2HCl gives FeCl2+H2 | Mg+2HCl gives MgCl2+H2</li>
+        <li class="reveal-item"><strong>With Salt Solutions:</strong> Fe+CuSO4 gives FeSO4+Cu (Fe more reactive, displaces Cu) | Cu+2AgNO3 gives Cu(NO3)2+2Ag</li>
+      </ul>
+      <div class="note-box"><strong>Activity Series (Decreasing Reactivity):</strong><br>K > Na > Ca > Mg > Al > Zn > Fe > Pb > H > Cu > Hg > Ag > Pt > Au</div>
+    </section>
+    <section class="slide">
+      <h2>Ionic Bond Formation</h2>
+      <p>Metals form ionic bonds by <strong>transferring electrons</strong> to non-metals. Metal becomes cation (+ve), non-metal becomes anion (-ve). Electrostatic attraction holds them.</p>
+      <div class="cols-2">
+        <div>
+          <h3>NaCl Formation</h3>
+          <p>Na (2,8,1) loses 1e- and becomes Na+ (2,8) - noble gas configuration.<br>
+          Cl (2,8,7) gains 1e- and becomes Cl- (2,8,8) - noble gas configuration.<br>
+          Na+ + Cl- = NaCl (ionic bond). Melting point: 801 degrees C.</p>
+        </div>
+        <div>
+          <h3>MgCl2 Formation</h3>
+          <p>Mg (2,8,2) loses 2e- and becomes Mg2+ (2,8).<br>
+          Two Cl each gain 1e- and become 2Cl- (2,8,8).<br>
+          Mg2+ + 2Cl- = MgCl2. Melting point: 714 degrees C.</p>
+          <h3>Properties of Ionic Compounds</h3>
+          <p>High melting/boiling point. Soluble in water. Conduct electricity when dissolved or molten (not solid).</p>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Corrosion and Prevention</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Corrosion</h3>
+          <p>Attack of metals by environment. Rusting of iron: 4Fe+3O2+xH2O gives 2Fe2O3.xH2O (requires both O2 and H2O). Green patina on copper: Cu(OH)2.CuCO3. Tarnishing of silver: Ag2S.</p>
+          <div class="note-box">Rusting does NOT occur in dry air or water alone. Both O2 and moisture needed simultaneously.</div>
+        </div>
+        <div>
+          <h3>Corrosion Prevention</h3>
+          <ul>
+            <li><strong>Painting/Oiling:</strong> Physical barrier from air and moisture</li>
+            <li><strong>Galvanisation:</strong> Zinc coating on iron (sacrificial protection)</li>
+            <li><strong>Tinning:</strong> Tin coating on iron for food cans</li>
+            <li><strong>Electroplating:</strong> Chrome/nickel plating on car parts</li>
+            <li><strong>Alloying:</strong> Stainless steel = Fe+Cr+Ni (Cr2O3 layer protects)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Reactivity Series Lab</h2>
+      <p>Launch the lab to compare metal reactions with water and acid, build ionic bonds for NaCl/MgCl2/CaO, and test corrosion conditions interactively.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 6</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title"><h3>Metals and Non-Metals Lab Simulator</h3></div>
+        <button id="close-overlay" class="close-btn">&#x2715;</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer" style="flex-direction:column; align-items:flex-start; padding:1.2rem; justify-content:flex-start;">
+            <h4>Metal Reactivity Tester</h4>
+            <select id="metal-sel" style="width:100%; background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px; margin-bottom:0.4rem;" onchange="testMetal()">
+              <option value="k">Potassium (K) -- Most Reactive</option>
+              <option value="na">Sodium (Na)</option>
+              <option value="ca">Calcium (Ca)</option>
+              <option value="mg">Magnesium (Mg)</option>
+              <option value="al">Aluminium (Al)</option>
+              <option value="zn">Zinc (Zn)</option>
+              <option value="fe">Iron (Fe)</option>
+              <option value="cu">Copper (Cu)</option>
+              <option value="ag">Silver (Ag)</option>
+              <option value="au">Gold (Au) -- Least Reactive</option>
+            </select>
+            <div id="m-water" style="font-size:0.82rem; color:#e2e8f0; margin-bottom:0.3rem; line-height:1.4;"></div>
+            <div id="m-acid"  style="font-size:0.82rem; color:#e2e8f0; margin-bottom:0.3rem; line-height:1.4;"></div>
+            <div id="m-oxide" style="font-size:0.82rem; color:#e2e8f0; margin-bottom:0.3rem; line-height:1.4;"></div>
+          </div>
+          <div class="sim-sidebar">
+            <h3>Ionic Bond Builder</h3>
+            <select id="ionic-sel" style="width:100%; background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px; margin-bottom:0.5rem;" onchange="showIonic()">
+              <option value="nacl">NaCl (Sodium Chloride)</option>
+              <option value="mgcl2">MgCl2 (Magnesium Chloride)</option>
+              <option value="cao">CaO (Calcium Oxide)</option>
+              <option value="al2o3">Al2O3 (Aluminium Oxide)</option>
+            </select>
+            <div id="ionic-res" style="font-size:0.84rem; color:#e2e8f0; line-height:1.7; white-space:pre-line;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/presentation.js"></script>
+  <script>
+
+    const mData={
+      k:  {w:'Violent explosion. Floats and ignites H2 gas. Burns in water.',a:'Too violent. Never add K to acid.',o:'K2O forms instantly in air.'},
+      na: {w:'Vigorous. Melts into sphere, skims surface. 2Na+2H2O gives 2NaOH+H2.',a:'Very vigorous and dangerous.',o:'Na2O (white) forms rapidly at room temp.'},
+      ca: {w:'Moderate reaction. Ca+2H2O gives Ca(OH)2+H2. Milky Ca(OH)2 forms.',a:'Vigorous with HCl and H2SO4.',o:'CaO (quicklime) on heating.'},
+      mg: {w:'Very slow with cold water. Fast with steam. Mg+2H2O gives Mg(OH)2+H2.',a:'Brisk effervescence. Mg+2HCl gives MgCl2+H2.',o:'MgO (white) on heating in air.'},
+      al: {w:'No reaction with cold/hot water. Oxide layer protects.',a:'Reacts after removing oxide. 2Al+6HCl gives 2AlCl3+3H2.',o:'Al2O3 (alumina, white) - amphoteric oxide.'},
+      zn: {w:'No reaction with cold water. Slow with steam.',a:'Moderate. Zn+H2SO4 gives ZnSO4+H2.',o:'ZnO (white) - amphoteric. Yellow when hot, white on cooling.'},
+      fe: {w:'No reaction with cold/hot water. 3Fe+4H2O(steam) gives Fe3O4+4H2.',a:'Moderate. Fe+2HCl gives FeCl2+H2.',o:'Fe2O3 (rust, red-brown) or Fe3O4 (black) on strong heating.'},
+      cu: {w:'No reaction with water or steam.',a:'No reaction with dilute HCl or H2SO4. Reacts with HNO3.',o:'CuO (black) on heating in air. 2Cu+O2 gives 2CuO.'},
+      ag: {w:'No reaction at all.',a:'Reacts with conc. HNO3 only. 3Ag+4HNO3 gives 3AgNO3+NO+2H2O.',o:'Ag2O (black) on heating. Decomposes back to Ag at high temp.'},
+      au: {w:'No reaction at all.',a:'Only dissolves in Aqua Regia (3HCl+HNO3). Au + Aqua Regia gives [AuCl4]-.',o:'Does not form oxide even at high temp. Chemically inert.'}
+    };
+    function testMetal(){
+      const m=document.getElementById('metal-sel').value;
+      document.getElementById('m-water').innerHTML='<strong>With Water:</strong> '+mData[m].w;
+      document.getElementById('m-acid').innerHTML='<strong>With Acid:</strong> '+mData[m].a;
+      document.getElementById('m-oxide').innerHTML='<strong>Oxide:</strong> '+mData[m].o;
+    }
+    const iData={
+      nacl:`Na (2,8,1) loses 1e- gives Na+ (2,8)
+Cl (2,8,7) gains 1e- gives Cl- (2,8,8)
+Na+ + Cl- gives NaCl
+
+Ratio: 1:1
+MP: 801C
+Conducts in solution/melt`,
+      mgcl2:`Mg (2,8,2) loses 2e- gives Mg2+ (2,8)
+2 x Cl each gain 1e- gives 2Cl- (2,8,8)
+Mg2+ + 2Cl- gives MgCl2
+
+Ratio: 1:2
+MP: 714C`,
+      cao:`Ca (2,8,8,2) loses 2e- gives Ca2+ (2,8,8)
+O (2,6) gains 2e- gives O2- (2,8)
+Ca2+ + O2- gives CaO
+
+Ratio: 1:1
+MP: 2613C`,
+      al2o3:`Al (2,8,3) loses 3e- gives Al3+ (2,8)
+2Al3+ + 3O2- gives Al2O3
+Ratio: 2:3
+Amphoteric: Reacts with both acid and base
+MP: 2072C`
+    };
+    function showIonic(){document.getElementById('ionic-res').textContent=iData[document.getElementById('ionic-sel').value];}
+    testMetal();showIonic();
+
+  </script>
+</body>
+</html>

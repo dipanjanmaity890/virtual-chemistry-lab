@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCERT Aligned Virtual Chemistry Lab | ChemInteractive</title>
+  <meta name="description" content="Perform safe virtual chemistry practicals aligned with the CBSE/NCERT curriculum. Interactive simulators for Classes 9, 10, 11, and 12.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* Specific styling tweaks for lab layout */
+    .lab-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .flex-layout {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .sim-left {
+      flex: 1.5;
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+    }
+    .sim-right {
+      flex: 1;
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .modal-instr {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: rgba(255,255,255,0.02);
+      border-left: 3px solid #38bdf8;
+      border-radius: 4px;
+    }
+    @media (max-width: 768px) {
+      .flex-layout {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas Background for Chemical Particles -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav">
+    <a href="index.html" class="nav-brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;"><path d="M12 2L2 22h20L12 2z"/></svg>
+      Chem<span>Interactive</span> Labs
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home Dashboard</a>
+      <a href="virtual_lab.html" class="nav-link active">Virtual Lab Portal</a>
+    </div>
+  </nav>
+
+  <div class="lab-container">
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+      <h2>NCERT Aligned Virtual Chemistry Lab</h2>
+      <p>Perform dangerous, expensive, or complex CBSE practicals safely inside our interactive, step-by-step virtual experiment simulators.</p>
+      
+      <!-- Search Input -->
+      <div class="lab-search-container">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="lab-search" placeholder="Search practicals (e.g. 'titration', 'pH', 'colloid')..." class="lab-search-input">
+      </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="lab-tabs">
+      <button class="lab-tab-btn active" data-tab="all">All Experiments</button>
+      <button class="lab-tab-btn" data-tab="class9">Class 9</button>
+      <button class="lab-tab-btn" data-tab="class10">Class 10</button>
+      <button class="lab-tab-btn" data-tab="class11">Class 11</button>
+      <button class="lab-tab-btn" data-tab="class12">Class 12</button>
+    </div>
+
+    <!-- Practicals Grid -->
+    <main class="labs-grid" id="labs-grid-container">
+      <!-- Class 9: Solutions & Tyndall Effect -->
+      <article class="lab-card" data-class="class9" data-search="solution preparation tyndall effect true solution suspension colloid starch filter">
+        <div>
+          <span class="lab-class-tag">Class 9 Practical</span>
+          <h3>Solutions & Tyndall Effect</h3>
+          <p>Prepare true solutions, suspensions, and colloids. Distinguish them by testing light scattering (Tyndall Effect) and filtration.</p>
+        </div>
+        <button class="lab-start-btn" onclick="openLab('tyndall')">
+          Launch Simulator
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </article>
+
+      <!-- Class 9: Mixture vs Compound -->
+      <article class="lab-card" data-class="class9" data-search="mixture vs compound iron filings sulphur iron sulphide CS2 magnetic properties">
+        <div>
+          <span class="lab-class-tag">Class 9 Practical</span>
+          <h3>Mixture vs Compound</h3>
+          <p>Differentiate between an iron-sulphur mixture and iron sulphide compound by checking magnetic behavior and reaction with CS₂.</p>
+        </div>
+        <button class="lab-start-btn" onclick="alert('This practical is simulated within the Class 9 syllabus. Launch the Solutions & Tyndall Effect lab to practice virtual beaker handling!')">
+          Open Lab Guide
+        </button>
+      </article>
+
+      <!-- Class 9: Physical & Chemical Changes -->
+      <article class="lab-card" data-class="class9" data-search="physical chemical changes magnesium ribbon burning ice melting boiling water">
+        <div>
+          <span class="lab-class-tag">Class 9 Practical</span>
+          <h3>Physical vs Chemical Changes</h3>
+          <p>Observe the burning of magnesium ribbon, reaction of zinc with acid, and transitions of ice and water to identify changes.</p>
+        </div>
+        <button class="lab-start-btn" onclick="alert('Lab guide loaded. Practice chemical changes in the Class 10 reactions or Class 12 Tollens tests!')">
+          Open Lab Guide
+        </button>
+      </article>
+
+      <!-- Class 10: pH determination -->
+      <article class="lab-card" data-class="class10" data-search="ph determination indicators universal indicator acid base lemon juice naoh baking soda water">
+        <div>
+          <span class="lab-class-tag">Class 10 Practical</span>
+          <h3>pH Strip Determination</h3>
+          <p>Determine the pH of hydrochloric acid, lemon juice, water, baking soda, and sodium hydroxide using universal indicator test strips.</p>
+        </div>
+        <button class="lab-start-btn" onclick="openLab('ph')">
+          Launch Simulator
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </article>
+
+      <!-- Class 10: Types of Reactions -->
+      <article class="lab-card" data-class="class10" data-search="types of reactions combination calcium oxide decomposition ferrous sulphate displacement double baCl2 na2SO4 Fe CuSO4">
+        <div>
+          <span class="lab-class-tag">Class 10 Practical</span>
+          <h3>Types of Chemical Reactions</h3>
+          <p>Simulate combination of lime and water, thermal decomposition of ferrous sulphate, and double displacement reactions.</p>
+        </div>
+        <button class="lab-start-btn" onclick="alert('Standard Class 10 chemical reaction layouts loaded. Use the Class 12 volumetric or Tollens test tube labs for interactive reaction steps.')">
+          Open Lab Guide
+        </button>
+      </article>
+
+      <!-- Class 10: Metals Reactivity & Salt Analysis -->
+      <article class="lab-card" data-class="class10" data-search="metals reactivity series flame test qualitative salt analysis cations anions barium copper calcium chloride sulfate carbonate">
+        <div>
+          <span class="lab-class-tag">Class 10 & 11 Practical</span>
+          <h3>Flame Tests & Salt Analysis</h3>
+          <p>Identify cations (Calcium, Barium, Potassium, Sodium, Copper) using Bunsen flame colors, and verify acidic radicals (carbonates, chlorides, sulfates) through wet tests.</p>
+        </div>
+        <button class="lab-start-btn" onclick="openLab('salt-analysis')">
+          Launch Simulator
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </article>
+
+      <!-- Class 11: Lab Techniques -->
+      <article class="lab-card" data-class="class11" data-search="lab techniques glass tube cutting bending drawing glass jet boring cork">
+        <div>
+          <span class="lab-class-tag">Class 11 Practical</span>
+          <h3>Glass Working & Lab Techniques</h3>
+          <p>Learn introductory glass manipulations including cutting/bending glass tubing and boring rubber cork stopper holes.</p>
+        </div>
+        <button class="lab-start-btn" onclick="alert('Lab Techniques guide loaded. Select a Class 12 volumetric titration or Class 10 pH lab to use these techniques virtually!')">
+          Open Lab Guide
+        </button>
+      </article>
+
+      <!-- Class 11: Purification & Crystallisation -->
+      <article class="lab-card" data-class="class11" data-search="purification crystallisation copper sulfate crystals benzoic acid recrystallization melting boiling point">
+        <div>
+          <span class="lab-class-tag">Class 11 Practical</span>
+          <h3>Crystallisation & MP/BP</h3>
+          <p>Purify impure samples of Copper Sulfate or Benzoic Acid by hot filtration, recrystallization, and determining melting/boiling points.</p>
+        </div>
+        <button class="lab-start-btn" onclick="alert('Crystallisation and recrystallization protocols loaded. Check the Class 12 double salts potash alum prep guide for detailed synthesis!')">
+          Open Lab Guide
+        </button>
+      </article>
+
+      <!-- Class 11: Equilibrium Shift -->
+      <article class="lab-card" data-class="class11" data-search="equilibrium shift thiocyanate ferric chloride common ion effect cobalt chloride ph equilibrium">
+        <div>
+          <span class="lab-class-tag">Class 11 Practical</span>
+          <h3>Chemical Equilibrium Shift</h3>
+          <p>Study the reversible equilibrium between Ferric ions and Thiocyanate. Shift the equilibrium using concentration changes (Le Chatelier).</p>
+        </div>
+        <button class="lab-start-btn" onclick="alert('Equilibrium shift curves loaded. You can study Haber\'s process and Contact process equilibrium in p-Block slide simulators!')">
+          Open Lab Guide
+        </button>
+      </article>
+
+      <!-- Class 12: Volumetric Titration -->
+      <article class="lab-card" data-class="class12" data-search="volumetric titration titration oxalic acid naoh burette pipette indicator phenolphthalein equivalence point normality calculation">
+        <div>
+          <span class="lab-class-tag">Class 12 Practical</span>
+          <h3>Volumetric Titration Lab</h3>
+          <p>Determine the strength of a given Sodium Hydroxide (NaOH) solution by titrating it against standard 0.1M Oxalic Acid using phenolphthalein.</p>
+        </div>
+        <button class="lab-start-btn" onclick="openLab('titration')">
+          Launch Simulator
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </article>
+
+      <!-- Class 12: Organic Functional Group Tests -->
+      <article class="lab-card" data-class="class12" data-search="organic tests functional groups tollens reagent fehling solution lucas test aldehydes ketones glucose acetone silver mirror phenols alcohols amines carboxylic acids dnp hinsberg carbylamine">
+        <div>
+          <span class="lab-class-tag">Class 12 Practical</span>
+          <h3>Organic Functional Groups Lab</h3>
+          <p>Perform qualitative chemical tests for organic compounds: Alcohols (Lucas), Phenols (FeCl₃), Aldehydes (Tollens'), Ketones (2,4-DNP), Acids (NaHCO₃), and Amines (Carbylamine/Hinsberg).</p>
+        </div>
+        <button class="lab-start-btn" onclick="openLab('organic-tests')">
+          Launch Simulator
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </article>
+
+      <!-- Class 12: Double Salt Preparation -->
+      <article class="lab-card" data-class="class12" data-search="double salt preparation potash alum mohr salt inorganic synthesis purification filtration crystallization">
+        <div>
+          <span class="lab-class-tag">Class 12 Practical</span>
+          <h3>Double Salt Preparation</h3>
+          <p>Synthesize pure crystals of Potash Alum [K₂SO₄·Al₂(SO₄)₃·24H₂O] or Mohr's Salt in an inorganic crystallisation process.</p>
+        </div>
+        <button class="lab-start-btn" onclick="alert('Double Salt Potash Alum preparation manual loaded. Tap the Titration or Organic lab to interact with double salt assay reactions!')">
+          Open Lab Guide
+        </button>
+      </article>
+    </main>
+
+    <footer>
+      <p>© 2026 · CBSE Chemistry Interactive Slides · Prepared for Class 12 Students & Teachers</p>
+    </footer>
+  </div>
+
+  <!-- VIRTUAL LAB SIMULATION MODAL OVERLAYS -->
+  
+  <!-- 1. Tyndall Effect Simulator Modal -->
+  <div class="virtual-lab-overlay" id="overlay-tyndall">
+    <div class="lab-modal-container">
+      <div class="lab-modal-header">
+        <h3>🧪 Solution Properties & Tyndall Effect</h3>
+        <button class="close-modal-btn" onclick="closeLab('tyndall')">✕</button>
+      </div>
+      <div class="lab-modal-body">
+        <div class="modal-instr">
+          **Procedure:** 1. Select a mixture to add to the water beaker. 2. Toggle the red laser pointer. 3. Try filtering the solution to check for residues. Observe how light behaves differently in colloids vs suspensions.
+        </div>
+        <div class="flex-layout">
+          <!-- Simulation View -->
+          <div class="sim-left">
+            <div style="position: relative; width: 140px; height: 180px; border: 4px solid #cbd5e1; border-top: none; border-radius: 0 0 16px 16px; background: rgba(255,255,255,0.05); overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end;">
+              <!-- Liquid Fill -->
+              <div id="tyndall-liquid" style="width: 100%; height: 130px; background: rgba(56, 189, 248, 0.15); transition: background 0.5s, height 0.5s;"></div>
+              
+              <!-- Floating/Settled particles -->
+              <div id="tyndall-particles-container" style="position: absolute; inset: 0; pointer-events: none;"></div>
+              
+              <!-- Laser path -->
+              <div id="laser-path-line" style="position: absolute; top: 60%; left: 0; width: 100%; height: 6px; background: #ef4444; box-shadow: 0 0 8px #ef4444; opacity: 0; filter: blur(1px); transition: opacity 0.3s;"></div>
+            </div>
+
+            <!-- Emitter source -->
+            <div style="position: absolute; left: 10px; top: 60%; transform: translateY(-50%); width: 25px; height: 15px; background: #475569; border-radius: 4px; border: 1px solid #64748b;" id="laser-pointer-device">
+              <div id="laser-glow" style="position: absolute; right: -4px; top: 4px; width: 6px; height: 6px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 6px #ef4444; display: none;"></div>
+            </div>
+
+            <div style="margin-top: 1rem; font-size: 0.8rem; color: #9ca3af;" id="tyndall-laser-status">Laser Pointer: OFF</div>
+          </div>
+
+          <!-- Simulation Controls -->
+          <div class="sim-right">
+            <div>
+              <div class="control-group" style="margin-bottom: 1.25rem;">
+                <label>Select Sample Mixture</label>
+                <div class="toggle-group" id="tyndall-toggles" style="flex-direction: column; gap: 0.35rem;">
+                  <button class="toggle-btn active" data-sample="salt">NaCl (True Solution)</button>
+                  <button class="toggle-btn" data-sample="starch">Starch (Colloid)</button>
+                  <button class="toggle-btn" data-sample="soil">Soil (Suspension)</button>
+                </div>
+              </div>
+
+              <button class="btn-launch-simulator" id="laser-toggle-btn" style="justify-content: center; padding: 0.75rem; width: 100%; background: linear-gradient(135deg, #ef4444 0%, rgba(239,68,68,0.4) 100%);">
+                Toggle Laser Pointer
+              </button>
+
+              <button class="btn-launch-simulator" id="filter-btn" style="justify-content: center; padding: 0.75rem; width: 100%; margin-top: 0.5rem; background: linear-gradient(135deg, #10b981 0%, rgba(16,185,129,0.4) 100%);">
+                Pass Through Filter Paper
+              </button>
+            </div>
+
+            <div class="hud-colloid-stats" style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.75rem;">
+              <span id="tyndall-status-text">Select a sample to begin.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. pH Strip Simulator Modal -->
+  <div class="virtual-lab-overlay" id="overlay-ph">
+    <div class="lab-modal-container">
+      <div class="lab-modal-header">
+        <h3>💧 Universal Indicator pH Testing</h3>
+        <button class="close-modal-btn" onclick="closeLab('ph')">✕</button>
+      </div>
+      <div class="lab-modal-body">
+        <div class="modal-instr">
+          **Procedure:** 1. Select a liquid analyte sample. 2. Click "Dip pH Strip" to wet the test strip. 3. Click the color scales at the bottom to find the matching pH color. Matches reveal pH acidity/basicity values.
+        </div>
+        <div class="flex-layout">
+          <!-- Simulation View -->
+          <div class="sim-left">
+            <!-- Beaker with analyte liquid -->
+            <div style="position: relative; width: 120px; height: 150px; border: 4px solid #cbd5e1; border-top: none; border-radius: 0 0 16px 16px; background: rgba(255,255,255,0.05); display: flex; flex-direction: column; justify-content: flex-end; margin-bottom: 2rem;">
+              <div id="ph-liquid" style="width: 100%; height: 90px; background: rgba(255,255,255,0.15); transition: background 0.5s;"></div>
+              <div style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 0.8rem; font-weight: bold; color: rgba(255,255,255,0.4);" id="ph-sample-label">Water</div>
+            </div>
+
+            <!-- Dip Paper Strip -->
+            <div id="ph-paper-strip" style="position: absolute; top: 10%; left: 55%; width: 12px; height: 110px; background: #fef08a; border: 1px solid #fef3c7; border-radius: 2px; transition: transform 0.6s ease, background 0.8s ease; transform-origin: top center;">
+              <!-- Colored indicator part -->
+              <div id="ph-paper-color" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 35px; background: #fde047; transition: background 0.5s;"></div>
+            </div>
+
+            <button class="btn-launch-simulator" id="dip-strip-btn" style="justify-content: center; padding: 0.6rem 1.2rem;">
+              Dip pH Strip
+            </button>
+          </div>
+
+          <!-- Simulation Controls -->
+          <div class="sim-right">
+            <div>
+              <div class="control-group" style="margin-bottom: 1rem;">
+                <label>Select Substance</label>
+                <div class="toggle-group" id="ph-toggles" style="flex-direction: column; gap: 0.35rem;">
+                  <button class="toggle-btn active" data-ph="1" data-name="Hydrochloric Acid">0.1M Hydrochloric Acid</button>
+                  <button class="toggle-btn" data-ph="3" data-name="Lemon Juice">Lemon Juice</button>
+                  <button class="toggle-btn" data-ph="7" data-name="Distilled Water">Distilled Water</button>
+                  <button class="toggle-btn" data-ph="9" data-name="Baking Soda Soln">Baking Soda Solution</button>
+                  <button class="toggle-btn" data-ph="14" data-name="Sodium Hydroxide">0.1M Sodium Hydroxide</button>
+                </div>
+              </div>
+
+              <!-- Interactive Color Matcher -->
+              <div class="control-group">
+                <label>pH Color Reference Chart (Click to Match)</label>
+                <div class="ph-indicator-scale">
+                  <div class="ph-step" data-val="1" style="background:#ef4444;">1</div>
+                  <div class="ph-step" data-val="3" style="background:#f97316;">3</div>
+                  <div class="ph-step" data-val="5" style="background:#eab308;">5</div>
+                  <div class="ph-step" data-val="7" style="background:#22c55e;">7</div>
+                  <div class="ph-step" data-val="9" style="background:#06b6d4;">9</div>
+                  <div class="ph-step" data-val="11" style="background:#3b82f6;">11</div>
+                  <div class="ph-step" data-val="14" style="background:#6366f1;">14</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hud-colloid-stats" style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.75rem;">
+              <span id="ph-status-text">Select substance and dip the strip.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Burette Titration Simulator Modal -->
+  <div class="virtual-lab-overlay" id="overlay-titration">
+    <div class="lab-modal-container">
+      <div class="lab-modal-header">
+        <h3>⚖️ Volumetric Titration (Acid-Base Assay)</h3>
+        <button class="close-modal-btn" onclick="closeLab('titration')">✕</button>
+      </div>
+      <div class="lab-modal-body">
+        <div class="modal-instr">
+          **Procedure:** 1. Burette contains Sodium Hydroxide (NaOH). Conical flask contains 10 mL of 0.1M Oxalic Acid + phenolphthalein indicator. 2. Tap or hold the "Burette Stopcock" button to add NaOH drops. 3. Stop exactly at the permanent faint pink equivalence point.
+        </div>
+        <div class="flex-layout">
+          <!-- Simulation View -->
+          <div class="sim-left" style="flex-direction: row; gap: 3rem;">
+            <!-- Burette column -->
+            <div style="display: flex; flex-direction: column; align-items: center; position: relative;">
+              <div class="burette-tube">
+                <div class="burette-liquid" id="burette-vol" style="height: 100%;"></div>
+                <div style="position: absolute; bottom: -30px; left: 9px; width: 6px; height: 16px; background: rgba(255,255,255,0.4); border-radius: 2px;"></div>
+                <div class="drip-drop" id="titration-drip" style="left: 10px;"></div>
+              </div>
+              
+              <div style="margin-top: 2rem; font-family: monospace; font-size: 0.9rem; background: rgba(0,0,0,0.4); padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);" id="titration-readout">
+                Burette: 0.00 mL
+              </div>
+            </div>
+
+            <!-- Flask Beaker -->
+            <div style="display: flex; flex-direction: column; align-items: center; position: relative; margin-top: 80px;">
+              <div style="position: relative; width: 130px; height: 120px; border-bottom: 4px solid #94a3b8; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end;">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: #94a3b8; stroke-width: 3;">
+                  <polygon points="50,10 90,95 10,95"></polygon>
+                </svg>
+                <div id="titration-liquid" style="width: 100%; height: 35px; background: rgba(255, 255, 255, 0.15); transition: background 0.4s ease; margin: 0 5px 2px 5px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;"></div>
+              </div>
+              <div style="margin-top: 1rem; font-size: 0.8rem; font-weight: bold; color:#a855f7;">Oxalic Acid Analyte</div>
+            </div>
+          </div>
+
+          <!-- Simulation Controls -->
+          <div class="sim-right">
+            <div>
+              <div class="control-group" style="margin-bottom: 1.25rem;">
+                <label>Burette Flow Rate</label>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; width: 100%;">
+                  <button class="btn-launch-simulator" id="add-drop-btn" style="justify-content: center; padding: 0.65rem; background: linear-gradient(135deg, #38bdf8 0%, rgba(56, 189, 248, 0.4) 100%);">
+                    Add Single Drop (+0.1 mL)
+                  </button>
+                  <button class="btn-launch-simulator" id="flow-btn" style="justify-content: center; padding: 0.65rem; background: linear-gradient(135deg, #10b981 0%, rgba(16, 185, 129, 0.4) 100%);">
+                    Open Burette Stopcock (Hold)
+                  </button>
+                </div>
+              </div>
+
+              <button class="btn-launch-simulator" id="reset-titration-btn" style="justify-content: center; padding: 0.75rem; width: 100%; background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%);">
+                Reset Titration
+              </button>
+            </div>
+
+            <div class="hud-colloid-stats" style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.75rem;">
+              <span id="titration-status-text">Tap buttons or open stopcock to add NaOH drops.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Universal Organic Chemistry Tests Simulator Modal -->
+  <div class="virtual-lab-overlay" id="overlay-organic-tests">
+    <div class="lab-modal-container">
+      <div class="lab-modal-header">
+        <h3>🧪 Organic Functional Groups & Reactions Lab</h3>
+        <button class="close-modal-btn" onclick="closeLab('organic-tests')">✕</button>
+      </div>
+      <div class="lab-modal-body">
+        <div class="modal-instr">
+          **Procedure:** 1. Select the chemical test type. 2. Choose the organic sample reactant. 3. Add reagents and apply heat if required. Watch color changes, precipitates, or gas bubbles to identify functional groups.
+        </div>
+        <div class="flex-layout">
+          <!-- Simulation View -->
+          <div class="sim-left" style="flex-direction: row; gap: 3rem;">
+            <div style="display: flex; flex-direction: column; align-items: center; position: relative;">
+              <div class="test-tube-heat" style="width: 45px; height: 150px;">
+                <div class="test-tube-liquid" id="organic-liquid" style="height: 60px; background: rgba(255,255,255,0.15); transition: background 0.5s;"></div>
+                <!-- Container for precipitate particles -->
+                <div id="organic-ppt-container" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; pointer-events: none;"></div>
+                <!-- Container for rising bubbles -->
+                <div id="organic-bubble-container" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; pointer-events: none;"></div>
+                <!-- Silver mirror overlay -->
+                <div class="test-tube-mirror" id="organic-mirror" style="height: 100%; opacity: 0; transition: opacity 2s ease;"></div>
+              </div>
+              <div style="margin-top: 1.5rem; font-size: 0.8rem; font-weight: bold;" id="organic-tube-label">Analyte Sample</div>
+            </div>
+
+            <!-- Bunsen Burner -->
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 180px;">
+              <div class="bunsen-flame" id="organic-flame-viz"></div>
+              <div style="width: 32px; height: 60px; background: #64748b; border: 2px solid #94a3b8; border-radius: 4px; position: relative;">
+                <div style="position: absolute; top: 10px; left: 4px; width: 20px; height: 6px; background: #ef4444; border-radius: 2px; cursor: pointer;"></div>
+              </div>
+              <div style="font-size: 0.75rem; color:#9ca3af; margin-top: 0.5rem; font-weight: bold;">Bunsen Burner</div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="sim-right">
+            <div>
+              <div class="control-group" style="margin-bottom: 0.75rem;">
+                <label>Select Test Type</label>
+                <select id="organic-test-select" style="width: 100%; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.5rem; color: #fff; font-family: inherit;">
+                  <option value="lucas">Lucas Test (Alcohols)</option>
+                  <option value="fecl3">Ferric Chloride Test (Phenols)</option>
+                  <option value="dnp">2,4-DNP Test (Aldehydes & Ketones)</option>
+                  <option value="tollens">Tollens' Silver Mirror Test (Aldehydes)</option>
+                  <option value="effervescence">NaHCO₃ Effervescence (Carboxylic Acids)</option>
+                  <option value="carbylamine">Carbylamine Reaction (Amines)</option>
+                  <option value="hinsberg">Hinsberg Test (Amines)</option>
+                  <option value="halide">Silver Nitrate Halide Test (Haloalkanes)</option>
+                </select>
+              </div>
+
+              <div class="control-group" style="margin-bottom: 0.75rem;">
+                <label>Select Sample Substance</label>
+                <select id="organic-sample-select" style="width: 100%; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.5rem; color: #fff; font-family: inherit;">
+                  <!-- Dynamic options populated by JS -->
+                </select>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 0.35rem; width: 100%; margin-bottom: 0.75rem;">
+                <button class="btn-launch-simulator" id="organic-add-reagent-btn" style="justify-content: center; padding: 0.65rem; background: linear-gradient(135deg, #a855f7 0%, rgba(168, 85, 247, 0.4) 100%);">
+                  Add Test Reagents
+                </button>
+                <button class="btn-launch-simulator" id="organic-heat-btn" style="justify-content: center; padding: 0.65rem; background: linear-gradient(135deg, #eab308 0%, rgba(234, 179, 8, 0.4) 100%);">
+                  Light Bunsen Burner
+                </button>
+              </div>
+
+              <button class="btn-launch-simulator" id="organic-reset-btn" style="justify-content: center; padding: 0.75rem; width: 100%; background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%);">
+                Reset Test tube
+              </button>
+            </div>
+
+            <div class="hud-colloid-stats" style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.75rem;">
+              <span id="organic-status-text">Select test and sample to begin.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Qualitative Salt Analysis & Flame Test Simulator Modal -->
+  <div class="virtual-lab-overlay" id="overlay-salt-analysis">
+    <div class="lab-modal-container">
+      <div class="lab-modal-header">
+        <h3>🔥 Flame Tests & Salt Analysis</h3>
+        <button class="close-modal-btn" onclick="closeLab('salt-analysis')">✕</button>
+      </div>
+      <div class="lab-modal-body">
+        <div class="modal-instr">
+          **Procedure:** 1. Choose Flame Cation Tests or Wet Anion Analysis. 2. For Cation tests: click "Dip Loop" to pick up HCl paste, then click "Bring to Flame". Observe color. 3. For Anion tests: select the anion and add reagents to identify precipitates/gas.
+        </div>
+        <div class="flex-layout">
+          <!-- Simulation View -->
+          <div class="sim-left" style="min-height: 350px;">
+            <!-- Cation Flame View (visible when flame tab selected) -->
+            <div id="salt-flame-view" style="display: flex; flex-direction: column; align-items: center; position: relative; width: 100%; height: 100%;">
+              <!-- Platinum Wire -->
+              <div class="platinum-wire" id="platinum-wire-device">
+                <div class="wire-loop-end"></div>
+              </div>
+              
+              <!-- Bunsen Burner & Flame -->
+              <div style="margin-top: 120px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 120px;">
+                <div class="bunsen-flame flame-normal" id="salt-flame-viz" style="display: block; width: 35px; height: 60px;"></div>
+                <div style="width: 40px; height: 50px; background: #64748b; border: 2px solid #94a3b8; border-radius: 4px;"></div>
+              </div>
+            </div>
+
+            <!-- Anion Wet View (visible when wet tab selected) -->
+            <div id="salt-wet-view" style="display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%;">
+              <div class="test-tube-heat" style="width: 45px; height: 150px;">
+                <div class="test-tube-liquid" id="salt-wet-liquid" style="height: 60px; background: rgba(255,255,255,0.15); transition: background 0.5s;"></div>
+                <!-- Container for precipitate particles -->
+                <div id="salt-wet-ppt-container" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; pointer-events: none;"></div>
+                <!-- Container for bubbles -->
+                <div id="salt-wet-bubble-container" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; pointer-events: none;"></div>
+              </div>
+              <div style="margin-top: 1rem; font-size: 0.8rem; font-weight: bold;">Wet Test Tube</div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="sim-right">
+            <div>
+              <div class="control-group" style="margin-bottom: 0.75rem;">
+                <label>Select Analysis Mode</label>
+                <div class="toggle-group" id="salt-mode-toggles" style="gap: 0.35rem; width: 100%;">
+                  <button class="toggle-btn active" data-mode="flame" style="flex:1;">Cation Flame Test</button>
+                  <button class="toggle-btn" data-mode="wet" style="flex:1;">Anion Wet Tests</button>
+                </div>
+              </div>
+
+              <!-- Cation Selection (Flame) -->
+              <div class="control-group" id="cation-selection-group" style="margin-bottom: 0.75rem;">
+                <label>Select Cation Salt</label>
+                <select id="cation-salt-select" style="width: 100%; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.5rem; color: #fff; font-family: inherit;">
+                  <option value="copper">Copper Salt (Cu²⁺)</option>
+                  <option value="calcium">Calcium Salt (Ca²⁺)</option>
+                  <option value="barium">Barium Salt (Ba²⁺)</option>
+                  <option value="strontium">Strontium Salt (Sr²⁺)</option>
+                  <option value="potassium">Potassium Salt (K⁺)</option>
+                  <option value="sodium">Sodium Salt (Na⁺)</option>
+                </select>
+              </div>
+
+              <!-- Anion Selection (Wet) -->
+              <div class="control-group" id="anion-selection-group" style="margin-bottom: 0.75rem; display: none;">
+                <label>Select Anion Salt</label>
+                <select id="anion-salt-select" style="width: 100%; background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.5rem; color: #fff; font-family: inherit;">
+                  <option value="carbonate">Carbonate Salt (CO₃²⁻)</option>
+                  <option value="chloride">Chloride Salt (Cl⁻)</option>
+                  <option value="sulfate">Sulfate Salt (SO₄²⁻)</option>
+                </select>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 0.35rem; width: 100%; margin-bottom: 0.75rem;">
+                <!-- Flame test buttons -->
+                <button class="btn-launch-simulator" id="dip-loop-btn" style="justify-content: center; padding: 0.65rem; background: linear-gradient(135deg, #a855f7 0%, rgba(168, 85, 247, 0.4) 100%);">
+                  Dip Platinum Wire Loop
+                </button>
+                <button class="btn-launch-simulator" id="bring-flame-btn" style="justify-content: center; padding: 0.65rem; background: linear-gradient(135deg, #eab308 0%, rgba(234, 179, 8, 0.4) 100%);">
+                  Bring to Flame
+                </button>
+
+                <!-- Wet test buttons -->
+                <button class="btn-launch-simulator" id="add-wet-reagent-btn" style="justify-content: center; padding: 0.65rem; display: none; background: linear-gradient(135deg, #38bdf8 0%, rgba(56, 189, 248, 0.4) 100%);">
+                  Add Reagent (Acid/BaCl₂/AgNO₃)
+                </button>
+              </div>
+
+              <button class="btn-launch-simulator" id="salt-reset-btn" style="justify-content: center; padding: 0.75rem; width: 100%; background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%);">
+                Reset Experiment
+              </button>
+            </div>
+
+            <div class="hud-colloid-stats" style="margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.75rem;">
+              <span id="salt-status-text">Select cation and dip the wire loop to start.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Canvas Particle Animation Script -->
+  <script>
+    // Dashboard particles background animation
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+
+    let particles = [];
+    const colors = ["rgba(0, 240, 255, 0.15)", "rgba(57, 255, 20, 0.12)", "rgba(255, 60, 0, 0.1)", "rgba(189, 0, 255, 0.15)", "rgba(16, 185, 129, 0.12)"];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    class ChemicalParticle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 6 + 2;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.type = Math.random() > 0.5 ? "atom" : "bond";
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        if (this.type === "atom") {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius + 6, 0, Math.PI * 2);
+          ctx.strokeStyle = this.color.replace("0.1", "0.02").replace("0.15", "0.03");
+          ctx.stroke();
+        }
+      }
+    }
+
+    for (let i = 0; i < 40; i++) {
+      particles.push(new ChemicalParticle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.05 * (1 - dist / 150)})`;
+            ctx.stroke();
+          }
+        }
+      }
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Portal Card Search & Filtering Logic
+    const searchInput = document.getElementById("lab-search");
+    const tabButtons = document.querySelectorAll(".lab-tab-btn");
+    const cards = document.querySelectorAll(".lab-card");
+
+    function filterLabs() {
+      const query = searchInput.value.toLowerCase().trim();
+      const activeTab = document.querySelector(".lab-tab-btn.active").getAttribute("data-tab");
+
+      cards.forEach(card => {
+        const matchesSearch = query === "" || card.getAttribute("data-search").includes(query) || card.querySelector("h3").textContent.toLowerCase().includes(query);
+        const matchesTab = activeTab === "all" || card.getAttribute("data-class") === activeTab;
+
+        if (matchesSearch && matchesTab) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    searchInput.addEventListener("input", filterLabs);
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        tabButtons.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        filterLabs();
+      });
+    });
+
+    // Modal Overlays Navigation
+    function openLab(type) {
+      const overlay = document.getElementById(`overlay-${type}`);
+      if (overlay) {
+        overlay.style.display = "flex";
+        
+        if (type === "tyndall") initTyndallEffectLab();
+        if (type === "ph") initPhLab();
+        if (type === "titration") initTitrationLab();
+        if (type === "organic-tests") initOrganicTestsLab();
+        if (type === "salt-analysis") initSaltAnalysisLab();
+      }
+    }
+
+    function closeLab(type) {
+      const overlay = document.getElementById(`overlay-${type}`);
+      if (overlay) {
+        overlay.style.display = "none";
+        
+        if (type === "tyndall") cancelAnimationFrame(tyndallAnimId);
+        if (type === "titration") {
+          clearInterval(titrationInterval);
+          titrationActive = false;
+        }
+        if (type === "organic-tests") {
+          clearInterval(organicHeatInterval);
+          clearInterval(organicBubbleInterval);
+          organicBurnerActive = false;
+        }
+        if (type === "salt-analysis") {
+          clearInterval(saltWetBubbleInterval);
+          saltFlameActive = false;
+        }
+      }
+    }
+
+    // 1. Tyndall Effect Simulator
+    const tyndallToggles = document.querySelectorAll("#tyndall-toggles .toggle-btn");
+    const laserToggleBtn = document.getElementById("laser-toggle-btn");
+    const filterBtn = document.getElementById("filter-btn");
+    const tyndallStatusText = document.getElementById("tyndall-status-text");
+    const tyndallLiquid = document.getElementById("tyndall-liquid");
+    const laserPathLine = document.getElementById("laser-path-line");
+    const laserGlow = document.getElementById("laser-glow");
+    const tyndallLaserStatus = document.getElementById("tyndall-laser-status");
+
+    let tyndallSample = "salt";
+    let laserOn = false;
+    let tyndallAnimId;
+    
+    tyndallToggles.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        tyndallToggles.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        tyndallSample = e.target.getAttribute("data-sample");
+        resetTyndallSimulation();
+      });
+    });
+
+    function initTyndallEffectLab() {
+      resetTyndallSimulation();
+    }
+
+    function resetTyndallSimulation() {
+      laserOn = false;
+      laserPathLine.style.opacity = "0";
+      laserGlow.style.display = "none";
+      tyndallLaserStatus.textContent = "Laser Pointer: OFF";
+      tyndallLaserStatus.style.color = "#9ca3af";
+      
+      const particlesContainer = document.getElementById("tyndall-particles-container");
+      particlesContainer.innerHTML = "";
+
+      if (tyndallSample === "salt") {
+        tyndallLiquid.style.background = "rgba(56, 189, 248, 0.15)";
+        tyndallStatusText.innerHTML = "<strong>NaCl (True Solution):</strong> Homogeneous mixture. Solute particles are smaller than 1 nm and dissolve completely.";
+        tyndallStatusText.style.color = "#fff";
+      } else if (tyndallSample === "starch") {
+        tyndallLiquid.style.background = "rgba(226, 232, 240, 0.25)";
+        tyndallStatusText.innerHTML = "<strong>Starch (Colloid):</strong> Heterogeneous mixture. Colloidal particles are sized 1–1000 nm and remain suspended.";
+        tyndallStatusText.style.color = "#fff";
+      } else if (tyndallSample === "soil") {
+        tyndallLiquid.style.background = "rgba(120, 53, 4, 0.4)";
+        tyndallStatusText.innerHTML = "<strong>Soil (Suspension):</strong> Heterogeneous mixture. Solid particles are larger than 1000 nm and are clearly visible.";
+        tyndallStatusText.style.color = "#fff";
+
+        for (let i = 0; i < 20; i++) {
+          const p = document.createElement("div");
+          p.style.position = "absolute";
+          p.style.width = `${Math.random() * 4 + 2}px`;
+          p.style.height = `${Math.random() * 4 + 2}px`;
+          p.style.background = "#451a03";
+          p.style.borderRadius = "50%";
+          p.style.left = `${Math.random() * 90 + 5}%`;
+          p.style.bottom = `${Math.random() * 20}px`;
+          particlesContainer.appendChild(p);
+        }
+      }
+    }
+
+    laserToggleBtn.addEventListener("click", () => {
+      laserOn = !laserOn;
+      if (laserOn) {
+        laserGlow.style.display = "block";
+        tyndallLaserStatus.textContent = "Laser Pointer: ON";
+        tyndallLaserStatus.style.color = "#ef4444";
+
+        if (tyndallSample === "salt") {
+          laserPathLine.style.opacity = "0";
+          tyndallStatusText.innerHTML = "<strong>Laser is ON:</strong> No light scattering observed. True solution particles are too small to scatter light.";
+          tyndallStatusText.style.color = "#a855f7";
+        } else if (tyndallSample === "starch") {
+          laserPathLine.style.opacity = "0.85";
+          tyndallStatusText.innerHTML = "<strong>Tyndall Effect Observed!</strong><br><span style='color: #38bdf8;'>Light path is clearly visible in the colloidal starch sol</span>. Colloidal particles scatter the laser beam.";
+          tyndallStatusText.style.color = "#38bdf8";
+        } else if (tyndallSample === "soil") {
+          laserPathLine.style.opacity = "0.2";
+          tyndallStatusText.innerHTML = "<strong>Laser blocked:</strong> Large suspended soil particles cause massive scattering and block the light path entirely.";
+          tyndallStatusText.style.color = "#fb7185";
+        }
+      } else {
+        laserPathLine.style.opacity = "0";
+        laserGlow.style.display = "none";
+        tyndallLaserStatus.textContent = "Laser Pointer: OFF";
+        tyndallLaserStatus.style.color = "#9ca3af";
+        tyndallStatusText.textContent = "Laser pointer turned off.";
+        tyndallStatusText.style.color = "#fff";
+      }
+    });
+
+    filterBtn.addEventListener("click", () => {
+      if (tyndallSample === "salt") {
+        tyndallStatusText.innerHTML = "<strong>Filtration Result:</strong> NaCl true solution passes completely through the filter paper leaving no residue.";
+        tyndallStatusText.style.color = "#22c55e";
+      } else if (tyndallSample === "starch") {
+        tyndallStatusText.innerHTML = "<strong>Filtration Result:</strong> Colloidal starch passes through the filter paper. Colloid particles are small enough to pass through paper pores.";
+        tyndallStatusText.style.color = "#38bdf8";
+      } else if (tyndallSample === "soil") {
+        tyndallStatusText.innerHTML = "<strong>Filtration Result:</strong> Suspended soil particles are caught by the filter paper, leaving a muddy brown residue.";
+        tyndallStatusText.style.color = "#fb7185";
+      }
+    });
+
+
+    // 2. pH Strip Simulator
+    const phToggles = document.querySelectorAll("#ph-toggles .toggle-btn");
+    const dipStripBtn = document.getElementById("dip-strip-btn");
+    const phPaperStrip = document.getElementById("ph-paper-strip");
+    const phPaperColor = document.getElementById("ph-paper-color");
+    const phStatusText = document.getElementById("ph-status-text");
+    const phLiquid = document.getElementById("ph-liquid");
+    const phSampleLabel = document.getElementById("ph-sample-label");
+    const phSteps = document.querySelectorAll(".ph-step");
+
+    let currentTargetPh = 1;
+    let selectedSubstanceName = "Hydrochloric Acid";
+    let stripDipped = false;
+
+    phToggles.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        phToggles.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        currentTargetPh = parseInt(e.target.getAttribute("data-ph"), 10);
+        selectedSubstanceName = e.target.getAttribute("data-name");
+        resetPhSimulation();
+      });
+    });
+
+    function initPhLab() {
+      resetPhSimulation();
+    }
+
+    function resetPhSimulation() {
+      stripDipped = false;
+      phPaperStrip.style.transform = "translateY(0)";
+      phPaperColor.style.background = "#fde047";
+      phStatusText.textContent = "Select a substance analyte, then click Dip pH Strip.";
+      phStatusText.style.color = "#fff";
+      phSampleLabel.textContent = selectedSubstanceName;
+
+      if (currentTargetPh === 1) phLiquid.style.background = "rgba(239, 68, 68, 0.15)";
+      else if (currentTargetPh === 3) phLiquid.style.background = "rgba(249, 115, 22, 0.15)";
+      else if (currentTargetPh === 7) phLiquid.style.background = "rgba(56, 189, 248, 0.15)";
+      else if (currentTargetPh === 9) phLiquid.style.background = "rgba(34, 197, 94, 0.15)";
+      else if (currentTargetPh === 14) phLiquid.style.background = "rgba(99, 102, 241, 0.15)";
+    }
+
+    dipStripBtn.addEventListener("click", () => {
+      if (stripDipped) return;
+      stripDipped = true;
+      dipStripBtn.disabled = true;
+      phPaperStrip.style.transform = "translateY(55px)";
+
+      setTimeout(() => {
+        let color = "#fde047";
+        if (currentTargetPh === 1) color = "#ef4444";
+        else if (currentTargetPh === 3) color = "#f97316";
+        else if (currentTargetPh === 7) color = "#22c55e";
+        else if (currentTargetPh === 9) color = "#06b6d4";
+        else if (currentTargetPh === 14) color = "#6366f1";
+
+        phPaperColor.style.background = color;
+
+        setTimeout(() => {
+          phPaperStrip.style.transform = "translateY(0)";
+          phStatusText.innerHTML = "<strong>Strip dipped!</strong> Wet color obtained. Click the matching color block in the chart to determine the pH value.";
+          phStatusText.style.color = "#eab308";
+          dipStripBtn.disabled = false;
+        }, 600);
+      }, 700);
+    });
+
+    phSteps.forEach(step => {
+      step.addEventListener("click", (e) => {
+        if (!stripDipped) {
+          phStatusText.textContent = "Please dip the pH strip in the liquid analyte first!";
+          phStatusText.style.color = "#ef4444";
+          return;
+        }
+
+        const chosenVal = parseInt(e.target.getAttribute("data-val"), 10);
+        if (chosenVal === currentTargetPh) {
+          phStatusText.innerHTML = `<strong>Match Found! pH = ${chosenVal}</strong><br><span style='color: #22c55e;'>Correct! ${selectedSubstanceName} has a pH of ${chosenVal} (${chosenVal < 7 ? "Acidic" : chosenVal > 7 ? "Basic" : "Neutral"}).</span>`;
+          phStatusText.style.color = "#22c55e";
+        } else {
+          phStatusText.innerHTML = `<strong>Mismatch!</strong> The pH strip color does not match pH ${chosenVal}. Examine the colors closely.`;
+          phStatusText.style.color = "#ef4444";
+        }
+      });
+    });
+
+
+    // 3. Volumetric Titration Simulator
+    const addDropBtn = document.getElementById("add-drop-btn");
+    const flowBtn = document.getElementById("flow-btn");
+    const resetTitrationBtn = document.getElementById("reset-titration-btn");
+    const titrationStatusText = document.getElementById("titration-status-text");
+    const buretteVol = document.getElementById("burette-vol");
+    const titrationReadout = document.getElementById("titration-readout");
+    const titrationLiquid = document.getElementById("titration-liquid");
+    const titrationDrip = document.getElementById("titration-drip");
+
+    let volumeAdded = 0.0;
+    let titrationActive = false;
+    let titrationInterval;
+
+    function initTitrationLab() {
+      resetTitration();
+    }
+
+    function resetTitration() {
+      volumeAdded = 0.0;
+      titrationActive = false;
+      clearInterval(titrationInterval);
+      
+      buretteVol.style.height = "100%";
+      titrationReadout.textContent = "Burette: 0.00 mL";
+      titrationLiquid.style.background = "rgba(255, 255, 255, 0.15)";
+      titrationStatusText.textContent = "Analyte ready. Click Add Drop or hold Stopcock to titrate with NaOH.";
+      titrationStatusText.style.color = "#fff";
+      titrationDrip.classList.remove("drip-animation");
+      flowBtn.textContent = "Open Burette Stopcock (Hold)";
+    }
+
+    function updateTitrationVisuals() {
+      titrationReadout.textContent = `Burette: ${volumeAdded.toFixed(2)} mL`;
+      const buretteHeightPercent = Math.max(0, 100 - (volumeAdded / 50) * 100);
+      buretteVol.style.height = `${buretteHeightPercent}%`;
+
+      if (volumeAdded < 24.5) {
+        titrationLiquid.style.background = "rgba(255, 255, 255, 0.15)";
+      } else if (volumeAdded >= 24.5 && volumeAdded < 25.0) {
+        titrationLiquid.style.background = "rgba(236, 72, 153, 0.15)";
+      } else if (volumeAdded === 25.0) {
+        titrationLiquid.style.background = "rgba(236, 72, 153, 0.35)";
+        titrationStatusText.innerHTML = "<strong>Equivalence Point Reached! (Vol = 25.0 mL)</strong><br><span style='color:#10b981;'>Perfect permanent faint pink color obtained! Neutralization stoichiometry: N₁V₁ = N₂V₂. NaOH Molarity = 0.10 M.</span>";
+        titrationStatusText.style.color = "#10b981";
+      } else {
+        titrationLiquid.style.background = "rgba(219, 39, 119, 0.8)";
+        titrationStatusText.innerHTML = "<strong>Over-titrated! (Vol = " + volumeAdded.toFixed(2) + " mL)</strong><br><span style='color:#ef4444;'>Acid completely neutralized. Solution is now strongly basic, turning phenolphthalein dark pink. Reset and try again.</span>";
+        titrationStatusText.style.color = "#ef4444";
+      }
+    }
+
+    addDropBtn.addEventListener("click", () => {
+      if (volumeAdded >= 50.0) return;
+      volumeAdded += 0.1;
+      if (volumeAdded > 50.0) volumeAdded = 50.0;
+      
+      titrationDrip.classList.add("drip-animation");
+      setTimeout(() => {
+        titrationDrip.classList.remove("drip-animation");
+      }, 350);
+
+      updateTitrationVisuals();
+    });
+
+    flowBtn.addEventListener("mousedown", startFlow);
+    flowBtn.addEventListener("mouseup", stopFlow);
+    flowBtn.addEventListener("mouseleave", stopFlow);
+    flowBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      startFlow();
+    });
+    flowBtn.addEventListener("touchend", stopFlow);
+
+    function startFlow() {
+      if (titrationActive || volumeAdded >= 50.0) return;
+      titrationActive = true;
+      flowBtn.textContent = "Flowing...";
+      titrationDrip.classList.add("drip-animation");
+
+      titrationInterval = setInterval(() => {
+        volumeAdded += 0.1;
+        if (volumeAdded >= 50.0) {
+          volumeAdded = 50.0;
+          stopFlow();
+        }
+        updateTitrationVisuals();
+      }, 80);
+    }
+
+    function stopFlow() {
+      if (!titrationActive) return;
+      titrationActive = false;
+      clearInterval(titrationInterval);
+      flowBtn.textContent = "Open Burette Stopcock (Hold)";
+      titrationDrip.classList.remove("drip-animation");
+    }
+
+    resetTitrationBtn.addEventListener("click", resetTitration);
+
+
+    // 4. Universal Organic Chemistry Tests Simulator
+    const organicTestSelect = document.getElementById("organic-test-select");
+    const organicSampleSelect = document.getElementById("organic-sample-select");
+    const organicLiquid = document.getElementById("organic-liquid");
+    const organicPptContainer = document.getElementById("organic-ppt-container");
+    const organicBubbleContainer = document.getElementById("organic-bubble-container");
+    const organicMirror = document.getElementById("organic-mirror");
+    const organicFlameViz = document.getElementById("organic-flame-viz");
+    const organicAddReagentBtn = document.getElementById("organic-add-reagent-btn");
+    const organicHeatBtn = document.getElementById("organic-heat-btn");
+    const organicResetBtn = document.getElementById("organic-reset-btn");
+    const organicStatusText = document.getElementById("organic-status-text");
+    const organicTubeLabel = document.getElementById("organic-tube-label");
+
+    let organicTest = "lucas";
+    let organicSample = "";
+    let organicReagentsAdded = false;
+    let organicBurnerActive = false;
+    let organicHeatProgress = 0;
+    let organicHeatInterval;
+    let organicBubbleInterval;
+
+    const organicSamplesMap = {
+      lucas: [
+        { val: "lucas_tertiary", name: "Tertiary Alcohol (t-Butanol)" },
+        { val: "lucas_secondary", name: "Secondary Alcohol (2-Propanol)" },
+        { val: "lucas_primary", name: "Primary Alcohol (Ethanol)" }
+      ],
+      fecl3: [
+        { val: "fecl3_phenol", name: "Phenol (Aromatic Enol)" },
+        { val: "fecl3_ethanol", name: "Ethanol (Aliphatic Alcohol)" }
+      ],
+      dnp: [
+        { val: "dnp_acetone", name: "Acetone (Ketone)" },
+        { val: "dnp_benzaldehyde", name: "Benzaldehyde (Aldehyde)" },
+        { val: "dnp_ethanol", name: "Ethanol (Alcohol)" }
+      ],
+      tollens: [
+        { val: "tollens_glucose", name: "Glucose (Aldehyde)" },
+        { val: "tollens_acetone", name: "Acetone (Ketone)" }
+      ],
+      effervescence: [
+        { val: "eff_acetic", name: "Acetic Acid (Carboxylic Acid)" },
+        { val: "eff_ethanol", name: "Ethanol (Alcohol)" }
+      ],
+      carbylamine: [
+        { val: "carb_aniline", name: "Aniline (Primary Amine)" },
+        { val: "carb_methylaniline", name: "N-Methylaniline (Secondary Amine)" }
+      ],
+      hinsberg: [
+        { val: "hins_primary", name: "Ethylamine (1° Amine)" },
+        { val: "hins_secondary", name: "Diethylamine (2° Amine)" },
+        { val: "hins_tertiary", name: "Triethylamine (3° Amine)" }
+      ],
+      halide: [
+        { val: "hal_tertiary", name: "t-Butyl Chloride (3° Halide)" },
+        { val: "hal_primary", name: "Ethyl Bromide (1° Halide)" }
+      ]
+    };
+
+    function populateOrganicSamples() {
+      organicTest = organicTestSelect.value;
+      organicSampleSelect.innerHTML = "";
+      
+      const samples = organicSamplesMap[organicTest];
+      samples.forEach(s => {
+        const opt = document.createElement("option");
+        opt.value = s.val;
+        opt.textContent = s.name;
+        organicSampleSelect.appendChild(opt);
+      });
+      organicSample = organicSampleSelect.value;
+      resetOrganicTestsLab();
+    }
+
+    organicTestSelect.addEventListener("change", populateOrganicSamples);
+    organicSampleSelect.addEventListener("change", () => {
+      organicSample = organicSampleSelect.value;
+      resetOrganicTestsLab();
+    });
+
+    function initOrganicTestsLab() {
+      populateOrganicSamples();
+    }
+
+    let organicPptTimeouts = [];
+
+    function resetOrganicTestsLab() {
+      organicReagentsAdded = false;
+      organicBurnerActive = false;
+      organicHeatProgress = 0;
+      
+      clearInterval(organicHeatInterval);
+      clearInterval(organicBubbleInterval);
+      organicPptTimeouts.forEach(clearTimeout);
+      organicPptTimeouts = [];
+
+      organicFlameViz.style.display = "none";
+      organicHeatBtn.textContent = "Light Bunsen Burner";
+      organicHeatBtn.style.background = "linear-gradient(135deg, #eab308 0%, rgba(234, 179, 8, 0.4) 100%)";
+      organicAddReagentBtn.disabled = false;
+
+      // Clean test tube classes and overlays
+      organicLiquid.style.background = "rgba(255, 255, 255, 0.15)";
+      organicLiquid.className = "test-tube-liquid";
+      organicMirror.style.opacity = "0";
+      organicPptContainer.innerHTML = "";
+      organicBubbleContainer.innerHTML = "";
+
+      organicTubeLabel.textContent = organicSampleSelect.options[organicSampleSelect.selectedIndex]?.text || "Analyte Sample";
+      organicStatusText.textContent = "Click Add Test Reagents to begin the test.";
+      organicStatusText.style.color = "#fff";
+    }
+
+    function spawnOrganicPpt(count, color) {
+      for (let i = 0; i < count; i++) {
+        const tid = setTimeout(() => {
+          const p = document.createElement("div");
+          p.className = "ppt-particle";
+          p.style.background = color;
+          p.style.left = `${Math.random() * 80 + 10}%`;
+          p.style.bottom = `${Math.random() * 15}px`;
+          organicPptContainer.appendChild(p);
+        }, i * 30);
+        organicPptTimeouts.push(tid);
+      }
+    }
+
+    function startOrganicBubbling() {
+      organicBubbleInterval = setInterval(() => {
+        const b = document.createElement("div");
+        b.className = "gas-bubble";
+        b.style.left = `${Math.random() * 70 + 15}%`;
+        organicBubbleContainer.appendChild(b);
+        setTimeout(() => b.remove(), 1200);
+      }, 150);
+    }
+
+    function addOrganicReagents() {
+      if (organicReagentsAdded) return;
+      organicReagentsAdded = true;
+      organicAddReagentBtn.disabled = true;
+
+      if (organicTest === "lucas") {
+        organicLiquid.style.background = "rgba(255, 255, 255, 0.25)";
+        if (organicSample === "lucas_tertiary") {
+          // 3° Alcohol: immediate turbidity
+          organicLiquid.classList.add("turbid");
+          spawnOrganicPpt(25, "#fff");
+          organicStatusText.innerHTML = "<strong>Result: Immediate Turbidity!</strong><br><span style='color:#10b981;'>3° Alcohols form alkyl chlorides instantly due to highly stable carbocation formation. Positive Lucas test.</span>";
+          organicStatusText.style.color = "#10b981";
+        } else {
+          organicStatusText.textContent = "Lucas reagent (conc. HCl + anhydrous ZnCl₂) added. Solution is clear. Light Bunsen Burner to heat.";
+          organicStatusText.style.color = "#fff";
+        }
+      } else if (organicTest === "fecl3") {
+        if (organicSample === "fecl3_phenol") {
+          organicLiquid.classList.add("fecl3-complex");
+          organicStatusText.innerHTML = "<strong>Result: Violet Coloration Formed!</strong><br><span style='color:#10b981;'>Phenol reacts with neutral FeCl₃ to form a purple-violet iron-phenol coordination complex. Positive phenol test.</span>";
+          organicStatusText.style.color = "#10b981";
+        } else {
+          organicLiquid.style.background = "rgba(234, 179, 8, 0.3)"; // pale yellow reagent
+          organicStatusText.innerHTML = "<strong>Result: No Color Change (Amber)</strong><br><span style='color:#ef4444;'>Aliphatic alcohols do not form enolic complexes with FeCl₃. Negative phenol test.</span>";
+          organicStatusText.style.color = "#ef4444";
+        }
+      } else if (organicTest === "dnp") {
+        if (organicSample === "dnp_acetone" || organicSample === "dnp_benzaldehyde") {
+          organicLiquid.classList.add("dnp-ppt");
+          spawnOrganicPpt(30, "#f97316");
+          organicStatusText.innerHTML = "<strong>Result: Dense Orange-Yellow Precipitate!</strong><br><span style='color:#10b981;'>Carbonyl compounds form 2,4-dinitrophenylhydrazone precipitates. Positive test for Aldehydes/Ketones.</span>";
+          organicStatusText.style.color = "#10b981";
+        } else {
+          organicLiquid.style.background = "rgba(249, 115, 22, 0.2)";
+          organicStatusText.innerHTML = "<strong>Result: No Precipitate</strong><br><span style='color:#ef4444;'>Alcohols do not react with 2,4-DNP. Negative carbonyl test.</span>";
+          organicStatusText.style.color = "#ef4444";
+        }
+      } else if (organicTest === "tollens") {
+        organicLiquid.style.background = "rgba(100, 116, 139, 0.4)";
+        organicStatusText.textContent = "Tollens' reagent added. Grey silver oxide precipitate intermediate. Light Bunsen Burner to heat.";
+        organicStatusText.style.color = "#fff";
+      } else if (organicTest === "effervescence") {
+        if (organicSample === "eff_acetic") {
+          organicStatusText.innerHTML = "<strong>Result: Brisk Effervescence! (CO₂ gas)</strong><br><span style='color:#10b981;'>Carboxylic acids decompose NaHCO₃ to release carbon dioxide gas. Positive acid test.</span>";
+          organicStatusText.style.color = "#10b981";
+          startOrganicBubbling();
+        } else {
+          organicStatusText.innerHTML = "<strong>Result: No Reaction</strong><br><span style='color:#ef4444;'>Alcohols are too weakly acidic to decompose sodium bicarbonate. Negative test.</span>";
+          organicStatusText.style.color = "#ef4444";
+        }
+      } else if (organicTest === "carbylamine") {
+        organicStatusText.textContent = "Chloroform and alcoholic KOH added. Light Bunsen Burner to heat and detect amine behavior.";
+        organicStatusText.style.color = "#fff";
+      } else if (organicTest === "hinsberg") {
+        if (organicSample === "hins_primary") {
+          organicLiquid.classList.add("turbid");
+          organicStatusText.innerHTML = "<strong>Step 1: Precipitate formed.</strong> Adding excess aqueous KOH dissolves the precipitate completely. 1° amine is soluble in alkali.";
+          organicStatusText.style.color = "#eab308";
+          setTimeout(() => {
+            organicLiquid.classList.remove("turbid");
+            organicStatusText.innerHTML = "<strong>Result: Clear Solution in KOH</strong><br><span style='color:#10b981;'>1° Amines form sulfonamides with acidic hydrogen, which dissolve in KOH. Positive 1° amine test.</span>";
+            organicStatusText.style.color = "#10b981";
+          }, 2000);
+        } else if (organicSample === "hins_secondary") {
+          organicLiquid.classList.add("turbid");
+          spawnOrganicPpt(20, "#fff");
+          organicStatusText.innerHTML = "<strong>Result: Precipitate Insoluble in KOH</strong><br><span style='color:#fb7185;'>2° Amines form sulfonamides without acidic hydrogens, rendering them insoluble in KOH alkali. Positive 2° amine test.</span>";
+          organicStatusText.style.color = "#fb7185";
+        } else {
+          organicStatusText.innerHTML = "<strong>Result: No Reaction with reagent</strong><br><span style='color:#ef4444;'>3° Amines do not react with benzenesulfonyl chloride. Solution remains clear.</span>";
+          organicStatusText.style.color = "#ef4444";
+        }
+      } else if (organicTest === "halide") {
+        if (organicSample === "hal_tertiary") {
+          // Tertiary halide: immediate AgCl ppt
+          organicLiquid.classList.add("turbid");
+          spawnOrganicPpt(25, "#fff");
+          organicStatusText.innerHTML = "<strong>Result: Immediate White Precipitate (AgCl)!</strong><br><span style='color:#10b981;'>3° Alkyl Halides undergo rapid SN1 hydrolysis in aq. silver nitrate to deposit white silver chloride.</span>";
+          organicStatusText.style.color = "#10b981";
+        } else {
+          organicStatusText.textContent = "Silver Nitrate reagent added. Solution is clear. Light Bunsen Burner to heat.";
+          organicStatusText.style.color = "#fff";
+        }
+      }
+    }
+
+    function toggleOrganicHeating() {
+      if (!organicReagentsAdded) {
+        organicStatusText.textContent = "Please add test reagents before lighting the Bunsen burner!";
+        organicStatusText.style.color = "#ef4444";
+        return;
+      }
+
+      organicBurnerActive = !organicBurnerActive;
+      if (organicBurnerActive) {
+        organicFlameViz.style.display = "block";
+        organicHeatBtn.textContent = "Extinguish Burner";
+        organicHeatBtn.style.background = "linear-gradient(135deg, #f97316 0%, rgba(249, 115, 22, 0.4) 100%)";
+        organicStatusText.textContent = "Heating tube... Observe chemical reaction.";
+        organicStatusText.style.color = "#eab308";
+
+        organicHeatInterval = setInterval(() => {
+          organicHeatProgress += 10;
+          if (organicHeatProgress >= 100) {
+            clearInterval(organicHeatInterval);
+            organicBurnerActive = false;
+            organicFlameViz.style.display = "none";
+            
+            // Execute heating outcomes
+            if (organicTest === "lucas" && organicSample === "lucas_secondary") {
+              organicLiquid.classList.add("turbid");
+              spawnOrganicPpt(20, "#fff");
+              organicStatusText.innerHTML = "<strong>Result: Turbidity appears on heating (5 mins)!</strong><br><span style='color:#eab308;'>2° Alcohols undergo nucleophilic replacement at a moderate rate. Positive secondary alcohol Lucas test.</span>";
+              organicStatusText.style.color = "#eab308";
+            } else if (organicTest === "lucas" && organicSample === "lucas_primary") {
+              organicStatusText.innerHTML = "<strong>Result: Remains Clear</strong><br><span style='color:#ef4444;'>1° Alcohols do not undergo nucleophilic substitution with HCl at room temp or moderate heating.</span>";
+              organicStatusText.style.color = "#ef4444";
+            } else if (organicTest === "tollens") {
+              if (organicSample === "tollens_glucose") {
+                organicMirror.style.opacity = "1";
+                organicStatusText.innerHTML = "<strong>Result: Brilliant Silver Mirror Formed!</strong><br><span style='color:#10b981;'>Aldehydes (Glucose) reduce Tollens\' cation [Ag(NH₃)₂]⁺ to metallic silver, coating the inner glass walls.</span>";
+                organicStatusText.style.color = "#10b981";
+              } else {
+                organicStatusText.innerHTML = "<strong>Result: No Silver Mirror</strong><br><span style='color:#ef4444;'>Ketones (Acetone) are highly resistant to oxidation and fail Tollens' mirror reduction.</span>";
+                organicStatusText.style.color = "#ef4444";
+              }
+            } else if (organicTest === "carbylamine") {
+              if (organicSample === "carb_aniline") {
+                startOrganicBubbling();
+                organicStatusText.innerHTML = "<strong>Result: Foul-Smelling Gas Released!</strong><br><span style='color:#ef4444;'>[WARNING] Primary aromatic amine reacts with chloroform + KOH to release highly toxic, offensive Phenyl Isocyanide gas.</span>";
+                organicStatusText.style.color = "#fb7185";
+              } else {
+                organicStatusText.innerHTML = "<strong>Result: No Odor / Reaction</strong><br><span style='color:#22c55e;'>Secondary amines do not react to form carbylamines. Negative test.</span>";
+                organicStatusText.style.color = "#22c55e";
+              }
+            } else if (organicTest === "halide" && organicSample === "hal_primary") {
+              organicLiquid.style.background = "rgba(254, 240, 138, 0.4)"; // light yellow tint
+              spawnOrganicPpt(20, "#fef08a");
+              organicStatusText.innerHTML = "<strong>Result: Pale Yellow Precipitate (AgBr) on heating!</strong><br><span style='color:#eab308;'>1° Alkyl Bromides undergo substitution slowly, releasing bromide ions which deposit as pale yellow AgBr.</span>";
+              organicStatusText.style.color = "#eab308";
+            }
+          }
+        }, 200);
+      } else {
+        organicFlameViz.style.display = "none";
+        organicHeatBtn.textContent = "Light Bunsen Burner";
+        organicHeatBtn.style.background = "linear-gradient(135deg, #eab308 0%, rgba(234, 179, 8, 0.4) 100%)";
+        clearInterval(organicHeatInterval);
+      }
+    }
+
+    organicResetBtn.addEventListener("click", resetOrganicTestsLab);
+    organicAddReagentBtn.addEventListener("click", addOrganicReagents);
+    organicHeatBtn.addEventListener("click", toggleOrganicHeating);
+
+
+    // 5. Qualitative Salt Analysis & Flame Test Simulator
+    const saltModeToggles = document.querySelectorAll("#salt-mode-toggles .toggle-btn");
+    const cationSaltSelect = document.getElementById("cation-salt-select");
+    const anionSaltSelect = document.getElementById("anion-salt-select");
+    
+    const dipLoopBtn = document.getElementById("dip-loop-btn");
+    const bringFlameBtn = document.getElementById("bring-flame-btn");
+    const addWetReagentBtn = document.getElementById("add-wet-reagent-btn");
+    const saltResetBtn = document.getElementById("salt-reset-btn");
+    const saltStatusText = document.getElementById("salt-status-text");
+
+    const platinumWireDevice = document.getElementById("platinum-wire-device");
+    const saltFlameViz = document.getElementById("salt-flame-viz");
+    const saltWetLiquid = document.getElementById("salt-wet-liquid");
+    const saltWetPptContainer = document.getElementById("salt-wet-ppt-container");
+    const saltWetBubbleContainer = document.getElementById("salt-wet-bubble-container");
+
+    const cationSelectionGroup = document.getElementById("cation-selection-group");
+    const anionSelectionGroup = document.getElementById("anion-selection-group");
+    const saltFlameView = document.getElementById("salt-flame-view");
+    const saltWetView = document.getElementById("salt-wet-view");
+
+    let saltMode = "flame"; // flame or wet
+    let wireLoopDipped = false;
+    let saltFlameActive = false;
+    let wetReagentAdded = false;
+    let saltWetBubbleInterval;
+
+    saltModeToggles.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        saltModeToggles.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        saltMode = e.target.getAttribute("data-mode");
+        
+        if (saltMode === "flame") {
+          cationSelectionGroup.style.display = "block";
+          anionSelectionGroup.style.display = "none";
+          saltFlameView.style.display = "block";
+          saltWetView.style.display = "none";
+          dipLoopBtn.style.display = "inline-flex";
+          bringFlameBtn.style.display = "inline-flex";
+          addWetReagentBtn.style.display = "none";
+        } else {
+          cationSelectionGroup.style.display = "none";
+          anionSelectionGroup.style.display = "block";
+          saltFlameView.style.display = "none";
+          saltWetView.style.display = "block";
+          dipLoopBtn.style.display = "none";
+          bringFlameBtn.style.display = "none";
+          addWetReagentBtn.style.display = "inline-flex";
+        }
+        resetSaltAnalysisLab();
+      });
+    });
+
+    cationSaltSelect.addEventListener("change", resetSaltAnalysisLab);
+    anionSaltSelect.addEventListener("change", resetSaltAnalysisLab);
+
+    function initSaltAnalysisLab() {
+      resetSaltAnalysisLab();
+    }
+
+    let saltPptTimeouts = [];
+
+    function resetSaltAnalysisLab() {
+      wireLoopDipped = false;
+      saltFlameActive = false;
+      wetReagentAdded = false;
+      clearInterval(saltWetBubbleInterval);
+      saltPptTimeouts.forEach(clearTimeout);
+      saltPptTimeouts = [];
+
+      // Reset loop transformations
+      platinumWireDevice.className = "platinum-wire";
+      platinumWireDevice.style.transform = "translateY(0) rotate(0deg)";
+      
+      // Reset Bunsen Flame
+      saltFlameViz.className = "bunsen-flame flame-normal";
+      
+      // Reset wet beaker and containers
+      saltWetLiquid.style.background = "rgba(255, 255, 255, 0.15)";
+      saltWetLiquid.className = "test-tube-liquid";
+      saltWetPptContainer.innerHTML = "";
+      saltWetBubbleContainer.innerHTML = "";
+      addWetReagentBtn.disabled = false;
+      dipLoopBtn.disabled = false;
+      bringFlameBtn.disabled = false;
+
+      if (saltMode === "flame") {
+        saltStatusText.textContent = "Click Dip Platinum Wire Loop to pick up paste with HCl.";
+        saltStatusText.style.color = "#fff";
+      } else {
+        saltStatusText.textContent = "Select anion and click Add Reagent to start wet tube analysis.";
+        saltStatusText.style.color = "#fff";
+      }
+    }
+
+    function dipWireLoop() {
+      if (wireLoopDipped) return;
+      wireLoopDipped = true;
+      dipLoopBtn.disabled = true;
+
+      // Animate dipping wire loop down
+      platinumWireDevice.style.transform = "translateY(60px) rotate(10deg)";
+      
+      setTimeout(() => {
+        platinumWireDevice.classList.add("dipped");
+        saltStatusText.textContent = "Wire loop dipped! Chloride paste picked up. Click Bring to Flame.";
+        saltStatusText.style.color = "#eab308";
+        
+        // Return wire
+        setTimeout(() => {
+          platinumWireDevice.style.transform = "translateY(0) rotate(0deg)";
+          bringFlameBtn.disabled = false;
+        }, 500);
+      }, 600);
+    }
+
+    function bringWireToFlame() {
+      if (!wireLoopDipped || saltFlameActive) return;
+      saltFlameActive = true;
+      bringFlameBtn.disabled = true;
+
+      const cation = cationSaltSelect.value;
+      
+      // Animate wire into flame
+      platinumWireDevice.style.transform = "translateY(95px) rotate(-15deg)";
+
+      setTimeout(() => {
+        if (cation === "copper") {
+          saltFlameViz.className = "bunsen-flame flame-copper";
+          saltStatusText.innerHTML = "<strong>Result: Greenish Blue Flame!</strong><br><span style='color:#06b6d4;'>Copper cations (Cu²⁺) excite to release blue-green visible light radiation.</span>";
+          saltStatusText.style.color = "#06b6d4";
+        } else if (cation === "calcium") {
+          saltFlameViz.className = "bunsen-flame flame-calcium";
+          saltStatusText.innerHTML = "<strong>Result: Brick Red Flame!</strong><br><span style='color:#f97316;'>Calcium cations (Ca²⁺) release characteristic orange brick-red light spectrum.</span>";
+          saltStatusText.style.color = "#f97316";
+        } else if (cation === "barium") {
+          saltFlameViz.className = "bunsen-flame flame-barium";
+          saltStatusText.innerHTML = "<strong>Result: Apple Green Flame!</strong><br><span style='color:#a3e635;'>Barium cations (Ba²⁺) yield evolution spectra in the light-green wavelength range.</span>";
+          saltStatusText.style.color = "#a3e635";
+        } else if (cation === "strontium") {
+          saltFlameViz.className = "bunsen-flame flame-strontium";
+          saltStatusText.innerHTML = "<strong>Result: Crimson Red Flame!</strong><br><span style='color:#f43f5e;'>Strontium cations (Sr²⁺) yield deep ruby-crimson flame emissions.</span>";
+          saltStatusText.style.color = "#f43f5e";
+        } else if (cation === "potassium") {
+          saltFlameViz.className = "bunsen-flame flame-potassium";
+          saltStatusText.innerHTML = "<strong>Result: Lilac/Violet Flame!</strong><br><span style='color:#c084fc;'>Potassium cations (K⁺) excite to release violet/lilac wavelengths.</span>";
+          saltStatusText.style.color = "#c084fc";
+        } else if (cation === "sodium") {
+          saltFlameViz.className = "bunsen-flame flame-sodium";
+          saltStatusText.innerHTML = "<strong>Result: Golden Yellow Flame!</strong><br><span style='color:#fbbf24;'>Sodium cations (Na⁺) release intense yellow D-line emission light.</span>";
+          saltStatusText.style.color = "#fbbf24";
+        }
+      }, 500);
+    }
+
+    function spawnWetPpt(count, color) {
+      for (let i = 0; i < count; i++) {
+        const tid = setTimeout(() => {
+          const p = document.createElement("div");
+          p.className = "ppt-particle";
+          p.style.background = color;
+          p.style.left = `${Math.random() * 80 + 10}%`;
+          p.style.bottom = `${Math.random() * 15}px`;
+          saltWetPptContainer.appendChild(p);
+        }, i * 30);
+        saltPptTimeouts.push(tid);
+      }
+    }
+
+    function addWetReagents() {
+      if (wetReagentAdded) return;
+      wetReagentAdded = true;
+      addWetReagentBtn.disabled = true;
+
+      const anion = anionSaltSelect.value;
+      if (anion === "carbonate") {
+        // dilute acid adds: CO2 release
+        saltStatusText.innerHTML = "<strong>Result: Brisk Effervescence (CO₂)!</strong><br><span style='color:#10b981;'>Dilute HCl decomposes Carbonates to release CO₂ gas, turning lime water milky.</span>";
+        saltStatusText.style.color = "#10b981";
+        
+        saltWetBubbleInterval = setInterval(() => {
+          const b = document.createElement("div");
+          b.className = "gas-bubble";
+          b.style.left = `${Math.random() * 70 + 15}%`;
+          saltWetBubbleContainer.appendChild(b);
+          setTimeout(() => b.remove(), 1200);
+        }, 150);
+      } else if (anion === "chloride") {
+        // AgNO3 + Conc H2SO4: white AgCl ppt
+        saltWetLiquid.classList.add("turbid");
+        spawnWetPpt(30, "#fff");
+        saltStatusText.innerHTML = "<strong>Result: Thick Curdy White Precipitate (AgCl)!</strong><br><span style='color:#10b981;'>Chloride ions react with Silver Nitrate reagent to deposit insoluble silver chloride, soluble in ammonium hydroxide.</span>";
+        saltStatusText.style.color = "#10b981";
+      } else if (anion === "sulfate") {
+        // BaCl2 -> dense white BaSO4 ppt
+        saltWetLiquid.classList.add("turbid");
+        spawnWetPpt(30, "#f8fafc");
+        saltStatusText.innerHTML = "<strong>Result: Dense White Precipitate (BaSO₄)!</strong><br><span style='color:#10b981;'>Sulfate anions react with Barium Chloride to yield BaSO₄ precipitate, insoluble in concentrated acids.</span>";
+        saltStatusText.style.color = "#10b981";
+      }
+    }
+
+    dipLoopBtn.addEventListener("click", dipWireLoop);
+    bringFlameBtn.addEventListener("click", bringWireToFlame);
+    addWetReagentBtn.addEventListener("click", addWetReagents);
+    saltResetBtn.addEventListener("click", resetSaltAnalysisLab);
+  </script>
+</body>
+</html>

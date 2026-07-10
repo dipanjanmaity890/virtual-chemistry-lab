@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Environmental Chemistry | Class 11</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.2); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+  </style>
+</head>
+<body data-theme="biomolecules">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 11 · Unit XIV</div>
+      <h1>Environmental Chemistry</h1>
+      <p class="subtitle">Tropospheric pollution, greenhouse effect, smog, ozone layer depletion, and green chemistry principles.</p>
+    </section>
+
+    <section class="slide">
+      <h2>Greenhouse Effect & Global Warming</h2>
+      <p>Earth absorbs solar radiation, heats up, and re-radiates heat as infrared radiation. Greenhouse gases trap this heat, maintaining habitable temperature.</p>
+      <div class="note-box">
+        <strong>Major Greenhouse Gases:</strong>
+        • Carbon Dioxide ($CO_2$): primary feedback driver.
+        • Methane ($CH_4$): 25x more potent heat trap than $CO_2$.
+        • Nitrous Oxide ($N_2O$), Water Vapor, and CFCs.
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Acid Rain</h2>
+      <p>Rainwater pH drops below 5.6 due to reactions of oxides of sulfur and nitrogen in atmosphere with water vapor:</p>
+      <p>$$2SO_2 + O_2 + 2H_2O \rightarrow 2H_2SO_4$$</p>
+      <p>$$4NO_2 + O_2 + 2H_2O \rightarrow 4HNO_3$$</p>
+      <p><strong>Damage:</strong> Corrodes marble structures (e.g. Taj Mahal: $CaCO_3 + H_2SO_4 \rightarrow CaSO_4 + H_2O + CO_2$) and damages agricultural soils.</p>
+    </section>
+
+    <section class="slide">
+      <h2>Greenhouse Trap Lab</h2>
+      <p>Launch the simulator to toggle Greenhouse Gas ($CO_2, CH_4$) densities and watch thermal photon trapping rates.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 4</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3>🧪 Greenhouse Carbon Trap</h3>
+        </div>
+        <button id="close-overlay" class="close-btn">✕</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer">
+            <h4>Greenhouse Gas Density Control</h4>
+            <div class="control-group">
+              <label>Gas Level</label>
+              <select id="env-level" onchange="runEnvSim()" style="background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px;">
+                <option value="low">Pre-Industrial (Low CO₂)</option>
+                <option value="high">Present Day (High CO₂ & CH₄)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <div>
+              <h3>Environment HUD</h3>
+              <div id="calc-status" style="margin-top:1rem; font-size:0.85rem; color:#e2e8f0; line-height:1.5;">Click selectors to observe infrared heat trapping trends.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    function runEnvSim() {
+      const val = document.getElementById("env-level").value;
+      if (val === "low") {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Low Density Greenhouse Gas Atmosphere:</strong><br>
+          • Infrared radiation heat escapes into outer space easily.<br>
+          • Mean Earth Temp = <strong>~14 °C (Stable)</strong>
+        `;
+      } else {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>High Density Greenhouse Gas Atmosphere:</strong><br>
+          • Multiple infrared energy photons are back-scattered/trapped in the troposphere.<br>
+          • Mean Earth Temp increases: <strong>Global Warming feedback triggers.</strong>
+        `;
+      }
+    }
+    runEnvSim();
+  </script>
+</body>
+</html>

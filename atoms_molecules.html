@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atoms and Molecules | Class 9</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .sim-tab-header { display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .sim-tab-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+    .sim-canvas { width:100%; height:200px; background:#030712; border-radius:12px; border:1px solid rgba(255,255,255,0.05); }
+    .rxn-step { background: rgba(255,255,255,0.04); border-left: 3px solid #38bdf8; border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.5rem; font-size: 0.88rem; line-height: 1.5; }
+  </style>
+</head>
+<body data-theme="electrochemistry">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 9 &middot; Unit III</div>
+      <h1>Atoms and Molecules</h1>
+      <p class="subtitle">Dalton's atomic theory, laws of chemical combination, mole concept, and molecular mass calculations.</p>
+    </section>
+    <section class="slide">
+      <h2>Dalton's Atomic Theory</h2>
+      <ul class="reveal-list">
+        <li class="reveal-item">All matter is made of very small particles called <strong>atoms</strong> (from Greek "atomos" meaning indivisible).</li>
+        <li class="reveal-item">Atoms are indivisible and indestructible (modified by discovery of sub-atomic particles).</li>
+        <li class="reveal-item">All atoms of a given element are <strong>identical in mass and chemical properties</strong>.</li>
+        <li class="reveal-item">Atoms of different elements have <strong>different masses and chemical properties</strong>.</li>
+        <li class="reveal-item">Atoms combine in simple <strong>whole number ratios</strong> to form compounds.</li>
+        <li class="reveal-item">In a chemical reaction, atoms are only <strong>rearranged, not created or destroyed</strong>.</li>
+      </ul>
+    </section>
+    <section class="slide">
+      <h2>Laws of Chemical Combination</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Law of Conservation of Mass (Lavoisier, 1789)</h3>
+          <div class="note-box">Total mass of reactants = Total mass of products. Matter is neither created nor destroyed in a chemical reaction.</div>
+          <p>Example: 6 g C + 16 g O2 gives 22 g CO2. Total = 22 g on both sides.</p>
+        </div>
+        <div>
+          <h3>Law of Constant Proportions (Proust, 1799)</h3>
+          <div class="note-box">A pure compound always contains the same elements in the same definite ratio by mass, regardless of its source or method of preparation.</div>
+          <p>H2O always has H:O = 1:8 by mass (from Nile or Ganga or lab-prepared water).</p>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Atomic Mass and Molecular Mass</h2>
+      <p>Atomic mass is relative, measured in <strong>Atomic Mass Units (u)</strong> where 1 u = 1/12 the mass of a Carbon-12 atom.</p>
+      <ul class="reveal-list">
+        <li class="reveal-item">H=1u, O=16u, N=14u, C=12u, S=32u, Na=23u, Cl=35.5u, Ca=40u, Fe=56u, Cu=63.5u</li>
+        <li class="reveal-item"><strong>Molecular Mass</strong> = Sum of atomic masses of all atoms in the molecule (including multiplicity).</li>
+        <li class="reveal-item">H2O: 2(1)+16 = <strong>18 u</strong> | H2SO4: 2(1)+32+4(16) = <strong>98 u</strong></li>
+        <li class="reveal-item">NaCl: 23+35.5 = <strong>58.5 u</strong> | CaCO3: 40+12+3(16) = <strong>100 u</strong></li>
+      </ul>
+    </section>
+    <section class="slide">
+      <h2>The Mole Concept</h2>
+      <p>The mole is the SI unit for amount of substance. <strong>1 mole</strong> of any substance contains exactly <strong>6.022 x 10^23 particles</strong> (Avogadro's Number, NA).</p>
+      <div class="note-box">
+        Moles = Given mass (g) / Molar mass (g/mol)<br>
+        Number of particles = Moles x Avogadro's Number (6.022 x 10^23)<br><br>
+        1 mole H2O = 18 g = 6.022 x 10^23 water molecules<br>
+        1 mole NaCl = 58.5 g = 6.022 x 10^23 formula units
+      </div>
+      <p>Why is the mole useful? Atoms are too small to count individually. The mole links atomic mass (in u) to laboratory masses (in grams).</p>
+    </section>
+    <section class="slide">
+      <h2>Mole Concept Calculator</h2>
+      <p>Launch the simulator to calculate moles from given mass, find number of molecules, and verify the Law of Conservation of Mass with interactive inputs.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 6</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title"><h3>Atoms and Molecules Lab Simulator</h3></div>
+        <button id="close-overlay" class="close-btn">&#x2715;</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer" style="flex-direction:column; align-items:flex-start; padding:1.2rem; justify-content:flex-start;">
+            <h4>Mole Calculator</h4>
+            <label style="font-size:0.85rem; margin-top:0.5rem;">Select Molecule</label>
+            <select id="mol-select" style="width:100%; background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px; margin-bottom:0.5rem;" onchange="calcMole()">
+              <option value="18">Water (H2O) -- 18 g/mol</option>
+              <option value="44">Carbon Dioxide (CO2) -- 44 g/mol</option>
+              <option value="58.5">Sodium Chloride (NaCl) -- 58.5 g/mol</option>
+              <option value="98">Sulphuric Acid (H2SO4) -- 98 g/mol</option>
+              <option value="100">Calcium Carbonate (CaCO3) -- 100 g/mol</option>
+              <option value="28">Nitrogen (N2) -- 28 g/mol</option>
+              <option value="32">Oxygen (O2) -- 32 g/mol</option>
+            </select>
+            <label style="font-size:0.85rem;">Given Mass (grams)</label>
+            <input type="number" id="mass-input" value="36" min="1" max="1000" style="width:100%; background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px; margin-bottom:0.75rem;" oninput="calcMole()">
+            <div id="mole-result" style="font-size:0.88rem; color:#e2e8f0; line-height:1.7; background:rgba(56,189,248,0.07); border-radius:10px; padding:0.75rem; width:100%;"></div>
+          </div>
+          <div class="sim-sidebar">
+            <h3>Mass Conservation Check</h3>
+            <p style="font-size:0.82rem; color:#94a3b8; margin-bottom:0.5rem;">Verify: C + O2 gives CO2</p>
+            <label style="font-size:0.82rem;">Carbon mass (g)</label>
+            <input type="number" id="r1" value="6" style="width:100%; background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px; margin-bottom:0.3rem;" oninput="checkConservation()">
+            <label style="font-size:0.82rem;">Oxygen mass (g)</label>
+            <input type="number" id="r2" value="16" style="width:100%; background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px; margin-bottom:0.3rem;" oninput="checkConservation()">
+            <label style="font-size:0.82rem;">CO2 product (g)</label>
+            <input type="number" id="p1" value="22" style="width:100%; background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px; margin-bottom:0.6rem;" oninput="checkConservation()">
+            <div id="conserve-result" style="font-size:0.85rem; color:#e2e8f0; line-height:1.5;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/presentation.js"></script>
+  <script>
+
+    function calcMole(){
+      const mm=parseFloat(document.getElementById('mol-select').value);
+      const mass=parseFloat(document.getElementById('mass-input').value)||0;
+      const moles=mass/mm;
+      const parts=(moles*6.022e23).toExponential(3);
+      document.getElementById('mole-result').innerHTML='<strong>Moles = '+moles.toFixed(4)+' mol</strong><br>Number of Particles = '+parts+'<br>Molar Mass = '+mm+' g/mol<br><br>Formula: '+mass+' &divide; '+mm+' = <strong>'+moles.toFixed(4)+'</strong>';
+    }
+    function checkConservation(){
+      const r1=parseFloat(document.getElementById('r1').value)||0;
+      const r2=parseFloat(document.getElementById('r2').value)||0;
+      const p1=parseFloat(document.getElementById('p1').value)||0;
+      const react=r1+r2;
+      const ok=Math.abs(react-p1)<0.01;
+      document.getElementById('conserve-result').innerHTML=ok?'<span style="color:#10b981;">CONSERVED: Reactants ('+react+' g) = Products ('+p1+' g). Law holds!</span>':'<span style="color:#ef4444;">NOT conserved. Reactants = '+react+' g, Products = '+p1+' g. Difference = '+Math.abs(react-p1).toFixed(2)+' g</span>';
+    }
+    calcMole(); checkConservation();
+
+  </script>
+</body>
+</html>

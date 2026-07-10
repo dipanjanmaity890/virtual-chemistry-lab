@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Solid State | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Solid State Custom Simulator CSS */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .lattice-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+    }
+    #lattice-canvas {
+      flex-grow: 1;
+      width: 100%;
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .lattice-stats {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      width: 100%;
+      text-align: center;
+    }
+    .eff-val {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #3b82f6;
+      text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .sim-sidebar input[type="range"] {
+      width: 100%;
+      accent-color: #3b82f6;
+    }
+  </style>
+</head>
+<body data-theme="solutions">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">PHYSICAL CHEMISTRY · OPTIONAL UNIT</div>
+        <h1>The Solid State</h1>
+        <h3>Crystal Lattices, Unit Cells & Defects</h3>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Unit Cell Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Classification of Solids -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Crystalline vs Amorphous Solids</h2>
+          <span class="chapter-tag">The Solid State</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Crystalline Solids</h3>
+              <p>Possess sharp, regular geometry with **long-range order** of particles. True solids.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">• **Melting Point:** Sharp and characteristic.</p>
+              <p style="font-size: 0.9rem;">• **Cleavage:** Splitting yields smooth plane surfaces.</p>
+              <p style="font-size: 0.9rem;">• **Nature:** Anisotropic (physical properties vary along different directions).</p>
+              <p style="font-size: 0.9rem; color: var(--text-secondary);">• Examples: Quartz, NaCl, Diamond.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Amorphous Solids</h3>
+              <p>Irregular particle arrangements with **short-range order** only. Supercooled liquids.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">• **Melting Point:** Soften gradually over a temp range.</p>
+              <p style="font-size: 0.9rem;">• **Cleavage:** Splitting yields irregular surfaces.</p>
+              <p style="font-size: 0.9rem;">• **Nature:** Isotropic (same properties in all directions).</p>
+              <p style="font-size: 0.9rem; color: var(--text-secondary);">• Examples: Glass, Rubber, Plastics.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Crystal Lattice & Unit Cell -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Crystal Lattice & Unit Cell</h2>
+          <span class="chapter-tag">The Solid State</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="margin-bottom: 1rem;"><strong>Crystal Lattice:</strong> A regular 3D arrangement of constituent particles (represented as points) in space.</p>
+              <p class="reveal-item"><strong>Unit Cell:</strong> The smallest portion of a crystal lattice which, when repeated in different directions, generates the entire lattice.</p>
+              <ul style="margin-top: 1rem;">
+                <li class="reveal-item">Defined by 6 parameters: axial lengths (a, b, c) and axial angles (α, β, γ).</li>
+                <li class="reveal-item">There are **7 crystal systems** and **14 Bravais lattices**.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Cubic Unit Cell Types</h3>
+                <p>1. <strong>Primitive / Simple Cubic (SCC):</strong> Atoms at corners only.</p>
+                <p style="margin-top: 0.3rem;">2. <strong>Body-Centred Cubic (BCC):</strong> Atoms at corners + 1 at the center of body.</p>
+                <p style="margin-top: 0.3rem;">3. <strong>Face-Centred Cubic (FCC):</strong> Atoms at corners + 1 at the center of each face.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Atoms per Unit Cell -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Calculation of Atoms per Unit Cell</h2>
+          <span class="chapter-tag">The Solid State</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Simple Cubic (SCC)</h3>
+              <p>• 8 corner atoms.</p>
+              <p>• Contribution: 1/8 per corner.</p>
+              <div class="formula-box" style="margin-top: 0.5rem; padding: 0.5rem;">
+                <span style="font-family: monospace;">Z = 8 · (1/8) = 1</span>
+              </div>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Body-Centred (BCC)</h3>
+              <p>• 8 corner atoms (1/8 contribution).</p>
+              <p>• 1 body center (1 contribution).</p>
+              <div class="formula-box" style="margin-top: 0.5rem; padding: 0.5rem;">
+                <span style="font-family: monospace;">Z = 8·(1/8) + 1 = 2</span>
+              </div>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Face-Centred (FCC)</h3>
+              <p>• 8 corner atoms (1/8 contribution).</p>
+              <p>• 6 face centers (1/2 contribution).</p>
+              <div class="formula-box" style="margin-top: 0.5rem; padding: 0.5rem;">
+                <span style="font-family: monospace;">Z = 8·(1/8)+6·(1/2) = 4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Packing Efficiency -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Packing Efficiency</h2>
+          <span class="chapter-tag">The Solid State</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">Percentage of total space filled by particles. Calculated as volume of spheres divided by total volume of unit cell.</p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">P.E. = (Z · 4/3 π r³) / a³ · 100%</div>
+                <div class="formula-label">Packing Efficiency Formula</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Cubic Systems Summary</h3>
+                <p>• <strong>Simple Cubic:</strong> a = 2r. **P.E. = 52.4%**</p>
+                <p style="margin-top: 0.5rem;">• <strong>Body-Centred:</strong> a = 4r / √3. **P.E. = 68.0%**</p>
+                <p style="margin-top: 0.5rem;">• <strong>Face-Centred / CCP:</strong> a = 2√2 r. **P.E. = 74.0%**</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">FCC/CCP represents the closest, most efficient packing possible for spheres.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Unit Cell Density -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Density of Crystals</h2>
+          <span class="chapter-tag">The Solid State</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="margin-bottom: 1.5rem;">Knowing the unit cell dimensions (edge length a) and composition (Z, Molecular weight M), we can calculate the density of the crystalline solid.</p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">d = (Z · M) / (a³ · N_A)</div>
+                <div class="formula-label">Density Formula (N_A = Avogadro's Constant)</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Units Check</h3>
+                <p>• Z: atoms/cell.</p>
+                <p>• M: g/mol.</p>
+                <p>• a: cm (usually given in pm, convert: 1 pm = 10⁻¹⁰ cm).</p>
+                <p>• N_A: 6.022 × 10²³ mol⁻¹.</p>
+                <p>• d: g/cm³.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Imperfections in Solids -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Crystal Defects</h2>
+          <span class="chapter-tag">The Solid State</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Schottky Defect</h3>
+              <p>Equal numbers of **cations and anions are missing** from their normal lattice sites to maintain electrical neutrality.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">• Decreases density of solid.</p>
+              <p style="font-size: 0.9rem;">• Shown by highly ionic compounds with similar ion sizes (e.g., NaCl, KCl, CsCl, AgBr).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Frenkel Defect</h3>
+              <p>An ion (usually smaller cation) is **displaced to an interstitial site** in the crystal lattice.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">• Density remains unchanged.</p>
+              <p style="font-size: 0.9rem;">• Shown by compounds with large size differences (e.g. ZnS, AgCl, AgI, AgBr).</p>
+              <p style="margin-top: 0.25rem; font-size: 0.8rem; color:#ef4444;">Note: AgBr exhibits BOTH Schottky and Frenkel defects.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Launch Simulator -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Solid State Lab</h2>
+          <span class="chapter-tag">The Solid State</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Unit Cell Packing Simulator</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the 3D unit cell simulation container. Choose lattice symmetries, adjust packing sphere radius parameters, and observe real-time calculations.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Unit Cell Simulator
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 8</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Solid State Virtual Laboratory</h3>
+          <p>Toggle packing efficiencies or simulate ionic point defects in crystal lattices</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close unit cell simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="lattice-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-packing">Lattice Packing</button>
+              <button class="sim-tab-btn" id="tab-defects">Point Defects</button>
+            </div>
+
+            <!-- Packing Simulation Panel -->
+            <div id="packing-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <canvas id="lattice-canvas" style="flex-grow: 1; width: 100%; background: #020617; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);"></canvas>
+              
+              <div class="lattice-stats">
+                <p>Packing Efficiency: <strong class="eff-val" id="pe-display" style="color: #3b82f6;">52.4%</strong></p>
+                <p style="font-size:0.85rem; color:var(--text-secondary);" id="lattice-desc-txt">Simple Cubic Lattice</p>
+              </div>
+            </div>
+
+            <!-- Point Defects Panel -->
+            <div id="defects-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px); align-items: center; justify-content: center;">
+              <canvas id="defects-canvas" width="300" height="200" style="background: #020617; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);"></canvas>
+              
+              <div class="lattice-stats" style="width: 100%;">
+                <p>Crystal Density: <strong class="eff-val" id="density-display" style="color: #10b981;">100.0%</strong></p>
+                <p style="font-size:0.85rem; color:var(--text-secondary);" id="defect-desc-txt">Perfect crystal lattice showing alternating cations (Na⁺) and anions (Cl⁻).</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Packing controls panel -->
+            <div id="packing-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Select Lattice Geometry</label>
+                <div class="toggle-group" id="lattice-toggle">
+                  <button class="toggle-btn active" data-type="scc">Simple (SCC)</button>
+                  <button class="toggle-btn" data-type="bcc">Body Centered (BCC)</button>
+                  <button class="toggle-btn" data-type="fcc">Face Centered (FCC)</button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label for="radius-slider">Sphere Radius factor: <span id="radius-val">1.00</span></label>
+                <input type="range" id="radius-slider" min="0.50" max="1.50" step="0.05" value="1.00">
+              </div>
+            </div>
+
+            <!-- Defects controls panel -->
+            <div id="defects-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Simulate point defect</label>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <button class="toggle-btn" id="schottky-btn">Schottky Defect (Vacancy)</button>
+                  <button class="toggle-btn" id="frenkel-btn">Frenkel Defect (Displacement)</button>
+                </div>
+              </div>
+
+              <button class="toggle-btn" id="reset-defects-btn" style="background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%); font-weight: bold; color: #fff;">Reset Crystal Grid</button>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #3b82f6;">
+              <strong>Solid State Theory:</strong><br>
+              • **Schottky defect** removes equal numbers of cations and anions, causing density to drop.<br>
+              • **Frenkel defect** displaces a cation into an interstitial site, leaving density unchanged.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabPacking = document.getElementById("tab-packing");
+    const tabDefects = document.getElementById("tab-defects");
+    const packingPanel = document.getElementById("packing-panel");
+    const defectsPanel = document.getElementById("defects-panel");
+    const packingControls = document.getElementById("packing-controls");
+    const defectsControls = document.getElementById("defects-controls");
+
+    tabPacking.addEventListener("click", () => {
+      tabPacking.classList.add("active");
+      tabDefects.classList.remove("active");
+      packingPanel.style.display = "flex";
+      defectsPanel.style.display = "none";
+      packingControls.style.display = "flex";
+      defectsControls.style.display = "none";
+    });
+
+    tabDefects.addEventListener("click", () => {
+      tabDefects.classList.add("active");
+      tabPacking.classList.remove("active");
+      defectsPanel.style.display = "flex";
+      packingPanel.style.display = "none";
+      defectsControls.style.display = "flex";
+      packingControls.style.display = "none";
+      drawDefectsLattice();
+    });
+
+    // 3D-like wireframe lattice projection on Canvas
+    const canvas = document.getElementById("lattice-canvas");
+    const ctx = canvas.getContext("2d");
+
+    const latticeToggles = document.querySelectorAll("#lattice-toggle .toggle-btn");
+    const radiusSlider = document.getElementById("radius-slider");
+    const radiusVal = document.getElementById("radius-val");
+    const peDisplay = document.getElementById("pe-display");
+    const latticeDescTxt = document.getElementById("lattice-desc-txt");
+
+    let latticeType = "scc";
+    let isDrawing = false;
+    let animId;
+    let angle = 0.5; // slow rotation
+
+    latticeToggles.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        latticeToggles.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        latticeType = e.target.getAttribute("data-type");
+        updateStats();
+      });
+    });
+
+    radiusSlider.addEventListener("input", () => {
+      radiusVal.textContent = parseFloat(radiusSlider.value).toFixed(2);
+    });
+
+    function updateStats() {
+      if (latticeType === "scc") {
+        peDisplay.textContent = "52.4%";
+        latticeDescTxt.textContent = "Simple Cubic Lattice. Z = 1. Corners occupied.";
+      } else if (latticeType === "bcc") {
+        peDisplay.textContent = "68.0%";
+        latticeDescTxt.textContent = "Body-Centred Cubic Lattice. Z = 2. Corners + Center occupied.";
+      } else {
+        peDisplay.textContent = "74.0%";
+        latticeDescTxt.textContent = "Face-Centred Cubic Lattice. Z = 4. Corners + Face centres occupied.";
+      }
+    }
+
+    // 3D Projection coordinates
+    function project3D(x, y, z) {
+      const cosA = Math.cos(angle);
+      const sinA = Math.sin(angle);
+      
+      const rx = x * cosA - z * sinA;
+      const rz = x * sinA + z * cosA;
+
+      const distance = 300;
+      const scale = 180;
+      const fov = distance / (distance + rz);
+
+      const px = canvas.width / 2 + rx * scale * fov;
+      const py = canvas.height / 2 + y * scale * fov;
+
+      return { x: px, y: py, depth: rz };
+    }
+
+    function initLab() {
+      canvas.width = canvas.clientWidth || 500;
+      canvas.height = canvas.clientHeight || 350;
+    }
+
+    function renderLattice() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      angle += 0.005;
+
+      const r = parseFloat(radiusSlider.value) * 18;
+      const size = 60;
+
+      const vertices = [
+        { x: -size, y: -size, z: -size },
+        { x: size, y: -size, z: -size },
+        { x: size, y: size, z: -size },
+        { x: -size, y: size, z: -size },
+        { x: -size, y: -size, z: size },
+        { x: size, y: -size, z: size },
+        { x: size, y: size, z: size },
+        { x: -size, y: size, z: size }
+      ];
+
+      const projected = vertices.map(v => project3D(v.x, v.y, v.z));
+      let atoms = [];
+      vertices.forEach(v => atoms.push({ x: v.x, y: v.y, z: v.z, r: r, color: "rgba(59, 130, 246, 0.7)" }));
+
+      if (latticeType === "bcc") {
+        atoms.push({ x: 0, y: 0, z: 0, r: r, color: "rgba(244, 63, 94, 0.9)" });
+      } else if (latticeType === "fcc") {
+        atoms.push({ x: 0, y: -size, z: 0, r: r, color: "rgba(16, 185, 129, 0.85)" });
+        atoms.push({ x: 0, y: size, z: 0, r: r, color: "rgba(16, 185, 129, 0.85)" });
+        atoms.push({ x: -size, y: 0, z: 0, r: r, color: "rgba(16, 185, 129, 0.85)" });
+        atoms.push({ x: size, y: 0, z: 0, r: r, color: "rgba(16, 185, 129, 0.85)" });
+        atoms.push({ x: 0, y: 0, z: -size, r: r, color: "rgba(16, 185, 129, 0.85)" });
+        atoms.push({ x: 0, y: 0, z: size, r: r, color: "rgba(16, 185, 129, 0.85)" });
+      }
+
+      const projectedAtoms = atoms.map(a => {
+        const proj = project3D(a.x, a.y, a.z);
+        return { x: proj.x, y: proj.y, depth: proj.depth, r: a.r, color: a.color };
+      });
+
+      const edges = [
+        [0, 1], [1, 2], [2, 3], [3, 0],
+        [4, 5], [5, 6], [6, 7], [7, 4],
+        [0, 4], [1, 5], [2, 6], [3, 7]
+      ];
+
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "rgba(255,255,255,0.25)";
+      edges.forEach(e => {
+        ctx.beginPath();
+        ctx.moveTo(projected[e[0]].x, projected[e[0]].y);
+        ctx.lineTo(projected[e[1]].x, projected[e[1]].y);
+        ctx.stroke();
+      });
+
+      projectedAtoms.sort((a, b) => b.depth - a.depth);
+      
+      projectedAtoms.forEach(a => {
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+        ctx.fillStyle = a.color;
+        ctx.fill();
+        ctx.strokeStyle = "rgba(255,255,255,0.4)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+
+      if (isDrawing) {
+        animId = requestAnimationFrame(renderLattice);
+      }
+    }
+
+    // Point Defects Simulation logic
+    const defectsCanvas = document.getElementById("defects-canvas");
+    const dCtx = defectsCanvas.getContext("2d");
+    const densityDisplay = document.getElementById("density-display");
+    const defectDescTxt = document.getElementById("defect-desc-txt");
+    const schottkyBtn = document.getElementById("schottky-btn");
+    const frenkelBtn = document.getElementById("frenkel-btn");
+    const resetDefectsBtn = document.getElementById("reset-defects-btn");
+
+    // Grid details: 4x4 alternating Na+ (cation, small) and Cl- (anion, large)
+    let grid = [];
+    let defectType = "none"; // 'none', 'schottky', 'frenkel'
+
+    function resetDefects() {
+      defectType = "none";
+      grid = [];
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 4; c++) {
+          grid.push({
+            row: r,
+            col: c,
+            isCation: (r + c) % 2 === 0,
+            present: true,
+            displaced: false,
+            xOffset: 0,
+            yOffset: 0
+          });
+        }
+      }
+      densityDisplay.textContent = "100.0%";
+      densityDisplay.style.color = "#10b981";
+      defectDescTxt.innerHTML = "Perfect crystal lattice showing alternating cations (Na⁺) and anions (Cl⁻).";
+      drawDefectsLattice();
+    }
+
+    function triggerSchottky() {
+      resetDefects();
+      defectType = "schottky";
+
+      // Schottky removes one cation and one anion
+      const cation = grid.find(i => i.isCation && i.present);
+      const anion = grid.find(i => !i.isCation && i.present);
+      
+      if (cation && anion) {
+        cation.present = false;
+        anion.present = false;
+      }
+
+      densityDisplay.textContent = "87.5%"; // 14/16 atoms remaining
+      densityDisplay.style.color = "#ef4444";
+      defectDescTxt.innerHTML = "<strong>Schottky Defect:</strong> One cation and one anion vacant spaces generated. Overall density decreased to 87.5%!";
+      drawDefectsLattice();
+    }
+
+    function triggerFrenkel() {
+      resetDefects();
+      defectType = "frenkel";
+
+      // Frenkel displaces a cation into interstitial space
+      const cation = grid.find(i => i.isCation && i.present);
+      if (cation) {
+        cation.displaced = true;
+        // Shift it diagonally into the interstitial void
+        cation.xOffset = 25;
+        cation.yOffset = 25;
+      }
+
+      densityDisplay.textContent = "100.0%";
+      densityDisplay.style.color = "#10b981";
+      defectDescTxt.innerHTML = "<strong>Frenkel Defect:</strong> One cation displaced from lattice site into an interstitial void. Mass and density remain unchanged.";
+      drawDefectsLattice();
+    }
+
+    function drawDefectsLattice() {
+      dCtx.clearRect(0, 0, defectsCanvas.width, defectsCanvas.height);
+      
+      const startX = 50;
+      const startY = 30;
+      const gapX = 65;
+      const gapY = 45;
+
+      // Draw interstitial voids as faint grey circles
+      for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 3; c++) {
+          const x = startX + c * gapX + gapX / 2;
+          const y = startY + r * gapY + gapY / 2;
+          dCtx.beginPath();
+          dCtx.arc(x, y, 6, 0, Math.PI * 2);
+          dCtx.fillStyle = "rgba(255,255,255,0.06)";
+          dCtx.fill();
+        }
+      }
+
+      grid.forEach(ion => {
+        const x = startX + ion.col * gapX + ion.xOffset;
+        const y = startY + ion.row * gapY + ion.yOffset;
+
+        if (!ion.present) {
+          // Draw empty dashed circle
+          dCtx.beginPath();
+          dCtx.arc(x, y, ion.isCation ? 10 : 15, 0, Math.PI * 2);
+          dCtx.strokeStyle = "rgba(255,255,255,0.2)";
+          dCtx.setLineDash([4, 2]);
+          dCtx.stroke();
+          dCtx.setLineDash([]);
+          return;
+        }
+
+        // Draw solid ion
+        dCtx.beginPath();
+        const rad = ion.isCation ? 10 : 15;
+        dCtx.arc(x, y, rad, 0, Math.PI * 2);
+        
+        if (ion.displaced) {
+          dCtx.fillStyle = "#ffd700"; // highlighted displaced ion
+          dCtx.strokeStyle = "#fff";
+        } else {
+          dCtx.fillStyle = ion.isCation ? "#3b82f6" : "#fb923c"; // Na+ (blue) and Cl- (orange)
+          dCtx.strokeStyle = "rgba(255,255,255,0.3)";
+        }
+        
+        dCtx.fill();
+        dCtx.stroke();
+
+        // Label ion sign
+        dCtx.fillStyle = "#fff";
+        dCtx.font = "bold 10px sans-serif";
+        dCtx.textAlign = "center";
+        dCtx.textBaseline = "middle";
+        dCtx.fillText(ion.isCation ? "+" : "-", x, y);
+      });
+    }
+
+    schottkyBtn.addEventListener("click", triggerSchottky);
+    frenkelBtn.addEventListener("click", triggerFrenkel);
+    resetDefectsBtn.addEventListener("click", resetDefects);
+
+    document.addEventListener("simulator-opened", () => {
+      isDrawing = true;
+      initLab();
+      updateStats();
+      renderLattice();
+      resetDefects();
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      isDrawing = false;
+      cancelAnimationFrame(animId);
+    });
+
+    window.addEventListener("resize", () => {
+      if (document.getElementById("sim-overlay").classList.contains("open")) {
+        initLab();
+        renderLattice();
+      }
+    });
+  </script>
+</body>
+</html>

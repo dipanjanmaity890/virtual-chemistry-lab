@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electrochemistry | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Electrochemistry Custom Simulator CSS */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .cell-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+    }
+    .beakers-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      width: 100%;
+      height: 180px;
+      position: relative;
+      margin-top: 1.5rem;
+    }
+    .beaker {
+      width: 110px;
+      height: 130px;
+      border: 4px solid #cbd5e1;
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .beaker-liquid {
+      width: 100%;
+      height: 70%;
+      transition: background-color 0.3s;
+    }
+    .electrode {
+      width: 16px;
+      height: 140px;
+      position: absolute;
+      top: -30px;
+      border-radius: 4px;
+      z-index: 10;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .electrode-zinc {
+      background: #94a3b8;
+      left: 45px;
+    }
+    .electrode-copper {
+      background: #b45309;
+      right: 45px;
+    }
+    .salt-bridge {
+      width: 120px;
+      height: 60px;
+      border: 10px solid rgba(255,255,255,0.15);
+      border-bottom: none;
+      border-radius: 60px 60px 0 0;
+      position: absolute;
+      top: 30px;
+      left: calc(50% - 60px);
+      z-index: 5;
+    }
+    .salt-bridge-ions {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    .wire-connection {
+      width: 180px;
+      height: 40px;
+      border: 2px solid #ef4444;
+      border-bottom: none;
+      position: absolute;
+      top: -10px;
+      left: 55px;
+      z-index: 2;
+    }
+    .electron {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #39ff14;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #39ff14;
+    }
+    .ion {
+      position: absolute;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #fff;
+      padding: 0.15rem 0.3rem;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    .ion-zn { background-color: #38bdf8; }
+    .ion-cu { background-color: #f59e0b; }
+    
+    .voltmeter-hud {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .volts-val {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #39ff14;
+      text-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .sim-sidebar input[type="range"] {
+      width: 100%;
+      accent-color: #39ff14;
+    }
+  </style>
+</head>
+<body data-theme="electrochemistry">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">UNIT III · PHYSICAL CHEMISTRY</div>
+        <h1>Electrochemistry</h1>
+        <h3>CBSE Class 12 Comprehensive Study Slides</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Galvanic cells, Nernst equation, Kohlrausch's law, Faraday's electrolysis, commercial batteries, and corrosion mechanisms.</p>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Cell Simulator
+        </button>
+      </section>
+
+      <!-- Slide 2: Electrochemical Cells -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Electrochemical & Electrolytic Cells</h2>
+          <span class="chapter-tag">Electrochemistry</span>
+        </div>
+        <div class="slide-body">
+          <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Electrochemistry is the study of production of electricity from energy released during spontaneous chemical reactions and the use of electrical energy to bring about non-spontaneous transformations.</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Galvanic / Voltaic Cells</h3>
+              <p>• Converts **chemical energy of a spontaneous redox reaction** into electrical energy.</p>
+              <p>• **Anode:** Negative electrode (Oxidation: Zn ➔ Zn²⁺ + 2e⁻).</p>
+              <p>• **Cathode:** Positive electrode (Reduction: Cu²⁺ + 2e⁻ ➔ Cu).</p>
+              <p>• Electrons flow from Anode to Cathode through external circuit.</p>
+              <p style="color: var(--text-secondary); font-size: 0.85rem;">• Example: Daniel Cell.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Electrolytic Cells</h3>
+              <p>• Uses **external electrical energy** to drive a non-spontaneous chemical reaction.</p>
+              <p>• **Anode:** Positive electrode (Oxidation occurs here).</p>
+              <p>• **Cathode:** Negative electrode (Reduction occurs here).</p>
+              <p>• Electrolyte decomposes upon passing electric current.</p>
+              <p style="color: var(--text-secondary); font-size: 0.85rem;">• Example: Electrolysis of molten NaCl.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Cell EMF & Representation -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Galvanic Cell EMF & Representation</h2>
+          <span class="chapter-tag">Electrochemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item"><strong>Electrode Potential:</strong> Potential difference developed between the metal electrode and its ion solution at equilibrium.</p>
+              <p class="reveal-item"><strong>Standard Hydrogen Electrode (SHE):</strong> Reference electrode whose standard reduction potential is assigned as **0.00 V** at all temperatures.</p>
+              <p class="reveal-item"><strong>Cell Potential (EMF):</strong> Difference between reduction potentials of cathode and anode:</p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">E°_cell = E°_cathode - E°_anode</div>
+                <div class="formula-label">Measured in Volts. Note: E° values must be reduction potentials.</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Cell Representation Rules</h3>
+                <p>• Oxidation half-cell on the left, Reduction half-cell on the right.</p>
+                <p>• Single vertical line represents phase boundary, double vertical line represents salt bridge.</p>
+                <p style="margin-top: 0.5rem; font-family: monospace; color: var(--accent-color);">
+                  Zn(s) | Zn²⁺(aq, C₁) || Cu²⁺(aq, C₂) | Cu(s)
+                </p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                  **Salt Bridge Function:** Maintains electrical neutrality in both half-cells and completes the circuit without mixing solutions.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Nernst Equation -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>The Nernst Equation</h2>
+          <span class="chapter-tag">Electrochemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">Determines the cell potential at non-standard concentrations and temperatures. For a general electrode reaction: \(M^{n+}(aq) + ne^- \rightarrow M(s)\):</p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">E = E° - (RT / nF) · ln(1 / [M^n+])</div>
+              </div>
+              <p class="reveal-item" style="margin-top: 1rem;">For a complete cell reaction at 298 K:</p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">E_cell = E°_cell - (0.0591 / n) · log(Q)</div>
+                <div class="formula-label">Q = Reaction Quotient = [Product ions] / [Reactant ions]</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Equilibrium & Free Energy</h3>
+                <p>• **Equilibrium Constant (\(K_c\)):** At equilibrium, \(E_{\text{cell}} = 0\), so:</p>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                  <span style="font-family: monospace; font-size: 0.95rem;">log K_c = (n · E°_cell) / 0.0591</span>
+                </div>
+                <p>• **Gibbs Free Energy change (\(\Delta G\)):** Represents maximum electrical work done by the cell:</p>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                  <span style="font-family: monospace; font-size: 0.95rem;">ΔG = -n · F · E_cell  &  ΔG° = -n · F · E°_cell</span>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-secondary);">F = Faraday constant = 96487 C/mol.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Electrolytic Conductance -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Conductance in Electrolytic Solutions</h2>
+          <span class="chapter-tag">Electrochemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Conductivity (κ)</h3>
+              <p>Conductance of 1 cm³ of electrolyte solution. Unit: S/cm. Decreases upon dilution because number of ions per unit volume decreases.</p>
+              <div class="formula-box" style="margin-top: 0.5rem; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.85rem;">κ = (1 / R) · (l / A)</span>
+              </div>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Molar Conductivity (Λm)</h3>
+              <p>Conducting power of all ions produced by dissolving 1 mole of electrolyte. Unit: S cm²/mol. Increases with dilution.</p>
+              <div class="formula-box" style="margin-top: 0.5rem; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.85rem;">Λm = (κ × 1000) / C</span>
+              </div>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Strong vs Weak</h3>
+              <p>• **Strong:** Λm increases slowly with dilution due to lower inter-ionic attractions.</p>
+              <p>• **Weak:** Λm increases steeply at high dilution due to increased degree of dissociation (\(\alpha\)).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Kohlrausch's Law -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Kohlrausch's Law of Independent Migration</h2>
+          <span class="chapter-tag">Electrochemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height: 1.5; margin-bottom: 1rem;">
+                **Statement:** Limiting molar conductivity of an electrolyte (\(\Lambda^\circ_m\)) can be represented as the sum of the individual limiting molar conductivities of its constituent anions and cations.
+              </p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">Λ°m = ν₊ λ°₊ + ν₋ λ°₋</div>
+                <div class="formula-label">ν represents stoichiometric coefficients of ions</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Key Applications</h3>
+                <p>1. **Weak Electrolyte Molar Conductivity:** Calculate \(\Lambda^\circ_m\) for weak electrolytes using strong electrolyte values:</p>
+                <p style="font-size: 0.8rem; font-family: monospace; color: var(--accent-color);">
+                  Λ°(CH₃COOH) = Λ°(CH₃COONa) + Λ°(HCl) - Λ°(NaCl)
+                </p>
+                <p style="margin-top: 0.5rem;">2. **Degree of Dissociation (\(\alpha\)):**</p>
+                <div class="formula-box" style="padding: 0.4rem;">
+                  <span style="font-family: monospace; font-size: 0.9rem;">α = Λm / Λ°m</span>
+                </div>
+                <p style="margin-top: 0.5rem;">3. **Dissociation Constant (\(K_a\)):** \(K_a = \frac{C \alpha^2}{1 - \alpha}\).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Faraday's Laws of Electrolysis -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Faraday's Laws of Electrolysis</h2>
+          <span class="chapter-tag">Electrochemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>First Law</h3>
+              <p>The mass (\(w\)) of a chemical substance deposited or liberated at any electrode during electrolysis is directly proportional to the quantity of electricity (\(Q\)) passed through the electrolyte:</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.95rem;">w = Z · Q = Z · I · t</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Z = Electrochemical equivalent. I = current in Amperes, t = time in seconds.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Second Law</h3>
+              <p>When the same quantity of electricity is passed through different electrolyte solutions, the masses of substances liberated are proportional to their chemical equivalent weights:</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.95rem;">w_1 / w_2 = E_1 / E_2</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Equivalent weight \(E = \text{Molar mass} / \text{valence factor}\).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Commercial Batteries -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Batteries: Primary & Secondary Cells</h2>
+          <span class="chapter-tag">Electrochemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Primary Cells</h3>
+              <p>Reaction occurs only once; cannot be recharged. (e.g., **Dry Cell** - Zinc container anode, MnO₂/C cathode; **Mercury Cell** - provides steady 1.35 V, used in hearing aids).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Secondary Cells</h3>
+              <p>Can be recharged by passing current in opposite direction. (e.g. **Lead Accumulator** - Lead anode, PbO₂ cathode, 38% H₂SO₄ electrolyte; **Nickel-Cadmium cell**).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Fuel Cells</h3>
+              <p>Convert combustion energy of fuels directly to electricity. **H₂-O₂ Fuel Cell** reactions:<br>
+              Anode: 2H₂ + 4OH⁻ ➔ 4H₂O + 4e⁻<br>
+              Cathode: O₂ + 2H₂O + 4e⁻ ➔ 4OH⁻</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Corrosion electrochemical Mechanism -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Corrosion & Rusting of Iron</h2>
+          <span class="chapter-tag">Electrochemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height: 1.5; margin-bottom: 1rem;">
+                Corrosion is an **electrochemical phenomenon**. At a particular spot on the iron surface, oxidation takes place, acting as an **anode**:
+              </p>
+              <div class="formula-box reveal-item" style="padding: 0.5rem; margin-bottom: 1rem;">
+                <span style="font-family: monospace; font-size: 0.95rem;">Anode: 2Fe(s) ➔ 2Fe²⁺ + 4e⁻  (E° = -0.44 V)</span>
+              </div>
+              <p class="reveal-item" style="line-height: 1.5; margin-bottom: 1rem;">
+                Released electrons migrate through the metal to another spot, reducing atmospheric oxygen in the presence of H⁺ (from H₂CO₃ in moisture), acting as a **cathode**:
+              </p>
+              <div class="formula-box reveal-item" style="padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.95rem;">Cathode: O₂ + 4H⁺ + 4e⁻ ➔ 2H₂O  (E° = 1.23 V)</span>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Overall Reaction & Prevention</h3>
+                <p style="font-family: monospace; font-size: 0.9rem; color: var(--accent-color);">
+                  2Fe + O₂ + 4H⁺ ➔ 2Fe²⁺ + 2H₂O (E°_cell = 1.67 V)
+                </p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                  Fe²⁺ ions are further oxidized by atmospheric oxygen to form hydrated ferric oxide, **Rust**: \(Fe_2O_3 \cdot xH_2O\).
+                </p>
+                <p style="margin-top: 0.5rem;">**Prevention Methods:**</p>
+                <p style="font-size: 0.85rem;">• Barrier protection (painting, oiling).<br>
+                • Sacrificial protection / **Galvanisation** (coating iron with a more active metal like Zinc).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Galvanic Lab</h2>
+          <span class="chapter-tag">Electrochemistry</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Galvanic Cell Voltmeter</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the cell simulator to experiment with Zinc and Copper ionic concentrations. Compute cell voltage potentials via the Nernst equation in real-time, and watch flowing copper deposition and zinc dissolution animations.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Cell Simulator
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 10</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Electrochemistry Laboratory</h3>
+          <p>Toggle spontaneous Galvanic reactions or run non-spontaneous Electrolytic cells</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close galvanic cell simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="cell-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-galvanic">Galvanic Cell</button>
+              <button class="sim-tab-btn" id="tab-electrolytic">Electrolytic Cell</button>
+            </div>
+
+            <!-- Galvanic Cell Visualizer Panel -->
+            <div id="galvanic-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <div class="beakers-row">
+                <div class="salt-bridge"></div>
+                <div class="beaker">
+                  <div class="electrode electrode-zinc" title="Zinc Anode"></div>
+                  <div class="beaker-liquid" id="anode-liquid" style="background-color: rgba(56, 189, 248, 0.2);"></div>
+                </div>
+                <div class="wire-connection">
+                  <div class="electron" id="electron-flow" style="display: none; left: 0px; top: -5px;"></div>
+                </div>
+                <div class="beaker">
+                  <div class="electrode electrode-copper" title="Copper Cathode"></div>
+                  <div class="beaker-liquid" id="cathode-liquid" style="background-color: rgba(180, 83, 9, 0.2);"></div>
+                </div>
+              </div>
+              <div class="voltmeter-hud">
+                <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom: 0.15rem;">Voltmeter Reading</p>
+                <div class="volts-val"><span id="voltage-display">1.100</span> V</div>
+              </div>
+            </div>
+
+            <!-- Electrolytic Cell Visualizer Panel -->
+            <div id="electrolytic-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px); align-items: center; justify-content: center; position: relative;">
+              <div style="position: relative; width: 160px; height: 140px; border: 4px solid #cbd5e1; border-top: none; border-radius: 0 0 16px 16px; overflow: hidden; background: rgba(14, 165, 233, 0.15); display: flex; justify-content: space-around; align-items: flex-end; padding-bottom: 5px;">
+                <!-- Inert electrodes -->
+                <div class="electrode" style="left: 40px; background: #475569; width: 12px; height: 110px;" id="elec-anode" title="Anode (+)"></div>
+                <div class="electrode" style="right: 40px; background: #475569; width: 12px; height: 110px;" id="elec-cathode" title="Cathode (-)"></div>
+                
+                <!-- Bubbles container -->
+                <div id="bubbles-container" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;"></div>
+              </div>
+              
+              <!-- Battery symbol -->
+              <div style="display: flex; flex-direction: column; align-items: center; margin-top: 5px;">
+                <div style="width: 2px; height: 15px; background: #ef4444;"></div>
+                <div style="display: flex; gap: 4px; align-items: center; background: #1e293b; border: 1px solid rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px;">
+                  <span style="font-size: 0.75rem; font-weight: bold; color: #ef4444;">BATTERY</span>
+                </div>
+              </div>
+
+              <div class="voltmeter-hud" style="margin-top: 0.5rem;">
+                <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom: 0.15rem;">Faraday Yield (H₂ Gas)</p>
+                <div class="volts-val" style="color: #38bdf8;"><span id="yield-display">0.00</span> mg</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Galvanic Sidebar controls -->
+            <div id="galvanic-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label for="zn-conc">Anode [Zn²⁺] Concentration: <span id="zn-conc-val">1.0</span> M</label>
+                <input type="range" id="zn-conc" min="0.01" max="2.00" step="0.05" value="1.00">
+              </div>
+
+              <div class="control-group">
+                <label for="cu-conc">Cathode [Cu²⁺] Concentration: <span id="cu-conc-val">1.0</span> M</label>
+                <input type="range" id="cu-conc" min="0.01" max="2.00" step="0.05" value="1.00">
+              </div>
+
+              <button class="btn-launch-simulator" id="cell-run-btn" style="justify-content: center; padding: 0.8rem; margin-top: 0.5rem; width: 100%; background: linear-gradient(135deg, #39ff14 0%, rgba(57, 255, 20, 0.4) 100%); color: #000; font-weight: bold;">
+                Run Cell
+              </button>
+
+              <div class="kinetics-info-box" style="border-left-color: #39ff14;">
+                <strong>Nernst Step-by-Step:</strong><br>
+                <div id="nernst-step-by-step" style="font-family: monospace; font-size: 0.85rem; margin-top: 0.35rem; line-height: 1.4;">
+                  Q = 1.00 / 1.00 = 1.000<br>
+                  E = 1.10 - 0.0295 log(1.000)<br>
+                  E = 1.100 V
+                </div>
+              </div>
+            </div>
+
+            <!-- Electrolytic Sidebar controls -->
+            <div id="electrolytic-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label for="electrolysis-voltage">Applied Voltage: <span id="voltage-val-txt">2.0</span> V</label>
+                <input type="range" id="electrolysis-voltage" min="1.0" max="6.0" step="0.5" value="2.0">
+              </div>
+
+              <div class="control-group">
+                <label>Reaction: **Electrolysis of Acidified Water**</label>
+                <p style="font-size: 0.8rem; color: var(--text-secondary);">Anode (+): 2H₂O ➔ O₂ + 4H⁺ + 4e⁻<br>Cathode (-): 2H⁺ + 2e⁻ ➔ H₂</p>
+              </div>
+
+              <button class="btn-launch-simulator" id="electrolysis-btn" style="justify-content: center; padding: 0.8rem; margin-top: 0.5rem; width: 100%; background: linear-gradient(135deg, #38bdf8 0%, rgba(56, 189, 248, 0.4) 100%); color: #000; font-weight: bold;">
+                Start Electrolysis
+              </button>
+
+              <div class="kinetics-info-box" style="border-left-color: #38bdf8;">
+                <strong>Faraday's Calculations:</strong><br>
+                <div id="faraday-calculation-text" style="font-family: monospace; font-size: 0.85rem; margin-top: 0.35rem; line-height: 1.4;">
+                  Current I = 2.00 A<br>
+                  Time t = 0 s<br>
+                  w = (Z × I × t) = 0.00 mg
+                </div>
+              </div>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #39ff14;">
+              <strong>Theory Checklist:</strong><br>
+              • **Galvanic cells** produce voltage from spontaneous redox (\(\Delta G < 0\)).<br>
+              • **Electrolytic cells** use applied voltage to force non-spontaneous reactions (\(\Delta G > 0\)).
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabGalvanic = document.getElementById("tab-galvanic");
+    const tabElectrolytic = document.getElementById("tab-electrolytic");
+    const galvanicPanel = document.getElementById("galvanic-panel");
+    const electrolyticPanel = document.getElementById("electrolytic-panel");
+    const galvanicControls = document.getElementById("galvanic-controls");
+    const electrolyticControls = document.getElementById("electrolytic-controls");
+
+    tabGalvanic.addEventListener("click", () => {
+      tabGalvanic.classList.add("active");
+      tabElectrolytic.classList.remove("active");
+      galvanicPanel.style.display = "flex";
+      electrolyticPanel.style.display = "none";
+      galvanicControls.style.display = "flex";
+      electrolyticControls.style.display = "none";
+    });
+
+    tabElectrolytic.addEventListener("click", () => {
+      tabElectrolytic.classList.add("active");
+      tabGalvanic.classList.remove("active");
+      electrolyticPanel.style.display = "flex";
+      galvanicPanel.style.display = "none";
+      electrolyticControls.style.display = "flex";
+      galvanicControls.style.display = "none";
+      resetElectrolysis();
+    });
+
+    // Chapter-specific Galvanic Cell Simulator Logic
+    const znConcInput = document.getElementById("zn-conc");
+    const cuConcInput = document.getElementById("cu-conc");
+    const znConcVal = document.getElementById("zn-conc-val");
+    const cuConcVal = document.getElementById("cu-conc-val");
+    const voltageDisplay = document.getElementById("voltage-display");
+    const nernstSteps = document.getElementById("nernst-step-by-step");
+    const cellRunBtn = document.getElementById("cell-run-btn");
+    
+    // Elements for animations
+    const electronFlow = document.getElementById("electron-flow");
+    const anodeLiquid = document.getElementById("anode-liquid");
+    const cathodeLiquid = document.getElementById("cathode-liquid");
+
+    let animationActive = false;
+    let animInterval;
+    let electronPosition = 0;
+
+    function calculateCellPotential() {
+      const znConc = parseFloat(znConcInput.value);
+      const cuConc = parseFloat(cuConcInput.value);
+      
+      znConcVal.textContent = znConc.toFixed(2);
+      cuConcVal.textContent = cuConc.toFixed(2);
+
+      const standardPotential = 1.10;
+      const Q = znConc / cuConc;
+      const logQ = Math.log10(Q);
+      
+      const correction = 0.02955 * logQ;
+      const cellPotential = standardPotential - correction;
+
+      voltageDisplay.textContent = cellPotential.toFixed(3);
+
+      anodeLiquid.style.backgroundColor = `rgba(56, 189, 248, ${0.1 + (znConc / 2) * 0.4})`;
+      cathodeLiquid.style.backgroundColor = `rgba(180, 83, 9, ${0.05 + (cuConc / 2) * 0.4})`;
+
+      nernstSteps.innerHTML = `
+        Q = ${znConc.toFixed(2)} / ${cuConc.toFixed(2)} = ${Q.toFixed(3)}<br>
+        E = 1.10 - 0.0295 log(${Q.toFixed(3)})<br>
+        E = 1.10 - (${correction.toFixed(4)})<br>
+        E = <strong>${cellPotential.toFixed(3)} V</strong>
+      `;
+    }
+
+    znConcInput.addEventListener("input", calculateCellPotential);
+    cuConcInput.addEventListener("input", calculateCellPotential);
+
+    calculateCellPotential();
+
+    function startCellAnimation() {
+      electronFlow.style.display = "block";
+      animationActive = true;
+      cellRunBtn.textContent = "Stop Cell";
+      cellRunBtn.style.background = "linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%)";
+      cellRunBtn.style.color = "#fff";
+
+      animInterval = setInterval(() => {
+        electronPosition += 8;
+        if (electronPosition > 175) {
+          electronPosition = 0;
+          spawnTemporaryIonAnimation(cathodeLiquid, "ion-cu", "Cu²⁺");
+        }
+        electronFlow.style.left = `${electronPosition}px`;
+        
+        if (Math.random() > 0.7) {
+          spawnTemporaryIonAnimation(anodeLiquid, "ion-zn", "Zn²⁺");
+        }
+      }, 50);
+    }
+
+    function stopCellAnimation() {
+      clearInterval(animInterval);
+      electronFlow.style.display = "none";
+      animationActive = false;
+      cellRunBtn.textContent = "Run Cell";
+      cellRunBtn.style.background = "linear-gradient(135deg, #39ff14 0%, rgba(57, 255, 20, 0.4) 100%)";
+      cellRunBtn.style.color = "#000";
+    }
+
+    cellRunBtn.addEventListener("click", () => {
+      if (animationActive) {
+        stopCellAnimation();
+      } else {
+        startCellAnimation();
+      }
+    });
+
+    function spawnTemporaryIonAnimation(container, className, text) {
+      const ion = document.createElement("div");
+      ion.className = `ion ${className}`;
+      ion.textContent = text;
+      ion.style.left = `${Math.random() * 80 + 10}%`;
+      ion.style.top = `${Math.random() * 50 + 20}%`;
+      ion.style.opacity = "1";
+      ion.style.transition = "transform 1s, opacity 1s";
+      container.appendChild(ion);
+
+      setTimeout(() => {
+        ion.style.transform = className.includes("zn") ? "translateY(-20px)" : "translateY(20px)";
+        ion.style.opacity = "0";
+      }, 50);
+
+      setTimeout(() => {
+        ion.remove();
+      }, 1100);
+    }
+
+    // Electrolytic Cell logic
+    const voltageSlider = document.getElementById("electrolysis-voltage");
+    const voltageValTxt = document.getElementById("voltage-val-txt");
+    const electrolysisBtn = document.getElementById("electrolysis-btn");
+    const bubblesContainer = document.getElementById("bubbles-container");
+    const yieldDisplay = document.getElementById("yield-display");
+    const faradayCalcText = document.getElementById("faraday-calculation-text");
+
+    let isElectrolyzing = false;
+    let electrolysisTimer = 0;
+    let electrolysisInterval;
+    let bubbleInterval;
+
+    function resetElectrolysis() {
+      clearInterval(electrolysisInterval);
+      clearInterval(bubbleInterval);
+      isElectrolyzing = false;
+      electrolysisTimer = 0;
+      yieldDisplay.textContent = "0.00";
+      bubblesContainer.innerHTML = "";
+      electrolysisBtn.textContent = "Start Electrolysis";
+      electrolysisBtn.style.background = "";
+      updateFaradayCalcs();
+    }
+
+    voltageSlider.addEventListener("input", () => {
+      voltageValTxt.textContent = parseFloat(voltageSlider.value).toFixed(1);
+      updateFaradayCalcs();
+    });
+
+    function updateFaradayCalcs() {
+      const v = parseFloat(voltageSlider.value);
+      const current = v * 0.75; // simple R=1.33 ohm representation
+      const Z = 0.0104; // electrochemical equivalent of H2 in mg/C
+      const yieldVal = Z * current * electrolysisTimer;
+      yieldDisplay.textContent = yieldVal.toFixed(2);
+      
+      faradayCalcText.innerHTML = `
+        Current I = ${current.toFixed(2)} A<br>
+        Time t = ${electrolysisTimer} s<br>
+        w = Z · I · t<br>
+        w = ${yieldVal.toFixed(2)} mg
+      `;
+    }
+
+    function runElectrolysis() {
+      if (isElectrolyzing) {
+        resetElectrolysis();
+        return;
+      }
+
+      isElectrolyzing = true;
+      electrolysisBtn.textContent = "Stop Electrolysis";
+      electrolysisBtn.style.background = "linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%)";
+      electrolysisBtn.style.color = "#fff";
+
+      // Increment timer
+      electrolysisInterval = setInterval(() => {
+        electrolysisTimer++;
+        updateFaradayCalcs();
+      }, 1000);
+
+      // Bubble animations
+      bubbleInterval = setInterval(() => {
+        const v = parseFloat(voltageSlider.value);
+        const bubbleCount = Math.floor(v);
+        
+        for (let i = 0; i < bubbleCount; i++) {
+          // Oxygen bubbles on anode (left)
+          createBubble(35 + Math.random() * 20, "O₂");
+          // Hydrogen bubbles on cathode (right)
+          createBubble(95 + Math.random() * 20, "H₂");
+        }
+      }, 300);
+    }
+
+    function createBubble(leftOffset, text) {
+      const b = document.createElement("div");
+      b.style.position = "absolute";
+      b.style.left = `${leftOffset}px`;
+      b.style.bottom = "10px";
+      b.style.width = "6px";
+      b.style.height = "6px";
+      b.style.borderRadius = "50%";
+      b.style.background = "rgba(255,255,255,0.7)";
+      b.style.boxShadow = "0 0 4px #fff";
+      b.style.transition = "transform 1.5s, opacity 1.5s";
+      bubblesContainer.appendChild(b);
+
+      setTimeout(() => {
+        b.style.transform = `translateY(-90px) scale(${1.5 + Math.random()})`;
+        b.style.opacity = "0";
+      }, 50);
+
+      setTimeout(() => {
+        b.remove();
+      }, 1600);
+    }
+
+    electrolysisBtn.addEventListener("click", runElectrolysis);
+
+    document.addEventListener("simulator-opened", () => {
+      calculateCellPotential();
+      resetElectrolysis();
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      stopCellAnimation();
+      resetElectrolysis();
+    });
+  </script>
+</body>
+</html>

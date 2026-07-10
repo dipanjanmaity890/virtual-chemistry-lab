@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>States of Matter | Class 11</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.2); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .chamber { width: 100%; height: 160px; border: 3px solid #fff; position: relative; overflow: hidden; background: #000; margin-top: 1rem; border-radius: 8px; }
+    .gas-particle { width: 6px; height: 6px; background: #38bdf8; border-radius: 50%; position: absolute; }
+    .sim-tab-header { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .sim-tab-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+  </style>
+</head>
+<body data-theme="kinetics">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 11 · Unit V</div>
+      <h1>States of Matter</h1>
+      <p class="subtitle">Intermolecular forces, gaseous laws, Boyle's & Charles's rules, and ideal gas behavior.</p>
+    </section>
+
+    <section class="slide">
+      <h2>Intermolecular Forces</h2>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>Dispersion / London Forces:</strong> Weak attractive forces between temporary dipoles in non-polar molecules (e.g., Helium, Nitrogen).</li>
+        <li class="reveal-item"><strong>Dipole-Dipole Forces:</strong> Occur between molecules having permanent dipoles (e.g., $HCl$).</li>
+        <li class="reveal-item"><strong>Dipole-Induced Dipole:</strong> A polar molecule induces a dipole in a non-polar molecule nearby.</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>The Gas Laws</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Boyle's Law</h3>
+          <p>At constant temperature, pressure of a fixed mass of gas is inversely proportional to its volume:</p>
+          <p>$$P \propto \frac{1}{V} \implies P_1 V_1 = P_2 V_2$$</p>
+        </div>
+        <div>
+          <h3>Charles's Law</h3>
+          <p>At constant pressure, volume of a fixed mass of gas is directly proportional to absolute temperature:</p>
+          <p>$$V \propto T \implies \frac{V_1}{T_1} = \frac{V_2}{T_2}$$</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Ideal Gas Equation</h2>
+      <p>Combining Boyle's, Charles's, and Avogadro's laws gives the Ideal Gas law:</p>
+      <p>$$P V = n R T$$</p>
+      <div class="note-box">
+        <strong>Gas Constant ($R$):</strong>
+        • $R = 8.314 \text{ J mol}^{-1} \text{ K}^{-1}$
+        • $R = 0.0821 \text{ L atm mol}^{-1} \text{ K}^{-1}$
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Gas Particle Chamber Lab</h2>
+      <p>Launch the simulator to adjust Temperature and Volume. Watch how pressure responds and see speeds of particles in the containment chamber.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 5</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3>🧪 Ideal Gas Chamber Simulator</h3>
+        </div>
+        <button id="close-overlay" class="close-btn">✕</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer">
+            <h4>Gas Particle Chamber</h4>
+            <div style="display:flex; gap:1rem; margin-bottom:1rem;">
+              <div class="control-group">
+                <label>Temperature (K)</label>
+                <input type="range" id="gas-temp" min="100" max="600" value="300" oninput="runGasSim()">
+                <span id="gas-temp-val">300 K</span>
+              </div>
+              <div class="control-group">
+                <label>Volume (L)</label>
+                <input type="range" id="gas-vol" min="50" max="100" value="100" oninput="runGasSim()">
+                <span id="gas-vol-val">10.0 L</span>
+              </div>
+            </div>
+            <div class="chamber" id="chamber-box">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <div>
+              <h3>Chamber HUD</h3>
+              <div id="calc-status" style="margin-top:1rem; font-size:0.85rem; color:#e2e8f0; line-height:1.5;">Adjust sliders. Observe collision frequency and calculated pressure.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    const box = document.getElementById("chamber-box");
+    let particles = [];
+
+    // Create 30 particles
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement("div");
+      p.className = "gas-particle";
+      box.appendChild(p);
+      particles.push({
+        el: p,
+        x: Math.random() * 200 + 10,
+        y: Math.random() * 100 + 10,
+        vx: (Math.random() - 0.5) * 2,
+        vy: (Math.random() - 0.5) * 2
+      });
+    }
+
+    function runGasSim() {
+      const T = parseFloat(document.getElementById("gas-temp").value);
+      const V = parseFloat(document.getElementById("gas-vol").value);
+      
+      document.getElementById("gas-temp-val").textContent = T + " K";
+      document.getElementById("gas-vol-val").textContent = (V / 10).toFixed(1) + " L";
+
+      // P = nRT / V
+      const P = (30 * 0.0821 * T) / V;
+      document.getElementById("calc-status").innerHTML = `
+        <strong>Gas Calculations:</strong><br>
+        • Temp = <strong>${T} K</strong><br>
+        • Volume = <strong>${(V / 10).toFixed(1)} L</strong><br>
+        • <strong>Calculated Pressure = ${P.toFixed(2)} atm</strong><br><br>
+        • Increasing T increases average kinetic speed of particles.<br>
+        • Decreasing V restricts chamber space, increasing collision rates.
+      `;
+
+      // Adjust box width based on volume
+      box.style.width = V + "%";
+
+      // Particle speed factor
+      const speedFactor = Math.sqrt(T / 300);
+      particles.forEach(p => {
+        p.vx = (p.vx > 0 ? 1 : -1) * 2 * speedFactor;
+        p.vy = (p.vy > 0 ? 1 : -1) * 2 * speedFactor;
+      });
+    }
+
+    // Basic animation loop
+    let animId;
+    function animateParticles() {
+      const w = box.clientWidth;
+      const h = box.clientHeight;
+      
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > w - 6) { p.vx *= -1; p.x = Math.max(0, Math.min(p.x, w - 6)); }
+        if (p.y < 0 || p.y > h - 6) { p.vy *= -1; p.y = Math.max(0, Math.min(p.y, h - 6)); }
+
+        p.el.style.left = p.x + "px";
+        p.el.style.top = p.y + "px";
+      });
+      animId = requestAnimationFrame(animateParticles);
+    }
+
+    document.addEventListener("simulator-opened", () => {
+      runGasSim();
+      if (!animId) {
+        animateParticles();
+      }
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      if (animId) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    });
+  </script>
+</body>
+</html>

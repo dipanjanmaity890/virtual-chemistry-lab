@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redox Reactions | Class 11</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.2); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .sim-tab-header { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .sim-tab-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+  </style>
+</head>
+<body data-theme="electrochemistry">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 11 · Unit VIII</div>
+      <h1>Redox Reactions</h1>
+      <p class="subtitle">Classical concept of oxidation/reduction, oxidation number calculations, balancing redox equations, and electrochemical cells.</p>
+    </section>
+
+    <section class="slide">
+      <h2>Concept of Oxidation & Reduction</h2>
+      <div class="cols-2">
+        <div class="note-box">
+          <strong>Oxidation:</strong>
+          • Gain of oxygen.
+          • Loss of hydrogen.
+          • **Loss of electrons (De-electronation).**
+          $$Zn \rightarrow Zn^{2+} + 2e^-$$
+        </div>
+        <div class="note-box">
+          <strong>Reduction:</strong>
+          • Loss of oxygen.
+          • Gain of hydrogen.
+          • **Gain of electrons (Electronation).**
+          $$Cu^{2+} + 2e^- \rightarrow Cu$$
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Rules for Oxidation Number</h2>
+      <ul class="reveal-list">
+        <li class="reveal-item">Fluorine always has oxidation number -1 in its compounds.</li>
+        <li class="reveal-item">Oxygen has -2 (except in peroxides like $H_2O_2$ where it is -1, and $OF_2$ where it is +2).</li>
+        <li class="reveal-item">Hydrogen is +1 (except in metallic hydrides like $NaH$ where it is -1).</li>
+        <li class="reveal-item">Sum of oxidation numbers in a neutral compound is 0; in an ion, it equals the charge.</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>Interactive Redox Solver Lab</h2>
+      <p>Launch the simulator to calculate oxidation numbers in molecular structures, and step through half-reaction balancing.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 4</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3>🧪 Redox & Oxidation Number Solver</h3>
+        </div>
+        <button id="close-overlay" class="close-btn">✕</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer">
+            <h4>Select Compound to solve Oxidation State</h4>
+            <div style="margin-bottom:1rem;">
+              <select id="redox-select" style="background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px;">
+                <option value="kmno4">KMnO₄ (Solve Manganese Mn)</option>
+                <option value="k2cr2o7">K₂Cr₂O₇ (Solve Chromium Cr)</option>
+              </select>
+            </div>
+            <button onclick="solveRedox()" style="background:#38bdf8; color:#000; padding:0.5rem 1rem; border:none; border-radius:6px; cursor:pointer;">Solve Oxidation State</button>
+          </div>
+
+          <div class="sim-sidebar">
+            <div>
+              <h3>Redox HUD</h3>
+              <div id="calc-status" style="margin-top:1rem; font-size:0.85rem; color:#e2e8f0; line-height:1.5;">Click Solve to see step-by-step algebra for the oxidation state.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    function solveRedox() {
+      const val = document.getElementById("redox-select").value;
+      if (val === "kmno4") {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Solving Mn in KMnO₄:</strong><br>
+          • K is Group 1: <strong>+1</strong><br>
+          • O is oxygen: <strong>-2</strong> (4 atoms = -8)<br><br>
+          • Let Mn = x<br>
+          • (+1) + x + (-8) = 0<br>
+          • x - 7 = 0<br>
+          • <strong>Oxidation State of Mn = +7</strong>
+        `;
+      } else {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Solving Cr in K₂Cr₂O₇:</strong><br>
+          • K is Group 1: <strong>+1</strong> (2 atoms = +2)<br>
+          • O is oxygen: <strong>-2</strong> (7 atoms = -14)<br><br>
+          • Let Cr = x (2 atoms = 2x)<br>
+          • (+2) + 2x + (-14) = 0<br>
+          • 2x - 12 = 0<br>
+          • 2x = 12 $\implies$ x = +6<br>
+          • <strong>Oxidation State of Cr = +6</strong>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>

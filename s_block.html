@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>s-Block Elements | Class 11</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.2); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .bunsen-flame {
+      width: 24px;
+      height: 45px;
+      background: radial-gradient(circle at bottom, #3b82f6 0%, #ef4444 60%, transparent 100%);
+      border-radius: 50% 50% 20% 20%;
+      animation: flicker 0.15s infinite;
+      filter: blur(1px);
+    }
+    @keyframes flicker {
+      0% { transform: scale(1); }
+      50% { transform: scale(0.9, 1.1) skewX(2deg); }
+      100% { transform: scale(1.05, 0.95) skewX(-2deg); }
+    }
+    .flame-li {
+      background: radial-gradient(circle at bottom, #f43f5e 0%, #e11d48 60%, transparent 100%) !important;
+      box-shadow: 0 -4px 15px rgba(225, 29, 72, 0.6);
+    }
+    .flame-na {
+      background: radial-gradient(circle at bottom, #fbbf24 0%, #f59e0b 60%, transparent 100%) !important;
+      box-shadow: 0 -4px 15px rgba(245, 158, 11, 0.6);
+    }
+    .flame-k {
+      background: radial-gradient(circle at bottom, #c084fc 0%, #a855f7 60%, transparent 100%) !important;
+      box-shadow: 0 -4px 15px rgba(168, 85, 247, 0.6);
+    }
+  </style>
+</head>
+<body data-theme="d-f-block">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 11 · Unit X</div>
+      <h1>s-Block Elements</h1>
+      <p class="subtitle">Group 1 (Alkali Metals) & Group 2 (Alkaline Earth Metals) properties, diagonal relationships, and compounds.</p>
+    </section>
+
+    <section class="slide">
+      <h2>Characteristics of Alkali Metals</h2>
+      <ul class="reveal-list">
+        <li class="reveal-item">Valence shell configuration: $ns^1$. Highly electropositive.</li>
+        <li class="reveal-item">Low ionization enthalpies, decreasing down the group as size increases.</li>
+        <li class="reveal-item">Flame colors: Cations are excited in burner flames and emit characteristic wavelengths:
+          <br>• Lithium: **Crimson** | Sodium: **Yellow** | Potassium: **Lilac**
+        </li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>Solvay Process</h2>
+      <p>Industrial manufacture of Sodium Carbonate ($Na_2CO_3$):</p>
+      <p>$$2NH_3 + CO_2 + H_2O \rightarrow (NH_4)_2CO_3$$</p>
+      <p>$$(NH_4)_2CO_3 + CO_2 + H_2O \rightarrow 2NH_4HCO_3$$</p>
+      <p>$$NH_4HCO_3 + NaCl \rightarrow NH_4Cl + NaHCO_3 \downarrow$$</p>
+      <p>Heating Sodium Bicarbonate yields soda ash: $$2NaHCO_3 \rightarrow Na_2CO_3 + CO_2 + H_2O$$</p>
+    </section>
+
+    <section class="slide">
+      <h2>s-Block Flame Colors Lab</h2>
+      <p>Launch the simulator to dip loops in metal solutions and burn them to see signature flame spectrum emissions.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 4</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3>🧪 Alkali Cation Flame Test</h3>
+        </div>
+        <button id="close-overlay" class="close-btn">✕</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer" style="display:flex; flex-direction:column; align-items:center; gap:1.25rem; padding: 1.25rem;">
+            <div style="display:flex; flex-direction:column; gap:0.5rem; width:100%;">
+              <h4 style="margin-bottom:0.25rem;">Select Alkali Metal Cation</h4>
+              <select id="flame-cation" style="background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px; border:1px solid rgba(255,255,255,0.1); width:100%;">
+                <option value="li">Lithium (Li⁺)</option>
+                <option value="na">Sodium (Na⁺)</option>
+                <option value="k">Potassium (K⁺)</option>
+              </select>
+              <button onclick="burnMetal()" style="background:#38bdf8; color:#000; padding:0.6rem; border:none; border-radius:8px; cursor:pointer; font-weight:bold; margin-top:0.5rem;">Burn Sample</button>
+            </div>
+            
+            <div style="position:relative; width:160px; height:150px; background:#020617; border-radius:12px; border:1px solid rgba(255,255,255,0.05); display:flex; flex-direction:column; justify-content:flex-end; align-items:center; padding-bottom:1rem; overflow:hidden; width:100%;">
+              <div id="s-flame" class="bunsen-flame" style="position:absolute; bottom:52px; display:none;"></div>
+              <div style="width:14px; height:40px; background:linear-gradient(90deg, #64748b, #94a3b8, #64748b); border-radius:2px; z-index:2;"></div>
+              <div style="width:46px; height:12px; background:#475569; border-radius:4px; z-index:2;"></div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <div>
+              <h3>Spectrometer HUD</h3>
+              <div id="calc-status" style="margin-top:1rem; font-size:0.85rem; color:#e2e8f0; line-height:1.5;">Click Burn Sample to see flame emission colors.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    function burnMetal() {
+      const val = document.getElementById("flame-cation").value;
+      const flame = document.getElementById("s-flame");
+      flame.style.display = "block";
+      flame.className = "bunsen-flame flame-" + val;
+
+      if (val === "li") {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Flame Emission: Lithium</strong><br>
+          • Flame Color: <span style="color:#f43f5e; font-weight:bold;">Crimson Red</span><br>
+          • Emission Wavelength: <strong>670.8 nm</strong>
+        `;
+      } else if (val === "na") {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Flame Emission: Sodium</strong><br>
+          • Flame Color: <span style="color:#eab308; font-weight:bold;">Golden Yellow</span><br>
+          • Emission Wavelength: <strong>589.2 nm (D-line doublet)</strong>
+        `;
+      } else {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Flame Emission: Potassium</strong><br>
+          • Flame Color: <span style="color:#d946ef; font-weight:bold;">Lilac / Violet</span><br>
+          • Emission Wavelength: <strong>766.5 nm</strong>
+        `;
+      }
+    }
+
+    document.addEventListener("simulator-closed", () => {
+      document.getElementById("s-flame").style.display = "none";
+    });
+  </script>
+</body>
+</html>

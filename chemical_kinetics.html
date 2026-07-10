@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chemical Kinetics | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Chemical Kinetics Custom Simulator CSS */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .kinetics-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+    }
+    #kinetics-canvas {
+      flex-grow: 1;
+      width: 100%;
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.75rem;
+      border-radius: 12px;
+    }
+    .stat-box {
+      text-align: center;
+    }
+    .stat-lbl {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .stat-num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .sim-sidebar input[type="range"] {
+      width: 100%;
+      accent-color: #ff3c00;
+    }
+  </style>
+</head>
+<body data-theme="kinetics">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">UNIT IV · PHYSICAL CHEMISTRY</div>
+        <h1>Chemical Kinetics</h1>
+        <h3>CBSE Class 12 Comprehensive Study Slides</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Rates of reaction, integrated rate laws, molecularity, Arrhenius temperature dependence, and collision theory mechanisms.</p>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Kinetics Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Rate of Reaction -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Rate of a Chemical Reaction</h2>
+          <span class="chapter-tag">Chemical Kinetics</span>
+        </div>
+        <div class="slide-body">
+          <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">The speed at which reactants are converted into products. It is defined as the change in concentration of a reactant or a product per unit time.</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Average vs Instantaneous Rate</h3>
+              <p>• **Average Rate (\(r_{\text{avg}}\)):** Change in concentration over a finite time interval \(\Delta t\):</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.4rem;">
+                <span style="font-family: monospace; font-size: 0.85rem;">r_avg = -Δ[R]/Δt = +Δ[P]/Δt</span>
+              </div>
+              <p>• **Instantaneous Rate (\(r_{\text{inst}}\)):** Rate at a specific instant of time (when \(\Delta t \rightarrow 0\)):</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.4rem;">
+                <span style="font-family: monospace; font-size: 0.85rem;">r_inst = -d[R]/dt = +d[P]/dt</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Unit of rate: **mol L⁻¹ s⁻¹** (or atm s⁻¹ for gases).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Stoichiometric Coefficients</h3>
+              <p>For a general reaction: \(aA + bB \rightarrow cC + dD\), rates must be divided by stoichiometry to be equal:</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.85rem; line-height: 1.4;">
+                  Rate = -1/a d[A]/dt = -1/b d[B]/dt<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= +1/c d[C]/dt = +1/d d[D]/dt
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Factors Influencing Rate -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Factors Influencing Reaction Rates</h2>
+          <span class="chapter-tag">Chemical Kinetics</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <ul>
+                <li class="reveal-item"><strong>Concentration:</strong> Higher concentration of reactants increases the frequency of molecular collisions, speeding up the reaction.</li>
+                <li class="reveal-item"><strong>Temperature:</strong> Raising the temperature increases the kinetic energy of molecules. Generally, the rate constant **doubles** for every 10° rise in temperature.</li>
+                <li class="reveal-item"><strong>Catalyst:</strong> Provides an alternative pathway with a **lower activation energy**, accelerating both forward and backward rates.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Other Crucial Factors</h3>
+                <p>• **Nature of Reactants:** Ionic reactions (e.g. \(Ag^+ + Cl^- \rightarrow AgCl(s)\)) are extremely fast compared to covalent bond-breaking reactions.</p>
+                <p style="margin-top: 0.5rem;">• **Surface Area:** Fine powders react faster than large solid chunks (e.g., powdered coal burns instantly compared to coal lumps).</p>
+                <p style="margin-top: 0.5rem;">• **Presence of Light:** Photochemical reactions (e.g., photosynthesis, \(H_2 + Cl_2 \xrightarrow{h\nu} 2HCl\)) depend on light intensity.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Rate Law & Order of Reaction -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Rate Law & Order of Reaction</h2>
+          <span class="chapter-tag">Chemical Kinetics</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item"><strong>Rate Law:</strong> Mathematical expression representing the reaction rate in terms of molar concentrations of reactants raised to powers determined experimentally (which may or may not equal coefficients).</p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">Rate = k · [A]^x · [B]^y</div>
+                <div class="formula-label">k = Rate Constant / Specific Reaction Rate</div>
+              </div>
+              <p class="reveal-item" style="margin-top: 0.5rem;"><strong>Order of Reaction:</strong> The sum of powers (\(x + y\)) of concentrations in the rate law. Can be integer, fractional, or zero.</p>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Units of Rate Constant (k)</h3>
+                <p>Derived using: \([k] = (\text{mol L}^{-1})^{1-n} \cdot s^{-1}\) (where n is order):</p>
+                <p style="margin-top: 0.5rem; font-family: monospace; font-size: 0.85rem; color:#ff3c00;">
+                  • Zero Order (n=0): mol L⁻¹ s⁻¹<br>
+                  • First Order (n=1): s⁻¹<br>
+                  • Second Order (n=2): L mol⁻¹ s⁻¹
+                </p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                  **Physical Significance of k:** High rate constant indicates a fast reaction. It is independent of reactant concentration but changes with temperature.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Molecularity vs Order -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Molecularity vs Order of Reaction</h2>
+          <span class="chapter-tag">Chemical Kinetics</span>
+        </div>
+        <div class="slide-body">
+          <p class="reveal-item" style="margin-bottom: 1.5rem;">For elementary reactions (single-step), molecularity is the number of reacting species colliding simultaneously to yield products.</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Order of Reaction</h3>
+              <p>• Sum of powers in experimental rate law.</p>
+              <p>• Applicable to both elementary and complex reactions.</p>
+              <p>• Can be integer, fraction, or **zero**.</p>
+              <p>• Determined experimentally only.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Molecularity</h3>
+              <p>• Number of reacting atoms/ions/molecules.</p>
+              <p>• Applicable **only to elementary reactions** (meaningless for complex ones).</p>
+              <p>• Always a positive whole number (never zero or fraction).</p>
+              <p>• Theoretical concept derived from mechanism.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Zero Order Rate Equation -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Integrated Rate Law: Zero Order</h2>
+          <span class="chapter-tag">Chemical Kinetics</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">For: \(R \rightarrow P\), where rate is independent of concentration: \(-d[R]/dt = k [R]^0 = k\).</p>
+              <p class="reveal-item">Integrating from \(t=0\) to \(t\):</p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">[R] = -k·t + [R]_0</div>
+                <div class="formula-label">Linear equation. Plotting [R] vs t yields a slope = -k</div>
+              </div>
+              <div class="formula-box reveal-item" style="margin-top: 0.5rem;">
+                <div class="formula-text">k = ([R]_0 - [R]) / t</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Half-Life (\(t_{1/2}\))</h3>
+                <p>Time required for reactant concentration to reduce to half of its initial value. For zero order, setting \([R] = [R]_0 / 2\):</p>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.75rem;">
+                  <span style="font-family: monospace; font-size: 1.1rem; color: #ff3c00;">t_1/2 = [R]_0 / (2k)</span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                  Hence, half-life of a zero-order reaction is **directly proportional** to its initial concentration.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: First Order Rate Equation -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Integrated Rate Law: First Order</h2>
+          <span class="chapter-tag">Chemical Kinetics</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">For: \(R \rightarrow P\), where rate depends on first power: \(-d[R]/dt = k[R]\). Rearranging and integrating gives \(\ln [R] = -kt + \ln [R]_0\). Converting to base 10 log:</p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">k = (2.303 / t) · log([R]_0 / [R])</div>
+                <div class="formula-label">Or: [R] = [R]_0 · e^(-kt) (exponential decay)</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Half-Life & Graphs</h3>
+                <p>Setting \([R] = [R]_0 / 2\):</p>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.6rem;">
+                  <span style="font-family: monospace; font-size: 1.1rem; color:#ff3c00;">t_1/2 = 0.693 / k</span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                  The half-life of a first-order reaction is **independent of the initial concentration**.
+                </p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem;">• Plotting \(\log([R]_0/[R])\) vs \(t\) yields a straight line with slope = \(k / 2.303\).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Pseudo First Order Reactions -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Pseudo First Order Reactions</h2>
+          <span class="chapter-tag">Chemical Kinetics</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height: 1.5; margin-bottom: 1rem;">
+                Reactions which are not truly first-order but behave as first-order under specific conditions (e.g., when one reactant is present in **large excess**, causing its concentration to remain practically constant).
+              </p>
+              <div class="content-card reveal-item">
+                <h3>Example 1: Acid Hydrolysis of Ester</h3>
+                <div class="formula-box" style="padding: 0.5rem; margin-bottom: 0.5rem;">
+                  <span style="font-family: monospace; font-size: 0.85rem; line-height: 1.3;">
+                    CH₃COOC₂H₅ + H₂O ➔ CH₃COOH + C₂H₅OH
+                  </span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Since water is the solvent (excess), \(\text{Rate} = k' [\text{Ester}][H_2O] = k [\text{Ester}]\).</p>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Example 2: Inversion of Cane Sugar</h3>
+                <div class="formula-box" style="padding: 0.5rem; margin-bottom: 0.5rem;">
+                  <span style="font-family: monospace; font-size: 0.85rem; line-height: 1.3;">
+                    C₁₂H₂₂O₁₁ + H₂O ➔ C₆H₁₂O₆ + C₆H₁₂O₆
+                  </span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Hydrolysis of sucrose yields Glucose + Fructose. Again, concentration of water does not change significantly during the reaction.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Temperature Dependence & Arrhenius -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Temperature Dependence & Arrhenius</h2>
+          <span class="chapter-tag">Chemical Kinetics</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item"><strong>Arrhenius Equation:</strong> Expresses rate constant dependency on temperature:</p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">k = A · e^(-E_a / RT)</div>
+                <div class="formula-label">A = Frequency factor, E_a = Activation energy</div>
+              </div>
+              <p class="reveal-item" style="margin-top: 0.5rem;">Comparing rates at two temperatures \(T_1\) and \(T_2\):</p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">log(k_2/k_1) = E_a/2.303R · (1/T_1 - 1/T_2)</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Activation Energy (Ea)</h3>
+                <p>The **minimum excess energy** over ground state that reactants must acquire to form an activated complex/transition state before forming products.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                  • Exothermic or endothermic reactions both require crossing this energy barrier.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Collision Theory -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Collision Theory of Reactions</h2>
+          <span class="chapter-tag">Chemical Kinetics</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">Assumes reactant molecules are **hard spheres** and reaction occurs when they collide. For a collision to be effective (lead to products), it must satisfy two criteria:</p>
+              <ul>
+                <li class="reveal-item"><strong>Energy Barrier:</strong> Colliding molecules must possess minimum kinetic energy called **threshold energy**.</li>
+                <li class="reveal-item"><strong>Orientation Barrier:</strong> Reactants must collide in the proper spatial alignment to allow bond formation.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Mathematical Rate Law</h3>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.75rem;">
+                  <span style="font-family: monospace; font-size: 1.15rem; color:#ff3c00;">Rate = P · Z_AB · e^(-E_a/RT)</span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                  • \(Z_{AB}\): Collision frequency (collisions per second per unit volume).<br>
+                  • \(e^{-E_a/RT}\): Fraction of molecules with kinetic energy \(\ge E_a\).<br>
+                  • \(P\): Orientation/probability factor.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Kinetics Lab</h2>
+          <span class="chapter-tag">Chemical Kinetics</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Collision & Rate Simulator</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the kinetics simulator container. Adjust reaction temperatures, introduce catalytic accelerators, and watch reactant spheres collide to yield product compounds in real-time.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Kinetics Simulator
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 11</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Chemical Kinetics Virtual Laboratory</h3>
+          <p>Toggle particle collision physics or plot integrated first-order decay half-lives</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close kinetics simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="kinetics-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-collision">Collision Chamber</button>
+              <button class="sim-tab-btn" id="tab-decay">Decay Plotter</button>
+            </div>
+
+            <!-- Collision chamber panel -->
+            <div id="collision-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <canvas id="kinetics-canvas" style="flex-grow: 1; width: 100%; background: #020617; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);"></canvas>
+              
+              <div class="stat-row">
+                <div class="stat-box">
+                  <div class="stat-lbl">Reactant A</div>
+                  <div class="stat-num" id="stat-a-count" style="color: #60a5fa;">20</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-lbl">Reactant B</div>
+                  <div class="stat-num" id="stat-b-count" style="color: #fb923c;">20</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-lbl font-bold">Product AB</div>
+                  <div class="stat-num" id="stat-ab-count" style="color: #34d399;">0</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Decay grapher panel -->
+            <div id="decay-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px); align-items: center; justify-content: center;">
+              <canvas id="decay-canvas" width="400" height="220" style="background: #020617; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);"></canvas>
+              
+              <div class="stat-row" style="width: 100%;">
+                <div class="stat-box">
+                  <div class="stat-lbl">Half-Life (t₁/₂)</div>
+                  <div class="stat-num" id="t-half-display" style="color: #38bdf8;">-- s</div>
+                </div>
+                <div class="stat-box" style="flex-grow: 2;">
+                  <div class="stat-lbl">Integrated rate equation</div>
+                  <div style="font-size: 0.95rem; font-family: monospace; margin-top: 0.25rem; color: #fb7185;">k = (2.303 / t) log([A]₀ / [A]t)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Collision Controls -->
+            <div id="collision-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label for="temp-slider">System Temperature: <span id="temp-val">298</span> K</label>
+                <input type="range" id="temp-slider" min="250" max="600" step="10" value="298">
+              </div>
+
+              <div class="control-group" style="flex-direction: row; gap: 1rem; align-items: center;">
+                <input type="checkbox" id="catalyst-check" style="width: 20px; height: 20px; accent-color: #ff3c00;">
+                <label for="catalyst-check" style="cursor: pointer;">Introduce Catalyst (Lowers Ea)</label>
+              </div>
+
+              <button class="btn-launch-simulator" id="run-kin-btn" style="justify-content: center; padding: 0.8rem; margin-top: 0.5rem; width: 100%; background: linear-gradient(135deg, #ff3c00 0%, rgba(255, 60, 0, 0.4) 100%);">
+                Start Simulation
+              </button>
+            </div>
+
+            <!-- Decay Controls -->
+            <div id="decay-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label for="decay-a0">Initial Conc. [A]₀: <span id="decay-a0-val">100</span>%</label>
+                <input type="range" id="decay-a0" min="50" max="100" step="5" value="100">
+              </div>
+
+              <div class="control-group">
+                <label for="decay-k">Rate Constant (k): <span id="decay-k-val">0.15</span> s⁻¹</label>
+                <input type="range" id="decay-k" min="0.05" max="0.30" step="0.01" value="0.15">
+              </div>
+
+              <button class="btn-launch-simulator" id="run-decay-btn" style="justify-content: center; padding: 0.8rem; margin-top: 0.5rem; width: 100%; background: linear-gradient(135deg, #ff3c00 0%, rgba(255, 60, 0, 0.4) 100%);">
+                Start Decomposition
+              </button>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #ff3c00;">
+              <strong>Kinetics Theory:</strong><br>
+              • **Collision theory** states reactant spheres must collide with sufficient kinetic energy and correct spatial orientation.<br>
+              • **First-order half-life** is independent of initial concentration: \(t_{1/2} = 0.693 / k\).
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabCollision = document.getElementById("tab-collision");
+    const tabDecay = document.getElementById("tab-decay");
+    const collisionPanel = document.getElementById("collision-panel");
+    const decayPanel = document.getElementById("decay-panel");
+    const collisionControls = document.getElementById("collision-controls");
+    const decayControls = document.getElementById("decay-controls");
+
+    tabCollision.addEventListener("click", () => {
+      tabCollision.classList.add("active");
+      tabDecay.classList.remove("active");
+      collisionPanel.style.display = "flex";
+      decayPanel.style.display = "none";
+      collisionControls.style.display = "flex";
+      decayControls.style.display = "none";
+    });
+
+    tabDecay.addEventListener("click", () => {
+      tabDecay.classList.add("active");
+      tabCollision.classList.remove("active");
+      decayPanel.style.display = "flex";
+      collisionPanel.style.display = "none";
+      decayControls.style.display = "flex";
+      collisionControls.style.display = "none";
+      resetDecayGraph();
+    });
+
+    // Collision Simulation Logic
+    const canvas = document.getElementById("kinetics-canvas");
+    const ctx = canvas.getContext("2d");
+    const tempSlider = document.getElementById("temp-slider");
+    const tempVal = document.getElementById("temp-val");
+    const catCheck = document.getElementById("catalyst-check");
+    const runKinBtn = document.getElementById("run-kin-btn");
+
+    const statACount = document.getElementById("stat-a-count");
+    const statBCount = document.getElementById("stat-b-count");
+    const statABCount = document.getElementById("stat-ab-count");
+
+    let particles = [];
+    let isRunning = false;
+    let animationFrameId;
+
+    function resizeCanvas() {
+      canvas.width = canvas.clientWidth || 400;
+      canvas.height = canvas.clientHeight || 250;
+    }
+
+    class KineticParticle {
+      constructor(type) {
+        this.type = type;
+        this.radius = 6;
+        this.x = Math.random() * (canvas.width - 20) + 10;
+        this.y = Math.random() * (canvas.height - 20) + 10;
+        this.setSpeed();
+      }
+
+      setSpeed() {
+        const temp = parseInt(tempSlider.value, 10);
+        const baseSpeed = (temp / 298) * 1.5;
+        this.vx = (Math.random() - 0.5) * baseSpeed * 2.5;
+        this.vy = (Math.random() - 0.5) * baseSpeed * 2.5;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < this.radius || this.x > canvas.width - this.radius) {
+          this.vx *= -1;
+          this.x = this.x < this.radius ? this.radius : canvas.width - this.radius;
+        }
+        if (this.y < this.radius || this.y > canvas.height - this.radius) {
+          this.vy *= -1;
+          this.y = this.y < this.radius ? this.radius : canvas.height - this.radius;
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        
+        if (this.type === "A") {
+          ctx.fillStyle = "#60a5fa";
+        } else if (this.type === "B") {
+          ctx.fillStyle = "#fb923c";
+        } else {
+          ctx.fillStyle = "#34d399";
+        }
+        
+        ctx.fill();
+        ctx.strokeStyle = "rgba(255,255,255,0.2)";
+        ctx.stroke();
+      }
+    }
+
+    function initSimulation() {
+      resizeCanvas();
+      particles = [];
+      const count = 20;
+      for (let i = 0; i < count; i++) {
+        particles.push(new KineticParticle("A"));
+        particles.push(new KineticParticle("B"));
+      }
+      updateStats();
+    }
+
+    function updateStats() {
+      statACount.textContent = particles.filter(p => p.type === "A").length;
+      statBCount.textContent = particles.filter(p => p.type === "B").length;
+      statABCount.textContent = particles.filter(p => p.type === "AB").length;
+    }
+
+    function handleCollisions() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const p1 = particles[i];
+          const p2 = particles[j];
+
+          if ((p1.type === "A" && p2.type === "B") || (p1.type === "B" && p2.type === "A")) {
+            const dx = p2.x - p1.x;
+            const dy = p2.y - p1.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < p1.radius + p2.radius) {
+              const temp = parseInt(tempSlider.value, 10);
+              const cat = catCheck.checked;
+              
+              let prob = (temp - 250) / 700;
+              if (cat) prob *= 2.5;
+              
+              if (Math.random() < prob) {
+                p1.type = "AB";
+                particles.splice(j, 1);
+                updateStats();
+                break;
+              } else {
+                const tempVx = p1.vx;
+                const tempVy = p1.vy;
+                p1.vx = p2.vx;
+                p1.vy = p2.vy;
+                p2.vx = tempVx;
+                p2.vy = tempVy;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    function loop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      handleCollisions();
+
+      if (isRunning) {
+        animationFrameId = requestAnimationFrame(loop);
+      }
+    }
+
+    tempSlider.addEventListener("input", () => {
+      tempVal.textContent = tempSlider.value;
+      particles.forEach(p => p.setSpeed());
+    });
+
+    runKinBtn.addEventListener("click", () => {
+      if (!isRunning) {
+        isRunning = true;
+        runKinBtn.textContent = "Reset Simulation";
+        runKinBtn.style.background = "linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%)";
+        loop();
+      } else {
+        isRunning = false;
+        cancelAnimationFrame(animationFrameId);
+        runKinBtn.textContent = "Start Simulation";
+        runKinBtn.style.background = "linear-gradient(135deg, #ff3c00 0%, rgba(255, 60, 0, 0.4) 100%)";
+        initSimulation();
+      }
+    });
+
+    // First-order Decay grapher logic
+    const decayCanvas = document.getElementById("decay-canvas");
+    const dCtx = decayCanvas.getContext("2d");
+    const decayA0 = document.getElementById("decay-a0");
+    const decayA0Val = document.getElementById("decay-a0-val");
+    const decayK = document.getElementById("decay-k");
+    const decayKVal = document.getElementById("decay-k-val");
+    const runDecayBtn = document.getElementById("run-decay-btn");
+    const tHalfDisplay = document.getElementById("t-half-display");
+
+    let decayTime = 0;
+    let decayHistory = [];
+    let isDecaying = false;
+    let decayInterval;
+
+    function resetDecayGraph() {
+      clearInterval(decayInterval);
+      isDecaying = false;
+      decayTime = 0;
+      decayHistory = [];
+      runDecayBtn.textContent = "Start Decomposition";
+      runDecayBtn.style.background = "";
+      
+      const k = parseFloat(decayK.value);
+      const tHalf = 0.693 / k;
+      tHalfDisplay.textContent = tHalf.toFixed(2) + " s";
+      
+      drawDecayGraph();
+    }
+
+    decayA0.addEventListener("input", () => {
+      decayA0Val.textContent = decayA0.value;
+      resetDecayGraph();
+    });
+
+    decayK.addEventListener("input", () => {
+      decayKVal.textContent = decayK.value;
+      resetDecayGraph();
+    });
+
+    function drawDecayGraph() {
+      dCtx.clearRect(0, 0, decayCanvas.width, decayCanvas.height);
+      const width = decayCanvas.width;
+      const height = decayCanvas.height;
+      const padding = 35;
+
+      // Draw Grid Axes
+      dCtx.strokeStyle = "rgba(255,255,255,0.1)";
+      dCtx.lineWidth = 1;
+      
+      // X Axis (Time)
+      dCtx.beginPath();
+      dCtx.moveTo(padding, height - padding);
+      dCtx.lineTo(width - 15, height - padding);
+      dCtx.stroke();
+
+      // Y Axis (Concentration)
+      dCtx.beginPath();
+      dCtx.moveTo(padding, 10);
+      dCtx.lineTo(padding, height - padding);
+      dCtx.stroke();
+
+      // Draw Labels
+      dCtx.fillStyle = "rgba(255,255,255,0.5)";
+      dCtx.font = "9px sans-serif";
+      dCtx.fillText("Time (s)", width - 50, height - 15);
+      
+      dCtx.save();
+      dCtx.translate(12, height / 2 - 10);
+      dCtx.rotate(-Math.PI / 2);
+      dCtx.fillText("Conc. [A] %", 0, 0);
+      dCtx.restore();
+
+      const a0 = parseFloat(decayA0.value);
+      const k = parseFloat(decayK.value);
+      const tHalf = 0.693 / k;
+
+      // Draw t1/2 vertical dashed lines (demonstrating independence)
+      dCtx.strokeStyle = "rgba(56, 189, 248, 0.25)";
+      dCtx.setLineDash([4, 4]);
+      
+      for (let i = 1; i <= 3; i++) {
+        const tVal = tHalf * i;
+        const xPos = padding + (tVal / 25) * (width - padding - 20);
+        if (xPos < width - 15) {
+          dCtx.beginPath();
+          dCtx.moveTo(xPos, 10);
+          dCtx.lineTo(xPos, height - padding);
+          dCtx.stroke();
+
+          dCtx.fillStyle = "#38bdf8";
+          dCtx.fillText(`${i}t½`, xPos - 8, height - padding + 12);
+        }
+      }
+      dCtx.setLineDash([]);
+
+      // Draw history curve
+      if (decayHistory.length > 0) {
+        dCtx.strokeStyle = "#ff3c00";
+        dCtx.lineWidth = 2.5;
+        dCtx.beginPath();
+        
+        decayHistory.forEach((pt, idx) => {
+          const x = padding + (pt.t / 25) * (width - padding - 20);
+          const y = height - padding - (pt.a / 100) * (height - padding - 20);
+          if (idx === 0) dCtx.moveTo(x, y);
+          else dCtx.lineTo(x, y);
+        });
+        dCtx.stroke();
+      }
+    }
+
+    function runDecomposition() {
+      if (isDecaying) {
+        resetDecayGraph();
+        return;
+      }
+
+      isDecaying = true;
+      runDecayBtn.textContent = "Reset Plotter";
+      runDecayBtn.style.background = "linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%)";
+      runDecayBtn.style.color = "#fff";
+
+      const a0 = parseFloat(decayA0.value);
+      const k = parseFloat(decayK.value);
+
+      decayInterval = setInterval(() => {
+        if (decayTime > 25) {
+          clearInterval(decayInterval);
+          return;
+        }
+
+        const a_t = a0 * Math.exp(-k * decayTime);
+        decayHistory.push({ t: decayTime, a: a_t });
+        decayTime += 0.25;
+
+        drawDecayGraph();
+      }, 30);
+    }
+
+    runDecayBtn.addEventListener("click", runDecomposition);
+
+    document.addEventListener("simulator-opened", () => {
+      initSimulation();
+      resetDecayGraph();
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      isRunning = false;
+      cancelAnimationFrame(animationFrameId);
+      clearInterval(decayInterval);
+    });
+  </script>
+</body>
+</html>

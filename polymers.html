@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polymers | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Polymers Chapter Custom Simulator CSS */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .polymer-visualizer {
+      background: #090c14;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 100%;
+      min-height: 380px;
+    }
+    .polymer-display-box {
+      width: 100%;
+      height: 220px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .polymer-tag {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      margin: 0.15rem;
+      border-radius: 6px;
+      font-weight: bold;
+      font-family: monospace;
+      color: #000;
+    }
+    .water-box {
+      border: 2px dashed #f43f5e;
+      border-radius: 8px;
+      padding: 0.15rem;
+      display: inline-flex;
+      animation: pulsate 1.5s infinite alternate;
+    }
+    @keyframes pulsate {
+      from { border-color: rgba(244, 63, 94, 0.3); }
+      to { border-color: rgba(244, 63, 94, 1); }
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+  </style>
+</head>
+<body data-theme="alcohols">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">ORGANIC CHEMISTRY · OPTIONAL UNIT</div>
+        <h1>Polymers</h1>
+        <h3>Monomer polymerisation, addition vs condensation, & biodegradable sheets</h3>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Polymerisation Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Classification -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Classification of Polymers</h2>
+          <span class="chapter-tag">Polymers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Source Based</h3>
+              <p>• **Natural:** Starch, cellulose, natural rubber.</p>
+              <p style="margin-top: 0.25rem;">• **Semi-synthetic:** Cellulose acetate (rayon), cellulose nitrate.</p>
+              <p style="margin-top: 0.25rem;">• **Synthetic:** Polythene, Nylon-6,6, Buna-S.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Structure Based</h3>
+              <p>• **Linear:** High density polythene, PVC. Pack well, high density.</p>
+              <p style="margin-top: 0.25rem;">• **Branched:** Low density polythene.</p>
+              <p style="margin-top: 0.25rem;">• **Cross-linked:** Bakelite, melamine. Form 3D network structure.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Molecular Forces</h3>
+              <p>• **Elastomers:** Weakest forces (rubber).</p>
+              <p>• **Fibres:** Strongest H-bonding (Nylon, Polyester).</p>
+              <p>• **Thermoplastic:** Intermediate (PVC).</p>
+              <p>• **Thermosetting:** Permanent set on heating (Bakelite).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Types of Polymerisation -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Types of Polymerisation Reactions</h2>
+          <span class="chapter-tag">Polymers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>1. Addition Polymerisation</h3>
+              <p>Also called **chain-growth polymerisation**.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">• Monomers contain double/triple bonds.</p>
+              <p style="font-size: 0.9rem;">• Chain grows by adding monomer units one after another.</p>
+              <p style="font-size: 0.9rem;">• No elimination of small molecules.</p>
+              <p style="font-size: 0.9rem; color: var(--text-secondary);">• Examples: Polythene, Teflon, Orlon (PAN).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>2. Condensation Polymerisation</h3>
+              <p>Also called **step-growth polymerisation**.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">• Involves repetitive condensation between bi-functional or tri-functional monomers.</p>
+              <p style="font-size: 0.9rem;">• Accompanied by **elimination of small molecules** like H₂O, HCl, NH₃, or alcohol.</p>
+              <p style="font-size: 0.9rem; color: var(--text-secondary);">• Examples: Terylene, Nylon-6,6, Bakelite.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Addition Polymers -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Important Addition Polymers</h2>
+          <span class="chapter-tag">Polymers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Polythene</h3>
+              <p>• <strong>Low Density Polythene (LDPE):</strong> Formed at high pressure (1000-2000 atm) with oxygen initiator. Highly branched, chemically inert, flexible (e.g. squeeze bottles).</p>
+              <p style="margin-top: 0.5rem;">• <strong>High Density Polythene (HDPE):</strong> Formed at low pressure using **Ziegler-Natta catalyst**. Linear, high density, tough (e.g. buckets, pipes).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Teflon & PAN</h3>
+              <p>• <strong>Teflon (PTFE):</strong> Prepared by heating tetrafluoroethene with persulfate catalyst. Chemically inert, heat resistant (used for non-stick pan coatings).</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.95rem;">n CF₂=CF₂ ➔ -[CF₂—CF₂]ₙ-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Condensation Polymers -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Important Condensation Polymers</h2>
+          <span class="chapter-tag">Polymers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Nylons (Polyamides)</h3>
+              <p>• <strong>Nylon-6,6:</strong> Condensation of Hexamethylenediamine and Adipic acid. High tensile strength, used in bristles, sheets.</p>
+              <p style="margin-top: 0.5rem;">• <strong>Nylon-6:</strong> Prepared by heating Caprolactam with water. Used in ropes, tyre cords.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Polyesters & Bakelite</h3>
+              <p>• <strong>Terylene / Dacron:</strong> Condensation of ethylene glycol and terephthalic acid. Crease-resistant.</p>
+              <p style="margin-top: 0.5rem;">• <strong>Bakelite:</strong> Phenol-formaldehyde crosslinked polymer. Thermosetting, hard, scratch-resistant (used in electrical switches, plugs).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Rubber -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Rubbers (Natural & Synthetic)</h2>
+          <span class="chapter-tag">Polymers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item"><strong>Natural Rubber:</strong> Linear polymer of **isoprene** (cis-1,4-polyisoprene). Sticky, low tensile strength.</p>
+              <p class="reveal-item" style="margin-top: 1rem;"><strong>Vulcanisation:</strong> Heating raw rubber with **sulfur** (3-5%) and additives at 373-415 K. Creates crosslinked sulfur bridges, making it tough, non-sticky, and highly elastic.</p>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Synthetic Rubbers</h3>
+                <p>• <strong>Neoprene:</strong> Polymer of chloroprene. Resistant to oils and solvents.</p>
+                <p style="margin-top: 0.5rem;">• <strong>Buna-S:</strong> Copolymer of 1,3-butadiene and styrene. Highly durable, used in vehicle tyres.</p>
+                <p style="margin-top: 0.5rem;">• <strong>Buna-N:</strong> Copolymer of 1,3-butadiene and acrylonitrile. Resistant to petrol.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Biodegradable Polymers -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Biodegradable Polymers</h2>
+          <span class="chapter-tag">Polymers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.6;">
+                Most synthetic polymers are non-biodegradable and accumulate as waste, causing environmental hazards. To address this, biodegradable synthetic polymers have been developed:
+              </p>
+              <ul>
+                <li class="reveal-item">Contain linkages (like esters or amides) that can be easily broken down by microbial enzymes.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Major Examples</h3>
+                <p>• <strong>PHBV:</strong> Poly-β-hydroxybutyrate-co-β-hydroxyvalerate. Prepared from 3-hydroxybutanoic acid and 3-hydroxypentanoic acid. Used in specialty packaging and orthopedic devices.</p>
+                <p style="margin-top: 0.5rem;">• <strong>Nylon 2-Nylon 6:</strong> Alternating polyamide copolymer of glycine and aminocaproic acid.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Polymerisation Lab</h2>
+          <span class="chapter-tag">Polymers</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Polymer Synthesis Lab</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the polymerisation laboratory. Link ethylene monomers in chain growth or eliminate water between amine and acid components to synthesize Nylon chains.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Polymerisation Lab
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 8</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Polymerisation Reactions</h3>
+          <p>Experiment with addition chain-growth or condensation step-growth polymer formations</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close polymerisation lab">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="polymer-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-addition">Addition (Polythene)</button>
+              <button class="sim-tab-btn" id="tab-condensation">Condensation (Nylon-6,6)</button>
+            </div>
+            
+            <div class="polymer-display-box">
+              <!-- Addition View -->
+              <div id="addition-vis" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
+                <div class="structure-label" id="poly-struct-txt">
+                  <!-- Monomer units filled by JS -->
+                </div>
+                <div style="font-size:0.85rem; color:var(--text-secondary); margin-top: 1.5rem;" id="addition-action-desc">
+                  Ethylene monomers ready. Click Start Polymerisation.
+                </div>
+              </div>
+
+              <!-- Condensation view -->
+              <div id="condensation-vis" style="display: none; width: 100%; flex-direction: column; align-items: center;">
+                <div class="structure-label" id="condensation-struct-text">
+                  <!-- Nylon structures filled by JS -->
+                </div>
+                <div style="font-size:0.85rem; color:var(--text-secondary); margin-top: 1.5rem;" id="condensation-action-desc">
+                  Diamines and Adipic acid monomers ready. Click Form Nylon-6,6.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <div id="addition-sidebar" style="display: flex; flex-direction: column; gap: 1rem;">
+              <button class="btn-launch-simulator" id="addition-run-btn" style="justify-content: center; padding: 0.8rem; background: linear-gradient(135deg, #3b82f6 0%, rgba(59, 130, 246, 0.4) 100%);">
+                Start Polymerisation
+              </button>
+              <div class="kinetics-info-box" style="border-left-color: #3b82f6;">
+                <strong>Chain-Growth:</strong><br>
+                • Monomer: Ethylene (C₂H₄).<br>
+                • Radicals attack double bonds, starting a fast propagation loop.<br>
+                • Yields Polythene macromolecule.
+              </div>
+            </div>
+
+            <div id="condensation-sidebar" style="display: none; flex-direction: column; gap: 1rem;">
+              <button class="btn-launch-simulator" id="condensation-run-btn" style="justify-content: center; padding: 0.8rem; background: linear-gradient(135deg, #10b981 0%, rgba(16, 185, 129, 0.4) 100%);">
+                Form Nylon-6,6
+              </button>
+              <div class="kinetics-info-box" style="border-left-color: #10b981;">
+                <strong>Step-Growth:</strong><br>
+                • Reactants: Hexamethylenediamine + Adipic Acid.<br>
+                • Condensation occurs by eliminating -OH and -H, yielding water.<br>
+                • Forms amide link (-CO-NH-). Repeating steps synthesize Nylon-6,6 chain.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Polymers tabs toggle
+    const tabAdd = document.getElementById("tab-addition");
+    const tabCond = document.getElementById("tab-condensation");
+    const additionVis = document.getElementById("addition-vis");
+    const condensationVis = document.getElementById("condensation-vis");
+    const additionSidebar = document.getElementById("addition-sidebar");
+    const condensationSidebar = document.getElementById("condensation-sidebar");
+
+    // Addition elements
+    const additionRunBtn = document.getElementById("addition-run-btn");
+    const polyStructTxt = document.getElementById("poly-struct-txt");
+    const additionActionDesc = document.getElementById("addition-action-desc");
+
+    // Condensation elements
+    const condensationRunBtn = document.getElementById("condensation-run-btn");
+    const condensationStructText = document.getElementById("condensation-struct-text");
+    const condensationActionDesc = document.getElementById("condensation-action-desc");
+
+    tabAdd.addEventListener("click", () => {
+      tabAdd.classList.add("active");
+      tabCond.classList.remove("active");
+      additionVis.style.display = "flex";
+      condensationVis.style.display = "none";
+      additionSidebar.style.display = "flex";
+      condensationSidebar.style.display = "none";
+      resetAddition();
+    });
+
+    tabCond.addEventListener("click", () => {
+      tabCond.classList.add("active");
+      tabAdd.classList.remove("active");
+      condensationVis.style.display = "flex";
+      additionVis.style.display = "none";
+      condensationSidebar.style.display = "flex";
+      additionSidebar.style.display = "none";
+      resetCondensation();
+    });
+
+    // Addition Logic
+    let addProgressInterval;
+    let addStep = 0;
+
+    function resetAddition() {
+      clearInterval(addProgressInterval);
+      addStep = 0;
+      additionRunBtn.textContent = "Start Polymerisation";
+      additionRunBtn.style.background = "linear-gradient(135deg, #3b82f6 0%, rgba(59, 130, 246, 0.4) 100%)";
+      additionActionDesc.textContent = "Ethylene monomers ready. Click Start Polymerisation.";
+      polyStructTxt.innerHTML = `
+        <span class="polymer-tag" style="background:#cbd5e1;">CH₂=CH₂</span>
+        <span class="polymer-tag" style="background:#cbd5e1;">CH₂=CH₂</span>
+        <span class="polymer-tag" style="background:#cbd5e1;">CH₂=CH₂</span>
+      `;
+    }
+
+    additionRunBtn.addEventListener("click", () => {
+      if (addStep === 0) {
+        addStep = 1;
+        additionRunBtn.textContent = "Linking...";
+        additionActionDesc.textContent = "Free radical initiator attacks first double bond...";
+        
+        let subStep = 0;
+        addProgressInterval = setInterval(() => {
+          subStep++;
+          if (subStep === 1) {
+            polyStructTxt.innerHTML = `
+              <span class="polymer-tag" style="background:#3b82f6; color:#fff;">•CH₂—CH₂•</span>
+              <span class="polymer-tag" style="background:#cbd5e1;">CH₂=CH₂</span>
+              <span class="polymer-tag" style="background:#cbd5e1;">CH₂=CH₂</span>
+            `;
+            additionActionDesc.textContent = "Active radical monomer attacks next molecule...";
+          } 
+          else if (subStep === 2) {
+            polyStructTxt.innerHTML = `
+              <span class="polymer-tag" style="background:#3b82f6; color:#fff;">—CH₂—CH₂—CH₂—CH₂•</span>
+              <span class="polymer-tag" style="background:#cbd5e1;">CH₂=CH₂</span>
+            `;
+            additionActionDesc.textContent = "Chain propagation continues rapidly...";
+          } 
+          else if (subStep === 3) {
+            clearInterval(addProgressInterval);
+            polyStructTxt.innerHTML = `
+              <span class="polymer-tag" style="background:#3b82f6; color:#fff; border: 2px solid #39ff14; box-shadow:0 0 8px #39ff14;">—[CH₂—CH₂]ₙ—</span>
+            `;
+            additionActionDesc.textContent = "Chain terminated. Symmetrical Macromolecule Polythene formed!";
+            additionRunBtn.textContent = "Reset";
+            additionRunBtn.style.background = "linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%)";
+            addStep = 2;
+          }
+        }, 1200);
+      } else {
+        resetAddition();
+      }
+    });
+
+    // Condensation Logic
+    let condJoined = false;
+
+    function resetCondensation() {
+      condJoined = false;
+      condensationRunBtn.textContent = "Form Nylon-6,6";
+      condensationRunBtn.style.background = "linear-gradient(135deg, #10b981 0%, rgba(16, 185, 129, 0.4) 100%)";
+      condensationStructText.innerHTML = `
+        <span class="polymer-tag" style="background:#3b82f6; color:#fff;">NH₂—(CH₂)₆—</span>
+        <span class="water-box" id="cond-h2o">
+          <span class="polymer-tag" style="background:#93c5fd;">NH—H</span>
+          <span>+</span>
+          <span class="polymer-tag" style="background:#ef4444;">HO—CO</span>
+        </span>
+        <span class="polymer-tag" style="background:#f59e0b; color:#000;">—(CH₂)₄—COOH</span>
+      `;
+      condensationActionDesc.textContent = "Monomers aligned. Click Form Nylon-6,6 to eliminate water.";
+    }
+
+    condensationRunBtn.addEventListener("click", () => {
+      if (!condJoined) {
+        const h2o = document.getElementById("cond-h2o");
+        h2o.style.transform = "translateY(-40px)";
+        h2o.style.opacity = "0";
+        h2o.style.transition = "transform 1s, opacity 1s";
+
+        condensationActionDesc.textContent = "Eliminating water molecule (H₂O)...";
+
+        setTimeout(() => {
+          condensationStructText.innerHTML = `
+            <span class="polymer-tag" style="background:#3b82f6; color:#fff;">NH₂—(CH₂)₆—</span>
+            <span class="polymer-tag" style="background:#ef4444; color:#fff; border: 2px solid #39ff14; box-shadow:0 0 8px #39ff14;">NH—CO</span>
+            <span class="polymer-tag" style="background:#f59e0b; color:#000;">—(CH₂)₄—COOH</span>
+          `;
+          condensationActionDesc.textContent = "Step-growth Amide linkage formed! Di-monomer represents Nylon-6,6 repeating unit.";
+          condensationRunBtn.textContent = "Reset";
+          condensationRunBtn.style.background = "linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%)";
+          condJoined = true;
+        }, 1100);
+      } else {
+        resetCondensation();
+      }
+    });
+
+    // Init
+    resetAddition();
+  </script>
+</body>
+</html>

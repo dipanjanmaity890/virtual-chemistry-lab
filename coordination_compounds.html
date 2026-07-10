@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coordination Compounds | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Coordination Custom Simulator CSS */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .cft-visualizer {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      flex-grow: 1;
+      width: 100%;
+      height: 300px;
+      position: relative;
+    }
+    .orbital-line {
+      position: absolute;
+      height: 4px;
+      background: #64748b;
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgba(100, 116, 139, 0.4);
+    }
+    .cft-electron {
+      position: absolute;
+      width: 6px;
+      height: 24px;
+      border-radius: 3px;
+    }
+    .cft-spin-up {
+      background: #bd00ff;
+      box-shadow: 0 0 6px #bd00ff;
+    }
+    .cft-spin-up::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 8px solid #bd00ff;
+    }
+    .cft-spin-down {
+      background: #e11d48;
+      box-shadow: 0 0 6px #e11d48;
+      margin-left: 8px;
+    }
+    .cft-spin-down::before {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: -2px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 8px solid #e11d48;
+    }
+    .cft-label {
+      position: absolute;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .cfse-hud-box {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.75rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .sim-sidebar input[type="range"] {
+      width: 100%;
+      accent-color: #bd00ff;
+    }
+  </style>
+</head>
+<body data-theme="coordination">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">UNIT IX · INORGANIC CHEMISTRY</div>
+        <h1>Coordination Compounds</h1>
+        <h3>CBSE Class 12 Comprehensive Study Slides</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Werner's postulations, structural isomerism, valence bond geometries, crystal field energy splitting, and metal carbonyls synergic bonding.</p>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open CFT Splitting Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Werner's Theory -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Werner's Coordination Theory</h2>
+          <span class="chapter-tag">Coordination Compounds</span>
+        </div>
+        <div class="slide-body">
+          <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Alfred Werner proposed the first coherent theory of coordination compounds based on their chemical behaviour (e.g. reacting cobalt complexes with silver nitrate).</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Postulates</h3>
+              <p>1. **Primary Valence:** Ionizable valency. Corresponds to oxidation state of metal. Satisfied by negative ions.</p>
+              <p style="margin-top: 0.5rem;">2. **Secondary Valence:** Non-ionizable. Corresponds to **coordination number** (number of ligand bonds). Satisfied by neutral molecules or negative ions. It has directional characteristics, determining spatial geometry.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>AgNO₃ Precipitation Proof</h3>
+              <p>For 1 mole of cobalt complexes, moles of AgCl precipitate vary:</p>
+              <p style="margin-top: 0.5rem; font-family: monospace; font-size: 0.85rem; color: var(--accent-color);">
+                • CoCl₃·6NH₃ ➔ [Co(NH₃)₆]³⁺ 3Cl⁻ (3 AgCl)<br>
+                • CoCl₃·5NH₃ ➔ [Co(NH₃)₅Cl]²⁺ 2Cl⁻ (2 AgCl)<br>
+                • CoCl₃·4NH₃ ➔ [Co(NH₃)₄Cl₂]⁺ Cl⁻ (1 AgCl)
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Terms & IUPAC Nomenclature -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Coordination Terms & IUPAC Nomenclature</h2>
+          <span class="chapter-tag">Coordination Compounds</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <ul>
+                <li class="reveal-item"><strong>Ligand:</strong> Ion or molecule that donates electron pair to central atom. (Unidentate, Didentate like oxalate/ethylenediamine, Polydentate like EDTA⁴⁻).</li>
+                <li class="reveal-item"><strong>Ambidentate Ligand:</strong> Can coordinate through two different atoms (e.g. \(NO_2^-\) nitro vs \(ONO^-\) nitrito; \(SCN^-\) thiocyanato vs \(NCS^-\) isothiocyanato).</li>
+                <li class="reveal-item"><strong>Homoleptic vs Heteroleptic:</strong> Homoleptic complexes bind only one type of ligand (e.g. \([Co(NH_3)_6]^{3+}\)).</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>IUPAC Naming Order</h3>
+                <p>1. Name cation first, then anion.</p>
+                <p>2. List ligands in alphabetical order with prefixes (di, tri, tetra, or bis, tris for complex ligands).</p>
+                <p>3. Name central metal. If complex is anionic, metal name ends in **-ate** (e.g., ferrate, cobaltate). Write oxidation state in Roman numerals in brackets.</p>
+                <p style="margin-top: 0.5rem; font-family: monospace; font-size: 0.85rem; color:#bd00ff;">
+                  [Co(NH₃)₄(H₂O)Cl]Cl₂ ➔ Tetraammineaquachloridocobalt(III) chloride
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Structural Isomerism -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Structural Isomerism</h2>
+          <span class="chapter-tag">Coordination Compounds</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Linkage & Coordination Isomerism</h3>
+              <p>• **Linkage Isomerism:** Occurs in complexes containing ambidentate ligands (e.g., \([Co(NH_3)_5(NO_2)]Cl_2\) - yellow, vs \([Co(NH_3)_5(ONO)]Cl_2\) - red).</p>
+              <p style="margin-top: 0.5rem;">• **Coordination Isomerism:** Interchange of ligands between cationic and anionic complex spheres:</p>
+              <p style="font-family: monospace; font-size: 0.85rem; color: var(--accent-color);">
+                [Co(NH₃)₆][Cr(CN)₆] & [Cr(NH₃)₆][Co(CN)₆]
+              </p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Ionization & Solvate Isomerism</h3>
+              <p>• **Ionization Isomerism:** Gives different ions in solution upon ionization:</p>
+              <p style="font-family: monospace; font-size: 0.85rem; color: var(--accent-color);">
+                [Co(NH₃)₅SO₄]Br (gives Br⁻) & [Co(NH₃)₅Br]SO₄ (gives SO₄²⁻)
+              </p>
+              <p style="margin-top: 0.5rem;">• **Solvate / Hydrate Isomerism:** Differ in number of solvent water molecules acting directly as ligands vs free crystal waters:</p>
+              <p style="font-family: monospace; font-size: 0.85rem; color: var(--accent-color);">
+                [Cr(H₂O)₆]Cl₃ (violet) & [Cr(H₂O)₅Cl]Cl₂·H₂O (grey-green)
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Stereoisomerism -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Stereoisomerism: Geometrical & Optical</h2>
+          <span class="chapter-tag">Coordination Compounds</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Geometrical Isomerism</h3>
+              <p>• **Square Planar (\(MA_2B_2\)):** Shows cis- and trans- isomers (e.g. cisplatin vs transplatin).</p>
+              <p>• **Octahedral (\(MA_4B_2\)):** Shows cis- and trans- isomers.</p>
+              <p>• **Octahedral (\(MA_3B_3\)):** Shows **facial (fac)** and **meridional (mer)** isomers (e.g., \([Co(NH_3)_3(NO_2)_3]\)).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Optical Isomerism (Chiral Complexes)</h3>
+              <p>Molecules that form non-superimposable mirror images. Rotate plane polarized light in opposite directions (dextro and laevo forms).</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                • Commonly shown by octahedral complexes containing didentate chelating ligands (e.g., \([Co(en)_3]^{3+}\)).
+              </p>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                • Trans-isomers of type \([Pt(en)_2Cl_2]^{2+}\) have a plane of symmetry and are optically inactive (meso), while the cis-isomer is chiral and optically active.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Valence Bond Theory -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Valence Bond Theory (VBT)</h2>
+          <span class="chapter-tag">Coordination Compounds</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">Explains the hybridization and geometry of complexes based on orbital overlaps. For Octahedral coordination (CN=6):</p>
+              <ul>
+                <li class="reveal-item"><strong>Inner Orbital Complexes (\(d^2sp^3\)):</strong> Uses inner \((n-1)d\) orbitals for hybridisation. Occurs with strong field ligands that force pairing of electrons. Usually low spin/diamagnetic (e.g. \([Co(NH_3)_6]^{3+}\)).</li>
+                <li class="reveal-item"><strong>Outer Orbital Complexes (\(sp^3d^2\)):</strong> Uses outer \(nd\) orbitals. Occurs with weak field ligands. High spin/paramagnetic (e.g. \([CoF_6]^{3-}\)).</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Four-Coordination (CN=4)</h3>
+                <p>• **\(sp^3\) Hybridisation:** Tetrahedral geometry (e.g. \([Ni(CO)_4]\), \([NiCl_4]^{2-}\)).</p>
+                <p>• **\(dsp^2\) Hybridisation:** Square planar geometry (e.g., \([Ni(CN)_4]^{2-}\)).</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem; color:#ef4444;">**VBT Limitation:** Cannot explain the color of complexes or quantify magnetic properties accurately, nor explain why some ligands are strong and others are weak.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Crystal Field Theory: Octahedral -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Crystal Field Theory: Octahedral Splitting</h2>
+          <span class="chapter-tag">Coordination Compounds</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height:1.5;">
+                CFT treats ligands as **point negative charges** (or dipoles) and bonding as electrostatic. In an octahedral field, the six ligands approach along the x, y, and z axes.
+              </p>
+              <p class="reveal-item" style="line-height:1.5; margin-top: 0.5rem;">
+                This destabilizes orbitals lying directly on the axes (\(d_{x^2-y^2}\) and \(d_{z^2}\)) more than orbitals lying in between. Thus, degenerate d-orbitals split into:
+              </p>
+              <ul>
+                <li class="reveal-item">**Lower energy \(t_{2g}\) triplet:** (\(d_{xy}, d_{yz}, d_{xz}\)) stabilized by \(-0.4 \Delta_o\).</li>
+                <li class="reveal-item">**Higher energy \(e_g\) doublet:** stabilized by \(+0.6 \Delta_o\).</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Strong vs Weak Fields</h3>
+                <p>• **Strong Field Ligands:** Large \(\Delta_o\). If \(\Delta_o > P\) (pairing energy), electrons pair up in \(t_{2g}\) first, forming **low spin complexes**.</p>
+                <p>• **Weak Field Ligands:** Small \(\Delta_o\). If \(\Delta_o < P\), electrons remain unpaired and enter \(e_g\), forming **high spin complexes**.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--text-secondary);">**Spectrochemical Series:** Arrangement of ligands in increasing order of crystal field splitting strength: \(I^- < Br^- < Cl^- < F^- < OH^- < H_2O < NH_3 < en < CN^- < CO\).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: CFT: Tetrahedral Splitting -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>CFT: Tetrahedral Splitting</h2>
+          <span class="chapter-tag">Coordination Compounds</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height:1.5;">
+                In tetrahedral coordination, the four ligands approach the central atom in between the axes.
+              </p>
+              <p class="reveal-item" style="line-height:1.5; margin-top: 0.5rem;">
+                Consequently, the \(d_{xy}, d_{yz}, d_{xz}\) orbitals experience more repulsion than the \(d_{x^2-y^2}\) and \(d_{z^2}\) orbitals. The splitting is reversed compared to octahedral:
+              </p>
+              <ul>
+                <li class="reveal-item">**Lower energy \(e\) doublet:** stabilized by \(-0.6 \Delta_t\).</li>
+                <li class="reveal-item">**Higher energy \(t_2\) triplet:** destabilized by \(+0.4 \Delta_t\).</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Splitting Magnitude</h3>
+                <p>Because there are fewer ligands (4 instead of 6) and they don't point directly at the orbitals, tetrahedral splitting is much smaller than octahedral:</p>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.75rem;">
+                  <span style="font-family: monospace; font-size: 1.1rem; color:#bd00ff;">Δ_t = (4/9) · Δ_o</span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Because \(\Delta_t\) is small, it rarely exceeds pairing energy (\(\Delta_t < P\)). Thus, **tetrahedral complexes are almost always high spin**.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Bonding in Metal Carbonyls -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Bonding in Metal Carbonyls</h2>
+          <span class="chapter-tag">Coordination Compounds</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height:1.5; margin-bottom: 0.5rem;">
+                Metal carbonyls are homoleptic complexes of transition metals with carbon monoxide (\(CO\)) as the ligand.
+              </p>
+              <p class="reveal-item" style="line-height:1.5;">
+                The metal-carbon bond possesses both **\(\sigma\) and \(\pi\) character**, creating a unique stabilizing interaction called **synergic bonding**:
+              </p>
+              <ul>
+                <li class="reveal-item">**Sigma (\(\sigma\)) bond:** Formed by donation of lone pair of electrons from carbon of CO into vacant d-orbital of metal.</li>
+                <li class="reveal-item">**Pi (\(\pi\)) bond:** Formed by back-donation of a pair of electrons from filled d-orbital of metal into vacant antibonding \(\pi^*\) orbital of CO.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Synergic Effect</h3>
+                <p>This back-donation of charge from metal to ligand strengthens the ligand-to-metal donation bond, and vice-versa.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">This mutual reinforcement (**synergic effect**) results in a highly stable, strong metal-carbon covalent bond.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">Examples: \(Ni(CO)_4\) (tetrahedral), \(Fe(CO)_5\) (trigonal bipyramidal), \(Cr(CO)_6\) (octahedral).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Stability of Complexes -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Stability of Coordination Complexes</h2>
+          <span class="chapter-tag">Coordination Compounds</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Stability Constants</h3>
+              <p>Refers to the degree of association between the metal ion and ligands in solution at equilibrium. For: \(M + 4L \rightleftharpoons ML_4\):</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.75rem;">
+                <span style="font-family: monospace; font-size: 1.1rem;">β_4 = [ML_4] / ([M] · [L]⁴)</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                \(\beta_4\) is the **overall stability constant**. A larger value represents a more stable complex.
+              </p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Factors Affecting Stability</h3>
+              <p>• **Charge & Size:** Smaller, highly charged metal ions form more stable complexes (higher charge density).</p>
+              <p>• **Basic Strength of Ligand:** More basic ligands donate electrons more easily, increasing stability.</p>
+              <p>• **Chelate Effect:** Chelating (ring-forming) ligands form much more stable complexes than unidentate ligands (due to positive entropy changes).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Coordination Lab</h2>
+          <span class="chapter-tag">Coordination Compounds</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Crystal Field Splitting Lab</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the CFT splitting diagram. Toggle between Octahedral and Tetrahedral fields, switch from weak-field high spin to strong-field low spin ligands, change d-electron counts, and watch orbital energy shifts and CFSE calculations.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch CFT Simulator
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 11</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Coordination Complexes Laboratory</h3>
+          <p>Toggle crystal field energy splittings or inspect structural isomerisms</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close coordination compound simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="cft-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-cft">CFT Splitting</button>
+              <button class="sim-tab-btn" id="tab-isomerism">Isomerism Viewer</button>
+            </div>
+
+            <!-- CFT Panel -->
+            <div id="cft-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <div id="split-diagram-container" style="flex-grow: 1; width: 100%; position: relative; min-height: 250px;">
+                <!-- Programmatically rendered orbital lines and electron arrows -->
+              </div>
+            </div>
+
+            <!-- Isomerism Panel -->
+            <div id="isomerism-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px); align-items: center; justify-content: center;">
+              <canvas id="isomer-canvas" width="360" height="220" style="background: #020617; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);"></canvas>
+              
+              <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem; text-align: center; max-width: 90%;" id="isomer-desc">
+                Square Planar cis-isomer. Similar ligands sit adjacent (90° apart).
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- CFT Controls -->
+            <div id="cft-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Select Geometry</label>
+                <div class="toggle-group" id="geom-toggle">
+                  <button class="toggle-btn active" data-geom="oct">Octahedral (ML₆)</button>
+                  <button class="toggle-btn" data-geom="tet">Tetrahedral (ML₄)</button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label>Ligand Field Strength</label>
+                <div class="toggle-group" id="field-toggle">
+                  <button class="toggle-btn active" data-field="weak">Weak Field (High)</button>
+                  <button class="toggle-btn" data-field="strong">Strong Field (Low)</button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label for="d-electrons">d-Electron Count: d<span id="d-elec-txt">4</span></label>
+                <input type="range" id="d-electrons" min="1" max="10" step="1" value="4">
+              </div>
+
+              <div class="cfse-hud-box">
+                Spin State: <strong id="spin-state-txt" style="color: #bd00ff;">High Spin</strong><br>
+                CFSE Value: <strong id="cfse-val-txt" style="color: #bd00ff;">-0.6 Δ_o</strong>
+              </div>
+            </div>
+
+            <!-- Isomerism Controls -->
+            <div id="isomerism-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Select Complex Isomer</label>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <button class="toggle-btn active" id="btn-cis">cis-[Pt(NH₃)₂Cl₂]</button>
+                  <button class="toggle-btn" id="btn-trans">trans-[Pt(NH₃)₂Cl₂]</button>
+                  <button class="toggle-btn" id="btn-fac">fac-[Co(NH₃)₃(NO₂)₃]</button>
+                  <button class="toggle-btn" id="btn-mer">mer-[Co(NH₃)₃(NO₂)₃]</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #bd00ff;">
+              <strong>Coordination Rules:</strong><br>
+              • **CFT** explains color via d-d electronic excitation energy absorption.<br>
+              • **cis/trans** isomers differ in local spatial symmetry.<br>
+              • **fac/mer** isomerism occurs in octahedral complexes of type \(MA_3B_3\).
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabCft = document.getElementById("tab-cft");
+    const tabIsomerism = document.getElementById("tab-isomerism");
+    const cftPanel = document.getElementById("cft-panel");
+    const isomerismPanel = document.getElementById("isomerism-panel");
+    const cftControls = document.getElementById("cft-controls");
+    const isomerismControls = document.getElementById("isomerism-controls");
+
+    tabCft.addEventListener("click", () => {
+      tabCft.classList.add("active");
+      tabIsomerism.classList.remove("active");
+      cftPanel.style.display = "flex";
+      isomerismPanel.style.display = "none";
+      cftControls.style.display = "flex";
+      isomerismControls.style.display = "none";
+    });
+
+    tabIsomerism.addEventListener("click", () => {
+      tabIsomerism.classList.add("active");
+      tabCft.classList.remove("active");
+      isomerismPanel.style.display = "flex";
+      cftPanel.style.display = "none";
+      isomerismControls.style.display = "flex";
+      cftControls.style.display = "none";
+      drawIsomer();
+    });
+
+    // CFT Simulation Logic
+    const dElectronsInput = document.getElementById("d-electrons");
+    const dElecTxt = document.getElementById("d-elec-txt");
+    const geomToggles = document.querySelectorAll("#geom-toggle .toggle-btn");
+    const fieldToggles = document.querySelectorAll("#field-toggle .toggle-btn");
+    const splitDiagramContainer = document.getElementById("split-diagram-container");
+    const spinStateTxt = document.getElementById("spin-state-txt");
+    const cfseValTxt = document.getElementById("cfse-val-txt");
+
+    let currentGeom = "oct";
+    let currentField = "weak";
+
+    geomToggles.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        geomToggles.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        currentGeom = e.target.getAttribute("data-geom");
+        updateCFT();
+      });
+    });
+
+    fieldToggles.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        fieldToggles.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        currentField = e.target.getAttribute("data-field");
+        updateCFT();
+      });
+    });
+
+    dElectronsInput.addEventListener("input", () => {
+      dElecTxt.textContent = dElectronsInput.value;
+      updateCFT();
+    });
+
+    function updateCFT() {
+      const d = parseInt(dElectronsInput.value, 10);
+      dElecTxt.textContent = d;
+
+      splitDiagramContainer.innerHTML = "";
+      
+      let lowerCount = 0;
+      let upperCount = 0;
+
+      if (currentField === "strong" && currentGeom === "oct") {
+        lowerCount = Math.min(d, 6);
+        upperCount = Math.max(0, d - 6);
+        spinStateTxt.textContent = d >= 4 && d <= 7 ? "Low Spin (Paired)" : "Normal Spin";
+      } else if (currentField === "strong" && currentGeom === "tet") {
+        lowerCount = Math.min(d, 4);
+        upperCount = Math.max(0, d - 4);
+        spinStateTxt.textContent = d >= 3 && d <= 5 ? "Low Spin (Paired)" : "Normal Spin";
+      } else {
+        if (d <= 5) {
+          lowerCount = currentGeom === "oct" ? Math.min(d, 3) : Math.min(d, 2);
+          upperCount = d - lowerCount;
+        } else {
+          lowerCount = currentGeom === "oct" ? 3 + Math.min(d - 5, 3) : 2 + Math.min(d - 5, 2);
+          upperCount = d - lowerCount;
+        }
+        spinStateTxt.textContent = "High Spin (Unpaired)";
+      }
+
+      const width = splitDiagramContainer.clientWidth || 400;
+      const leftCol = width * 0.12;
+      const rightCol = width * 0.60;
+
+      for (let i = 0; i < 5; i++) {
+        const top = 130 + (i - 2) * 8;
+        const o = createOrbitalLine(leftCol, top, 30);
+        splitDiagramContainer.appendChild(o);
+      }
+      
+      const lblSphere = createLabel(leftCol - 5, 80, "Spherical Field");
+      splitDiagramContainer.appendChild(lblSphere);
+
+      if (currentGeom === "oct") {
+        const egTops = [75, 75];
+        const t2gTops = [195, 195, 195];
+
+        const t2gWidth = 40;
+        const t2gSpacing = 50;
+        for (let i = 0; i < 3; i++) {
+          const left = rightCol - 40 + i * t2gSpacing;
+          const o = createOrbitalLine(left, t2gTops[i], t2gWidth);
+          splitDiagramContainer.appendChild(o);
+          fillElectronsInOrbital(o, left, t2gTops[i], t2gWidth, getElectronPairInBox(i, lowerCount, 3));
+        }
+
+        const egWidth = 50;
+        const egSpacing = 70;
+        for (let i = 0; i < 2; i++) {
+          const left = rightCol - 15 + i * egSpacing;
+          const o = createOrbitalLine(left, egTops[i], egWidth);
+          splitDiagramContainer.appendChild(o);
+          fillElectronsInOrbital(o, left, egTops[i], egWidth, getElectronPairInBox(i, upperCount, 2));
+        }
+
+        splitDiagramContainer.appendChild(createLabel(rightCol + 130, 70, "eg"));
+        splitDiagramContainer.appendChild(createLabel(rightCol + 130, 190, "t2g"));
+        
+        const cfse = (-0.4 * lowerCount + 0.6 * upperCount);
+        cfseValTxt.textContent = `${cfse.toFixed(1)} Δ_o`;
+      } else {
+        const t2Tops = [80, 80, 80];
+        const eTops = [190, 190];
+
+        const eWidth = 50;
+        const eSpacing = 70;
+        for (let i = 0; i < 2; i++) {
+          const left = rightCol - 15 + i * eTops[i]; // corrected index to avoid overlap
+          const actualLeft = rightCol - 15 + i * eSpacing;
+          const o = createOrbitalLine(actualLeft, eTops[i], eWidth);
+          splitDiagramContainer.appendChild(o);
+          fillElectronsInOrbital(o, actualLeft, eTops[i], eWidth, getElectronPairInBox(i, lowerCount, 2));
+        }
+
+        const t2Width = 40;
+        const t2Spacing = 50;
+        for (let i = 0; i < 3; i++) {
+          const left = rightCol - 40 + i * t2Spacing;
+          const o = createOrbitalLine(left, t2Tops[i], t2Width);
+          splitDiagramContainer.appendChild(o);
+          fillElectronsInOrbital(o, left, t2Tops[i], t2Width, getElectronPairInBox(i, upperCount, 3));
+        }
+
+        splitDiagramContainer.appendChild(createLabel(rightCol + 130, 75, "t2"));
+        splitDiagramContainer.appendChild(createLabel(rightCol + 130, 185, "e"));
+
+        const cfse = (-0.6 * lowerCount + 0.4 * upperCount);
+        cfseValTxt.textContent = `${cfse.toFixed(1)} Δ_t`;
+      }
+    }
+
+    function createOrbitalLine(left, top, width) {
+      const o = document.createElement("div");
+      o.className = "orbital-line";
+      o.style.left = `${left}px`;
+      o.style.top = `${top}px`;
+      o.style.width = `${width}px`;
+      return o;
+    }
+
+    function createLabel(left, top, text) {
+      const l = document.createElement("div");
+      l.className = "cft-label";
+      l.style.left = `${left}px`;
+      l.style.top = `${top}px`;
+      l.textContent = text;
+      return l;
+    }
+
+    function getElectronPairInBox(boxIndex, totalElectrons, totalBoxes) {
+      let count = 0;
+      if (totalElectrons > boxIndex) count = 1;
+      if (totalElectrons > totalBoxes + boxIndex) count = 2;
+      return count;
+    }
+
+    function fillElectronsInOrbital(lineElement, left, top, width, count) {
+      const center = left + width / 2;
+      if (count >= 1) {
+        const el = document.createElement("div");
+        el.className = "cft-electron cft-spin-up";
+        el.style.left = `${center - 6}px`;
+        el.style.top = `${top - 12}px`;
+        splitDiagramContainer.appendChild(el);
+      }
+      if (count === 2) {
+        const el = document.createElement("div");
+        el.className = "cft-electron cft-spin-down";
+        el.style.left = `${center}px`;
+        el.style.top = `${top - 12}px`;
+        splitDiagramContainer.appendChild(el);
+      }
+    }
+
+    updateCFT();
+
+    // Isomerism Viewer logic
+    const isomerCanvas = document.getElementById("isomer-canvas");
+    const iCtx = isomerCanvas.getContext("2d");
+    const isomerDesc = document.getElementById("isomer-desc");
+
+    let activeIsomer = "cis";
+
+    const isomerBtns = {
+      cis: document.getElementById("btn-cis"),
+      trans: document.getElementById("btn-trans"),
+      fac: document.getElementById("btn-fac"),
+      mer: document.getElementById("btn-mer")
+    };
+
+    Object.keys(isomerBtns).forEach(key => {
+      isomerBtns[key].addEventListener("click", () => {
+        Object.values(isomerBtns).forEach(b => b.classList.remove("active"));
+        isomerBtns[key].classList.add("active");
+        activeIsomer = key;
+        drawIsomer();
+      });
+    });
+
+    function drawIsomer() {
+      iCtx.clearRect(0, 0, isomerCanvas.width, isomerCanvas.height);
+      const cx = isomerCanvas.width / 2;
+      const cy = isomerCanvas.height / 2;
+
+      // Central Metal
+      iCtx.beginPath();
+      iCtx.arc(cx, cy, 18, 0, Math.PI*2);
+      iCtx.fillStyle = "#a855f7";
+      iCtx.fill();
+      iCtx.fillStyle = "#fff";
+      iCtx.font = "11px sans-serif";
+      iCtx.textAlign = "center";
+      iCtx.textBaseline = "middle";
+      
+      if (activeIsomer === "cis" || activeIsomer === "trans") {
+        iCtx.fillText("Pt", cx, cy);
+        
+        // Draw 4 bonds (90 deg apart)
+        const coords = [
+          { x: cx - 50, y: cy - 50, lbl: activeIsomer === "cis" ? "Cl" : "Cl", color: "#22c55e" },
+          { x: cx + 50, y: cy - 50, lbl: activeIsomer === "cis" ? "Cl" : "NH₃", color: activeIsomer === "cis" ? "#22c55e" : "#e2e8f0" },
+          { x: cx + 50, y: cy + 50, lbl: "NH₃", color: "#e2e8f0" },
+          { x: cx - 50, y: cy + 50, lbl: activeIsomer === "cis" ? "NH₃" : "Cl", color: activeIsomer === "cis" ? "#e2e8f0" : "#22c55e" }
+        ];
+
+        coords.forEach(pt => {
+          iCtx.beginPath();
+          iCtx.moveTo(cx, cy);
+          iCtx.lineTo(pt.x, pt.y);
+          iCtx.strokeStyle = "rgba(255,255,255,0.2)";
+          iCtx.lineWidth = 2;
+          iCtx.stroke();
+
+          // Ligand circle
+          iCtx.beginPath();
+          iCtx.arc(pt.x, pt.y, 14, 0, Math.PI*2);
+          iCtx.fillStyle = pt.color;
+          iCtx.fill();
+          iCtx.fillStyle = "#000";
+          iCtx.font = "bold 9px sans-serif";
+          iCtx.fillText(pt.lbl, pt.x, pt.y);
+        });
+
+        isomerDesc.innerHTML = activeIsomer === "cis" ? 
+          "<strong>cis-[Pt(NH₃)₂Cl₂] (Cisplatin):</strong> Chlorido ligands sit adjacent (90°). Exhibits anti-cancer properties by binding to DNA." :
+          "<strong>trans-[Pt(NH₃)₂Cl₂]:</strong> Chlorido ligands sit opposite (180°). Chemically distinct and inactive against tumor cells.";
+
+      } else {
+        // Octahedral Cobalt
+        iCtx.fillText("Co", cx, cy);
+
+        // Draw 6 bonds in 3D-like perspective
+        const coords = [];
+        if (activeIsomer === "fac") {
+          // Facial: three NH3 on one triangular face (e.g. top, left, back)
+          coords.push({ x: cx, y: cy - 60, lbl: "NH₃", color: "#fb923c" }); // top
+          coords.push({ x: cx - 50, y: cy - 20, lbl: "NH₃", color: "#fb923c" }); // left-back
+          coords.push({ x: cx - 40, y: cy + 30, lbl: "NH₃", color: "#fb923c" }); // left-front
+          coords.push({ x: cx, y: cy + 60, lbl: "NO₂", color: "#f43f5e" }); // bottom
+          coords.push({ x: cx + 50, y: cy - 20, lbl: "NO₂", color: "#f43f5e" }); // right-back
+          coords.push({ x: cx + 40, y: cy + 30, lbl: "NO₂", color: "#f43f5e" }); // right-front
+        } else {
+          // Meridional: three NH3 form a plane belt
+          coords.push({ x: cx, y: cy - 60, lbl: "NH₃", color: "#fb923c" });
+          coords.push({ x: cx, y: cy + 60, lbl: "NH₃", color: "#fb923c" });
+          coords.push({ x: cx - 50, y: cy - 20, lbl: "NH₃", color: "#fb923c" });
+          coords.push({ x: cx + 50, y: cy - 20, lbl: "NO₂", color: "#f43f5e" });
+          coords.push({ x: cx - 40, y: cy + 30, lbl: "NO₂", color: "#f43f5e" });
+          coords.push({ x: cx + 40, y: cy + 30, lbl: "NO₂", color: "#f43f5e" });
+        }
+
+        coords.forEach(pt => {
+          iCtx.beginPath();
+          iCtx.moveTo(cx, cy);
+          iCtx.lineTo(pt.x, pt.y);
+          iCtx.strokeStyle = "rgba(255,255,255,0.25)";
+          iCtx.lineWidth = 1.5;
+          iCtx.stroke();
+
+          iCtx.beginPath();
+          iCtx.arc(pt.x, pt.y, 13, 0, Math.PI*2);
+          iCtx.fillStyle = pt.color;
+          iCtx.fill();
+          iCtx.fillStyle = "#fff";
+          iCtx.font = "bold 8px sans-serif";
+          iCtx.fillText(pt.lbl, pt.x, pt.y);
+        });
+
+        // Draw facial triangle highlight if fac
+        if (activeIsomer === "fac") {
+          iCtx.beginPath();
+          iCtx.moveTo(coords[0].x, coords[0].y);
+          iCtx.lineTo(coords[1].x, coords[1].y);
+          iCtx.lineTo(coords[2].x, coords[2].y);
+          iCtx.closePath();
+          iCtx.strokeStyle = "rgba(251, 146, 60, 0.4)";
+          iCtx.lineWidth = 2;
+          iCtx.setLineDash([4, 2]);
+          iCtx.stroke();
+          iCtx.setLineDash([]);
+        }
+
+        isomerDesc.innerHTML = activeIsomer === "fac" ?
+          "<strong>fac-[Co(NH₃)₃(NO₂)₃]:</strong> Facial isomer. Three identical ligands form the corners of one octahedral triangular face." :
+          "<strong>mer-[Co(NH₃)₃(NO₂)₃]:</strong> Meridional isomer. Three identical ligands lie along a meridian plane cycle around the metal center.";
+      }
+    }
+
+    document.addEventListener("simulator-opened", () => {
+      updateCFT();
+      drawIsomer();
+    });
+
+    window.addEventListener("resize", () => {
+      if (document.getElementById("sim-overlay").classList.contains("open")) {
+        updateCFT();
+        drawIsomer();
+      }
+    });
+  </script>
+</body>
+</html>

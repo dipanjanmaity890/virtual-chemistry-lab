@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Is Matter Around Us Pure? | Class 9</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .sim-tab-header { display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .sim-tab-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+    .sim-canvas { width:100%; height:200px; background:#030712; border-radius:12px; border:1px solid rgba(255,255,255,0.05); }
+    .rxn-step { background: rgba(255,255,255,0.04); border-left: 3px solid #38bdf8; border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.5rem; font-size: 0.88rem; line-height: 1.5; }
+  </style>
+</head>
+<body data-theme="solutions">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 9 &middot; Unit II</div>
+      <h1>Is Matter Around Us Pure?</h1>
+      <p class="subtitle">Pure substances, mixtures, solutions, colloids, suspensions, Tyndall effect, and separation techniques.</p>
+    </section>
+    <section class="slide">
+      <h2>Pure Substances vs Mixtures</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Pure Substances</h3>
+          <p>Definite and fixed composition. Can be <strong>elements</strong> (cannot be split further: Fe, Au, O) or <strong>compounds</strong> (two or more elements in fixed ratio: H2O, NaCl, CO2).</p>
+          <div class="note-box">Compound properties differ from constituent elements. E.g., Water (liquid) from Hydrogen (gas) + Oxygen (gas).</div>
+        </div>
+        <div>
+          <h3>Mixtures</h3>
+          <p>Components mixed in any proportion, separated by physical methods, properties are averages of components.</p>
+          <div class="note-box"><strong>Homogeneous:</strong> Uniform composition (salt water, air, alloys like brass).<br><strong>Heterogeneous:</strong> Visibly different components (soil, salad, granite).</div>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Solutions, Colloids and Suspensions</h2>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>True Solution:</strong> Particle size &lt;1 nm. Homogeneous, stable, transparent, not filterable. Solute (dispersed phase) in Solvent (dispersion medium). Example: salt water, glucose in water, ethanol in water.</li>
+        <li class="reveal-item"><strong>Colloidal Solution:</strong> Particle size 1-1000 nm. Appears homogeneous but is heterogeneous. Shows <strong>Tyndall Effect</strong> (scattering of light). Not filterable through paper. Example: milk, butter, fog, smoke, blood, ink, starch solution.</li>
+        <li class="reveal-item"><strong>Suspension:</strong> Particle size &gt;1000 nm. Heterogeneous, settles on standing (unstable), filterable. Example: chalk in water, muddy river water, sand in water.</li>
+      </ul>
+    </section>
+    <section class="slide">
+      <h2>Separation Techniques</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Filtration</h3><p>Removes insoluble solids from liquids using filter paper.</p>
+          <h3>Evaporation</h3><p>Removes dissolved solid by evaporating solvent. E.g., NaCl from seawater.</p>
+          <h3>Centrifugation</h3><p>Centrifugal force separates cream from milk, blood cells from plasma.</p>
+        </div>
+        <div>
+          <h3>Distillation</h3><p>Separates miscible liquids by different boiling points. E.g., water from acetone (b.p. 56C).</p>
+          <h3>Magnetic Separation</h3><p>Separates magnetic iron filings from non-magnetic sulphur using a magnet.</p>
+          <h3>Chromatography</h3><p>Separates dissolved coloured substances by differential adsorption. Ink separates into multiple dye components.</p>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Physical and Chemical Changes</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Physical Changes</h3>
+          <ul>
+            <li>No new substance formed</li>
+            <li>Reversible (mostly)</li>
+            <li>Only state, shape, or size changes</li>
+          </ul>
+          <p>Examples: Melting ice, cutting paper, boiling water, dissolving sugar in water, tearing cloth.</p>
+        </div>
+        <div>
+          <h3>Chemical Changes</h3>
+          <ul>
+            <li>New substance with different properties formed</li>
+            <li>Generally irreversible</li>
+            <li>Energy change (heat, light, sound) observed</li>
+          </ul>
+          <p>Examples: Burning wood, rusting iron (4Fe + 3O2 + water gives Fe2O3.xH2O), cooking food, milk turning sour, photosynthesis.</p>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Mixture Classification Lab</h2>
+      <p>Launch the simulator to classify solutions by particle size, observe the Tyndall Effect in colloids (visible light beam), and test which separation technique works for which mixture.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 6</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title"><h3>Is Matter Around Us Pure? Lab Simulator</h3></div>
+        <button id="close-overlay" class="close-btn">&#x2715;</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer">
+            <h4 style="margin-bottom:0.5rem;">Tyndall Effect Classifier</h4>
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" onclick="setPure('solution')">Salt Water</button>
+              <button class="sim-tab-btn" onclick="setPure('colloid')">Milk</button>
+              <button class="sim-tab-btn" onclick="setPure('suspension')">Muddy Water</button>
+            </div>
+            <canvas id="pure-canvas" class="sim-canvas" width="500" height="200"></canvas>
+            <div id="pure-label" style="margin-top:0.5rem; font-size:0.82rem; color:#94a3b8; text-align:center;"></div>
+          </div>
+          <div class="sim-sidebar">
+            <h3>Separation Test</h3>
+            <select id="sep-select" style="width:100%; background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px; margin-bottom:0.5rem;" onchange="runSep()">
+              <option value="">Select mixture...</option>
+              <option value="salt">Salt in Water</option>
+              <option value="chalk">Chalk in Water</option>
+              <option value="iron_s">Iron + Sulphur</option>
+              <option value="alcohol">Alcohol + Water</option>
+            </select>
+            <select id="method-select" style="width:100%; background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px; margin-bottom:0.75rem;" onchange="runSep()">
+              <option value="">Select method...</option>
+              <option value="filtration">Filtration</option>
+              <option value="evaporation">Evaporation</option>
+              <option value="magnetic">Magnetic Separation</option>
+              <option value="distillation">Distillation</option>
+            </select>
+            <div id="sep-result" style="font-size:0.84rem; color:#e2e8f0; line-height:1.5; background:rgba(56,189,248,0.06); border-radius:8px; padding:0.5rem;">Select a mixture and method.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/presentation.js"></script>
+  <script>
+
+    let pureType = 'solution';
+    const pc = document.getElementById('pure-canvas');
+    const pctx = pc.getContext('2d');
+    let pureParts = [];
+    const pureData = {
+      solution:   {size:3,  count:60, color:'#38bdf8', label:'True Solution: Particles <1 nm | No Tyndall Effect | Cannot Filter', tyndall:false},
+      colloid:    {size:6,  count:35, color:'#a855f7', label:'Colloid (Milk): Particles 1-1000 nm | TYNDALL EFFECT VISIBLE | Cannot Filter Paper', tyndall:true},
+      suspension: {size:11, count:20, color:'#f97316', label:'Suspension: Particles >1000 nm | Settles on Standing | Can Filter', tyndall:false}
+    };
+    function setPure(type) {
+      pureType = type;
+      document.querySelectorAll('.sim-tab-btn').forEach((b,i)=>b.classList.toggle('active',['solution','colloid','suspension'][i]===type));
+      pureParts=[];
+      const d = pureData[type];
+      for(let i=0;i<d.count;i++) pureParts.push({x:Math.random()*pc.width,y:Math.random()*pc.height,vx:(Math.random()-0.5)*(type==='suspension'?0.4:1.5),vy:(Math.random()-0.5)*(type==='suspension'?0.4:1.5)+(type==='suspension'?0.2:0)});
+    }
+    function animatePure() {
+      pctx.clearRect(0,0,pc.width,pc.height);
+      const d = pureData[pureType];
+      if(d.tyndall){const g=pctx.createLinearGradient(0,pc.height/2-10,pc.width,pc.height/2+10);g.addColorStop(0,'rgba(255,255,220,0)');g.addColorStop(0.5,'rgba(255,255,220,0.22)');g.addColorStop(1,'rgba(255,255,220,0)');pctx.fillStyle=g;pctx.fillRect(0,pc.height/2-14,pc.width,28);}
+      pureParts.forEach(p=>{
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.x<0||p.x>pc.width)p.vx*=-1;
+        if(pureType==='suspension'){if(p.y>pc.height-d.size){p.y=pc.height-d.size;p.vy=0;}}else{if(p.y<0||p.y>pc.height)p.vy*=-1;}
+        pctx.beginPath();pctx.arc(p.x,p.y,d.size,0,Math.PI*2);pctx.fillStyle=d.color;pctx.shadowBlur=d.tyndall?10:4;pctx.shadowColor=d.color;pctx.fill();pctx.shadowBlur=0;
+      });
+      document.getElementById('pure-label').textContent=d.label;
+      requestAnimationFrame(animatePure);
+    }
+    const smap={'salt-filtration':'Cannot separate. Salt dissolves and passes filter paper.','salt-evaporation':'CORRECT! Evaporating gives pure NaCl crystals.','salt-magnetic':'Wrong. Salt is not magnetic.','salt-distillation':'Works. Distillation gives pure water; salt stays in flask.','chalk-filtration':'CORRECT! Chalk (suspension) is caught by filter paper.','chalk-evaporation':'Will not work. Chalk does not dissolve.','chalk-magnetic':'Wrong. Chalk is not magnetic.','chalk-distillation':'Not ideal for chalk suspension.','iron_s-filtration':'Wrong. Both are solids.','iron_s-evaporation':'Cannot evaporate solids easily.','iron_s-magnetic':'CORRECT! Magnet attracts iron filings, leaving sulphur behind.','iron_s-distillation':'Not suitable for solid mixtures.','alcohol-filtration':'Wrong. Both are miscible liquids.','alcohol-evaporation':'Both would evaporate.','alcohol-magnetic':'Liquids are not magnetic.','alcohol-distillation':'CORRECT! Alcohol (b.p. 78C) distils first; water stays (b.p. 100C).'};
+    function runSep(){const mix=document.getElementById('sep-select').value,method=document.getElementById('method-select').value;if(!mix||!method)return;document.getElementById('sep-result').innerHTML='<strong>Result:</strong><br>'+(smap[mix+'-'+method]||'Select a valid combination.');}
+    setPure('solution');
+
+  </script>
+</body>
+</html>

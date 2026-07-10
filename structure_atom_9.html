@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Structure of the Atom | Class 9</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .sim-tab-header { display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .sim-tab-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+    .sim-canvas { width:100%; height:200px; background:#030712; border-radius:12px; border:1px solid rgba(255,255,255,0.05); }
+    .rxn-step { background: rgba(255,255,255,0.04); border-left: 3px solid #38bdf8; border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.5rem; font-size: 0.88rem; line-height: 1.5; }
+  </style>
+</head>
+<body data-theme="kinetics">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 9 &middot; Unit IV</div>
+      <h1>Structure of the Atom</h1>
+      <p class="subtitle">Sub-atomic particles, atomic models (Thomson, Rutherford, Bohr), electronic configuration, isotopes, and valency.</p>
+    </section>
+    <section class="slide">
+      <h2>Sub-atomic Particles</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Electron (e-)</h3>
+          <p>Discovered by J.J. Thomson (1897) using cathode ray tube. Charge = -1.6x10^-19 C. Mass = 9.11x10^-31 kg (negligible, ~1/1836 of proton).</p>
+          <h3>Proton (p+)</h3>
+          <p>Discovered by Goldstein (1886) via canal rays. Charge = +1.6x10^-19 C. Mass = 1.67x10^-27 kg (approx 1 u).</p>
+        </div>
+        <div>
+          <h3>Neutron (n0)</h3>
+          <p>Discovered by James Chadwick (1932). No electric charge. Mass approx 1 u (slightly more than proton). Located in nucleus alongside protons.</p>
+          <div class="note-box" style="margin-top:0.75rem;">
+            <strong>Atomic Number (Z)</strong> = No. of protons (= no. of electrons in neutral atom)<br>
+            <strong>Mass Number (A)</strong> = Protons + Neutrons<br>
+            <strong>Neutrons</strong> = A - Z
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Atomic Models</h2>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>Thomson's Plum Pudding Model (1904):</strong> Atom is a uniform sphere of positive charge with electrons embedded in it like raisins in a pudding. Drawback: Could not explain Rutherford's gold foil experiment results.</li>
+        <li class="reveal-item"><strong>Rutherford's Nuclear Model (1911):</strong> Alpha particles fired at gold foil. Most passed through (atom is mostly empty space), some deflected (nucleus is positively charged), very few bounced back (nucleus is tiny and dense). Drawback: Could not explain why electrons don't spiral into the nucleus.</li>
+        <li class="reveal-item"><strong>Bohr's Shell Model (1913):</strong> Electrons revolve in fixed discrete circular energy levels (shells: K, L, M, N). Energy is quantized. Electrons absorb/emit energy only when jumping between shells. Resolved stability issue.</li>
+      </ul>
+    </section>
+    <section class="slide">
+      <h2>Electronic Configuration</h2>
+      <p>Electrons fill shells starting from the innermost. Maximum electrons per shell = <strong>2n^2</strong> (n = shell number).</p>
+      <div class="note-box">K(n=1): max 2 | L(n=2): max 8 | M(n=3): max 18 | N(n=4): max 32</div>
+      <ul class="reveal-list">
+        <li class="reveal-item">H (Z=1): 1 | He (Z=2): 2 | Li (Z=3): 2,1 | C (Z=6): 2,4 (Valency=4)</li>
+        <li class="reveal-item">N (Z=7): 2,5 (Valency=3) | O (Z=8): 2,6 (Valency=2) | F (Z=9): 2,7 (Valency=1)</li>
+        <li class="reveal-item">Na (Z=11): 2,8,1 (Valency=1) | Mg (Z=12): 2,8,2 (Valency=2) | Al (Z=13): 2,8,3 (Valency=3)</li>
+        <li class="reveal-item">Cl (Z=17): 2,8,7 (Valency=1) | Ar (Z=18): 2,8,8 (Valency=0, noble gas) | Ca (Z=20): 2,8,8,2 (Valency=2)</li>
+      </ul>
+    </section>
+    <section class="slide">
+      <h2>Isotopes, Isobars and Isotones</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Isotopes</h3>
+          <p>Same Z, different A. Same element, different neutrons. Same chemical properties. Different physical properties.</p>
+          <p>H-1 (Protium,0n), H-2 (Deuterium,1n), H-3 (Tritium,2n)<br>C-12 and C-14 (radiocarbon dating)<br>U-235 and U-238 (nuclear fuel)</p>
+          <h3>Applications</h3>
+          <p>I-131: thyroid cancer | U-235: nuclear reactor | C-14: archaeological dating | Co-60: cancer treatment</p>
+        </div>
+        <div>
+          <h3>Isobars</h3>
+          <p>Same A, different Z. Different elements, same mass number. Different chemical properties.</p>
+          <p>Ar-40 (Z=18) and Ca-40 (Z=20)</p>
+          <h3>Valency</h3>
+          <p>Combining capacity determined by valence electrons. Valency = valence electrons (if <=4) or 8-valence electrons (if >4).</p>
+          <p>Elements in same group have same valency. Noble gases have valency=0.</p>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Bohr Atom Builder Simulator</h2>
+      <p>Launch the lab to build animated Bohr models for elements from H to Ca. View shell-by-shell electron configuration, calculate valency, and see isotope information.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 6</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title"><h3>Structure of the Atom Lab Simulator</h3></div>
+        <button id="close-overlay" class="close-btn">&#x2715;</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer">
+            <h4 style="margin-bottom:0.5rem;">Bohr Atom Builder</h4>
+            <select id="atom9-select" style="background:#1e293b; color:#fff; padding:0.4rem; border-radius:8px; margin-bottom:0.75rem; width:100%;" onchange="buildAtom9()">
+              <option value="1">Hydrogen (Z=1)</option>
+              <option value="2">Helium (Z=2)</option>
+              <option value="6">Carbon (Z=6)</option>
+              <option value="7">Nitrogen (Z=7)</option>
+              <option value="8">Oxygen (Z=8)</option>
+              <option value="11">Sodium (Z=11)</option>
+              <option value="17">Chlorine (Z=17)</option>
+              <option value="18">Argon (Z=18)</option>
+              <option value="20">Calcium (Z=20)</option>
+            </select>
+            <canvas id="atom9-canvas" class="sim-canvas" width="350" height="200"></canvas>
+          </div>
+          <div class="sim-sidebar">
+            <h3>Atom Info</h3>
+            <div id="atom9-info" style="font-size:0.85rem; color:#e2e8f0; line-height:1.8; margin-top:0.5rem;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/presentation.js"></script>
+  <script>
+
+    const a9c = document.getElementById('atom9-canvas');
+    const a9x = a9c.getContext('2d');
+    const elData = {
+      1:  {name:'Hydrogen',  shells:[1],       color:'#38bdf8'},
+      2:  {name:'Helium',    shells:[2],       color:'#10b981'},
+      6:  {name:'Carbon',    shells:[2,4],     color:'#10b981'},
+      7:  {name:'Nitrogen',  shells:[2,5],     color:'#a855f7'},
+      8:  {name:'Oxygen',    shells:[2,6],     color:'#ef4444'},
+      11: {name:'Sodium',    shells:[2,8,1],   color:'#f97316'},
+      17: {name:'Chlorine',  shells:[2,8,7],   color:'#eab308'},
+      18: {name:'Argon',     shells:[2,8,8],   color:'#06b6d4'},
+      20: {name:'Calcium',   shells:[2,8,8,2], color:'#a855f7'}
+    };
+    let a9El=1, a9Angles=[];
+    function buildAtom9(){
+      a9El=parseInt(document.getElementById('atom9-select').value);
+      const el=elData[a9El];
+      a9Angles=el.shells.map(count=>Array.from({length:count},(_,i)=>(i/count)*Math.PI*2));
+      const ec=el.shells.reduce((a,b)=>a+b,0);
+      const n=Math.round(a9El*1.1);
+      const v=el.shells[el.shells.length-1];
+      const val=v<=4?v:8-v;
+      document.getElementById('atom9-info').innerHTML='<strong>'+el.name+'</strong><br>Atomic Number (Z): '+a9El+'<br>Electrons: '+ec+'<br>Protons: '+a9El+'<br>Neutrons (approx): '+n+'<br>Mass Number: '+(a9El+n)+'<br>Config: '+el.shells.join(', ')+'<br>Valency: '+val+'<br>Shells: '+el.shells.length;
+    }
+    let simActive = false;
+    function drawAtom9(){
+      if (!simActive) return;
+      a9x.clearRect(0,0,a9c.width,a9c.height);
+      const cx=a9c.width/2,cy=a9c.height/2;
+      const el=elData[a9El];
+      a9x.beginPath();a9x.arc(cx,cy,12,0,Math.PI*2);a9x.fillStyle='#ef4444';a9x.shadowBlur=12;a9x.shadowColor='#ef4444';a9x.fill();a9x.shadowBlur=0;
+      a9x.fillStyle='#fff';a9x.font='bold 8px Arial';a9x.textAlign='center';a9x.fillText(a9El,cx,cy+3);
+      el.shells.forEach((count,si)=>{
+        const r=25+si*28;
+        a9x.beginPath();a9x.arc(cx,cy,r,0,Math.PI*2);a9x.strokeStyle='rgba(255,255,255,0.15)';a9x.lineWidth=1;a9x.stroke();
+        a9Angles[si].forEach(angle=>{
+          const ex=cx+r*Math.cos(angle),ey=cy+r*Math.sin(angle);
+          a9x.beginPath();a9x.arc(ex,ey,4,0,Math.PI*2);a9x.fillStyle=el.color;a9x.shadowBlur=6;a9x.shadowColor=el.color;a9x.fill();a9x.shadowBlur=0;
+        });
+        a9Angles[si]=a9Angles[si].map(a=>a+0.02/(si+1));
+      });
+      requestAnimationFrame(drawAtom9);
+    }
+    document.addEventListener("simulator-opened", () => {
+      simActive = true;
+      drawAtom9();
+    });
+    document.addEventListener("simulator-closed", () => {
+      simActive = false;
+    });
+    buildAtom9();
+
+  </script>
+</body>
+</html>

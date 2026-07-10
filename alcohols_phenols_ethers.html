@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alcohols, Phenols & Ethers | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Alcohols custom simulator styles */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .lucas-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+      justify-content: center;
+      align-items: center;
+    }
+    .testtubes-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      width: 100%;
+      height: 200px;
+      position: relative;
+      margin-top: 1rem;
+    }
+    .testtube {
+      width: 44px;
+      height: 160px;
+      border: 3px solid #cbd5e1;
+      border-top: none;
+      border-radius: 0 0 22px 22px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      background: rgba(255,255,255,0.02);
+    }
+    .testtube-liquid {
+      width: 100%;
+      height: 50%;
+      background-color: rgba(255, 255, 255, 0.15);
+      transition: background-color 2s, opacity 2s;
+    }
+    .turbid {
+      background: repeating-linear-gradient(45deg, rgba(200,200,200,0.6), rgba(200,200,200,0.6) 5px, rgba(220,220,220,0.8) 5px, rgba(220,220,220,0.8) 10px) !important;
+      opacity: 0.95;
+    }
+    .tube-label {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+    .tube-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .timer-val {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #10b981;
+      text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+      margin-top: 1rem;
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .sim-sidebar input[type="range"] {
+      width: 100%;
+      accent-color: #10b981;
+    }
+  </style>
+</head>
+<body data-theme="organic">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">UNIT XI · ORGANIC CHEMISTRY</div>
+        <h1>Alcohols, Phenols & Ethers</h1>
+        <h3>CBSE Class 12 Comprehensive Study Slides</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Acidity comparisons, Lucas test mechanisms, phenol named reactions (Kolbe, Reimer-Tiemann), and Williamson ether limits.</p>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Lucas Test Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Classification & Structure -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Classification & Bond Geometry</h2>
+          <span class="chapter-tag">Alcohols, Phenols & Ethers</span>
+        </div>
+        <div class="slide-body">
+          <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Oxygen-containing functional groups derived by substituting hydrogen in hydrocarbons with hydroxyl (-OH) or alkoxy (-OR) groups.</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Classification</h3>
+              <p>• **Alcohols:** Hydroxyl group bonded to \(sp^3\)-hybridized carbon of alkyl group (Primary \(1^\circ\), Secondary \(2^\circ\), Tertiary \(3^\circ\)).</p>
+              <p>• **Phenols:** Hydroxyl group bonded directly to an \(sp^2\)-hybridized aromatic ring carbon.</p>
+              <p>• **Ethers:** Oxygen bonded to two alkyl or aryl groups. Symmetrical (simple, e.g. \(C_2H_5-O-C_2H_5\)) or unsymmetrical (mixed).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Structures & C-O-H Angles</h3>
+              <p>• In **Methanol**, C-O-H angle is **108.9°** (slightly less than tetrahedral 109.5° due to lone pair repulsions on oxygen).</p>
+              <p>• In **Phenol**, C-O-H angle is **109°**. The C-O bond length is shorter (136 pm vs 142 pm in methanol) due to partial double bond character from resonance conjugation and \(sp^2\) hybridization of ring carbon.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Preparation of Alcohols -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Preparation of Alcohols</h2>
+          <span class="chapter-tag">Alcohols, Phenols & Ethers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>1. From Alkenes</h3>
+              <p>• **Acid Catalyzed Hydration:** Reacts with H₂O in presence of H⁺. Obeys **Markovnikov's rule**. Involves carbocation intermediate (rearrangements possible).</p>
+              <p>• **Hydroboration-Oxidation:** Reacts with diborane (\(B_2H_6\)) followed by alkaline \(H_2O_2\). Results in net **anti-Markovnikov addition of water** in excellent yields (no carbocation rearrangements):</p>
+              <div class="formula-box" style="margin-top: 0.3rem; padding: 0.4rem; font-family: monospace; font-size: 0.8rem;">
+                CH₃-CH=CH₂ ➔ CH₃-CH₂-CH₂-OH
+              </div>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>2. Reduction & Grignard Additions</h3>
+              <p>• Reduction of aldehydes (gives \(1^\circ\)) and ketones (gives \(2^\circ\)) using \(NaBH_4\) or \(LiAlH_4\).</p>
+              <p>• **Grignard Addition:** Grignard reagent (\(RMgX\)) adds to carbonyls followed by hydrolysis:</p>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                • Formaldehyde (HCHO) ➔ Primary alcohol.<br>
+                • Other Aldehydes (RCHO) ➔ Secondary alcohol.<br>
+                • Ketones (RCOR) ➔ Tertiary alcohol.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Preparation of Phenols -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Preparation of Phenols</h2>
+          <span class="chapter-tag">Alcohols, Phenols & Ethers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height:1.5;">Phenol (carbolic acid) was first isolated from coal tar. Industrially, it is prepared from cumene or chloro-benzene.</p>
+              <ul style="margin-top: 1rem;">
+                <li class="reveal-item"><strong>From Diazonium Salts:</strong> Hydrolysis of benzene diazonium chloride in warm water: \([C_6H_5N_2^+]Cl^- + H_2O \rightarrow C_6H_5OH + N_2 + HCl\).</li>
+                <li class="reveal-item"><strong>Dow's Process (from Chlorobenzene):</strong> Fusion with NaOH at 623 K and 300 atm, followed by acidification.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Cumene Hydroperoxide Process</h3>
+                <p>Most commercial phenol is prepared by oxidation of **Cumene (isopropylbenzene)** in air to form Cumene Hydroperoxide, which is then cleaved with dilute acid:</p>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                  <span style="font-family: monospace; font-size: 0.8rem; line-height: 1.3;">
+                    Cumene + O₂ ➔ Cumene Hydroperoxide ➔ Phenol + Acetone
+                  </span>
+                </div>
+                <p style="font-size: 0.85rem; color: #10b981; font-weight: 600;">
+                  This is highly economical because it produces valuable **Acetone** as a stoichiometric byproduct in large quantities.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Physical Properties -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Physical Properties & Hydrogen Bonding</h2>
+          <span class="chapter-tag">Alcohols, Phenols & Ethers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Boiling Points</h3>
+              <p>Alcohols and phenols have **much higher boiling points** than ethers, haloalkanes, or hydrocarbons of comparable molar mass. Reason: Intermolecular hydrogen bonding.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>H-Bonding Network</h3>
+              <p>The highly polar O-H bond enables oxygen of one molecule to form strong hydrogen bonds with hydrogen of another, creating a closely associated liquid lattice.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Solubility in Water</h3>
+              <p>Lower alcohols are completely miscible in water due to their ability to form H-bonds with H₂O molecules. Solubility **decreases** as the size of the hydrophobic alkyl group increases.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Alcohol Reactions I (Acidity & Lucas Test) -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Alcohol Acidity & Lucas Test</h2>
+          <span class="chapter-tag">Alcohols, Phenols & Ethers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Acidity of Alcohols</h3>
+              <p>Alcohols are weakly acidic. The acidity order is:</p>
+              <p style="font-family: monospace; font-size: 1.1rem; color: #10b981; font-weight: bold; margin: 0.5rem 0;">
+                Primary (1°) > Secondary (2°) > Tertiary (3°)
+              </p>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                **Reason:** Electron-donating alkyl groups (+I effect) increase electron density on oxygen, making the O-H bond less polar and destabilizing the resulting alkoxide conjugate base.
+              </p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Distinction: Lucas Test</h3>
+              <p>Lucas reagent (**conc. HCl + anhydrous ZnCl₂**) reacts with alcohols to form insoluble alkyl chlorides, causing turbidity:</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+                • **Tertiary (3°):** Turbidity appears **immediately** (highly stable carbocation forms fast).<br>
+                • **Secondary (2°):** Turbidity appears in **5 minutes**.<br>
+                • **Primary (1°):** Turbidity does not appear at room temperature; requires heating.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Alcohol Reactions II (Dehydration & Oxidation) -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Dehydration & Oxidation of Alcohols</h2>
+          <span class="chapter-tag">Alcohols, Phenols & Ethers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Dehydration to Alkenes/Ethers</h3>
+              <p>• **To Alkenes:** Heating with conc. \(H_2SO_4\) at 443 K yields alkenes. Ease of dehydration order: \(3^\circ > 2^\circ > 1^\circ\).</p>
+              <p>• **To Ethers:** Heating ethanol with conc. \(H_2SO_4\) at a lower temperature of **413 K** yields ethoxyethane:</p>
+              <div class="formula-box" style="margin-top: 0.4rem; padding: 0.4rem; font-family: monospace; font-size: 0.85rem;">
+                2C₂H₅OH ➔ C₂H₅-O-C₂H₅ + H₂O
+              </div>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Oxidation of Alcohols</h3>
+              <p>• **Primary Alcohols:** Oxidized to aldehydes using **PCC (Pyridinium Chlorochromate)**, or to carboxylic acids using alkaline \(KMnO_4\).</p>
+              <p>• **Secondary Alcohols:** Oxidized to ketones using \(CrO_3\).</p>
+              <p>• **Dehydrogenation with Cu:** Vapours passed over hot Cu at 573 K:<br>
+              • \(1^\circ\) ➔ Aldehydes.<br>
+              • \(2^\circ\) ➔ Ketones.<br>
+              • \(3^\circ\) ➔ Alkenes (undergoes dehydration instead!).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Phenol Acidity Comparison -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Acidity: Phenol vs Alcohol</h2>
+          <span class="chapter-tag">Alcohols, Phenols & Ethers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height:1.5;">
+                **Phenols are significantly more acidic than alcohols** (\(pK_a\) of phenol is 10, alcohols are 16-18).
+              </p>
+              <p class="reveal-item" style="line-height:1.5; margin-top: 0.5rem;">
+                **Reason:** Ionization of phenol yields a **Phenoxide ion**. The negative charge on oxygen is delocalized over the aromatic ring via resonance, stabilizing the ion. In contrast, the alkoxide ion negative charge is localized on oxygen and destabilized by +I alkyl groups.
+              </p>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Substituent Effects on Acidity</h3>
+                <p>• **Electron Withdrawing Groups (EWGs):** Groups like \(-NO_2\), \(-CN\) stabilize the phenoxide ion by dispersing negative charge. They **increase acidity** (especially at ortho/para positions).</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color:#ef4444; font-weight:600;">Picric acid (2,4,6-trinitrophenol) is highly acidic, comparable to mineral acids.</p>
+                <p style="margin-top: 0.5rem;">• **Electron Donating Groups (EDGs):** Groups like \(-CH_3\), \(-OCH_3\) destabilize the phenoxide ion, **decreasing acidity**.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Named Reactions of Phenols -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Phenol Named Reactions</h2>
+          <span class="chapter-tag">Alcohols, Phenols & Ethers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>1. Kolbe's Reaction</h3>
+              <p>Phenoxide ion reacts with carbon dioxide (a weak electrophile) followed by acidification to yield **Salicylic Acid** (o-hydroxybenzoic acid):</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.85rem;">Phenol ➔ [NaOH] ➔ Sodium Phenoxide ➔ [CO₂, H⁺] ➔ Salicylic Acid</span>
+              </div>
+              <p style="font-size:0.8rem; color: var(--text-secondary);">Used to manufacture Aspirin.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>2. Reimer-Tiemann Reaction</h3>
+              <p>Phenol treated with chloroform (\(CHCl_3\)) in the presence of sodium hydroxide inserts an aldehyde group (-CHO) at ortho- position, yielding **Salicylaldehyde**:</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.85rem;">Phenol ➔ [CHCl₃ + NaOH] ➔ Salicylaldehyde</span>
+              </div>
+              <p style="font-size:0.8rem; color: var(--text-secondary);">Intermediate electrophile is **Dichlorocarbene (\(:CCl_2\))**.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Ethers: Williamson & Cleavage -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Ethers: Williamson Synthesis & Cleavage</h2>
+          <span class="chapter-tag">Alcohols, Phenols & Ethers</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Williamson Ether Synthesis</h3>
+              <p>An SN2 reaction where a sodium alkoxide attacks a **primary alkyl halide** to form an ether:</p>
+              <div class="formula-box" style="margin: 0.4rem 0; padding: 0.4rem; font-family: monospace; font-size: 0.8rem;">
+                R-O⁻ Na⁺ + R'-X ➔ R-O-R' + NaX
+              </div>
+              <p style="font-size: 0.85rem; color:#ef4444; font-weight:600; margin-top: 0.5rem;">
+                **Limitation:** If a tertiary (\(3^\circ\)) alkyl halide is used, the alkoxide acts as a strong base instead, resulting in **elimination (alkene)** instead of substitution.
+              </p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Cleavage of Ethers by HX</h3>
+              <p>Cleavage of C-O bond requires strong acids like HI or HBr at high temperatures: \(R-O-R' + HI \rightarrow R-I + R'-OH\).</p>
+              <p style="margin-top: 0.4rem; font-size: 0.85rem;">
+                • **Regiochemistry:** With mixed alkyl groups, iodide attacks the smaller alkyl group (SN2). However, if one alkyl group is tertiary, iodide attacks it to form a tertiary iodide (SN1 mechanism).
+              </p>
+              <p style="font-size: 0.85rem; color:#10b981;">• Reaction of **Anisole** with HI yields phenol and methyl iodide (never iodobenzene, as \(sp^2\) C-O bond is too strong).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Alcohols Lab</h2>
+          <span class="chapter-tag">Alcohols, Phenols & Ethers</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Lucas Test Laboratory</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the Lucas simulator. Add Lucas reagent to primary, secondary, and tertiary alcohols, start the test timer, watch turbidity formation rates, and identify structure-reactivity relationships.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Lucas Test Simulator
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 11</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Alcohols & Phenols Laboratory</h3>
+          <p>Toggle chemical turbidity tests or inspect phenoxide resonance structures</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close alcohols simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="lucas-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-lucas">Lucas Test</button>
+              <button class="sim-tab-btn" id="tab-resonance">Phenoxide Resonance</button>
+            </div>
+
+            <!-- Lucas panel -->
+            <div id="lucas-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <div class="testtubes-row">
+                <div class="tube-container">
+                  <div class="testtube">
+                    <div class="testtube-liquid" id="liquid-1"></div>
+                  </div>
+                  <div class="tube-label">1° Alcohol</div>
+                </div>
+                <div class="tube-container">
+                  <div class="testtube">
+                    <div class="testtube-liquid" id="liquid-2"></div>
+                  </div>
+                  <div class="tube-label">2° Alcohol</div>
+                </div>
+                <div class="tube-container">
+                  <div class="testtube">
+                    <div class="testtube-liquid" id="liquid-3"></div>
+                  </div>
+                  <div class="tube-label">3° Alcohol</div>
+                </div>
+              </div>
+              <div class="timer-val">Timer: <span id="timer-sec">0</span>s</div>
+            </div>
+
+            <!-- Resonance panel -->
+            <div id="resonance-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px); align-items: center; justify-content: center;">
+              <canvas id="resonance-canvas" width="360" height="220" style="background: #020617; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);"></canvas>
+              <div class="timer-val" style="margin-top: 0.5rem; font-size: 0.85rem; max-width: 90%; text-align: center;" id="resonance-desc">
+                Structure I: Negative charge localized on Oxygen.
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Lucas controls -->
+            <div id="lucas-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <button class="btn-launch-simulator" id="run-lucas-btn" style="justify-content: center; padding: 0.8rem; margin-top: 0.5rem; width: 100%; background: linear-gradient(135deg, #ff9e00 0%, rgba(255, 158, 0, 0.4) 100%); color: #000; font-weight: bold;">
+                Add Lucas Reagent
+              </button>
+
+              <div class="kinetics-info-box" style="border-left-color: #ff9e00; font-size: 0.85rem;" id="lucas-explanation-box">
+                Click the button above to add **conc. HCl + anhydrous ZnCl₂** to the three tubes.
+              </div>
+            </div>
+
+            <!-- Resonance controls -->
+            <div id="resonance-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Step Resonance Structures</label>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <button class="toggle-btn" id="res-next-btn">Next Structure</button>
+                  <button class="toggle-btn" id="res-play-btn">Play Animation</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #ff9e00;">
+              <strong>Theoretical Context:</strong><br>
+              • **Lucas Test** distinguishes alcohols via rate of alkyl chloride formation.<br>
+              • **Phenoxide resonance** disperses negative charge over Ortho and Para positions of the benzene ring, making phenols highly acidic.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabLucas = document.getElementById("tab-lucas");
+    const tabResonance = document.getElementById("tab-resonance");
+    const lucasPanel = document.getElementById("lucas-panel");
+    const resonancePanel = document.getElementById("resonance-panel");
+    const lucasControls = document.getElementById("lucas-controls");
+    const resonanceControls = document.getElementById("resonance-controls");
+
+    tabLucas.addEventListener("click", () => {
+      tabLucas.classList.add("active");
+      tabResonance.classList.remove("active");
+      lucasPanel.style.display = "flex";
+      resonancePanel.style.display = "none";
+      lucasControls.style.display = "flex";
+      resonanceControls.style.display = "none";
+    });
+
+    tabResonance.addEventListener("click", () => {
+      tabResonance.classList.add("active");
+      tabLucas.classList.remove("active");
+      resonancePanel.style.display = "flex";
+      lucasPanel.style.display = "none";
+      resonanceControls.style.display = "flex";
+      lucasControls.style.display = "none";
+      resetResonance();
+    });
+
+    // Lucas Test Simulator Logic
+    const runLucasBtn = document.getElementById("run-lucas-btn");
+    const timerSec = document.getElementById("timer-sec");
+    const explanationBox = document.getElementById("lucas-explanation-box");
+
+    const liq1 = document.getElementById("liquid-1");
+    const liq2 = document.getElementById("liquid-2");
+    const liq3 = document.getElementById("liquid-3");
+
+    let isTesting = false;
+    let timerVal = 0;
+    let lucasInterval;
+
+    function resetLucas() {
+      clearInterval(lucasInterval);
+      isTesting = false;
+      timerVal = 0;
+      timerSec.textContent = "0";
+
+      // Reset liquids
+      liq1.className = "testtube-liquid";
+      liq2.className = "testtube-liquid";
+      liq3.className = "testtube-liquid";
+
+      runLucasBtn.textContent = "Add Lucas Reagent";
+      runLucasBtn.style.background = "linear-gradient(135deg, #ff9e00 0%, rgba(255, 158, 0, 0.4) 100%)";
+      runLucasBtn.style.color = "#000";
+      explanationBox.textContent = "Click the button above to add conc. HCl + anhydrous ZnCl₂ to the three tubes.";
+    }
+
+    function addReagent() {
+      if (isTesting) {
+        resetLucas();
+        return;
+      }
+
+      isTesting = true;
+      runLucasBtn.textContent = "Reset Test";
+      runLucasBtn.style.background = "linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%)";
+      runLucasBtn.style.color = "#fff";
+      explanationBox.innerHTML = "Reagent added! Monitoring reactions at room temperature...";
+
+      lucasInterval = setInterval(() => {
+        timerVal++;
+        timerSec.textContent = timerVal;
+
+        // 3 Degree reacts immediately (simulate at 1s)
+        if (timerVal === 1) {
+          liq3.classList.add("turbid");
+          explanationBox.innerHTML = "• <strong>3° Alcohol:</strong> Turbidity appeared <strong>immediately</strong> (instant carbocation halogen substitution).";
+        }
+
+        // 2 Degree reacts at 5s (simulating 5 minutes scale)
+        if (timerVal === 5) {
+          liq2.classList.add("turbid");
+          explanationBox.innerHTML += "<br>• <strong>2° Alcohol:</strong> Turbidity appeared at <strong>5 seconds</strong> (simulating 5 minutes).";
+        }
+
+        // 1 Degree never reacts at room temperature
+        if (timerVal >= 8) {
+          clearInterval(lucasInterval);
+          explanationBox.innerHTML += "<br>• <strong>1° Alcohol:</strong> No turbidity observed. Reaction does not occur at room temperature.";
+        }
+      }, 1000);
+    }
+
+    runLucasBtn.addEventListener("click", addReagent);
+
+    // Resonance Animator logic
+    const resCanvas = document.getElementById("resonance-canvas");
+    const rCtx = resCanvas.getContext("2d");
+    const resDesc = document.getElementById("resonance-desc");
+    const resNextBtn = document.getElementById("res-next-btn");
+    const resPlayBtn = document.getElementById("res-play-btn");
+
+    let resIndex = 0;
+    let resPlayInterval;
+    let isResPlaying = false;
+
+    function resetResonance() {
+      clearInterval(resPlayInterval);
+      isResPlaying = false;
+      resPlayBtn.textContent = "Play Animation";
+      resIndex = 0;
+      drawResonanceStructure();
+    }
+
+    function drawResonanceStructure() {
+      rCtx.clearRect(0, 0, resCanvas.width, resCanvas.height);
+      const cx = resCanvas.width / 2;
+      const cy = resCanvas.height / 2 + 10;
+      
+      const r = 40;
+      const vertices = [];
+      for (let i = 0; i < 6; i++) {
+        const angle = -Math.PI / 2 + (i * Math.PI) / 3;
+        vertices.push({
+          x: cx + r * Math.cos(angle),
+          y: cy + r * Math.sin(angle)
+        });
+      }
+
+      rCtx.strokeStyle = "rgba(255,255,255,0.3)";
+      rCtx.lineWidth = 2.5;
+      rCtx.beginPath();
+      rCtx.moveTo(vertices[0].x, vertices[0].y);
+      for (let i = 1; i < 6; i++) {
+        rCtx.lineTo(vertices[i].x, vertices[i].y);
+      }
+      rCtx.closePath();
+      rCtx.stroke();
+
+      const oxY = vertices[0].y - 30;
+      rCtx.beginPath();
+      if (resIndex === 0 || resIndex === 4) {
+        rCtx.moveTo(cx, vertices[0].y);
+        rCtx.lineTo(cx, oxY);
+        rCtx.strokeStyle = "rgba(255,255,255,0.3)";
+        rCtx.stroke();
+      } else {
+        rCtx.moveTo(cx - 3, vertices[0].y);
+        rCtx.lineTo(cx - 3, oxY);
+        rCtx.moveTo(cx + 3, vertices[0].y);
+        rCtx.lineTo(cx + 3, oxY);
+        rCtx.strokeStyle = "rgba(255,255,255,0.4)";
+        rCtx.stroke();
+      }
+
+      rCtx.beginPath();
+      rCtx.arc(cx, oxY, 12, 0, Math.PI * 2);
+      rCtx.fillStyle = "#ff9e00";
+      rCtx.fill();
+      rCtx.fillStyle = "#000";
+      rCtx.font = "bold 11px sans-serif";
+      rCtx.textAlign = "center";
+      rCtx.textBaseline = "middle";
+      rCtx.fillText("O", cx, oxY);
+
+      rCtx.fillStyle = "#ef4444";
+      rCtx.font = "bold 14px sans-serif";
+      rCtx.strokeStyle = "#ff9e00";
+      rCtx.lineWidth = 2;
+
+      if (resIndex === 0) {
+        drawInnerDoubleBond(vertices[1], vertices[2]);
+        drawInnerDoubleBond(vertices[3], vertices[4]);
+        drawInnerDoubleBond(vertices[5], vertices[0]);
+        rCtx.fillStyle = "#fff";
+        rCtx.fillText("⁻", cx + 12, oxY - 12);
+        resDesc.innerHTML = "<strong>Structure I:</strong> Negative charge localized on oxygen atom. Single bond C-O.";
+      } 
+      else if (resIndex === 1) {
+        drawInnerDoubleBond(vertices[2], vertices[3]);
+        drawInnerDoubleBond(vertices[4], vertices[5]);
+        rCtx.fillStyle = "#ef4444";
+        rCtx.fillText("⁻", vertices[1].x + 10, vertices[1].y);
+        resDesc.innerHTML = "<strong>Structure II:</strong> Negative charge shifted to <strong>Ortho-position</strong>. Double bond C=O formed.";
+      }
+      else if (resIndex === 2) {
+        drawInnerDoubleBond(vertices[1], vertices[2]);
+        drawInnerDoubleBond(vertices[4], vertices[5]);
+        rCtx.fillStyle = "#ef4444";
+        rCtx.fillText("⁻", vertices[3].x, vertices[3].y + 12);
+        resDesc.innerHTML = "<strong>Structure III:</strong> Negative charge shifted to <strong>Para-position</strong>. Double bond C=O.";
+      }
+      else if (resIndex === 3) {
+        drawInnerDoubleBond(vertices[1], vertices[2]);
+        drawInnerDoubleBond(vertices[3], vertices[4]);
+        rCtx.fillStyle = "#ef4444";
+        rCtx.fillText("⁻", vertices[5].x - 10, vertices[5].y);
+        resDesc.innerHTML = "<strong>Structure IV:</strong> Negative charge shifted to second <strong>Ortho-position</strong>. Double bond C=O.";
+      }
+      else if (resIndex === 4) {
+        drawInnerDoubleBond(vertices[0], vertices[1]);
+        drawInnerDoubleBond(vertices[2], vertices[3]);
+        drawInnerDoubleBond(vertices[4], vertices[5]);
+        rCtx.fillStyle = "#fff";
+        rCtx.fillText("⁻", cx + 12, oxY - 12);
+        resDesc.innerHTML = "<strong>Structure V:</strong> Negative charge returned to oxygen. double bonds rotated (Kekulé shift).";
+      }
+    }
+
+    function drawInnerDoubleBond(v1, v2) {
+      const dx = v2.x - v1.x;
+      const dy = v2.y - v1.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      const nx = -dy / dist;
+      const ny = dx / dist;
+      const shrink = 6;
+      const offset = 5;
+
+      rCtx.beginPath();
+      rCtx.moveTo(v1.x + (dx * shrink)/dist + nx * offset, v1.y + (dy * shrink)/dist + ny * offset);
+      rCtx.lineTo(v2.x - (dx * shrink)/dist + nx * offset, v2.y - (dy * shrink)/dist + ny * offset);
+      rCtx.strokeStyle = "rgba(255,255,255,0.25)";
+      rCtx.lineWidth = 1.5;
+      rCtx.stroke();
+    }
+
+    resNextBtn.addEventListener("click", () => {
+      clearInterval(resPlayInterval);
+      isResPlaying = false;
+      resPlayBtn.textContent = "Play Animation";
+      resIndex = (resIndex + 1) % 5;
+      drawResonanceStructure();
+    });
+
+    resPlayBtn.addEventListener("click", () => {
+      if (isResPlaying) {
+        resetResonance();
+        return;
+      }
+      isResPlaying = true;
+      resPlayBtn.textContent = "Stop Animation";
+      resPlayInterval = setInterval(() => {
+        resIndex = (resIndex + 1) % 5;
+        drawResonanceStructure();
+      }, 1500);
+    });
+
+    document.addEventListener("simulator-opened", () => {
+      resetLucas();
+      resetResonance();
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      clearInterval(lucasInterval);
+      clearInterval(resPlayInterval);
+    });
+  </script>
+</body>
+</html>

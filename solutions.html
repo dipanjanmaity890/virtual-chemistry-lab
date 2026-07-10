@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solutions | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Solutions Custom Simulator CSS */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .control-group label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .control-group input[type="range"] {
+      width: 100%;
+      accent-color: #00f0ff;
+    }
+    .control-group select {
+      background: #1e293b;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+    .sim-visualizer {
+      background: rgba(0,0,0,0.2);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 1rem;
+    }
+    .beaker-container {
+      position: relative;
+      width: 180px;
+      height: 220px;
+      border: 5px solid #e2e8f0;
+      border-top: none;
+      border-radius: 0 0 24px 24px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .beaker-liquid {
+      width: 100%;
+      height: 60%;
+      background-color: rgba(0, 240, 255, 0.3);
+      transition: height 0.3s, background-color 0.3s;
+      position: relative;
+    }
+    .precipitate {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0px;
+      background: repeating-linear-gradient(45deg, #3b82f6, #3b82f6 5px, #1d4ed8 5px, #1d4ed8 10px);
+      transition: height 0.3s;
+      opacity: 0.85;
+    }
+    .molarity-hud {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .molarity-val {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #00f0ff;
+      text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+    }
+    .beaker-scale {
+      position: absolute;
+      left: 10px;
+      height: 80%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      z-index: 5;
+    }
+    .sim-tab-header {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .sim-tab-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .sim-tab-btn.active {
+      background: #00f0ff;
+      color: #000;
+      border-color: #00f0ff;
+    }
+    .osmosis-box {
+      width: 280px;
+      height: 180px;
+      border: 3px solid #cbd5e1;
+      display: flex;
+      position: relative;
+    }
+    .osmosis-membrane {
+      width: 6px;
+      height: 100%;
+      background: repeating-linear-gradient(0deg, #94a3b8, #94a3b8 4px, transparent 4px, transparent 8px);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .side-left, .side-right {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-end;
+      position: relative;
+    }
+    .side-left {
+      background-color: rgba(14, 165, 233, 0.15);
+    }
+    .side-right {
+      background-color: rgba(14, 165, 233, 0.4);
+      transition: height 0.5s, background-color 0.5s;
+    }
+    .solute-particle {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #f43f5e;
+      position: absolute;
+    }
+  </style>
+</head>
+<body data-theme="solutions">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">UNIT II · PHYSICAL CHEMISTRY</div>
+        <h1>Solutions</h1>
+        <h3>CBSE Class 12 Comprehensive Study Slides</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">A deep dive into homogeneous mixtures, solubility laws, vapour pressure deviations, colligative derivations, and Van 't Hoff factors.</p>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Solutions Virtual Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Types of Solutions -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Types of Solutions & Characteristics</h2>
+          <span class="chapter-tag">Solutions</span>
+        </div>
+        <div class="slide-body">
+          <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">A **solution** is a homogeneous mixture of two or more chemically non-reacting substances whose composition can be varied within certain limits. In a binary solution, the component present in larger quantity is the **solvent**, and the other is the **solute**.</p>
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Gaseous Solutions</h3>
+              <p>• **Gas in Gas:** Air (O₂ + N₂ mixture).<br>
+              • **Liquid in Gas:** Chloroform vapours mixed with nitrogen gas; humidity.<br>
+              • **Solid in Gas:** Camphor in nitrogen gas; smoke.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Liquid Solutions</h3>
+              <p>• **Gas in Liquid:** Oxygen dissolved in water; aerated drinks (CO₂ in H₂O).<br>
+              • **Liquid in Liquid:** Ethanol dissolved in water.<br>
+              • **Solid in Liquid:** Glucose, salt, or sugar dissolved in water.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Solid Solutions</h3>
+              <p>• **Gas in Solid:** Hydrogen gas adsorbed on palladium metal surface.<br>
+              • **Liquid in Solid:** Amalgam of mercury with sodium metal.<br>
+              • **Solid in Solid:** Copper dissolved in gold (alloys like Brass, Bronze).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Concentration Terms -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Concentration Expression Methods</h2>
+          <span class="chapter-tag">Solutions</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <ul>
+                <li class="reveal-item"><strong>Molarity (M):</strong> \(M = \frac{\text{Moles of solute (n)}}{\text{Volume of solution in Liters } (V_L)}\). Unit: mol/L. **Temperature dependent** because volume changes with temperature.</li>
+                <li class="reveal-item"><strong>Molality (m):</strong> \(m = \frac{\text{Moles of solute (n)}}{\text{Mass of solvent in kg } (W_A)}\). Unit: mol/kg. **Temperature independent** as mass does not vary with temperature.</li>
+                <li class="reveal-item"><strong>Mole Fraction (x):</strong> Ratio of moles of one component to total moles: \(x_A = \frac{n_A}{n_A + n_B}\). Note: \(x_A + x_B = 1\). Dimensionless.</li>
+                <li class="reveal-item"><strong>Parts per Million (ppm):</strong> Used for trace solutes: \(\text{ppm} = \frac{\text{Mass of component}}{\text{Total mass of solution}} \times 10^6\).</li>
+              </ul>
+            </div>
+            <div>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">M = (w_B × 1000) / (M_B × V_mL)</div>
+                <div class="formula-label">Molarity Calculation (w_B = solute mass, M_B = molar mass)</div>
+              </div>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">m = (w_B × 1000) / (M_B × W_A_grams)</div>
+                <div class="formula-label">Molality Calculation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Solubility & Henry's Law -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Solubility of Gases in Liquids: Henry's Law</h2>
+          <span class="chapter-tag">Solutions</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height: 1.5; margin-bottom: 1rem;">
+                **Henry's Law:** At a constant temperature, the solubility of a gas in a liquid is directly proportional to the partial pressure of the gas present above the surface of the liquid or solution.
+              </p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">p = K_H · x</div>
+                <div class="formula-label">p = partial pressure, x = mole fraction, K_H = Henry's law constant</div>
+              </div>
+              <ul style="margin-top: 1rem; font-size: 0.9rem;">
+                <li class="reveal-item">Different gases have different \(K_H\) values in the same solvent.</li>
+                <li class="reveal-item">Higher \(K_H\) value at a given pressure means **lower solubility** of the gas.</li>
+                <li class="reveal-item">\(K_H\) increases with temperature; hence gases are **more soluble in cold liquids** than warm.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Key Industrial Applications</h3>
+                <p>1. **Carbonated Beverages:** Soft drink and soda bottles are sealed under high pressure of CO₂ to maximize solubility in the liquid.</p>
+                <p style="margin-top: 0.5rem;">2. **Scuba Diving:** Divers breathe air diluted with Helium (11.7% He, 56.2% N₂, 32.1% O₂) to avoid high dissolved N₂ in blood, preventing painful **bends** on ascent.</p>
+                <p style="margin-top: 0.5rem;">3. **Anoxia in Climbers:** At high altitudes, low partial pressure of oxygen leads to low blood oxygen levels, causing weakness and mental confusion (Anoxia).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Vapour Pressure & Raoult's Law -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Vapour Pressure of Liquid-Liquid Solutions</h2>
+          <span class="chapter-tag">Solutions</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height: 1.5; margin-bottom: 1rem;">
+                **Vapour Pressure:** The pressure exerted by vapours in equilibrium with the liquid phase at a specific temperature.
+              </p>
+              <p class="reveal-item" style="line-height: 1.5; margin-bottom: 1rem;">
+                **Raoult's Law:** For a solution of volatile liquids, the partial vapour pressure of each component of the solution is directly proportional to its mole fraction in the solution.
+              </p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">p_A = p°_A · x_A  &  p_B = p°_B · x_B</div>
+                <div class="formula-label">Partial pressures where p° represents pure vapour pressure</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Total Pressure (Dalton's Law)</h3>
+                <p>The total pressure \(P_{\text{total}}\) over the solution is the sum of the partial pressures:</p>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                  <span style="font-family: monospace; font-size: 0.95rem;">P_total = p_A + p_B = p°_A·x_A + p°_B·x_B</span>
+                </div>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">Using \(x_A = 1 - x_B\):</p>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                  <span style="font-family: monospace; font-size: 0.95rem;">P_total = p°_A + (p°_B - p°_A)·x_B</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Ideal and Non-Ideal Solutions -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Ideal vs Non-Ideal Solutions</h2>
+          <span class="chapter-tag">Solutions</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Ideal Solutions</h3>
+              <p>• Obeys Raoult's law over the entire range of concentration.</p>
+              <p>• **Molecular Forces:** A-B intermolecular attractive forces are equal to A-A and B-B forces.</p>
+              <p>• **Thermodynamics:** \(\Delta H_{\text{mixing}} = 0\), \(\Delta V_{\text{mixing}} = 0\).</p>
+              <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem;">• Examples: n-Hexane + n-Heptane; Bromoethane + Chloroethane; Benzene + Toluene.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Non-Ideal Solutions</h3>
+              <p>• Do not obey Raoult's law. Vapour pressure is either higher or lower than predicted.</p>
+              <p>• **Molecular Forces:** A-B attractive forces are different from A-A and B-B forces.</p>
+              <p>• **Thermodynamics:** \(\Delta H_{\text{mixing}} \neq 0\), \(\Delta V_{\text{mixing}} \neq 0\).</p>
+              <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.25rem;">• Examples: Ethanol + Acetone; Phenol + Aniline; Chloroform + Acetone.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Non-Ideal Deviations & Azeotropes -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Deviations from Raoult's Law & Azeotropes</h2>
+          <span class="chapter-tag">Solutions</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Positive vs Negative Deviation</h3>
+              <p>• **Positive Deviation:** A-B interactions are weaker than A-A/B-B. Vapour pressure is higher. \(\Delta H_{\text{mix}} > 0\) (endothermic), \(\Delta V_{\text{mix}} > 0\). (e.g., Ethanol + Acetone).</p>
+              <p style="margin-top: 0.5rem;">• **Negative Deviation:** A-B interactions are stronger than A-A/B-B (due to H-bonding or dipole attractions). Vapour pressure is lower. \(\Delta H_{\text{mix}} < 0\) (exothermic), \(\Delta V_{\text{mix}} < 0\). (e.g., Chloroform + Acetone).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Azeotropes (Constant Boiling Mixtures)</h3>
+              <p>Binary mixtures having the same composition in liquid and vapour phase and boil at a constant temperature. Fractional distillation cannot separate them.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem;">• **Minimum Boiling Azeotrope:** Show large positive deviation. boils at temp lower than both components (e.g., 95% ethanol + 5% water by volume).</p>
+              <p style="font-size: 0.85rem;">• **Maximum Boiling Azeotrope:** Show large negative deviation. boils at temp higher than both (e.g., 68% nitric acid + 32% water by mass).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Colligative Properties I -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Colligative Properties: RLVP & Boiling Elevation</h2>
+          <span class="chapter-tag">Solutions</span>
+        </div>
+        <div class="slide-body">
+          <p style="margin-bottom: 1rem; font-size: 1.05rem;" class="reveal-item">Colligative properties depend solely on the **number of solute particles** (concentration) relative to total particles, regardless of their nature.</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>1. Relative Lowering of Vapour Pressure</h3>
+              <p>Adding a non-volatile solute reduces the vapour pressure of the solvent. The relative lowering is equal to the mole fraction of the solute:</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.95rem;">(p°_1 - p_1) / p°_1 = x_2 = (w_2 / M_2) / (w_1 / M_1)</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Enables determination of solute molar mass \(M_2\).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>2. Elevation of Boiling Point (\(\Delta T_b\))</h3>
+              <p>Solute particles decrease vapour pressure, requiring a higher temperature for vapour pressure to equal atmospheric pressure (boiling):</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.95rem;">ΔT_b = T_b - T°_b = K_b · m</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">\(K_b\) is the **Molal Boiling Point Elevation Constant** (Ebullioscopic Constant), unit: K kg/mol.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Colligative Properties II -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Colligative Properties: Freezing Depression & Osmosis</h2>
+          <span class="chapter-tag">Solutions</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>3. Depression of Freezing Point (\(\Delta T_f\))</h3>
+              <p>A non-volatile solute prevents solvent molecules from arranging into an orderly solid lattice easily, lowering the freezing point:</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.95rem;">ΔT_f = T°_f - T_f = K_f · m</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">\(K_f\) is the **Molal Freezing Point Depression Constant** (Cryoscopic Constant), unit: K kg/mol. Used in ethylene glycol anti-freeze.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>4. Osmotic Pressure (\(\pi\))</h3>
+              <p>The hydrostatic pressure that stops net flow of solvent molecules through a semi-permeable membrane from pure solvent to solution:</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.95rem;">π = C · R · T = (n_B / V) · R · T</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Highly preferred for determining macromolecule (protein, polymer) molar masses because measurements occur at room temperature.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Abnormal Molar Mass & Van 't Hoff Factor -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Abnormal Molar Masses & Van 't Hoff Factor</h2>
+          <span class="chapter-tag">Solutions</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height: 1.5; margin-bottom: 1rem;">
+                When solute molecules dissociate or associate in a solvent, the total number of particles changes, causing observed colligative properties to differ from theoretical ones.
+              </p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">i = Observed Colligative Property / Calculated Colligative Property</div>
+                <div class="formula-label">Van 't Hoff Factor (i)</div>
+              </div>
+              <div class="formula-box reveal-item" style="margin-top: 0.5rem;">
+                <div class="formula-text">i = Normal Molar Mass / Abnormal Molar Mass</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Van 't Hoff Rules & Formulas</h3>
+                <p>• **Dissociation:** (e.g., \(NaCl \rightarrow Na^+ + Cl^-\)). Number of particles increases. \(i > 1\). Degree of dissociation: \(\alpha = \frac{i - 1}{n - 1}\).</p>
+                <p style="margin-top: 0.4rem;">• **Association:** (e.g., \(2CH_3COOH \rightarrow (CH_3COOH)_2\) dimer). Number of particles decreases. \(i < 1\). Degree of association: \(\alpha = \frac{1 - i}{1 - 1/n}\).</p>
+                <p style="margin-top: 0.4rem; color: #ffd700;">Modified Colligative Equations:<br>
+                \(\Delta T_b = i K_b m\), \(\Delta T_f = i K_f m\), \(\pi = i C R T\)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Solutions Laboratory</h2>
+          <span class="chapter-tag">Solutions</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Molarity & Osmosis Simulator</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the simulation tool below to dynamically calculate molarity by mixing solutes like Copper(II) Sulfate, see visual saturation levels, and run the membrane osmosis particle simulation.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Interactive Simulation
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 11</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Molarity & Osmosis Laboratory</h3>
+          <p>Experiment with solute amounts, solvent volume, saturation limits, and osmosis flow</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close solutions simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="sim-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-molarity">Molarity Lab</button>
+              <button class="sim-tab-btn" id="tab-osmosis">Osmosis Membrane</button>
+            </div>
+            
+            <!-- Molarity visualizer panel -->
+            <div id="molarity-vis-panel" style="display: flex; flex-direction: column; align-items: center;">
+              <div class="beaker-container">
+                <div class="beaker-scale">
+                  <span>1.0 L</span>
+                  <span>0.75 L</span>
+                  <span>0.5 L</span>
+                  <span>0.25 L</span>
+                </div>
+                <div class="beaker-liquid" id="liquid">
+                  <div class="precipitate" id="precip"></div>
+                </div>
+              </div>
+              
+              <div class="molarity-hud">
+                <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom: 0.25rem;">Calculated Concentration</p>
+                <div class="molarity-val"><span id="molarity-num">0.00</span> M</div>
+                <p id="sat-warning" style="font-size:0.85rem; font-weight:600; margin-top: 0.5rem;">Unsaturated Solution</p>
+              </div>
+            </div>
+
+            <!-- Osmosis visualizer panel -->
+            <div id="osmosis-vis-panel" style="display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
+              <div class="osmosis-box">
+                <div class="side-left" id="membrane-left"></div>
+                <div class="osmosis-membrane"></div>
+                <div class="side-right" id="membrane-right"></div>
+              </div>
+              <div style="margin-top: 1.5rem; text-align: center; font-size: 0.85rem; font-weight: 500;" id="osmosis-status">
+                Solute molecules loaded. Ready to start.
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Molarity controls panel -->
+            <div id="molarity-controls-panel" style="display: flex; flex-direction: column; gap: 1rem;">
+              <div class="control-group">
+                <label for="solute-select">Choose Solute</label>
+                <select id="solute-select">
+                  <option value="cuso4" data-color="rgba(14, 165, 233," data-sat="1.40" selected>Copper(II) Sulfate (Blue)</option>
+                  <option value="kmno4" data-color="rgba(217, 70, 239," data-sat="0.50">Potassium Permanganate (Purple)</option>
+                  <option value="nicl2" data-color="rgba(16, 185, 129," data-sat="2.10">Nickel(II) Chloride (Green)</option>
+                  <option value="k2cro4" data-color="rgba(234, 179, 8," data-sat="3.00">Potassium Chromate (Yellow)</option>
+                </select>
+              </div>
+
+              <div class="control-group">
+                <label for="solute-amt">Solute Amount: <span id="solute-amt-txt">0.50</span> moles</label>
+                <input type="range" id="solute-amt" min="0.10" max="4.00" step="0.05" value="0.50">
+              </div>
+
+              <div class="control-group">
+                <label for="solvent-vol">Solvent Volume: <span id="solvent-vol-txt">0.50</span> Liters</label>
+                <input type="range" id="solvent-vol" min="0.20" max="1.00" step="0.05" value="0.50">
+              </div>
+            </div>
+
+            <!-- Osmosis controls panel -->
+            <div id="osmosis-controls-panel" style="display: none; flex-direction: column; gap: 1rem;">
+              <div class="control-group">
+                <label for="left-conc">Left Side (Dilute Solute count):</label>
+                <input type="range" id="left-conc" min="2" max="10" step="1" value="3" oninput="initOsmosisVisualizer()">
+              </div>
+
+              <div class="control-group">
+                <label for="right-conc">Right Side (Concentrated Solute count):</label>
+                <input type="range" id="right-conc" min="12" max="35" step="1" value="18" oninput="initOsmosisVisualizer()">
+              </div>
+
+              <button class="btn-launch-simulator" id="run-osmosis-btn" style="justify-content: center; padding: 0.8rem; margin-top: 1rem; width: 100%;">
+                Start Osmosis Flow
+              </button>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #00f0ff; margin-top: 1rem;">
+              <strong>Theoretical Context:</strong><br>
+              • **Molarity** changes if solvent volume or solute count varies.<br>
+              • **Saturation** occurs when the concentration exceeds the solubility limit (\(K_{sp}\) boundary).<br>
+              • **Osmosis** shifts water through the membrane from low concentration (left) to high concentration (right) side until equilibrium.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Chapter-specific Molarity & Osmosis Simulation Logic
+    const tabMolarity = document.getElementById("tab-molarity");
+    const tabOsmosis = document.getElementById("tab-osmosis");
+    const molarityControls = document.getElementById("molarity-controls-panel");
+    const osmosisControls = document.getElementById("osmosis-controls-panel");
+    const molarityVis = document.getElementById("molarity-vis-panel");
+    const osmosisVis = document.getElementById("osmosis-vis-panel");
+
+    // Molarity Lab DOM elements
+    const soluteSelect = document.getElementById("solute-select");
+    const soluteAmtInput = document.getElementById("solute-amt");
+    const solventVolInput = document.getElementById("solvent-vol");
+    const soluteAmtTxt = document.getElementById("solute-amt-txt");
+    const solventVolTxt = document.getElementById("solvent-vol-txt");
+    const molarityNum = document.getElementById("molarity-num");
+    const liquid = document.getElementById("liquid");
+    const precip = document.getElementById("precip");
+    const satWarning = document.getElementById("sat-warning");
+
+    // Osmosis DOM elements
+    const leftConcInput = document.getElementById("left-conc");
+    const rightConcInput = document.getElementById("right-conc");
+    const runOsmosisBtn = document.getElementById("run-osmosis-btn");
+    const membraneLeft = document.getElementById("membrane-left");
+    const membraneRight = document.getElementById("membrane-right");
+    const osmosisStatus = document.getElementById("osmosis-status");
+
+    // Tab toggling
+    tabMolarity.addEventListener("click", () => {
+      tabMolarity.classList.add("active");
+      tabOsmosis.classList.remove("active");
+      molarityControls.style.display = "flex";
+      osmosisControls.style.display = "none";
+      molarityVis.style.display = "flex";
+      osmosisVis.style.display = "none";
+    });
+
+    tabOsmosis.addEventListener("click", () => {
+      tabOsmosis.classList.add("active");
+      tabMolarity.classList.remove("active");
+      osmosisControls.style.display = "flex";
+      molarityControls.style.display = "none";
+      osmosisVis.style.display = "flex";
+      molarityVis.style.display = "none";
+      initOsmosisVisualizer();
+    });
+
+    // Molarity Calculation
+    function updateMolarity() {
+      const moles = parseFloat(soluteAmtInput.value);
+      const volume = parseFloat(solventVolInput.value);
+      soluteAmtTxt.textContent = moles.toFixed(2);
+      solventVolTxt.textContent = volume.toFixed(2);
+
+      const selectedOption = soluteSelect.options[soluteSelect.selectedIndex];
+      const color = selectedOption.getAttribute("data-color");
+      const satLimit = parseFloat(selectedOption.getAttribute("data-sat"));
+
+      let calculatedMolarity = moles / volume;
+      let finalMolarity = calculatedMolarity;
+      let isSaturated = false;
+
+      if (calculatedMolarity > satLimit) {
+        finalMolarity = satLimit;
+        isSaturated = true;
+      }
+
+      molarityNum.textContent = finalMolarity.toFixed(2);
+
+      // Visual liquid height representing volume
+      liquid.style.height = `${volume * 80}%`;
+
+      // Visual color representing concentration (adjust opacity)
+      const concRatio = finalMolarity / satLimit;
+      const baseColor = color.substring(0, color.lastIndexOf(",")) + ",";
+      const finalColor = `${baseColor} ${0.15 + (concRatio * 0.7)})`;
+      liquid.style.backgroundColor = finalColor;
+
+      // Precipitation representation
+      if (isSaturated) {
+        const excess = moles - (satLimit * volume);
+        const precipHeight = Math.min(excess * 30, 45); // cap visual height
+        precip.style.height = `${precipHeight}px`;
+        satWarning.textContent = "Solution Saturated! Solute precipitating at the bottom.";
+        satWarning.style.color = "#ef4444";
+      } else {
+        precip.style.height = "0px";
+        satWarning.textContent = "Unsaturated Solution.";
+        satWarning.style.color = "#10b981";
+      }
+    }
+
+    soluteSelect.addEventListener("change", updateMolarity);
+    soluteAmtInput.addEventListener("input", updateMolarity);
+    solventVolInput.addEventListener("input", updateMolarity);
+
+    // Initial run
+    updateMolarity();
+
+    // Osmosis Simulation Logic
+    function initOsmosisVisualizer() {
+      membraneLeft.innerHTML = "";
+      membraneRight.innerHTML = "";
+      
+      const leftCount = parseInt(leftConcInput.value, 10);
+      const rightCount = parseInt(rightConcInput.value, 10);
+
+      // Reset heights
+      membraneLeft.style.height = "100%";
+      membraneRight.style.height = "100%";
+
+      // Draw left solute particles
+      for (let i = 0; i < leftCount; i++) {
+        createParticle(membraneLeft);
+      }
+
+      // Draw right solute particles
+      for (let i = 0; i < rightCount; i++) {
+        createParticle(membraneRight);
+      }
+
+      osmosisStatus.textContent = "Solute molecules loaded. Ready to start.";
+      osmosisStatus.style.color = "var(--text-secondary)";
+    }
+
+    function createParticle(container) {
+      const p = document.createElement("div");
+      p.className = "solute-particle";
+      // Random coordinates inside container half
+      p.style.left = `${Math.random() * 85 + 5}%`;
+      p.style.top = `${Math.random() * 70 + 20}%`;
+      container.appendChild(p);
+    }
+
+    let osmosisInterval;
+    runOsmosisBtn.addEventListener("click", () => {
+      clearInterval(osmosisInterval);
+      initOsmosisVisualizer();
+
+      osmosisStatus.textContent = "Osmotic pressure drives solvent molecules...";
+      osmosisStatus.style.color = "#00f0ff";
+
+      let progress = 0;
+      osmosisInterval = setInterval(() => {
+        progress += 5;
+        // Liquid rises on right, sinks on left
+        // left side height goes from 100% down to 80%
+        // right side height goes from 100% up to 120% (simulated in CSS overflow)
+        membraneLeft.style.height = `${100 - (progress * 0.4)}%`;
+        membraneRight.style.opacity = "0.9";
+        membraneRight.style.transform = `scaleY(${1 + (progress * 0.003)})`;
+
+        if (progress >= 100) {
+          clearInterval(osmosisInterval);
+          osmosisStatus.textContent = "Equilibrium reached. Net solvent flow stops.";
+          osmosisStatus.style.color = "#10b981";
+        }
+      }, 100);
+    });
+
+    document.addEventListener("simulator-opened", () => {
+      updateMolarity();
+      if (tabOsmosis.classList.contains("active")) {
+        initOsmosisVisualizer();
+      }
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      clearInterval(osmosisInterval);
+    });
+  </script>
+</body>
+</html>

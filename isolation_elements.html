@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isolation of Elements | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Metallurgy Custom Simulator CSS */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .flotation-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+    }
+    #flotation-canvas {
+      flex-grow: 1;
+      width: 100%;
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .flotation-stats {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.75rem;
+      border-radius: 12px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+  </style>
+</head>
+<body data-theme="d-f-block">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">INORGANIC CHEMISTRY · OPTIONAL UNIT</div>
+        <h1>Isolation of Elements</h1>
+        <h3>Concentration, Roasting, Ellingham Diagrams & Refining</h3>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Flotation Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Minerals & Ores -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Occurrence of Metals</h2>
+          <span class="chapter-tag">Isolation of Elements</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="margin-bottom: 1rem;"><strong>Minerals:</strong> Naturally occurring chemical substances in the earth's crust obtainable by mining.</p>
+              <p class="reveal-item"><strong>Ores:</strong> Minerals from which a metal can be extracted **conveniently and economically**.</p>
+              <p class="reveal-item" style="margin-top: 1.5rem; font-size: 1.1rem; color: var(--accent-color);">"All ores are minerals, but all minerals are not ores."</p>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Major Ores of CBSE syllabus</h3>
+                <p>• <strong>Aluminium:</strong> Bauxite [AlO_x(OH)₃₋₂_x]</p>
+                <p style="margin-top: 0.25rem;">• <strong>Iron:</strong> Haematite (Fe₂O₃), Magnetite (Fe₃O₄)</p>
+                <p style="margin-top: 0.25rem;">• <strong>Copper:</strong> Copper pyrites (CuFeS₂), Malachite [CuCO₃·Cu(OH)₂]</p>
+                <p style="margin-top: 0.25rem;">• <strong>Zinc:</strong> Zinc blende (ZnS), Calamine (ZnCO₃)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Concentration Methods -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Concentration of Ores (Benefaction)</h2>
+          <span class="chapter-tag">Isolation of Elements</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Hydraulic Washing</h3>
+              <p>Based on differences in **specific gravity** of ore and gangue. Light gangue washed away by water stream (e.g. oxide ores of Fe/Sn).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Magnetic Separation</h3>
+              <p>Based on magnetic properties. Ground ore passes over magnetic roller (e.g. separating magnetic Fe ores from non-magnetic gangue).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Froth Flotation</h3>
+              <p>Separates **sulfide ores** from gangue. Hydrophobic ore attaches to pine oil-air bubbles and rises; hydrophilic gangue sinks in water.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Calcination vs Roasting -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Calcination vs Roasting</h2>
+          <span class="chapter-tag">Isolation of Elements</span>
+        </div>
+        <div class="slide-body">
+          <p style="margin-bottom: 2rem; font-size: 1.15rem;" class="reveal-item">Concentrated ore is converted to metal oxide for easier reduction.</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Calcination</h3>
+              <p>Heating the ore **in the absence / limited supply of air** below its melting point.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">• Used for **carbonate and hydrated oxide ores**.</p>
+              <p style="font-size: 0.9rem;">• Drives off moisture and volatile organics.</p>
+              <div class="formula-box" style="margin-top: 0.5rem; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.9rem;">ZnCO₃ + Heat ➔ ZnO + CO₂</span>
+              </div>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Roasting</h3>
+              <p>Heating the ore **in a regular supply of air** at a temperature below its melting point.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">• Used for **sulfide ores**.</p>
+              <p style="font-size: 0.9rem;">• Impurities like S, As, Sb escape as volatile oxides.</p>
+              <div class="formula-box" style="margin-top: 0.5rem; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.9rem;">2ZnS + 3O₂ + Heat ➔ 2ZnO + 2SO₂</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Ellingham Diagrams -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Ellingham Diagram</h2>
+          <span class="chapter-tag">Isolation of Elements</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">A plot of **standard Gibbs free energy change (ΔG°)** for the formation of oxides of elements against temperature.</p>
+              <ul style="margin-top: 1rem;">
+                <li class="reveal-item">Helps choose the right reducing agent for a metal oxide.</li>
+                <li class="reveal-item">A metal can reduce oxides of other metals that lie **above** it in the Ellingham diagram (since ΔG° of net reaction will be negative).</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Thermodynamics Rule</h3>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.75rem;">
+                  <span style="font-family: monospace; font-size: 1.1rem;">ΔG° = ΔH° - TΔS°</span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">If slope of ΔG° line is positive, entropy decreases during oxide formation. Coupling reactions allows reduction calculations.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Iron Extraction -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Extraction of Iron (Blast Furnace)</h2>
+          <span class="chapter-tag">Isolation of Elements</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">Iron oxide ore (Hematite) is reduced in a Blast Furnace using coke (C) and limestone (CaCO₃).</p>
+              <ul style="margin-top: 0.5rem;">
+                <li class="reveal-item"><strong>Reduction zone (500-800 K):</strong> Fe₂O₃ is reduced by CO: Fe₂O₃ + 3CO ➔ 2Fe + 3CO₂.</li>
+                <li class="reveal-item"><strong>Slag formation zone (900-1500 K):</strong> Limestone decomposes: CaCO₃ ➔ CaO + CO₂. CaO reacts with SiO₂ gangue: CaO + SiO₂ ➔ CaSiO₃ (slag).</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Types of Iron</h3>
+                <p>• <strong>Pig Iron:</strong> Direct blast furnace product. Contains ~4% Carbon. Hard and brittle.</p>
+                <p style="margin-top: 0.5rem;">• <strong>Cast Iron:</strong> Made by melting pig iron with scrap. Contains ~3% Carbon.</p>
+                <p style="margin-top: 0.5rem;">• <strong>Wrought Iron:</strong> Purest commercial form of iron (<0.5% carbon). Malleable.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Refining Methods -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Refining / Purification</h2>
+          <span class="chapter-tag">Isolation of Elements</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Electrolytic Refining</h3>
+              <p>Anode is impure metal; cathode is pure sheet. Under potential, pure metal deposits on cathode (e.g. Copper, Zinc purification).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Zone Refining</h3>
+              <p>Based on principle that impurities are more soluble in molten state. Moving heater creates ultra-pure silicon, germanium for semiconductors.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Vapour Phase Refining</h3>
+              <p>Metal converted to volatile compound, then decomposed (e.g. **Mond Process** for Nickel; **van Arkel** for Zirconium/Titanium).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Metallurgy Lab</h2>
+          <span class="chapter-tag">Isolation of Elements</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Froth Flotation Lab</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the flotation simulator. Turn on the agitator paddle, pump in air bubbles, and watch hydrophobic sulfide ore rise as froth while gangue sinks.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Flotation Simulator
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 8</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </di  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Metallurgical Isolation Laboratory</h3>
+          <p>Toggle froth flotation separation or analyze thermodynamic reduction via Ellingham diagrams</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close flotation lab">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="flotation-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-flotation">Froth Flotation</button>
+              <button class="sim-tab-btn" id="tab-ellingham">Ellingham Diagram</button>
+            </div>
+
+            <!-- Flotation Panel -->
+            <div id="flotation-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <canvas id="flotation-canvas" style="flex-grow: 1; min-height: 180px;"></canvas>
+              <div class="flotation-stats" style="margin-top: 0.5rem;">
+                <span id="flotation-status">Apparatus loaded. Add collectors and Turn on Agitator.</span>
+              </div>
+            </div>
+
+            <!-- Ellingham Panel -->
+            <div id="ellingham-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px); align-items: center; justify-content: center;">
+              <canvas id="ellingham-canvas" width="360" height="200" style="background: #020617; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);"></canvas>
+              <div class="timer-val" style="margin-top: 0.5rem; font-size: 0.85rem;" id="ellingham-result-txt">
+                Adjust temperature slider to test feasibility.
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Flotation Controls -->
+            <div id="flotation-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <button class="btn-launch-simulator" id="agitate-btn" style="justify-content: center; padding: 0.8rem; background: linear-gradient(135deg, #f59e0b 0%, rgba(245, 158, 11, 0.4) 100%); color: #000; font-weight: bold; width: 100%;">
+                Turn On Agitator & Air
+              </button>
+
+              <button class="btn-launch-simulator" id="reset-flot-btn" style="justify-content: center; padding: 0.8rem; background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%); color: #fff; font-weight: bold; width: 100%; margin-top: 0.5rem;">
+                Reset Separation
+              </button>
+            </div>
+
+            <!-- Ellingham Controls -->
+            <div id="ellingham-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label for="ell-temp">Temperature: <span id="ell-temp-val">500</span> °C</label>
+                <input type="range" id="ell-temp" min="100" max="1500" step="50" value="500">
+              </div>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #f59e0b;">
+              <strong>Theoretical Context:</strong><br>
+              • **Flotation** separates lighter hydrophobic mineral ores (sulfides) from heavier gangue using pine oil and air bubbles.<br>
+              • **Ellingham curves** plot \(\Delta G^\circ\) vs Temp. The metal oxide line lying higher on the diagram is reduced by the element whose line lies lower.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabFlot = document.getElementById("tab-flotation");
+    const tabEll = document.getElementById("tab-ellingham");
+    const flotPanel = document.getElementById("flotation-panel");
+    const ellPanel = document.getElementById("ellingham-panel");
+    const flotControls = document.getElementById("flotation-controls");
+    const ellControls = document.getElementById("ellingham-controls");
+
+    tabFlot.addEventListener("click", () => {
+      tabFlot.classList.add("active");
+      tabEll.classList.remove("active");
+      flotPanel.style.display = "flex";
+      ellPanel.style.display = "none";
+      flotControls.style.display = "flex";
+      ellControls.style.display = "none";
+      resetLab();
+    });
+
+    tabEll.addEventListener("click", () => {
+      tabEll.classList.add("active");
+      tabFlot.classList.remove("active");
+      ellPanel.style.display = "flex";
+      flotPanel.style.display = "none";
+      ellControls.style.display = "flex";
+      flotControls.style.display = "none";
+      resetEllingham();
+    });
+
+    // Froth Flotation Virtual Lab Logic
+    const canvas = document.getElementById("flotation-canvas");
+    const ctx = canvas.getContext("2d");
+    const agitateBtn = document.getElementById("agitate-btn");
+    const resetBtn = document.getElementById("reset-flot-btn");
+    const flotationStatus = document.getElementById("flotation-status");
+
+    let isAgitating = false;
+    let animId;
+    let particles = [];
+    let bubbles = [];
+
+    class FlotationParticle {
+      constructor(type) {
+        this.type = type;
+        this.radius = 4;
+        this.reset();
+      }
+
+      reset() {
+        const w = canvas.width || 360;
+        const h = canvas.height || 220;
+        this.x = Math.random() * (w - 60) + 30;
+        this.y = h * 0.5 + Math.random() * (h * 0.4);
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.attached = false;
+        this.bubbleRef = null;
+      }
+
+      update() {
+        const w = canvas.width || 360;
+        const h = canvas.height || 220;
+        if (!isAgitating) {
+          this.x += this.vx * 0.5;
+          this.y += this.vy * 0.5;
+          if (this.x < 10 || this.x > w - 10) this.vx *= -1;
+          if (this.y < h * 0.4 || this.y > h - 10) this.vy *= -1;
+          return;
+        }
+
+        if (!this.attached) {
+          this.x += this.vx * 2 + Math.sin(Date.now() * 0.01) * 0.8;
+          this.y += this.vy * 2 + Math.cos(Date.now() * 0.01) * 0.4;
+          
+          if (this.x < 10 || this.x > w - 10) this.vx *= -1;
+          if (this.y < h * 0.4 || this.y > h - 10) this.vy *= -1;
+
+          if (this.type === "ore") {
+            bubbles.forEach(b => {
+              if (b.y > h * 0.35) {
+                const dx = b.x - this.x;
+                const dy = b.y - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < b.r + this.radius) {
+                  this.attached = true;
+                  this.bubbleRef = b;
+                }
+              }
+            });
+          } else {
+            this.y += 0.15;
+            if (this.y > h - 15) this.y = h - 15;
+          }
+        } else {
+          if (this.bubbleRef) {
+            this.x = this.bubbleRef.x + (Math.random() - 0.5) * 4;
+            this.y = this.bubbleRef.y + this.bubbleRef.r - 2;
+
+            if (this.bubbleRef.y <= h * 0.3) {
+              this.attached = false;
+              this.bubbleRef = null;
+              this.vx = 0; this.vy = 0;
+              this.y = h * 0.25 + Math.random() * 20;
+            }
+          }
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.type === "ore" ? "#ffd700" : "#6b7280";
+        if (this.type === "ore") {
+          ctx.shadowBlur = 4;
+          ctx.shadowColor = "#ffd700";
+        }
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    class FlotationBubble {
+      constructor() {
+        this.r = Math.random() * 8 + 6;
+        this.reset();
+      }
+
+      reset() {
+        const w = canvas.width || 360;
+        const h = canvas.height || 220;
+        this.x = Math.random() * (w - 40) + 20;
+        this.y = h - 10;
+        this.vy = (Math.random() * 0.6) + 0.8;
+      }
+
+      update() {
+        const h = canvas.height || 220;
+        if (!isAgitating) return;
+        this.y -= this.vy;
+        this.x += Math.sin(Date.now() * 0.05 + this.r) * 0.5;
+
+        if (this.y < h * 0.22) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(255,255,255,0.4)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+
+    function initLab() {
+      canvas.width = canvas.clientWidth || 360;
+      canvas.height = canvas.clientHeight || 220;
+      
+      particles = [];
+      bubbles = [];
+
+      for (let i = 0; i < 22; i++) {
+        particles.push(new FlotationParticle("ore"));
+        particles.push(new FlotationParticle("gangue"));
+      }
+
+      for (let i = 0; i < 15; i++) {
+        const b = new FlotationBubble();
+        b.y = Math.random() * (canvas.height * 0.6) + canvas.height * 0.35;
+        bubbles.push(b);
+      }
+    }
+
+    function resetLab() {
+      isAgitating = false;
+      agitateBtn.textContent = "Turn On Agitator & Air";
+      agitateBtn.style.background = "linear-gradient(135deg, #f59e0b 0%, rgba(245, 158, 11, 0.4) 100%)";
+      agitateBtn.style.color = "#000";
+      flotationStatus.textContent = "Concentrator loaded. Click Turn On Agitator.";
+      flotationStatus.style.color = "#fff";
+      initLab();
+    }
+
+    function drawApparatus() {
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = "rgba(255,255,255,0.2)";
+      ctx.strokeRect(10, h * 0.2, w - 20, h * 0.78);
+
+      ctx.fillStyle = "rgba(56, 189, 248, 0.12)";
+      ctx.fillRect(12, h * 0.3, w - 24, h * 0.68);
+
+      if (isAgitating) {
+        ctx.fillStyle = "rgba(253, 224, 71, 0.15)";
+        ctx.fillRect(12, h * 0.22, w - 24, h * 0.08);
+      }
+    }
+
+    function animateLab() {
+      ctx.clearRect(0,0,canvas.width, canvas.height);
+      drawApparatus();
+      if (isAgitating) {
+        bubbles.forEach(b => {
+          b.update();
+          b.draw();
+        });
+      }
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      animId = requestAnimationFrame(animateLab);
+    }
+
+    agitateBtn.addEventListener("click", () => {
+      if (!isAgitating) {
+        isAgitating = true;
+        agitateBtn.textContent = "Stop Agitator";
+        agitateBtn.style.background = "linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%)";
+        agitateBtn.style.color = "#fff";
+        flotationStatus.textContent = "Agitating. Air bubbles are lifting hydrophobic sulfide ore particles...";
+        flotationStatus.style.color = "#ffd700";
+      } else {
+        isAgitating = false;
+        agitateBtn.textContent = "Turn On Agitator & Air";
+        agitateBtn.style.background = "linear-gradient(135deg, #f59e0b 0%, rgba(245, 158, 11, 0.4) 100%)";
+        agitateBtn.style.color = "#000";
+        flotationStatus.textContent = "Agitator paused.";
+        flotationStatus.style.color = "#fff";
+      }
+    });
+
+    resetBtn.addEventListener("click", resetLab);
+
+    // Ellingham Diagram Plotter Logic
+    const ellCanvas = document.getElementById("ellingham-canvas");
+    const eCtx = ellCanvas.getContext("2d");
+    const ellTempInput = document.getElementById("ell-temp");
+    const ellTempVal = document.getElementById("ell-temp-val");
+    const ellResultTxt = document.getElementById("ellingham-result-txt");
+
+    ellTempInput.addEventListener("input", () => {
+      ellTempVal.textContent = ellTempInput.value;
+      drawEllingham();
+    });
+
+    function resetEllingham() {
+      ellTempInput.value = 500;
+      ellTempVal.textContent = "500";
+      drawEllingham();
+    }
+
+    function drawEllingham() {
+      eCtx.clearRect(0, 0, ellCanvas.width, ellCanvas.height);
+      const temp = parseInt(ellTempInput.value, 10);
+      
+      const startX = 40;
+      const endX = ellCanvas.width - 40;
+      const startY = 30;
+      const endY = ellCanvas.height - 30;
+
+      // Draw Grid Axes
+      eCtx.strokeStyle = "rgba(255,255,255,0.15)";
+      eCtx.lineWidth = 1;
+      eCtx.beginPath();
+      eCtx.moveTo(startX, startY);
+      eCtx.lineTo(startX, endY);
+      eCtx.lineTo(endX, endY);
+      eCtx.stroke();
+
+      eCtx.fillStyle = "#94a3b8";
+      eCtx.font = "8px sans-serif";
+      eCtx.textAlign = "center";
+      eCtx.fillText("T (0°C)", startX, endY + 12);
+      eCtx.fillText("T (710°C)", startX + (endX - startX) * 0.44, endY + 12);
+      eCtx.fillText("T (1500°C)", endX, endY + 12);
+
+      eCtx.textAlign = "right";
+      eCtx.fillText("ΔG°", startX - 5, startY + 5);
+
+      // Draw Line 1: 2Fe + O2 -> 2FeO (Slopes up)
+      // starts at y = 130, ends at y = 60
+      eCtx.strokeStyle = "#fb7185";
+      eCtx.beginPath();
+      eCtx.moveTo(startX, endY - 60);
+      eCtx.lineTo(endX, endY - 120);
+      eCtx.stroke();
+      eCtx.fillStyle = "#fb7185";
+      eCtx.fillText("2Fe + O₂ ➔ 2FeO", endX - 10, endY - 125);
+
+      // Draw Line 2: 2C + O2 -> 2CO (Slopes down)
+      // starts at y = 80, ends at y = 150
+      eCtx.strokeStyle = "#38bdf8";
+      eCtx.beginPath();
+      eCtx.moveTo(startX, endY - 100);
+      eCtx.lineTo(endX, endY - 30);
+      eCtx.stroke();
+      eCtx.fillStyle = "#38bdf8";
+      eCtx.fillText("2C + O₂ ➔ 2CO", endX - 10, endY - 20);
+
+      // Intersection at 710°C (approx x ratio 0.44)
+      const interX = startX + (endX - startX) * 0.44;
+      const interY = endY - 73;
+
+      eCtx.fillStyle = "#ffd700";
+      eCtx.beginPath();
+      eCtx.arc(interX, interY, 4, 0, Math.PI*2);
+      eCtx.fill();
+
+      // Temperature indicator line
+      const currentX = startX + (endX - startX) * ((temp - 100) / 1400);
+      eCtx.strokeStyle = "rgba(255,255,255,0.4)";
+      eCtx.setLineDash([3, 3]);
+      eCtx.beginPath();
+      eCtx.moveTo(currentX, startY);
+      eCtx.lineTo(currentX, endY);
+      eCtx.stroke();
+      eCtx.setLineDash([]);
+
+      if (temp > 710) {
+        ellResultTxt.innerHTML = `<strong>Feasibility: Feasible! (T = ${temp}°C)</strong><br><span style='color:#10b981;'>ΔG° of 2C + O₂ ➔ 2CO is more negative than 2Fe + O₂ ➔ 2FeO.</span> Carbon acts as an effective reducing agent.`;
+      } else {
+        ellResultTxt.innerHTML = `<strong>Feasibility: Not Feasible. (T = ${temp}°C)</strong><br><span style='color:#ef4444;'>FeO line is lower.</span> Carbon is not oxidized favorably enough to reduce FeO.`;
+      }
+    }
+
+    document.addEventListener("simulator-opened", () => {
+      resetLab();
+      animateLab();
+      resetEllingham();
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      isAgitating = false;
+      cancelAnimationFrame(animId);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haloalkanes & Haloarenes | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Haloalkanes custom simulator styles */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .sn-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+      justify-content: center;
+      align-items: center;
+    }
+    .reaction-arena {
+      width: 100%;
+      height: 200px;
+      position: relative;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      background: rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+    .arena-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-family: monospace;
+    }
+    .molecule {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      font-weight: bold;
+      color: #fff;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .mol-nucleophile {
+      width: 36px;
+      height: 36px;
+      background-color: #10b981;
+      left: 20px;
+      top: 80px;
+    }
+    .mol-substrate {
+      width: 60px;
+      height: 60px;
+      background-color: #3b82f6;
+      left: calc(50% - 30px);
+      top: 70px;
+      border-radius: 50%;
+    }
+    .mol-leaving {
+      width: 32px;
+      height: 32px;
+      background-color: #ef4444;
+      left: calc(50% + 40px);
+      top: 84px;
+    }
+    .bond-line {
+      position: absolute;
+      height: 4px;
+      background-color: #fff;
+      top: 98px;
+      z-index: 1;
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .sim-sidebar input[type="range"] {
+      width: 100%;
+      accent-color: #10b981;
+    }
+    .mechanism-hud-box {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.75rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body data-theme="organic">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">UNIT X · ORGANIC CHEMISTRY</div>
+        <h1>Haloalkanes & Haloarenes</h1>
+        <h3>CBSE Class 12 Comprehensive Study Slides</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Nucleophilic SN1/SN2 kinetics, preparation rules, stereochemistry Walden inversion, and aryl halide reactivity.</p>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Nucleophilic Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Classification & C-X Bond -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Classification & C-X Bond Chemistry</h2>
+          <span class="chapter-tag">Haloalkanes</span>
+        </div>
+        <div class="slide-body">
+          <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Alkyl and aryl halides are compounds where hydrogen atoms in alkanes or arenes are replaced by halogens.</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Classification Types</h3>
+              <p>• **Allylic Halides:** Halogen bonded to \(sp^3\)-hybridized carbon adjacent to a C=C double bond (e.g. \(CH_2=CH-CH_2X\)).</p>
+              <p>• **Benzylic Halides:** Halogen bonded to \(sp^3\)-hybridized carbon attached to an aromatic ring.</p>
+              <p>• **Vinylic Halides:** Halogen bonded directly to an \(sp^2\)-hybridized carbon of double bond.</p>
+              <p>• **Aryl Halides:** Halogen bonded directly to aromatic ring carbon.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Nature of C-X Bond</h3>
+              <p>• Halogen is more electronegative than carbon, making the **C-X bond highly polar**.</p>
+              <p>• Carbon carries partial positive (\(\delta^+\)) and halogen carries partial negative (\(\delta^-\)) charge.</p>
+              <p>• **Bond Strength Trend:** Down the group, size of halogen increases. C-F bond is shortest/strongest, C-I is longest/weakest. Consequently, reactivity increases in the order: **R-F < R-Cl < R-Br < R-I**.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Preparation Methods -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Methods of Preparation</h2>
+          <span class="chapter-tag">Haloalkanes</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>1. From Alcohols</h3>
+              <p>• Reacting with \(HX\) in presence of \(ZnCl_2\) (Lucas Reagent), or \(PCl_3\)/\(PCl_5\).</p>
+              <p>• **Darzens Process:** Best method uses **thionyl chloride (\(SOCl_2\))** because byproducts are gases (\(SO_2\) and \(HCl\)), leaving pure alkyl chloride:</p>
+              <div class="formula-box" style="margin: 0.3rem 0; padding: 0.4rem; font-family: monospace; font-size: 0.8rem;">
+                R-OH + SOCl₂ ➔ R-Cl + SO₂↑ + HCl↑
+              </div>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>2. Additions & Halogen Exchange</h3>
+              <p>• **Markovnikov addition:** \(HX\) adds to unsymmetrical alkenes; halide goes to more substituted carbon.</p>
+              <p>• **Finkelstein Reaction (Iodide prep):**</p>
+              <div class="formula-box" style="padding: 0.3rem; font-family: monospace; font-size: 0.8rem;">
+                R-Cl + NaI ➔ R-I + NaCl↓  (in dry acetone)
+              </div>
+              <p>• **Swarts Reaction (Fluoride prep):**</p>
+              <div class="formula-box" style="padding: 0.3rem; font-family: monospace; font-size: 0.8rem;">
+                R-Br + AgF ➔ R-F + AgBr↓  (uses AgF, Hg₂F₂ or CoF₂)
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Physical Properties -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Physical Properties</h2>
+          <span class="chapter-tag">Haloalkanes</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Boiling Points</h3>
+              <p>Higher than corresponding hydrocarbons due to stronger polar dipole-dipole attractions. Trend: **R-I > R-Br > R-Cl > R-F** (higher mass = higher London forces).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Branching Effect</h3>
+              <p>For isomeric alkyl halides, **branching decreases the boiling point**. Branching makes the molecule spherical, reducing surface area and decreasing van der Waals attractive forces.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Isomer Melting Points</h3>
+              <p>Among o-, m-, and p-dichlorobenzenes, the **para-isomer has the highest melting point**. Its symmetrical structure fits perfectly into the crystal lattice, requiring more energy to melt.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: nucleophilic Substitution (SN2) -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>SN2 Reaction Mechanism</h2>
+          <span class="chapter-tag">Haloalkanes</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item"><strong>SN2 (Substitution Nucleophilic Biomolecular):</strong> occurs in a single step with a transition state. The incoming nucleophile attacks from the **backside** (opposite to the leaving group).</p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">Rate = k · [Substrate] · [Nucleophile]</div>
+                <div class="formula-label">Second-order kinetics. No intermediate.</div>
+              </div>
+              <p class="reveal-item" style="margin-top: 0.5rem;"><strong>Walden Inversion:</strong> The configurations invert like an umbrella turning inside out in a strong wind.</p>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>SN2 Reactivity Factors</h3>
+                <p>• Driven by **steric hindrance**. Smaller substrates allow easier backside attack.</p>
+                <p>• **Substrate Reactivity Order:**</p>
+                <p style="font-family: monospace; font-size: 1rem; color: #10b981; font-weight: bold; margin-top: 0.5rem;">
+                  Methyl > 1° > 2° > 3°
+                </p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                  • Tertiary halides are extremely slow in SN2 because bulky groups block nucleophile approach.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: nucleophilic Substitution (SN1) -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>SN1 Reaction Mechanism</h2>
+          <span class="chapter-tag">Haloalkanes</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Mechanism Steps</h3>
+              <p>• **Step 1 (Slow/RDS):** Heterolytic cleavage of C-X bond to form a planar **carbocation intermediate** and halide ion.</p>
+              <p>• **Step 2 (Fast):** Attack of nucleophile from either front or backside on the planar carbocation.</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.95rem;">Rate = k · [Substrate]</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">First-order kinetics. Independent of nucleophile strength/concentration.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>SN1 Reactivity Factors</h3>
+              <p>• Driven by **carbocation stability** (polar protic solvents like H₂O, EtOH stabilize carbocations via solvation).</p>
+              <p>• **Substrate Reactivity Order:**</p>
+              <p style="font-family: monospace; font-size: 1rem; color: #ef4444; font-weight: bold; margin-top: 0.5rem;">
+                3° > 2° > 1° > Methyl
+              </p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                • Allylic and benzylic halides show high reactivity towards SN1 due to resonance stabilization of their carbocations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Stereochemical Principles -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Stereochemistry of Substitution</h2>
+          <span class="chapter-tag">Haloalkanes</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <ul>
+                <li class="reveal-item"><strong>Chirality:</strong> Molecules containing an asymmetric carbon (bonded to 4 different groups) are chiral, lacking an internal plane of symmetry.</li>
+                <li class="reveal-item"><strong>Enantiomers:</strong> Non-superimposable mirror images that rotate plane-polarized light in equal and opposite directions.</li>
+                <li class="reveal-item"><strong>Racemic Mixture:</strong> A 50:50 mixture of d- and l-enantiomers. Optically inactive due to external compensation.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Stereochemical Outcomes</h3>
+                <p>• **SN2 Stereochemistry:** Results in 100% **inversion of configuration** due to mandatory backside attack.</p>
+                <p style="margin-top: 0.5rem;">• **SN1 Stereochemistry:** Results in **racemisation** (partial or complete). Since intermediate carbocation is flat and planar, nucleophile has a 50% chance of attacking from either face, yielding a mixture of retention and inversion products.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Elimination & Metal Reactions -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Elimination Reactions & Metal Actions</h2>
+          <span class="chapter-tag">Haloalkanes</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Elimination (dehydrohalogenation)</h3>
+              <p>Heating haloalkane with **alcoholic KOH** removes hydrogen from \(\beta\)-carbon and halogen from \(\alpha\)-carbon, forming an alkene.</p>
+              <p style="margin-top: 0.5rem;">• **Saytzeff / Zaitsev Rule:** In dehydrohalogenation reactions, the preferred product is that alkene which has the **greater number of alkyl groups** attached to the doubly bonded carbon atoms (more substituted/more stable alkene).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Reactions with Metals</h3>
+              <p>• **Grignard Reagent:** Reacting with Mg in dry ether: \(R-X + Mg \rightarrow R-Mg-X\) (organometallic compound).</p>
+              <p>• **Wurtz Reaction:** Coupling of alkyl halides with sodium in dry ether to form symmetrical higher alkanes:</p>
+              <div class="formula-box" style="padding: 0.4rem; font-family: monospace; font-size: 0.85rem;">
+                2R-X + 2Na ➔ R-R + 2NaX
+              </div>
+              <p>• **Wurtz-Fittig:** Alkyl halide + aryl halide coupling. **Fittig:** Diaryl coupling.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Haloarenes Reactivity -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Low Reactivity of Haloarenes</h2>
+          <span class="chapter-tag">Haloalkanes</span>
+        </div>
+        <div class="slide-body">
+          <p class="reveal-item" style="font-size:1.05rem; margin-bottom: 1rem;">Aryl halides are extremely inert towards nucleophilic substitution compared to alkyl halides. Reasons:</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Four Key Reasons</h3>
+              <p>1. **Resonance Effect:** Lone pair on halogen delocalizes into the benzene ring, giving C-X bond a **partial double bond character**, making it hard to cleave.</p>
+              <p>2. **Hybridisation:** Carbon in aryl halide is \(sp^2\)-hybridized (more s-character, tighter hold of electrons, shorter bond) whereas alkyl is \(sp^3\).</p>
+              <p>3. **Instability of phenyl cation:** Cannot stabilize itself by resonance.</p>
+              <p>4. **Electron Repulsion:** Electron-rich benzene ring repels approaching nucleophiles.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Forcing Conditions</h3>
+              <p>Substitution can occur under drastic conditions (Dow's process: chlorobenzene to phenol requires NaOH at 623 K, 300 atm).</p>
+              <p style="margin-top: 0.5rem; color:#10b981; font-weight:600;">The presence of electron-withdrawing groups (like -NO₂) at ortho- and para- positions greatly increases reactivity towards nucleophiles by stabilizing the intermediate carbanion.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Polyhalogen Compounds -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Polyhalogen Compounds</h2>
+          <span class="chapter-tag">Haloalkanes</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Chloroform (CHCl₃)</h3>
+              <p>Used as solvent. Stored in dark, closed bottles filled to the brim to prevent oxidation by air into highly poisonous gas **Phosgene (carbonyl chloride)**:</p>
+              <div class="formula-box" style="padding: 0.4rem; font-family: monospace; font-size: 0.75rem;">
+                2CHCl₃ + O₂ ➔ 2COCl₂ + 2HCl
+              </div>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Freons & Iodoform</h3>
+              <p>• **Freons (CFCs):** Stable, non-flammable refrigerants. Cause ozone layer depletion in stratosphere.</p>
+              <p>• **Iodoform (CHI₃):** Used as antiseptic. Antiseptic action is due to liberation of free iodine, not iodoform itself.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>DDT & CCl₄</h3>
+              <p>• **Carbon Tetrachloride:** Solvents. Damages liver, kidney, causes dizziness.</p>
+              <p>• **DDT (dichlorodiphenyltrichloroethane):** Non-biodegradable pesticide. Accumulates in food chain, disrupting calcium metabolism in birds.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>haloalkanes Lab</h2>
+          <span class="chapter-tag">Haloalkanes</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Nucleophilic Substitution Simulator</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the substitution simulator panel. Toggle between SN1 carbocation intermediates and SN2 single-step Walden inversions. Track the kinetics curves and check steric speed factors.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Substitution Simulator
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 11</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Haloalkanes & Haloarenes Laboratory</h3>
+          <p>Toggle nucleophilic substitution pathways or measure chiral optical rotation</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close haloalkanes simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="sn-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-substitution">Substitution Path</button>
+              <button class="sim-tab-btn" id="tab-polarimeter">Polarimeter Lab</button>
+            </div>
+
+            <!-- Substitution panel -->
+            <div id="substitution-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <div class="reaction-arena" id="reaction-arena" style="flex-grow: 1; min-height: 180px; position: relative;">
+                <div class="arena-label" id="arena-lbl">Reaction Chamber (Idle)</div>
+                <div class="molecule mol-nucleophile" id="nucleophile-mol" style="display: none; position: absolute;">OH⁻</div>
+                <div class="molecule mol-substrate" id="substrate-mol" style="position: absolute;">C</div>
+                <div class="molecule mol-leaving" id="leaving-mol" style="display: none; position: absolute;">Br⁻</div>
+                <div class="bond-line" id="bond-line" style="display: none; position: absolute;"></div>
+              </div>
+              <div class="mechanism-hud-box" style="width: 100%;" id="mech-steps-hud">
+                Select mechanism on the right and click <strong>Run Mechanism</strong>.
+              </div>
+            </div>
+
+            <!-- Polarimeter panel -->
+            <div id="polarimeter-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px); align-items: center; justify-content: center;">
+              <div style="display: flex; gap: 30px; align-items: center; justify-content: center; width: 100%;">
+                <!-- Tube -->
+                <div style="position: relative; width: 160px; height: 35px; border: 2px solid #64748b; background: rgba(56, 189, 248, 0.15); border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden;" id="polarimeter-tube">
+                  <div style="font-size: 8px; color: #fff; font-family: monospace;" id="tube-dim-txt">Length: 1.0 dm</div>
+                </div>
+
+                <!-- Circular analyzer dial -->
+                <div style="position: relative; width: 100px; height: 100px; border: 4px solid #475569; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0f172a;">
+                  <!-- Polarized light vector line -->
+                  <div id="vector-needle" style="position: absolute; width: 2px; height: 80px; background: #ffd700; transform: rotate(0deg); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 8px #ffd700;"></div>
+                  <div style="position: absolute; top: 2px; font-size: 8px; color: #64748b;">0°</div>
+                  <div style="position: absolute; bottom: 2px; font-size: 8px; color: #64748b;">180°</div>
+                </div>
+              </div>
+
+              <div class="mechanism-hud-box" style="width: 100%; margin-top: 1rem;">
+                Optical Rotation (\(θ\)): <strong id="rotation-angle" style="color: #00f5d4;">0.0°</strong> | 
+                Chiral State: <strong id="chiral-state-desc" style="color: #fff;">Inactive</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Substitution controls -->
+            <div id="substitution-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Select Reaction Pathway</label>
+                <div class="toggle-group" id="path-toggle">
+                  <button class="toggle-btn active" data-path="sn2">SN2 (Biomolecular)</button>
+                  <button class="toggle-btn" data-path="sn1">SN1 (Unimolecular)</button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label>Substrate Bulkiyness (Steric Factor)</label>
+                <div class="toggle-group" id="bulky-toggle">
+                  <button class="toggle-btn active" data-bulky="low">1° (Methyl)</button>
+                  <button class="toggle-btn" data-bulky="high">3° (t-butyl)</button>
+                </div>
+              </div>
+
+              <button class="btn-launch-simulator" id="run-mech-btn" style="justify-content: center; padding: 0.8rem; margin-top: 0.5rem; width: 100%; background: linear-gradient(135deg, #00f5d4 0%, rgba(0, 245, 212, 0.4) 100%); color: #000; font-weight: bold;">
+                Run Mechanism
+              </button>
+            </div>
+
+            <!-- Polarimeter controls -->
+            <div id="polarimeter-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Active Enantiomer</label>
+                <div class="toggle-group" id="enantiomer-toggle">
+                  <button class="toggle-btn active" data-enant="rac">Racemic (±)</button>
+                  <button class="toggle-btn" data-enant="d">Dextro (+)</button>
+                  <button class="toggle-btn" data-enant="l">Laevo (-)</button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label for="pol-length">Tube Length (l): <span id="pol-length-val">1.0</span> dm</label>
+                <input type="range" id="pol-length" min="1.0" max="3.0" step="0.5" value="1.0">
+              </div>
+
+              <div class="control-group">
+                <label for="pol-conc">Concentration (c): <span id="pol-conc-val">0.5</span> g/mL</label>
+                <input type="range" id="pol-conc" min="0.1" max="1.0" step="0.1" value="0.5">
+              </div>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #00f5d4;">
+              <strong>Theoretical Notes:</strong><br>
+              • **SN2** goes with Walden inversion.<br>
+              • **SN1** forms flat carbocation leading to racemisation.<br>
+              • **Optical activity** is measured by \(\theta = [\alpha] \cdot c \cdot l\). Racemic mixtures are optically inactive by external compensation.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabSub = document.getElementById("tab-substitution");
+    const tabPol = document.getElementById("tab-polarimeter");
+    const subPanel = document.getElementById("substitution-panel");
+    const polPanel = document.getElementById("polarimeter-panel");
+    const subControls = document.getElementById("substitution-controls");
+    const polControls = document.getElementById("polarimeter-controls");
+
+    tabSub.addEventListener("click", () => {
+      tabSub.classList.add("active");
+      tabPol.classList.remove("active");
+      subPanel.style.display = "flex";
+      polPanel.style.display = "none";
+      subControls.style.display = "flex";
+      polControls.style.display = "none";
+    });
+
+    tabPol.addEventListener("click", () => {
+      tabPol.classList.add("active");
+      tabSub.classList.remove("active");
+      polPanel.style.display = "flex";
+      subPanel.style.display = "none";
+      polControls.style.display = "flex";
+      subControls.style.display = "none";
+      calculateRotation();
+    });
+
+    // SN1 / SN2 Simulation Logic
+    const pathBtns = document.querySelectorAll("#path-toggle .toggle-btn");
+    const bulkyBtns = document.querySelectorAll("#bulky-toggle .toggle-btn");
+    const runMechBtn = document.getElementById("run-mech-btn");
+    const arenaLbl = document.getElementById("arena-lbl");
+    const mechHud = document.getElementById("mech-steps-hud");
+
+    const nucleophile = document.getElementById("nucleophile-mol");
+    const substrate = document.getElementById("substrate-mol");
+    const leavingGroup = document.getElementById("leaving-mol");
+    const bondLine = document.getElementById("bond-line");
+
+    let selectedPath = "sn2";
+    let selectedBulky = "low";
+    let isRunning = false;
+    let animTimer;
+
+    pathBtns.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        pathBtns.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        selectedPath = e.target.getAttribute("data-path");
+        resetArena();
+      });
+    });
+
+    bulkyBtns.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        bulkyBtns.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        selectedBulky = e.target.getAttribute("data-bulky");
+        resetArena();
+      });
+    });
+
+    function resetArena() {
+      clearTimeout(animTimer);
+      isRunning = false;
+      runMechBtn.textContent = "Run Mechanism";
+      runMechBtn.style.background = "";
+      
+      arenaLbl.textContent = `Reaction Chamber (Idle: ${selectedPath.toUpperCase()})`;
+      mechHud.innerHTML = `Ready to simulate <strong>${selectedPath.toUpperCase()}</strong> pathway. Substrate: <strong>${selectedBulky === 'low' ? 'Methyl Halide' : 'Tertiary Halide'}</strong>.`;
+
+      nucleophile.style.display = "none";
+      nucleophile.style.left = "20px";
+      nucleophile.style.top = "80px";
+
+      substrate.style.left = "calc(50% - 30px)";
+      substrate.style.top = "70px";
+      substrate.textContent = selectedBulky === "low" ? "CH₃" : "C(Me)₃";
+
+      leavingGroup.style.display = "none";
+      leavingGroup.style.left = "calc(50% + 40px)";
+      leavingGroup.style.top = "84px";
+
+      bondLine.style.display = "none";
+    }
+
+    function runMechanism() {
+      if (isRunning) {
+        resetArena();
+        return;
+      }
+
+      isRunning = true;
+      runMechBtn.textContent = "Reset";
+      runMechBtn.style.background = "linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%)";
+
+      if (selectedPath === "sn2") {
+        runSN2Simulation();
+      } else {
+        runSN1Simulation();
+      }
+    }
+
+    function runSN2Simulation() {
+      nucleophile.style.display = "flex";
+      leavingGroup.style.display = "flex";
+      bondLine.style.display = "block";
+      
+      const width = document.getElementById("reaction-arena").clientWidth || 400;
+      const subLeft = width / 2 - 30;
+      
+      bondLine.style.left = `${subLeft + 30}px`;
+      bondLine.style.width = `40px`;
+
+      if (selectedBulky === "high") {
+        arenaLbl.textContent = "SN2 Failed - Steric Hindrance!";
+        mechHud.innerHTML = "<strong>Step 1:</strong> Nucleophile attempts backside attack.<br><span style='color:#ef4444;'><strong>Blocked!</strong> Bulky tertiary methyl groups block nucleophile approach. Rate constant ≈ 0.</span>";
+        
+        let pos = 20;
+        const blockTimer = setInterval(() => {
+          pos += 4;
+          nucleophile.style.left = `${pos}px`;
+          if (pos >= subLeft - 50) {
+            clearInterval(blockTimer);
+            let bounce = pos;
+            const bounceTimer = setInterval(() => {
+              bounce -= 4;
+              nucleophile.style.left = `${bounce}px`;
+              if (bounce <= 40) clearInterval(bounceTimer);
+            }, 30);
+          }
+        }, 30);
+        return;
+      }
+
+      arenaLbl.textContent = "SN2 In Progress...";
+      mechHud.innerHTML = "<strong>Step 1:</strong> Nucleophile initiates backside attack as leaving group starts departing...";
+
+      let nucPos = 20;
+      let lvPos = subLeft + 40;
+      
+      const sn2Timer = setInterval(() => {
+        nucPos += 5;
+        nucleophile.style.left = `${nucPos}px`;
+
+        if (nucPos >= subLeft - 30) {
+          clearInterval(sn2Timer);
+          arenaLbl.textContent = "SN2 Transition State (Pentavalent)";
+          mechHud.innerHTML = "<strong>Step 2:</strong> Pentavalent transition state. Bond to nucleophile is partially formed, and bond to leaving group is partially broken.";
+          substrate.style.borderColor = "#ffd700";
+          bondLine.style.backgroundColor = "#ffd700";
+
+          animTimer = setTimeout(() => {
+            arenaLbl.textContent = "SN2 Complete - Walden Inversion!";
+            mechHud.innerHTML = "<strong>Step 3:</strong> Leaving group departs with electron pair. Nucleophile bonds. <strong>Walden Inversion</strong> accomplished!";
+            
+            substrate.style.borderColor = "";
+            bondLine.style.left = `${nucPos + 36}px`;
+            bondLine.style.width = `${subLeft - nucPos}px`;
+            bondLine.style.backgroundColor = "#fff";
+
+            let lvPush = lvPos;
+            const pushTimer = setInterval(() => {
+              lvPush += 6;
+              leavingGroup.style.left = `${lvPush}px`;
+              if (lvPush > width) {
+                clearInterval(pushTimer);
+                leavingGroup.style.display = "none";
+              }
+            }, 25);
+          }, 1500);
+        }
+      }, 30);
+    }
+
+    function runSN1Simulation() {
+      nucleophile.style.display = "flex";
+      leavingGroup.style.display = "flex";
+      bondLine.style.display = "block";
+
+      const width = document.getElementById("reaction-arena").clientWidth || 400;
+      const subLeft = width / 2 - 30;
+
+      bondLine.style.left = `${subLeft + 30}px`;
+      bondLine.style.width = `40px`;
+
+      arenaLbl.textContent = "SN1 Step 1 - Carbocation Formation";
+      mechHud.innerHTML = "<strong>Step 1 (Slow/RDS):</strong> C-Br bond cleaves heterolytically. Bromide leaves, yielding a stable carbocation intermediate.";
+
+      const step1Speed = selectedBulky === "high" ? 25 : 70;
+      if (selectedBulky === "low") {
+        mechHud.innerHTML += "<br><span style='color:#f59e0b;'>Note: Methyl carbocation is highly unstable; this step is extremely slow.</span>";
+      }
+
+      let lvPos = subLeft + 40;
+      const sn1Timer1 = setInterval(() => {
+        lvPos += 4;
+        leavingGroup.style.left = `${lvPos}px`;
+        bondLine.style.width = `${parseFloat(bondLine.style.width) - 4}px`;
+
+        if (lvPos >= subLeft + 80) {
+          clearInterval(sn1Timer1);
+          bondLine.style.display = "none";
+          substrate.textContent = selectedBulky === "low" ? "CH₃⁺" : "C(Me)₃⁺";
+          substrate.style.borderColor = "#38bdf8";
+
+          animTimer = setTimeout(() => {
+            arenaLbl.textContent = "SN1 Step 2 - Fast Nucleophilic Attack";
+            mechHud.innerHTML = "<strong>Step 2 (Fast):</strong> Nucleophile attacks planar carbocation. Can attack from front or back, leading to <strong>racemisation</strong>.";
+            
+            let nucPos = 20;
+            const sn1Timer2 = setInterval(() => {
+              nucPos += 6;
+              nucleophile.style.left = `${nucPos}px`;
+              if (nucPos >= subLeft - 36) {
+                clearInterval(sn1Timer2);
+                substrate.style.borderColor = "";
+                substrate.textContent = selectedBulky === "low" ? "CH₃OH" : "C(Me)₃OH";
+                arenaLbl.textContent = "SN1 Complete!";
+                mechHud.innerHTML += "<br><strong>Done:</strong> Racemic mixture formed.";
+              }
+            }, 30);
+          }, 1500);
+        }
+      }, step1Speed);
+    }
+
+    runMechBtn.addEventListener("click", runMechanism);
+    resetArena();
+
+    // Polarimeter logic
+    const polLength = document.getElementById("pol-length");
+    const polLengthVal = document.getElementById("pol-length-val");
+    const polConc = document.getElementById("pol-conc");
+    const polConcVal = document.getElementById("pol-conc-val");
+    const needle = document.getElementById("vector-needle");
+    const rotationAngle = document.getElementById("rotation-angle");
+    const chiralStateDesc = document.getElementById("chiral-state-desc");
+    const enantToggles = document.querySelectorAll("#enantiomer-toggle .toggle-btn");
+
+    let currentEnant = "rac"; // 'rac', 'd', 'l'
+
+    enantToggles.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        enantToggles.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        currentEnant = e.target.getAttribute("data-enant");
+        calculateRotation();
+      });
+    });
+
+    polLength.addEventListener("input", () => {
+      polLengthVal.textContent = polLength.value;
+      calculateRotation();
+    });
+
+    polConc.addEventListener("input", () => {
+      polConcVal.textContent = polConc.value;
+      calculateRotation();
+    });
+
+    function calculateRotation() {
+      const l = parseFloat(polLength.value);
+      const c = parseFloat(polConc.value);
+      
+      let specRot = 0; // specific rotation [alpha]
+      if (currentEnant === "d") specRot = 60;  // 60 deg specific rotation
+      if (currentEnant === "l") specRot = -60; // -60 deg specific rotation
+
+      const theta = specRot * c * l;
+      needle.style.transform = `rotate(${theta}deg)`;
+      rotationAngle.textContent = `${theta.toFixed(1)}°`;
+
+      // Visual liquid color feedback based on path length
+      document.getElementById("polarimeter-tube").style.backgroundColor = `rgba(56, 189, 248, ${0.1 + (c * 0.4)})`;
+      document.getElementById("tube-dim-txt").textContent = `Length: ${l.toFixed(1)} dm | Conc: ${c.toFixed(1)} g/mL`;
+
+      if (currentEnant === "rac") {
+        chiralStateDesc.innerHTML = "<strong>Racemic Mixture (±):</strong> Equal quantities of d- and l-enantiomers. Optical rotation is 0° due to **external compensation**.";
+        chiralStateDesc.style.color = "#94a3b8";
+      } else if (currentEnant === "d") {
+        chiralStateDesc.innerHTML = `<strong>Dextrorotatory (+):</strong> Chiral compound rotates the plane of polarized light <strong>clockwise</strong> by +${theta.toFixed(1)}°.`;
+        chiralStateDesc.style.color = "#34d399";
+      } else {
+        chiralStateDesc.innerHTML = `<strong>Laevorotatory (-):</strong> Chiral compound rotates the plane of polarized light <strong>counter-clockwise</strong> by ${theta.toFixed(1)}°.`;
+        chiralStateDesc.style.color = "#fb7185";
+      }
+    }
+
+    document.addEventListener("simulator-opened", () => {
+      resetArena();
+      calculateRotation();
+    });
+  </script>
+</body>
+</html>

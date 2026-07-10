@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Periodic Classification of Elements | Class 10</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .sim-tab-header { display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .sim-tab-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+    .sim-canvas { width:100%; height:200px; background:#030712; border-radius:12px; border:1px solid rgba(255,255,255,0.05); }
+    .rxn-step { background: rgba(255,255,255,0.04); border-left: 3px solid #38bdf8; border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.5rem; font-size: 0.88rem; line-height: 1.5; }
+  </style>
+</head>
+<body data-theme="solutions">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 10 &middot; Unit V</div>
+      <h1>Periodic Classification of Elements</h1>
+      <p class="subtitle">History of classification, Mendeleev's and Modern Periodic Tables, and periodic trends in properties.</p>
+    </section>
+    <section class="slide">
+      <h2>Early Attempts at Classification</h2>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>Dobereiner's Triads (1817):</strong> Groups of 3 elements where the middle element's atomic mass is the arithmetic mean of the other two. E.g., Li(7), Na(23), K(39): (7+39)/2=23. Ca(40), Sr(88), Ba(137). Limitation: Only a few triads existed; could not accommodate all elements.</li>
+        <li class="reveal-item"><strong>Newlands' Law of Octaves (1866):</strong> Every 8th element has properties similar to the 1st (like musical octaves). Worked only for lighter elements up to Ca (Z=20). Limitation: Could not accommodate newly discovered noble gases. Failed beyond Ca.</li>
+        <li class="reveal-item"><strong>Mendeleev's Periodic Table (1869):</strong> Arranged elements in order of increasing atomic mass in rows (periods), elements with similar properties in same columns (groups). Predictively left gaps for undiscovered elements: eka-boron=Sc, eka-aluminium=Ga, eka-silicon=Ge (all confirmed later).</li>
+        <li class="reveal-item"><strong>Anomalies in Mendeleev's Table:</strong> Could not explain isotopes (different masses, same element). Position of hydrogen (placed with Group 1 but also resembles Group 17). Pairs like Co(Z=27) and Ni(Z=28) placed out of atomic mass order.</li>
+      </ul>
+    </section>
+    <section class="slide">
+      <h2>Modern Periodic Table</h2>
+      <p><strong>Moseley's Law (1913):</strong> Properties of elements are periodic functions of their <em>atomic number</em> (proton number), not atomic mass.</p>
+      <div class="cols-2">
+        <div>
+          <h3>Periods (Horizontal Rows)</h3>
+          <p>7 periods. Period number = number of electron shells (energy levels).</p>
+          <ul>
+            <li>Period 1: 2 elements (H, He)</li>
+            <li>Periods 2 and 3: 8 elements each</li>
+            <li>Periods 4 and 5: 18 elements each</li>
+            <li>Periods 6 and 7: 32 elements each</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Groups (Vertical Columns)</h3>
+          <p>18 groups. Group number = valence electrons (for main block elements).</p>
+          <ul>
+            <li>Group 1: Alkali Metals (Li, Na, K, Rb, Cs, Fr)</li>
+            <li>Group 2: Alkaline Earth Metals</li>
+            <li>Groups 3-12: Transition Metals</li>
+            <li>Group 17: Halogens (F, Cl, Br, I, At)</li>
+            <li>Group 18: Noble Gases (He, Ne, Ar, Kr, Xe, Rn)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Periodic Trends Across Period 3 (Na to Cl)</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Atomic Radius</h3>
+          <p>Decreases across period (Na:186pm to Cl:99pm). More protons added without new shells, so nuclear pull increases, pulling electrons closer.</p>
+          <p>Increases down group (Li:152pm to Cs:265pm). New shells added each period.</p>
+          <h3>Metallic Character</h3>
+          <p>Decreases across period (Na=metal to Si=metalloid to Cl=non-metal). Increases down group.</p>
+        </div>
+        <div>
+          <h3>Valency</h3>
+          <p>Na(1) Mg(2) Al(3) Si(4) P(3/5) S(2) Cl(1) Ar(0). Increases 1-4 then decreases. Down group: remains same.</p>
+          <h3>Non-Metallic Character</h3>
+          <p>Increases across period (towards F/Cl/O). Decreases down group. F = most electronegative element (3.98).</p>
+          <h3>Ionisation Energy</h3>
+          <p>Increases across period. Decreases down group. Na < Al < Cl across period 3.</p>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Electronic Configuration and Position</h2>
+      <div class="note-box">
+        Period number = Number of electron shells (outermost shell number)<br>
+        Group number = Number of valence electrons (for s and p-block)<br><br>
+        Na (2,8,1): Period 3, Group 1, Valency 1, Alkali Metal<br>
+        Cl (2,8,7): Period 3, Group 17, Valency 1, Halogen<br>
+        Ca (2,8,8,2): Period 4, Group 2, Valency 2, Alkaline Earth Metal<br>
+        Al (2,8,3): Period 3, Group 13, Valency 3, Metal
+      </div>
+      <p>Modern periodic table resolved Mendeleev's anomalies: isotopes fit (same Z), noble gases fit (Group 18), and all 118 confirmed elements are accommodated.</p>
+    </section>
+    <section class="slide">
+      <h2>Periodic Trends Simulator</h2>
+      <p>Launch the lab to explore element properties, view atomic radii bar charts across Period 3, and identify elements from their electronic configuration.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 6</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title"><h3>Periodic Classification Lab Simulator</h3></div>
+        <button id="close-overlay" class="close-btn">&#x2715;</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer" style="flex-direction:column; align-items:flex-start; padding:1.2rem; justify-content:flex-start;">
+            <h4>Element Property Explorer</h4>
+            <select id="pt-el" style="width:100%; background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px; margin-bottom:0.5rem;" onchange="showEl()">
+              <option value="3">Lithium (Li, Z=3)</option>
+              <option value="6">Carbon (C, Z=6)</option>
+              <option value="8">Oxygen (O, Z=8)</option>
+              <option value="11">Sodium (Na, Z=11)</option>
+              <option value="12">Magnesium (Mg, Z=12)</option>
+              <option value="13">Aluminium (Al, Z=13)</option>
+              <option value="14">Silicon (Si, Z=14)</option>
+              <option value="15">Phosphorus (P, Z=15)</option>
+              <option value="16">Sulphur (S, Z=16)</option>
+              <option value="17">Chlorine (Cl, Z=17)</option>
+              <option value="18">Argon (Ar, Z=18)</option>
+              <option value="20">Calcium (Ca, Z=20)</option>
+            </select>
+            <div id="pt-info" style="font-size:0.85rem; color:#e2e8f0; line-height:1.8; width:100%;"></div>
+          </div>
+          <div class="sim-sidebar">
+            <h3>Period 3 Atomic Radii</h3>
+            <canvas id="trend-cv" width="220" height="140" style="background:#030712; border-radius:10px; border:1px solid rgba(255,255,255,0.05);"></canvas>
+            <div style="font-size:0.73rem; color:#64748b; margin-top:0.3rem; text-align:center; line-height:1.3;">Na to Cl: Atomic radius decreases as Z increases (same shell, more protons)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/presentation.js"></script>
+  <script>
+
+    const ptDB={
+      3:  {name:'Lithium',    sym:'Li', Z:3,  cfg:'2,1',     period:2, group:1,  val:1, type:'Alkali Metal',         r:152, desc:'Lightest metal. Floats on water. Used in Li-ion batteries.'},
+      6:  {name:'Carbon',     sym:'C',  Z:6,  cfg:'2,4',     period:2, group:14, val:4, type:'Non-Metal',             r:77,  desc:'Basis of all organic life. Allotropes: diamond, graphite, fullerene.'},
+      8:  {name:'Oxygen',     sym:'O',  Z:8,  cfg:'2,6',     period:2, group:16, val:2, type:'Non-Metal (Gas)',       r:73,  desc:'Essential for respiration and combustion. 21% of atmosphere.'},
+      11: {name:'Sodium',     sym:'Na', Z:11, cfg:'2,8,1',   period:3, group:1,  val:1, type:'Alkali Metal',         r:186, desc:'Very reactive. 2Na+2H2O gives 2NaOH+H2. Used in NaCl, NaOH.'},
+      12: {name:'Magnesium',  sym:'Mg', Z:12, cfg:'2,8,2',   period:3, group:2,  val:2, type:'Alkaline Earth Metal', r:160, desc:'Burns with dazzling white flame. Used in fireworks, alloys.'},
+      13: {name:'Aluminium',  sym:'Al', Z:13, cfg:'2,8,3',   period:3, group:13, val:3, type:'Metal',                r:143, desc:'Lightweight, corrosion-resistant (Al2O3 layer). Used in cans, aircraft.'},
+      14: {name:'Silicon',    sym:'Si', Z:14, cfg:'2,8,4',   period:3, group:14, val:4, type:'Metalloid',            r:117, desc:'Semiconductor. Used in computer chips, solar cells, glass (SiO2).'},
+      15: {name:'Phosphorus', sym:'P',  Z:15, cfg:'2,8,5',   period:3, group:15, val:3, type:'Non-Metal',            r:110, desc:'Exists as white P4 (toxic) and red P. Used in matches, fertilisers.'},
+      16: {name:'Sulphur',    sym:'S',  Z:16, cfg:'2,8,6',   period:3, group:16, val:2, type:'Non-Metal',            r:104, desc:'Yellow solid. Used in H2SO4 production, rubber vulcanization.'},
+      17: {name:'Chlorine',   sym:'Cl', Z:17, cfg:'2,8,7',   period:3, group:17, val:1, type:'Halogen (Gas)',        r:99,  desc:'Green-yellow toxic gas. Disinfects water. Forms HCl with hydrogen.'},
+      18: {name:'Argon',      sym:'Ar', Z:18, cfg:'2,8,8',   period:3, group:18, val:0, type:'Noble Gas',            r:188, desc:'Inert gas. Used in electric bulbs, welding to prevent oxidation.'},
+      20: {name:'Calcium',    sym:'Ca', Z:20, cfg:'2,8,8,2', period:4, group:2,  val:2, type:'Alkaline Earth Metal', r:197, desc:'Essential for bones/teeth. CaO (quicklime) + H2O = Ca(OH)2 (slaked lime).'}
+    };
+    function showEl(){
+      const z=parseInt(document.getElementById('pt-el').value);
+      const d=ptDB[z];
+      document.getElementById('pt-info').innerHTML='<strong>'+d.name+' ('+d.sym+')</strong><br>Atomic Number (Z): '+d.Z+'<br>Electronic Config: '+d.cfg+'<br>Period: '+d.period+' | Group: '+d.group+'<br>Valency: '+d.val+'<br>Type: '+d.type+'<br>Atomic Radius: '+d.r+' pm<br><em style="color:#94a3b8;">'+d.desc+'</em>';
+    }
+    const tc=document.getElementById('trend-cv'),tctx=tc.getContext('2d');
+    const p3=[{s:'Na',r:186},{s:'Mg',r:160},{s:'Al',r:143},{s:'Si',r:117},{s:'P',r:110},{s:'S',r:104},{s:'Cl',r:99}];
+    p3.forEach((el,i)=>{
+      const x=14+i*29,h=(el.r/200)*110,y=130-h;
+      tctx.fillStyle='hsl('+(195+i*18)+',65%,55%)';tctx.fillRect(x,y,20,h);
+      tctx.fillStyle='#fff';tctx.font='8px Arial';tctx.textAlign='center';
+      tctx.fillText(el.s,x+10,142);tctx.fillText(el.r,x+10,y-3);
+    });
+    showEl();
+
+  </script>
+</body>
+</html>

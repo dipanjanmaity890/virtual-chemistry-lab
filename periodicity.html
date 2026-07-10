@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Periodic Classification | Class 11</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.2); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .trend-bar-container { display: flex; align-items: flex-end; gap: 1rem; height: 160px; margin-top: 1rem; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+    .trend-bar { flex: 1; background: #38bdf8; min-height: 10px; transition: height 0.5s ease; border-radius: 4px 4px 0 0; position: relative; }
+    .trend-bar-label { position: absolute; bottom: -25px; left: 0; width: 100%; text-align: center; font-size: 0.75rem; color: #9ca3af; }
+    .sim-tab-header { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .sim-tab-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+  </style>
+</head>
+<body data-theme="solutions">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 11 · Unit III</div>
+      <h1>Classification of Elements & Periodicity</h1>
+      <p class="subtitle">Modern periodic law, periodic table structure, and periodic properties trends (atomic size, ionization energy, electronegativity).</p>
+    </section>
+
+    <section class="slide">
+      <h2>Modern Periodic Law</h2>
+      <p>The physical and chemical properties of the elements are periodic functions of their atomic numbers (Moseley, 1913).</p>
+      <div class="note-box">
+        <strong>Periodic Table Shells:</strong>
+        • Periods (horizontal rows): indicate principal quantum shell ($n$).
+        • Groups (vertical columns): contain elements with similar outer electronic configurations.
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Atomic Radii Trends</h2>
+      <p><strong>Down a Group:</strong> Atomic radius increases. New principal shells are added, increasing the distance between nucleus and valence shell, offsetting the nuclear charge.</p>
+      <p><strong>Across a Period:</strong> Atomic radius decreases. Principal shell remains same while nuclear charge increases, pulling outer electrons closer.</p>
+    </section>
+
+    <section class="slide">
+      <h2>Ionization Enthalpy ($IE$)</h2>
+      <p>The energy required to remove an electron from an isolated gaseous atom in its ground state:</p>
+      <p>$$X(g) \rightarrow X^+(g) + e^- \quad (\Delta H = IE_1)$$</p>
+      <div class="cols-2">
+        <div class="note-box">
+          <strong>Across Period:</strong>
+          IE increases (atomic size decreases, nuclear pull increases).
+        </div>
+        <div class="note-box">
+          <strong>Down Group:</strong>
+          IE decreases (atomic size increases, shielding increases).
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Interactive Periodicity Trends Lab</h2>
+      <p>Launch the simulator to graph element properties (Atomic Radius, Ionization Enthalpy, Electronegativity) across periods or down groups in real-time.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 5</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3>🧪 Periodic Trends Visualizer</h3>
+        </div>
+        <button id="close-overlay" class="close-btn">✕</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-tab-header">
+          <button class="sim-tab-btn active" onclick="switchTab(0)">Period 2 Trends</button>
+          <button class="sim-tab-btn" onclick="switchTab(1)">Group 1 Trends</button>
+        </div>
+
+        <div class="sim-grid">
+          <!-- Tab 1 -->
+          <div id="tab-p2" class="sim-visualizer">
+            <h4>Period 2 Trends (Li to Ne)</h4>
+            <div style="margin-bottom:0.5rem;">
+              <select id="trend-select-p2" onchange="plotP2()" style="background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px;">
+                <option value="radius">Atomic Radius (pm)</option>
+                <option value="ie">Ionization Enthalpy (kJ/mol)</option>
+                <option value="en">Electronegativity (Pauling)</option>
+              </select>
+            </div>
+            <div class="trend-bar-container" id="chart-p2">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Tab 2 -->
+          <div id="tab-g1" class="sim-visualizer" style="display:none;">
+            <h4>Group 1 Alkali Metals Trends (Li to Cs)</h4>
+            <div style="margin-bottom:0.5rem;">
+              <select id="trend-select-g1" onchange="plotG1()" style="background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px;">
+                <option value="radius">Atomic Radius (pm)</option>
+                <option value="ie">Ionization Enthalpy (kJ/mol)</option>
+                <option value="en">Electronegativity (Pauling)</option>
+              </select>
+            </div>
+            <div class="trend-bar-container" id="chart-g1">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <div>
+              <h3>Trend HUD</h3>
+              <div id="calc-status" style="margin-top:1rem; font-size:0.85rem; color:#e2e8f0; line-height:1.5;">Select properties to plot trends. Observe the direction of changes.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    function switchTab(idx) {
+      document.querySelectorAll(".sim-tab-btn").forEach((t, i) => {
+        t.classList.toggle("active", i === idx);
+      });
+      document.getElementById("tab-p2").style.display = idx === 0 ? "flex" : "none";
+      document.getElementById("tab-g1").style.display = idx === 1 ? "flex" : "none";
+      if (idx === 0) plotP2();
+      else plotG1();
+    }
+
+    const p2Data = {
+      radius: [
+        { el: "Li", val: 152 }, { el: "Be", val: 112 }, { el: "B", val: 88 },
+        { el: "C", val: 77 }, { el: "N", val: 74 }, { el: "O", val: 66 },
+        { el: "F", val: 64 }, { el: "Ne", val: 160 }
+      ],
+      ie: [
+        { el: "Li", val: 520 }, { el: "Be", val: 899 }, { el: "B", val: 801 },
+        { el: "C", val: 1086 }, { el: "N", val: 1402 }, { el: "O", val: 1314 },
+        { el: "F", val: 1681 }, { el: "Ne", val: 2080 }
+      ],
+      en: [
+        { el: "Li", val: 1.0 }, { el: "Be", val: 1.5 }, { el: "B", val: 2.0 },
+        { el: "C", val: 2.5 }, { el: "N", val: 3.0 }, { el: "O", val: 3.5 },
+        { el: "F", val: 4.0 }, { el: "Ne", val: 0 }
+      ]
+    };
+
+    const g1Data = {
+      radius: [
+        { el: "Li", val: 152 }, { el: "Na", val: 186 }, { el: "K", val: 227 },
+        { el: "Rb", val: 248 }, { el: "Cs", val: 265 }
+      ],
+      ie: [
+        { el: "Li", val: 520 }, { el: "Na", val: 496 }, { el: "K", val: 419 },
+        { el: "Rb", val: 403 }, { el: "Cs", val: 376 }
+      ],
+      en: [
+        { el: "Li", val: 1.0 }, { el: "Na", val: 0.9 }, { el: "K", val: 0.8 },
+        { el: "Rb", val: 0.8 }, { el: "Cs", val: 0.7 }
+      ]
+    };
+
+    function plotP2() {
+      const type = document.getElementById("trend-select-p2").value;
+      const chart = document.getElementById("chart-p2");
+      chart.innerHTML = "";
+      
+      const dataset = p2Data[type];
+      const maxVal = Math.max(...dataset.map(d => d.val));
+
+      dataset.forEach(d => {
+        const bar = document.createElement("div");
+        bar.className = "trend-bar";
+        const percentHeight = maxVal > 0 ? (d.val / maxVal) * 100 : 0;
+        bar.style.height = `${percentHeight}%`;
+        if (type === "radius") bar.style.background = "#38bdf8";
+        else if (type === "ie") bar.style.background = "#a855f7";
+        else bar.style.background = "#10b981";
+
+        bar.innerHTML = `
+          <div style="position:absolute; top:-20px; left:0; width:100%; text-align:center; font-size:0.65rem;">${d.val}</div>
+          <div class="trend-bar-label">${d.el}</div>
+        `;
+        chart.appendChild(bar);
+      });
+
+      let comment = "";
+      if (type === "radius") comment = "Atomic radius decreases across Period 2 due to increased nuclear charge pulling electrons closer, except noble gas Neon which has van der Waals radius.";
+      else if (type === "ie") comment = "IE increases across Period 2. Note small drops at Boron (2p¹ is easier to remove than 2s²) and Oxygen (p⁴ paired electron repulsion).";
+      else comment = "Electronegativity increases systematically from Lithium (1.0) to Fluorine (4.0) due to decreased size and higher nuclear attraction.";
+
+      document.getElementById("calc-status").innerHTML = `<strong>Period 2 Trend Info:</strong><br>${comment}`;
+    }
+
+    function plotG1() {
+      const type = document.getElementById("trend-select-g1").value;
+      const chart = document.getElementById("chart-g1");
+      chart.innerHTML = "";
+      
+      const dataset = g1Data[type];
+      const maxVal = Math.max(...dataset.map(d => d.val));
+
+      dataset.forEach(d => {
+        const bar = document.createElement("div");
+        bar.className = "trend-bar";
+        const percentHeight = maxVal > 0 ? (d.val / maxVal) * 100 : 0;
+        bar.style.height = `${percentHeight}%`;
+        if (type === "radius") bar.style.background = "#38bdf8";
+        else if (type === "ie") bar.style.background = "#a855f7";
+        else bar.style.background = "#10b981";
+
+        bar.innerHTML = `
+          <div style="position:absolute; top:-20px; left:0; width:100%; text-align:center; font-size:0.65rem;">${d.val}</div>
+          <div class="trend-bar-label">${d.el}</div>
+        `;
+        chart.appendChild(bar);
+      });
+
+      let comment = "";
+      if (type === "radius") comment = "Atomic radius increases down Group 1 due to addition of principal quantum shells, despite higher nuclear charge.";
+      else if (type === "ie") comment = "IE decreases down Group 1. Inner shell electrons shield outer valence electron, making it easier to extract.";
+      else comment = "Electronegativity decreases down Group 1 because the larger atomic size reduces nuclear pull on shared electrons.";
+
+      document.getElementById("calc-status").innerHTML = `<strong>Group 1 Trend Info:</strong><br>${comment}`;
+    }
+
+    plotP2();
+  </script>
+</body>
+</html>

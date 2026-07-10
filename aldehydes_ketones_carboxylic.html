@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aldehydes, Ketones & Carboxylic Acids | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Carbonyl simulator custom styles */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .carbonyl-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+      justify-content: center;
+      align-items: center;
+    }
+    .testtubes-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      width: 100%;
+      height: 200px;
+      position: relative;
+      margin-top: 1rem;
+    }
+    .testtube {
+      width: 44px;
+      height: 160px;
+      border: 3px solid #cbd5e1;
+      border-top: none;
+      border-radius: 0 0 22px 22px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      background: rgba(255,255,255,0.02);
+    }
+    .testtube-liquid {
+      width: 100%;
+      height: 50%;
+      background-color: rgba(255, 255, 255, 0.15);
+      transition: background-color 2s, opacity 2s;
+      position: relative;
+    }
+    .silver-mirror {
+      background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 50%, #e2e8f0 100%) !important;
+      box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.8);
+      opacity: 0.95;
+    }
+    .red-precip {
+      background: repeating-linear-gradient(45deg, #b91c1c, #b91c1c 4px, #7f1d1d 4px, #7f1d1d 8px) !important;
+      opacity: 0.95;
+    }
+    .tube-label {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+    .tube-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .sim-sidebar input[type="range"] {
+      width: 100%;
+      accent-color: #ef4444;
+    }
+  </style>
+</head>
+<body data-theme="organic">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">UNIT XII · ORGANIC CHEMISTRY</div>
+        <h1>Aldehydes, Ketones & Carboxylic Acids</h1>
+        <h3>CBSE Class 12 Comprehensive Study Slides</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Carbonyl nucleophilic additions, Tollens/Fehling oxidation tests, Aldol vs Cannizzaro, and carboxylic acid resonance acidity.</p>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Carbonyl Tests Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Carbonyl Bond Geometry -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Carbonyl Group Structure & Polarity</h2>
+          <span class="chapter-tag">Aldehydes, Ketones & Carboxylic Acids</span>
+        </div>
+        <div class="slide-body">
+          <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">The carbonyl group (\(C=O\)) consists of a double bond between carbon and oxygen, representing the core functional center of aldehydes, ketones, and carboxylic acids.</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Bond Geometry</h3>
+              <p>• The carbonyl carbon is **\(sp^2\)-hybridized** and forms three \(\sigma\) bonds lying in one plane at angles of approx **120°** (trigonal planar).</p>
+              <p>• The fourth valence electron of carbon occupies a unhybridized p-orbital, overlapping laterally with a p-orbital of oxygen to form a \(\pi\) bond above and below the \(\sigma\) plane.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>High Polarization</h3>
+              <p>• Oxygen is much more electronegative than carbon, pulling the \(\pi\) electron cloud towards itself.</p>
+              <p>• The C=O bond is **highly polar**, with carbon carrying partial positive charge (\(\delta^+\)) acting as an **electrophile**, and oxygen carrying partial negative charge (\(\delta^-\)) acting as a **nucleophile**.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Preparation of Aldehydes & Ketones -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Preparation of Aldehydes & Ketones</h2>
+          <span class="chapter-tag">Aldehydes, Ketones & Carboxylic Acids</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>1. Common Methods</h3>
+              <p>• **Oxidation:** \(1^\circ\) alcohols ➔ Aldehydes (using PCC); \(2^\circ\) alcohols ➔ Ketones (using \(CrO_3\)).</p>
+              <p>• **Ozonolysis of Alkenes:** Cleaving C=C bonds with \(O_3\) followed by \(Zn/H_2O\) yields carbonyl fragments.</p>
+              <p>• **Hydration of Alkynes:** Adding \(H_2O\) in presence of \(H_2SO_4\)/\(HgSO_4\). Ethyne yields acetaldehyde; higher alkynes yield ketones.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>2. Named Preparations</h3>
+              <p>• **Rosenmund Reduction (Aldehydes):** Catalytic hydrogenation of acid chloride over \(Pd-BaSO_4\) poisoned with sulfur:</p>
+              <div class="formula-box" style="margin-top: 0.3rem; padding: 0.35rem; font-family: monospace; font-size: 0.8rem;">
+                R-COCl + H₂ ➔ [Pd-BaSO₄] ➔ R-CHO + HCl
+              </div>
+              <p>• **Stephen Reaction:** Reduction of nitriles with \(SnCl_2/HCl\) followed by hydrolysis.</p>
+              <p>• **Etard Reaction:** Chromyl chloride (\(CrO_2Cl_2\)) oxidizes toluene to benzaldehyde.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Nucleophilic Addition Mechanism -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Nucleophilic Addition Mechanism & Reactivity</h2>
+          <span class="chapter-tag">Aldehydes, Ketones & Carboxylic Acids</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item"><strong>General Mechanism:</strong> A nucleophile attacks the electrophilic carbonyl carbon from a direction perpendicular to the plane of \(sp^2\) orbitals, converting the planar carbon to a tetrahedral alkoxide intermediate. Acid protonation then yields the final addition product.</p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">Nu⁻ + R₂C=O ➔ R₂C(Nu)-O⁻ ➔ [H⁺] ➔ R₂C(Nu)-OH</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Reactivity: Aldehyde vs Ketone</h3>
+                <p><strong>Aldehydes are more reactive than ketones towards nucleophilic attack.</strong> Reasons:</p>
+                <p style="margin-top: 0.5rem;">1. **Steric Hindrance:** Ketones have two bulky alkyl groups shielding the carbon, hindering nucleophilic approach compared to one group in aldehydes.</p>
+                <p style="margin-top: 0.5rem;">2. **Inductive Effect:** Alkyl groups are electron-donating (+I effect). Two alkyl groups in ketones reduce the partial positive charge on the carbonyl carbon, making it less electrophilic.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Carbonyl Addition Reactions -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Key Carbonyl Addition Reactions</h2>
+          <span class="chapter-tag">Aldehydes, Ketones & Carboxylic Acids</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>HCN & NaHSO₃</h3>
+              <p>• **HCN addition:** Yields **cyanohydrins** (essential intermediates for \(\alpha\)-hydroxy acids).</p>
+              <p>• **Bisulfite addition:** Forms crystalline bisulfite adducts. Used for separation and purification of carbonyl compounds.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Alcohols & Grignards</h3>
+              <p>• **Alcohols:** Acid-catalyzed reaction yields hemiacetals/hemiketals and then stable **acetals/ketals** (used as protecting groups for carbonyls).</p>
+              <p>• **Grignards:** Yields primary, secondary, or tertiary alcohols.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Ammonia Derivatives</h3>
+              <p>Reactions with \(H_2N-Z\) eliminate water to form \(C=N-Z\) linkages:<br>
+              • Hydroxylamine ➔ Oximes.<br>
+              • Hydrazine ➔ Hydrazones.<br>
+              • **2,4-DNP:** Yields bright yellow, orange, or red crystalline precipitates (used to identify carbonyls).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Distinction Oxidation & Reduction -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Oxidation Tests & Reduction Pathways</h2>
+          <span class="chapter-tag">Aldehydes, Ketones & Carboxylic Acids</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Distinction: Tollens' & Fehling's</h3>
+              <p>Aldehydes oxidize easily; ketones do not.</p>
+              <p>• **Tollens' Test (Silver Mirror):** Aldehydes reduce ammoniacal silver nitrate to metallic silver, forming a **silver mirror** coating on the tube:</p>
+              <div class="formula-box" style="margin: 0.3rem 0; padding: 0.35rem; font-family: monospace; font-size: 0.8rem;">
+                R-CHO + 2[Ag(NH₃)₂]⁺ + 3OH⁻ ➔ R-COO⁻ + 2Ag↓ + 4NH₃ + 2H₂O
+              </div>
+              <p>• **Fehling's Test:** Aldehydes reduce alkaline Cu²⁺ tartrate complexes, forming a **red cuprous oxide (\(Cu_2O\)) precipitate**.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Reduction to Hydrocarbons</h3>
+              <p>• **Clemmensen Reduction:** Carbonyls reduced to \(CH_2\) groups using **amalgamated zinc and conc. HCl**:</p>
+              <div class="formula-box" style="margin: 0.3rem 0; padding: 0.35rem; font-family: monospace; font-size: 0.8rem;">
+                C=O + 4[H] ➔ [Zn-Hg / HCl] ➔ CH₂ + H₂O
+              </div>
+              <p>• **Wolff-Kishner Reduction:** Carbonyls heated with hydrazine (\(H_2N-NH_2\)) and KOH in ethylene glycol to yield alkanes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Aldol Condensation -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Aldol Condensation</h2>
+          <span class="chapter-tag">Aldehydes, Ketones & Carboxylic Acids</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height:1.5;">
+                Aldehydes and ketones possessing **at least one \(\alpha\)-hydrogen** undergo a reaction in the presence of dilute alkali to form \(\beta\)-hydroxy aldehydes (aldols) or \(\beta\)-hydroxy ketones (ketols), which eliminate water upon heating to yield \(\alpha,\beta\)-unsaturated carbonyl compounds.
+              </p>
+              <div class="formula-box reveal-item" style="padding: 0.5rem; margin-top: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.85rem; line-height: 1.3;">
+                  2CH₃-CHO ➔ [dil. NaOH] ➔ CH₃-CH(OH)-CH₂-CHO ➔ [heat, -H₂O] ➔ CH₃-CH=CH-CHO (But-2-enal)
+                </span>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Cross-Aldol Condensation</h3>
+                <p>• Occurs between two different carbonyl molecules.</p>
+                <p>• If both reactants contain \(\alpha\)-hydrogens, a mixture of **four different products** is formed, which is synthetically less useful.</p>
+                <p>• If only one reactant has an \(\alpha\)-hydrogen (e.g. Benzaldehyde + Acetaldehyde), a single major cross-product forms easily (Claisen-Schmidt reaction).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Cannizzaro Reaction -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Cannizzaro Reaction</h2>
+          <span class="chapter-tag">Aldehydes, Ketones & Carboxylic Acids</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height:1.5;">
+                Aldehydes **lacking an \(\alpha\)-hydrogen** (e.g. Formaldehyde \(HCHO\), Benzaldehyde \(C_6H_5CHO\)) do not undergo Aldol condensation.
+              </p>
+              <p class="reveal-item" style="line-height:1.5; margin-top: 0.5rem;">
+                Instead, when treated with **concentrated alkali (50% NaOH/KOH)**, they undergo self-oxidation-reduction (**disproportionation**):
+              </p>
+              <ul>
+                <li class="reveal-item">One molecule is reduced to an **alcohol**.</li>
+                <li class="reveal-item">The other molecule is oxidized to a **carboxylic acid salt**.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Equation & Mechanism</h3>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.6rem;">
+                  <span style="font-family: monospace; font-size: 0.85rem; line-height: 1.3; color:#ef4444;">
+                    2HCHO + conc. NaOH ➔ CH₃OH + HCOONa
+                  </span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                  **Hydride Transfer:** Hydroxide attacks one carbonyl carbon, yielding a tetrahedral intermediate. This intermediate transfers a **hydride ion (\(H^-\))** directly to the second carbonyl molecule (the rate-determining step), resulting in simultaneous oxidation and reduction.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Preparation of Carboxylic Acids -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Preparation of Carboxylic Acids</h2>
+          <span class="chapter-tag">Aldehydes, Ketones & Carboxylic Acids</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Oxidative Methods</h3>
+              <p>• **From Alcohols/Aldehydes:** Oxidation using powerful reagents like chromic acid (\(H_2CrO_4\)) or alkaline \(KMnO_4\).</p>
+              <p>• **From Alkylbenzenes:** Regardless of side chain length, heating with alkaline \(KMnO_4\) oxidizes the chain to a carboxyl group, yielding **Benzoic Acid**.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Hydrolysis Pathways</h3>
+              <p>• **From Nitriles / Amides:** Nitriles hydrolyze in acidic or basic medium first to amides, then to carboxylic acids:</p>
+              <div class="formula-box" style="padding: 0.4rem; font-family: monospace; font-size: 0.75rem;">
+                R-CN ➔ [+H₂O/H⁺] ➔ R-CONH₂ ➔ R-COOH
+              </div>
+              <p>• **From Esters / Anhydrides:** Acidic or basic hydrolysis splits esters into carboxylic acids and alcohols.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Grignard Carbonation</h3>
+              <p>Reacting Grignard reagents (\(RMgX\)) with **dry ice (solid \(CO_2\))** in dry ether forms a carboxylate salt intermediate, which hydrolyzes to a carboxylic acid:</p>
+              <div class="formula-box" style="padding: 0.4rem; font-family: monospace; font-size: 0.75rem;">
+                R-MgX + CO₂ ➔ R-COOMgX ➔ [H₂O/H⁺] ➔ R-COOH
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Acidity & Named Reactions -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Carboxylic Acid Acidity & Reactions</h2>
+          <span class="chapter-tag">Aldehydes, Ketones & Carboxylic Acids</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Resonance Acidity</h3>
+              <p>• Carboxylic acids are stronger acids than phenols because the negative charge in the **carboxylate ion** is delocalized over **two highly electronegative oxygen atoms**, whereas in phenoxide it is shared by less electronegative carbon atoms in the ring.</p>
+              <p>• Electron-withdrawing substituents increase acidity by dispersing negative charge (e.g., \(CF_3COOH > CCl_3COOH > CHCl_2COOH > CH_2ClCOOH > CH_3COOH\)).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>HVZ & Decarboxylation</h3>
+              <p>• **Hell-Volhard-Zelinsky (HVZ) Reaction:** Carboxylic acids having \(\alpha\)-hydrogen react with \(Cl_2\) or \(Br_2\) in presence of red phosphorus to yield **\(\alpha\)-halo carboxylic acids**:</p>
+              <div class="formula-box" style="padding: 0.4rem; font-family: monospace; font-size: 0.8rem;">
+                R-CH₂-COOH ➔ [X₂ / Red P] ➔ R-CH(X)-COOH
+              </div>
+              <p>• **Decarboxylation:** Sodium salts of carboxylic acids heated with **sodalime (NaOH + CaO in 3:1 ratio)** lose carbon dioxide to yield alkanes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Carbonyl Lab</h2>
+          <span class="chapter-tag">Aldehydes, Ketones & Carboxylic Acids</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Tollens' & Fehling's Test Lab</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the testing simulator. Inject Tollens' silver reagent or Fehling's alkaline copper solution into aldehyde and ketone samples. Watch the silver mirror film and red cuprous oxide precipitates form in real-time.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Carbonyl Tests Simulator
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 11</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Carbonyl Compounds Laboratory</h3>
+          <p>Toggle diagnostic chemical tests or step through Aldol condensation mechanisms</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close carbonyl simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="carbonyl-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-tests">Chemical Tests</button>
+              <button class="sim-tab-btn" id="tab-aldol">Aldol Mechanism</button>
+            </div>
+
+            <!-- Tests Panel -->
+            <div id="tests-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <div class="testtubes-row">
+                <div class="tube-container">
+                  <div class="testtube">
+                    <div class="testtube-liquid" id="liquid-ald" style="background-color: rgba(255, 255, 255, 0.15);"></div>
+                  </div>
+                  <div class="tube-label" id="label-ald">Acetaldehyde</div>
+                </div>
+                <div class="tube-container">
+                  <div class="testtube">
+                    <div class="testtube-liquid" id="liquid-ket" style="background-color: rgba(255, 255, 255, 0.15);"></div>
+                  </div>
+                  <div class="tube-label" id="label-ket">Acetone</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Aldol Mechanism Panel -->
+            <div id="aldol-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px); align-items: center; justify-content: center;">
+              <canvas id="aldol-canvas" width="380" height="200" style="background: #020617; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);"></canvas>
+              <div class="mechanism-hud-box" style="width: 100%; margin-top: 0.5rem; font-size: 0.85rem;" id="aldol-step-desc">
+                Step 1: Hydroxide abstracts alpha-hydrogen.
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Tests Controls -->
+            <div id="tests-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Select Distinction Test</label>
+                <div class="toggle-group" id="test-toggle">
+                  <button class="toggle-btn active" data-test="tollens">Tollens' Silver Test</button>
+                  <button class="toggle-btn" data-test="fehlings">Fehling's Test</button>
+                </div>
+              </div>
+
+              <button class="btn-launch-simulator" id="run-test-btn" style="justify-content: center; padding: 0.8rem; margin-top: 0.5rem; width: 100%; background: linear-gradient(135deg, #7000ff 0%, rgba(112, 0, 255, 0.4) 100%); color: #fff; font-weight: bold;">
+                Perform Chemical Test
+              </button>
+
+              <div class="kinetics-info-box" style="border-left-color: #7000ff; font-size: 0.85rem;" id="test-explanation-box">
+                Click the button above to add the selected diagnostic reagent to both samples.
+              </div>
+            </div>
+
+            <!-- Aldol Controls -->
+            <div id="aldol-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Mechanism Walkthrough</label>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <button class="toggle-btn" id="aldol-next-btn">Next Step</button>
+                  <button class="toggle-btn" id="aldol-reset-btn" style="background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%);">Reset Walkthrough</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #7000ff;">
+              <strong>Theoretical Context:</strong><br>
+              • **Tollens' / Fehling's** oxidize aldehydes; ketones are inert.<br>
+              • **Aldol reaction** requires \(\alpha\)-hydrogens. Cannizzaro disproportionation happens in aldehydes without \(\alpha\)-hydrogen.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabTests = document.getElementById("tab-tests");
+    const tabAldol = document.getElementById("tab-aldol");
+    const testsPanel = document.getElementById("tests-panel");
+    const aldolPanel = document.getElementById("aldol-panel");
+    const testsControls = document.getElementById("tests-controls");
+    const aldolControls = document.getElementById("aldol-controls");
+
+    tabTests.addEventListener("click", () => {
+      tabTests.classList.add("active");
+      tabAldol.classList.remove("active");
+      testsPanel.style.display = "flex";
+      aldolPanel.style.display = "none";
+      testsControls.style.display = "flex";
+      aldolControls.style.display = "none";
+    });
+
+    tabAldol.addEventListener("click", () => {
+      tabAldol.classList.add("active");
+      tabTests.classList.remove("active");
+      aldolPanel.style.display = "flex";
+      testsPanel.style.display = "none";
+      aldolControls.style.display = "flex";
+      testsControls.style.display = "none";
+      resetAldol();
+    });
+
+    // Carbonyl test simulator logic
+    const testBtns = document.querySelectorAll("#test-toggle .toggle-btn");
+    const runTestBtn = document.getElementById("run-test-btn");
+    const explanationBox = document.getElementById("test-explanation-box");
+
+    const liqAld = document.getElementById("liquid-ald");
+    const liqKet = document.getElementById("liquid-ket");
+
+    let selectedTest = "tollens";
+    let isRunning = false;
+    let testTimeout;
+
+    testBtns.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        testBtns.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        selectedTest = e.target.getAttribute("data-test");
+        resetTest();
+      });
+    });
+
+    function resetTest() {
+      clearTimeout(testTimeout);
+      isRunning = false;
+      
+      liqAld.className = "testtube-liquid";
+      liqKet.className = "testtube-liquid";
+      
+      liqAld.style.backgroundColor = "rgba(255, 255, 255, 0.15)";
+      liqKet.style.backgroundColor = "rgba(255, 255, 255, 0.15)";
+
+      runTestBtn.textContent = "Perform Chemical Test";
+      runTestBtn.style.background = "linear-gradient(135deg, #7000ff 0%, rgba(112, 0, 255, 0.4) 100%)";
+      runTestBtn.style.color = "#fff";
+      explanationBox.innerHTML = `Click the button above to add ${selectedTest === 'tollens' ? "Tollens' Silver Reagent" : "Fehling's Solution"} to the tubes.`;
+    }
+
+    function runTest() {
+      if (isRunning) {
+        resetTest();
+        return;
+      }
+
+      isRunning = true;
+      runTestBtn.textContent = "Reset Test";
+      runTestBtn.style.background = "linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%)";
+      
+      if (selectedTest === "tollens") {
+        liqAld.style.backgroundColor = "rgba(148, 163, 184, 0.3)";
+        liqKet.style.backgroundColor = "rgba(148, 163, 184, 0.3)";
+        explanationBox.textContent = "Adding Tollens' reagent... Heating tubes in water bath...";
+        
+        testTimeout = setTimeout(() => {
+          liqAld.classList.add("silver-mirror");
+          explanationBox.innerHTML = "• <strong>Acetaldehyde:</strong> Reduced Ag⁺ to metallic silver, forming a beautiful <strong>Silver Mirror</strong> on the glass wall.<br>• <strong>Acetone:</strong> No reaction (ketones resist mild oxidation).";
+        }, 2000);
+      } else {
+        liqAld.style.backgroundColor = "rgba(59, 130, 246, 0.6)";
+        liqKet.style.backgroundColor = "rgba(59, 130, 246, 0.6)";
+        explanationBox.textContent = "Adding Fehling's deep blue copper(II) solution... Heating...";
+        
+        testTimeout = setTimeout(() => {
+          liqAld.classList.add("red-precip");
+          explanationBox.innerHTML = "• <strong>Acetaldehyde:</strong> Reduced Cu²⁺ to Cu⁺, yielding a <strong>Red Cuprous Oxide (Cu₂O) Precipitate</strong>.<br>• <strong>Acetone:</strong> No reaction; liquid remains clear blue.";
+        }, 2000);
+      }
+    }
+
+    runTestBtn.addEventListener("click", runTest);
+
+    // Aldol Condensation mechanism walkthrough logic
+    const aldolCanvas = document.getElementById("aldol-canvas");
+    const aCtx = aldolCanvas.getContext("2d");
+    const aldolStepDesc = document.getElementById("aldol-step-desc");
+    const aldolNextBtn = document.getElementById("aldol-next-btn");
+    const aldolResetBtn = document.getElementById("aldol-reset-btn");
+
+    let aldolStepIndex = 0;
+
+    function resetAldol() {
+      aldolStepIndex = 0;
+      drawAldolStep();
+    }
+
+    function drawAldolStep() {
+      aCtx.clearRect(0, 0, aldolCanvas.width, aldolCanvas.height);
+      aCtx.fillStyle = "#fff";
+      aCtx.font = "12px monospace";
+      aCtx.textAlign = "center";
+
+      const cx = aldolCanvas.width / 2;
+      const cy = aldolCanvas.height / 2;
+
+      if (aldolStepIndex === 0) {
+        aCtx.fillText("CH₃-CHO + OH⁻ ⇌ [⁻CH₂-CHO] + H₂O", cx, cy - 20);
+        aCtx.fillStyle = "#7000ff";
+        aCtx.fillText("Enolate Ion Intermediate", cx, cy + 20);
+        aldolStepDesc.innerHTML = "<strong>Step 1 (Deprotonation):</strong> Base (OH⁻) abstracts an α-hydrogen from acetaldehyde, generating a resonance-stabilized <strong>enolate ion</strong>.";
+      }
+      else if (aldolStepIndex === 1) {
+        aCtx.fillText("CH₃-CHO + ⁻CH₂-CHO", cx, cy - 30);
+        aCtx.strokeStyle = "rgba(255,255,255,0.3)";
+        aCtx.lineWidth = 1.5;
+        aCtx.beginPath();
+        aCtx.arc(cx - 30, cy + 20, 20, Math.PI, 1.8 * Math.PI);
+        aCtx.stroke();
+        aCtx.fillText("➔ CH₃-CH(O⁻)-CH₂-CHO", cx, cy + 20);
+        aldolStepDesc.innerHTML = "<strong>Step 2 (Nucleophilic Attack):</strong> The enolate nucleophile attacks the carbonyl carbon of the second acetaldehyde molecule, creating a new C-C bond.";
+      }
+      else if (aldolStepIndex === 2) {
+        aCtx.fillText("CH₃-CH(O⁻)-CH₂-CHO + H₂O", cx, cy - 20);
+        aCtx.fillText("➔ CH₃-CH(OH)-CH₂-CHO + OH⁻", cx, cy + 20);
+        aCtx.fillStyle = "#10b981";
+        aCtx.fillText("Aldol (β-hydroxybutyraldehyde)", cx, cy + 40);
+        aldolStepDesc.innerHTML = "<strong>Step 3 (Protonation):</strong> The alkoxide intermediate abstracts a proton from water, regenerating the OH⁻ catalyst and yielding the <strong>Aldol product</strong>.";
+      }
+      else if (aldolStepIndex === 3) {
+        aCtx.fillText("CH₃-CH(OH)-CH₂-CHO", cx, cy - 30);
+        aCtx.fillStyle = "#ef4444";
+        aCtx.fillText("Heat (-H₂O)", cx, cy - 10);
+        aCtx.fillStyle = "#fff";
+        aCtx.fillText("➔ CH₃-CH=CH-CHO", cx, cy + 25);
+        aCtx.fillStyle = "#38bdf8";
+        aCtx.fillText("But-2-enal (Crotonaldehyde)", cx, cy + 45);
+        aldolStepDesc.innerHTML = "<strong>Step 4 (Dehydration):</strong> Heating the aldol in acid/base causes rapid dehydration, yielding a stable conjugated <strong>α,β-unsaturated carbonyl compound</strong>.";
+      }
+    }
+
+    aldolNextBtn.addEventListener("click", () => {
+      aldolStepIndex = (aldolStepIndex + 1) % 4;
+      drawAldolStep();
+    });
+
+    aldolResetBtn.addEventListener("click", resetAldol);
+
+    document.addEventListener("simulator-opened", () => {
+      resetTest();
+      resetAldol();
+    });
+  </script>
+</body>
+</html>

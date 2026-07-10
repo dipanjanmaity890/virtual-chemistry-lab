@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biomolecules | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Biomolecules custom peptide simulator styles */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .peptide-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+      justify-content: center;
+      align-items: center;
+    }
+    .peptide-chain {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      min-height: 100px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .amino-acid-node {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      background-color: #3b82f6;
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      border: 2px solid rgba(255,255,255,0.15);
+      animation: popIn 0.3s ease-out;
+    }
+    .peptide-bond-node {
+      font-size: 0.8rem;
+      color: #ffd700;
+      font-weight: bold;
+      padding: 0.25rem;
+      font-family: monospace;
+    }
+    .zwitterion-display {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .zwitterion-formula {
+      font-size: 1.4rem;
+      font-family: monospace;
+      color: #bd00ff;
+      margin: 0.5rem 0;
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .sim-sidebar button {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body data-theme="organic">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">UNIT XIV · ORGANIC CHEMISTRY</div>
+        <h1>Biomolecules</h1>
+        <h3>CBSE Class 12 Comprehensive Study Slides</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Glucose cyclic anomers, amino acid zwitterions, DNA double helix pairing, and protein denaturation mechanisms.</p>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Peptide Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Classification of Carbohydrates -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Classification of Carbohydrates</h2>
+          <span class="chapter-tag">Biomolecules</span>
+        </div>
+        <div class="slide-body">
+          <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Carbohydrates are defined as optically active polyhydroxy aldehydes or ketones, or compounds which produce them on hydrolysis.</p>
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Monosaccharides</h3>
+              <p>Simple sugars that cannot be hydrolyzed further into simpler units (e.g. **Glucose, Fructose, Ribose**). About 20 exist in nature.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Oligo / Polysaccharides</h3>
+              <p>• **Oligosaccharides:** Yield 2-10 monosaccharide units on hydrolysis (e.g. **Sucrose, Maltose**).</p>
+              <p>• **Polysaccharides:** High molar mass polymers yielding many monosaccharides (e.g. **Starch, Cellulose, Glycogen**). Non-sugars.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Reducing vs Non-Reducing</h3>
+              <p>• **Reducing Sugars:** Have free aldehyde/ketone groups; reduce Fehling's and Tollens' reagents (all monosaccharides, lactose, maltose).</p>
+              <p>• **Non-Reducing:** Lack free functional groups; bound by glycosidic linkages (e.g., **Sucrose**).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Glucose: Open-Chain Evidence -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Glucose: Open-Chain Structure Evidence</h2>
+          <span class="chapter-tag">Biomolecules</span>
+        </div>
+        <div class="slide-body">
+          <p class="reveal-item" style="font-size:1.05rem; margin-bottom: 1rem;">Chemical reactions proving the structure of D-glucose (aldohexose):</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Straight Chain & Carbonyl</h3>
+              <p>1. **Straight Chain:** Prolonged heating with **HI** yields n-hexane, proving all six carbons are linked in a straight chain:</p>
+              <p style="font-family: monospace; font-size: 0.8rem; color: var(--accent-color);">
+                C₆H₁₂O₆ + HI ➔ [heat] ➔ CH₃-CH₂-CH₂-CH₂-CH₂-CH₃
+              </p>
+              <p style="margin-top: 0.5rem;">2. **Carbonyl Group:** Reacts with **hydroxylamine** to form an oxime, and with **HCN** to form cyanohydrin, proving presence of a carbonyl group (\(C=O\)).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Aldehyde & Hydroxyls</h3>
+              <p>3. **Aldehyde:** Oxidation with mild oxidizing agent **bromine water** yields gluconic acid, proving the carbonyl is an aldehyde (-CHO).</p>
+              <p style="margin-top: 0.5rem;">4. **Five Hydroxyl Groups:** Acetylation with **acetic anhydride** yields glucose pentaacetate, proving the presence of five hydroxyl (-OH) groups on different carbons.</p>
+              <p style="margin-top: 0.5rem;">5. **Primary Alcohol:** Oxidation with **nitric acid** yields saccharic acid (dicarboxylic acid), proving one -OH is primary.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Glucose: Cyclic Structure Limitations -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Glucose: Cyclic Structure & Haworth</h2>
+          <span class="chapter-tag">Biomolecules</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Open-Chain Limitations</h3>
+              <p>Despite having an aldehyde group, glucose fails to:</p>
+              <p>• Form hydrogen sulfite (\(NaHSO_3\)) addition products.</p>
+              <p>• Give Schiff's reagent test.</p>
+              <p>• Glucose pentaacetate does not react with hydroxylamine (proving the aldehyde group is locked/not free).</p>
+              <p>• Glucose exists in two crystalline forms (\(\alpha\) and \(\beta\)) which undergo **mutarotation**.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Anomers & Ring Structure</h3>
+              <p>• Glucose forms a six-membered cyclic hemiacetal ring between C1 (-CHO) and C5 (-OH).</p>
+              <p>• **Anomers:** Diastereomers differing only in configuration at C1 (anomeric carbon). \(\alpha\)-D-glucose has -OH down; \(\beta\)-D-glucose has -OH up.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                • Haworth structures represent this pyranose ring (similar to pyran).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Disaccharides & Polysaccharides -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Disaccharides & Polysaccharides</h2>
+          <span class="chapter-tag">Biomolecules</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Sucrose & Inversion</h3>
+              <p>Monosaccharides linked by **glycosidic linkage** (ether bond). In **Sucrose**, C1 of \(\alpha\)-glucose binds C2 of \(\beta\)-fructose. It is dextrorotatory, but hydrolyzes to a levorotatory mixture (D-glucose + D-fructose), hence called **Invert Sugar**.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Maltose & Lactose</h3>
+              <p>• **Maltose:** Two \(\alpha\)-D-glucose units (C1-C4 link). Reducing sugar.</p>
+              <p>• **Lactose (Milk Sugar):** \(\beta\)-D-galactose + \(\beta\)-D-glucose (C1-C4 link). Reducing sugar.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Polysaccharides</h3>
+              <p>• **Starch:** Plant storage. Amylose (water-soluble, linear \(\alpha\)-1,4 link) + Amylopectin (insoluble, branched \(\alpha\)-1,6 link).</p>
+              <p>• **Cellulose:** Plant walls. Linear \(\beta\)-D-glucose polymer. Cannot be digested by humans.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Amino Acids & Zwitterions -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Amino Acids & Zwitterions</h2>
+          <span class="chapter-tag">Biomolecules</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height:1.5; margin-bottom: 0.75rem;">
+                Amino acids contain both amino (-NH₂) and carboxyl (-COOH) functional groups.
+              </p>
+              <p class="reveal-item" style="line-height:1.5;">
+                In aqueous solution, the acidic -COOH group transfers its proton to the basic -NH₂ group, forming a dipolar ion called a **Zwitterion**:
+              </p>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">H₃N⁺-CH(R)-COO⁻</div>
+                <div class="formula-label">Zwitterion structure of α-amino acid</div>
+              </div>
+              <p class="reveal-item" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                • Zwitterions are amphoteric, reacting with both acids and bases.
+              </p>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Classification & Isoelectric Point</h3>
+                <p>• **Essential Amino Acids:** Cannot be synthesized by the body; must be taken in diet (e.g. Valine, Leucine).</p>
+                <p>• **Non-Essential:** Synthesized in the body (e.g. Glycine, Alanine).</p>
+                <p style="margin-top: 0.5rem;">• **Isoelectric Point (pI):** The specific pH at which the amino acid carries no net charge and does not migrate in an electric field.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Protein Structure levels -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Four levels of Protein Structure</h2>
+          <span class="chapter-tag">Biomolecules</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Primary & Secondary</h3>
+              <p>• **Primary:** The specific linear sequence of amino acids in a polypeptide chain. Any change in sequence alters the protein entirely (e.g. Sickle cell hemoglobin).</p>
+              <p>• **Secondary:** Spatial folding of backbone stabilized by hydrogen bonding between C=O and N-H. Forms **\(\alpha\)-Helix** (intramolecular H-bonds) or **\(\beta\)-Pleated sheets** (intermolecular H-bonds).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Tertiary & Quaternary</h3>
+              <p>• **Tertiary:** Overall 3D folding of polypeptide chains, stabilizing fibrous (insoluble) or globular (soluble) shapes. Held by disulphide bonds, salt bridges, H-bonds, van der Waals.</p>
+              <p>• **Quaternary:** Spatial arrangement of multiple polypeptide subunits relative to each other (e.g., Hemoglobin has 4 subunits).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Denaturation of Proteins -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Denaturation of Proteins</h2>
+          <span class="chapter-tag">Biomolecules</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height: 1.5; margin-bottom: 1rem;">
+                Proteins found in biological systems with unique 3D structures and biological activity are called **native proteins**.
+              </p>
+              <p class="reveal-item" style="line-height: 1.5; margin-bottom: 1rem;">
+                When a native protein is subjected to physical changes (e.g., heating) or chemical changes (e.g., pH shift), hydrogen bonds are disrupted.
+              </p>
+              <p class="reveal-item" style="line-height: 1.5;">
+                As a result, globules unfold and helices uncoil, causing the protein to lose its biological activity. This is called **Denaturation**.
+              </p>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Key Mechanisms & Examples</h3>
+                <p>• During denaturation, secondary and tertiary structures are completely destroyed, while the **primary covalent structure remains intact**.</p>
+                <p style="margin-top: 0.5rem;">• **Examples:**</p>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                  1. **Coagulation of egg white:** Boiling denatures albumin, converting it to an insoluble solid mass.<br>
+                  2. **Curdling of milk:** Lactic acid bacteria shift pH, causing denaturation and precipitation of casein milk proteins.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Nucleic Acids: Components -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Nucleic Acids: Nucleotides & Nucleosides</h2>
+          <span class="chapter-tag">Biomolecules</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">Nucleic acids are long-chain polymers of nucleotides, responsible for heredity transmission and protein synthesis (DNA & RNA).</p>
+              <div class="formula-box reveal-item" style="margin-bottom: 0.5rem;">
+                <div class="formula-text">Nucleoside = Pentose Sugar + Nitrogenous Base</div>
+              </div>
+              <div class="formula-box reveal-item">
+                <div class="formula-text">Nucleotide = Pentose Sugar + Base + Phosphoric Acid</div>
+                <div class="formula-label">Nucleotides link via phosphodiester bonds at C3'-C5'</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Sugar & Base Differences</h3>
+                <p>• **DNA (Deoxyribonucleic Acid):** Contains **\(\beta\)-D-2-deoxyribose** sugar. Bases: Adenine (A), Guanine (G), Cytosine (C), and **Thymine (T)**.</p>
+                <p style="margin-top: 0.5rem;">• **RNA (Ribonucleic Acid):** Contains **\(\beta\)-D-ribose** sugar. Bases: Adenine (A), Guanine (G), Cytosine (C), and **Uracil (U)** (Thymine is replaced by Uracil).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: DNA Double Helix Watson-Crick -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>DNA Double Helix Watson-Crick model</h2>
+          <span class="chapter-tag">Biomolecules</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Double Helix Structure</h3>
+              <p>• James Watson and Francis Crick proposed the double helix model for DNA.</p>
+              <p>• Consists of two polynucleotide strands winding around a common axis in **antiparallel directions**.</p>
+              <p>• The sugar-phosphate backbones form the outer railings, while hydrophobic nitrogenous bases point inward, stack, and pair via hydrogen bonds.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Complementary Base Pairing</h3>
+              <p>Strands are held together by highly specific hydrogen bonds between purines and pyrimidines:</p>
+              <p style="margin-top: 0.5rem; font-weight: bold; font-family: monospace; color:#bd00ff; text-align: center; font-size: 1.15rem;">
+                A = T &nbsp;&nbsp;&nbsp;&nbsp; C ≡ G
+              </p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                • **Adenine** pairs selectively with **Thymine** via 2 hydrogen bonds.<br>
+                • **Cytosine** pairs selectively with **Guanine** via 3 hydrogen bonds. This base pairing makes the strands complementary.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Biomolecules Lab</h2>
+          <span class="chapter-tag">Biomolecules</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Peptide Synthesis Lab</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the peptide simulator. Click amino acid components like Glycine, Alanine, and Valine to link them together, view Zwitterion equilibrium states, and witness peptide bond water elimination steps.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Peptide Simulator
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 11</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Biomolecules & DNA Laboratory</h3>
+          <p>Toggle peptide synthesis / zwitterions or study complementary DNA base pairings</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close biomolecules simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="peptide-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-peptide">Peptide Zwitterion</button>
+              <button class="sim-tab-btn" id="tab-dna">DNA Base Pairing</button>
+            </div>
+
+            <!-- Peptide Panel -->
+            <div id="peptide-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <div class="peptide-chain" id="chain-container">
+                <span style="color:var(--text-dim); font-style:italic;" id="empty-msg">No peptide chain assembled. Click amino acids to synthesize.</span>
+              </div>
+              <div class="zwitterion-display">
+                <div style="font-size:0.8rem; color:var(--text-secondary); text-transform:uppercase;">Zwitterion Equilibrium (Glycine)</div>
+                <div class="zwitterion-formula" id="zwit-formula">H₃N⁺-CH₂-COO⁻</div>
+                <p style="font-size:0.8rem; color:var(--text-dim);" id="zwit-lbl">Neutral pH: Dipolar ion form</p>
+              </div>
+            </div>
+
+            <!-- DNA Panel -->
+            <div id="dna-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px); align-items: center; justify-content: center; overflow-y: auto;">
+              <div style="display: flex; flex-direction: column; gap: 0.75rem; width: 90%; background: #020617; padding: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 0.5rem;">
+                  <span style="color: #64748b; font-size: 0.8rem;">5' Strand</span>
+                  <div id="dna-strand-1" style="display: flex; gap: 0.4rem; font-weight: bold; font-family: monospace;"></div>
+                </div>
+                <!-- Hydrogen Bond Links -->
+                <div id="dna-h-bonds" style="display: flex; gap: 0.4rem; justify-content: flex-end; padding-right: 0.2rem; min-height: 24px;"></div>
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 0.5rem;">
+                  <span style="color: #64748b; font-size: 0.8rem;">3' Strand</span>
+                  <div id="dna-strand-2" style="display: flex; gap: 0.4rem; font-weight: bold; font-family: monospace;"></div>
+                </div>
+              </div>
+              <div class="timer-val" style="margin-top: 1rem; font-size: 0.85rem;" id="dna-stability-desc">
+                Click Add Base buttons to build DNA.
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Peptide Controls -->
+            <div id="peptide-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Select Amino Acid to add</label>
+                <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                  <button class="btn-launch-simulator" style="justify-content:center; padding: 0.5rem; background: linear-gradient(135deg, #10b981 0%, rgba(16, 185, 129, 0.4) 100%); font-weight: bold;" onclick="addAminoAcid('Gly')">Glycine (Gly)</button>
+                  <button class="btn-launch-simulator" style="justify-content:center; padding: 0.5rem; background: linear-gradient(135deg, #10b981 0%, rgba(16, 185, 129, 0.4) 100%); font-weight: bold;" onclick="addAminoAcid('Ala')">Alanine (Ala)</button>
+                  <button class="btn-launch-simulator" style="justify-content:center; padding: 0.5rem; background: linear-gradient(135deg, #10b981 0%, rgba(16, 185, 129, 0.4) 100%); font-weight: bold;" onclick="addAminoAcid('Val')">Valine (Val)</button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label for="ph-slider">pH Level: <span id="ph-val">7.0</span></label>
+                <input type="range" id="ph-slider" min="1" max="14" step="1" value="7">
+              </div>
+
+              <button class="btn-launch-simulator" id="clear-pep-btn" style="justify-content: center; padding: 0.8rem; background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%); font-weight: bold;">
+                Clear Peptide Chain
+              </button>
+            </div>
+
+            <!-- DNA Controls -->
+            <div id="dna-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Build 5' Strand Bases</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                  <button class="toggle-btn" onclick="addDnaBase('A')">Adenine (A)</button>
+                  <button class="toggle-btn" onclick="addDnaBase('T')">Thymine (T)</button>
+                  <button class="toggle-btn" onclick="addDnaBase('C')">Cytosine (C)</button>
+                  <button class="toggle-btn" onclick="addDnaBase('G')">Guanine (G)</button>
+                </div>
+              </div>
+
+              <button class="btn-launch-simulator" id="pair-dna-btn" style="justify-content: center; padding: 0.8rem; width: 100%; background: linear-gradient(135deg, #bd00ff 0%, rgba(189, 0, 255, 0.4) 100%); color: #fff; font-weight: bold;">
+                Synthesize Complementary
+              </button>
+              <button class="btn-launch-simulator" id="clear-dna-btn" style="justify-content: center; padding: 0.8rem; width: 100%; background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%); color: #fff; font-weight: bold;">
+                Clear DNA
+              </button>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #bd00ff;">
+              <strong>Theoretical Context:</strong><br>
+              • **Peptide synthesis** links amine and carboxyl groups via H₂O loss.<br>
+              • **DNA helix** is antiparallel. Hydrogen bonding pairing is highly specific: A=T (2 bonds), C≡G (3 bonds).
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabPeptide = document.getElementById("tab-peptide");
+    const tabDna = document.getElementById("tab-dna");
+    const peptidePanel = document.getElementById("peptide-panel");
+    const dnaPanel = document.getElementById("dna-panel");
+    const peptideControls = document.getElementById("peptide-controls");
+    const dnaControls = document.getElementById("dna-controls");
+
+    tabPeptide.addEventListener("click", () => {
+      tabPeptide.classList.add("active");
+      tabDna.classList.remove("active");
+      peptidePanel.style.display = "flex";
+      dnaPanel.style.display = "none";
+      peptideControls.style.display = "flex";
+      dnaControls.style.display = "none";
+    });
+
+    tabDna.addEventListener("click", () => {
+      tabDna.classList.add("active");
+      tabPeptide.classList.remove("active");
+      dnaPanel.style.display = "flex";
+      peptidePanel.style.display = "none";
+      dnaControls.style.display = "flex";
+      peptideControls.style.display = "none";
+      resetDna();
+    });
+
+    // Peptide simulator logic
+    const chainContainer = document.getElementById("chain-container");
+    const emptyMsg = document.getElementById("empty-msg");
+    const phSlider = document.getElementById("ph-slider");
+    const phVal = document.getElementById("ph-val");
+    const zwitFormula = document.getElementById("zwit-formula");
+    const zwitLbl = document.getElementById("zwit-lbl");
+    const clearPepBtn = document.getElementById("clear-pep-btn");
+
+    let peptideChain = [];
+
+    function addAminoAcid(name) {
+      emptyMsg.style.display = "none";
+      
+      if (peptideChain.length > 0) {
+        const link = document.createElement("span");
+        link.className = "peptide-bond-node";
+        link.textContent = "-CO-NH-";
+        chainContainer.appendChild(link);
+      }
+
+      const node = document.createElement("div");
+      node.className = "amino-acid-node";
+      node.textContent = name;
+      
+      if (name === "Gly") node.style.backgroundColor = "#3b82f6";
+      if (name === "Ala") node.style.backgroundColor = "#10b981";
+      if (name === "Val") node.style.backgroundColor = "#f59e0b";
+
+      chainContainer.appendChild(node);
+      peptideChain.push(name);
+    }
+
+    clearPepBtn.addEventListener("click", () => {
+      chainContainer.innerHTML = "";
+      chainContainer.appendChild(emptyMsg);
+      emptyMsg.style.display = "block";
+      peptideChain = [];
+    });
+
+    phSlider.addEventListener("input", () => {
+      const ph = parseInt(phSlider.value, 10);
+      phVal.textContent = ph.toFixed(1);
+
+      if (ph < 5) {
+        zwitFormula.textContent = "H₃N⁺-CH₂-COOH";
+        zwitFormula.style.color = "#ef4444";
+        zwitLbl.textContent = "Acidic pH: Cationic form (moves to cathode)";
+      } else if (ph > 9) {
+        zwitFormula.textContent = "H₂N-CH₂-COO⁻";
+        zwitFormula.style.color = "#10b981";
+        zwitLbl.textContent = "Basic pH: Anionic form (moves to anode)";
+      } else {
+        zwitFormula.textContent = "H₃N⁺-CH₂-COO⁻";
+        zwitFormula.style.color = "#bd00ff";
+        zwitLbl.textContent = "Neutral pH: Isoelectric dipolar zwitterion";
+      }
+    });
+
+    // DNA Base Pairing Logic
+    const dnaStrand1 = document.getElementById("dna-strand-1");
+    const dnaStrand2 = document.getElementById("dna-strand-2");
+    const dnaHBonds = document.getElementById("dna-h-bonds");
+    const dnaStability = document.getElementById("dna-stability-desc");
+    const pairDnaBtn = document.getElementById("pair-dna-btn");
+    const clearDnaBtn = document.getElementById("clear-dna-btn");
+
+    let firstStrand = [];
+    let isDnaPaired = false;
+
+    function addDnaBase(base) {
+      if (isDnaPaired || firstStrand.length >= 8) return;
+      firstStrand.push(base);
+      updateDnaVisuals();
+    }
+
+    function updateDnaVisuals() {
+      dnaStrand1.innerHTML = "";
+      firstStrand.forEach(b => {
+        const item = document.createElement("span");
+        item.style.padding = "0.2rem 0.5rem";
+        item.style.borderRadius = "4px";
+        item.style.color = "#000";
+        if (b === "A") item.style.backgroundColor = "#fb7185";
+        if (b === "T") item.style.backgroundColor = "#60a5fa";
+        if (b === "C") item.style.backgroundColor = "#34d399";
+        if (b === "G") item.style.backgroundColor = "#fbbf24";
+        item.textContent = b;
+        dnaStrand1.appendChild(item);
+      });
+      dnaStability.innerHTML = `Built 5' Strand with ${firstStrand.length} bases. Click <strong>Synthesize Complementary</strong>.`;
+    }
+
+    function resetDna() {
+      firstStrand = [];
+      isDnaPaired = false;
+      dnaStrand1.innerHTML = "";
+      dnaStrand2.innerHTML = "";
+      dnaHBonds.innerHTML = "";
+      dnaStability.innerHTML = "Click Add Base buttons to build DNA (Max 8 bases).";
+    }
+
+    pairDnaBtn.addEventListener("click", () => {
+      if (firstStrand.length === 0 || isDnaPaired) return;
+      isDnaPaired = true;
+
+      dnaStrand2.innerHTML = "";
+      dnaHBonds.innerHTML = "";
+
+      let doubleBonds = 0;
+      let tripleBonds = 0;
+
+      firstStrand.forEach(b => {
+        let comp = "T";
+        let bonds = "||";
+        if (b === "T") comp = "A";
+        if (b === "C") { comp = "G"; bonds = "|||"; }
+        if (b === "G") { comp = "C"; bonds = "|||"; }
+
+        if (b === "A" || b === "T") doubleBonds++;
+        else tripleBonds++;
+
+        // Add complement
+        const item = document.createElement("span");
+        item.style.padding = "0.2rem 0.5rem";
+        item.style.borderRadius = "4px";
+        item.style.color = "#000";
+        if (comp === "A") item.style.backgroundColor = "#fb7185";
+        if (comp === "T") item.style.backgroundColor = "#60a5fa";
+        if (comp === "C") item.style.backgroundColor = "#34d399";
+        if (comp === "G") item.style.backgroundColor = "#fbbf24";
+        item.textContent = comp;
+        dnaStrand2.appendChild(item);
+
+        // Add bonds
+        const bondNode = document.createElement("span");
+        bondNode.style.width = "22px";
+        bondNode.style.textAlign = "center";
+        bondNode.style.fontFamily = "monospace";
+        bondNode.style.fontSize = "10px";
+        bondNode.style.color = "#e2e8f0";
+        bondNode.textContent = bonds;
+        dnaHBonds.appendChild(bondNode);
+      });
+
+      const totalH = (doubleBonds * 2) + (tripleBonds * 3);
+      dnaStability.innerHTML = `<strong>Synthesis Complete!</strong> Complementary 3' strand formed.<br>Strand stability is high with <strong>${totalH} Hydrogen Bonds</strong> (${doubleBonds} A-T double bonds & ${tripleBonds} C-G triple bonds).`;
+    });
+
+    clearDnaBtn.addEventListener("click", resetDna);
+
+    document.addEventListener("simulator-opened", () => {
+      chainContainer.innerHTML = "";
+      chainContainer.appendChild(emptyMsg);
+      emptyMsg.style.display = "block";
+      peptideChain = [];
+      phSlider.value = 7;
+      phVal.textContent = "7.0";
+      zwitFormula.textContent = "H₃N⁺-CH₂-COO⁻";
+      zwitFormula.style.color = "#bd00ff";
+      zwitLbl.textContent = "Neutral pH: Isoelectric dipolar zwitterion";
+      resetDna();
+    });
+  </script>
+</body>
+</html>

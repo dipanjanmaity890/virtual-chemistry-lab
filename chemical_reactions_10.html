@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chemical Reactions & Equations | Class 10</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .sim-tab-header { display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .sim-tab-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+    .sim-canvas { width:100%; height:200px; background:#030712; border-radius:12px; border:1px solid rgba(255,255,255,0.05); }
+    .rxn-step { background: rgba(255,255,255,0.04); border-left: 3px solid #38bdf8; border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.5rem; font-size: 0.88rem; line-height: 1.5; }
+  </style>
+</head>
+<body data-theme="electrochemistry">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 10 &middot; Unit I</div>
+      <h1>Chemical Reactions and Equations</h1>
+      <p class="subtitle">Types of chemical reactions, balancing equations, exothermic/endothermic reactions, and oxidation-reduction.</p>
+    </section>
+    <section class="slide">
+      <h2>What is a Chemical Reaction?</h2>
+      <p>A chemical reaction transforms reactants into new products with different chemical properties. Observable signs include:</p>
+      <ul class="reveal-list">
+        <li class="reveal-item">Change in <strong>colour</strong> (e.g., blue CuSO4 turns colourless on reduction)</li>
+        <li class="reveal-item">Evolution of a <strong>gas</strong> (e.g., CO2 bubbles from vinegar + baking soda)</li>
+        <li class="reveal-item">Formation of a <strong>precipitate</strong> (white BaSO4 from BaCl2 + Na2SO4)</li>
+        <li class="reveal-item">Change in <strong>temperature</strong> (heat evolution in combustion or absorption in endothermic reactions)</li>
+        <li class="reveal-item">Change in <strong>state</strong> (liquid water to steam on boiling)</li>
+      </ul>
+      <div class="note-box"><strong>Balancing (Law of Conservation of Mass):</strong> Equal atoms on both sides.<br>Unbalanced: H2 + O2 gives H2O | Balanced: 2H2 + O2 gives 2H2O</div>
+    </section>
+    <section class="slide">
+      <h2>Types of Chemical Reactions</h2>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>1. Combination:</strong> A + B gives AB. Two or more substances combine to form a single product.<br>CaO + H2O gives Ca(OH)2 (heat released, exothermic)</li>
+        <li class="reveal-item"><strong>2. Decomposition:</strong> AB gives A + B. Single compound breaks into simpler substances. Needs energy (heat/light/electricity).<br>2H2O gives 2H2 + O2 (electrolysis) | 2AgCl gives 2Ag + Cl2 (photolysis by sunlight)</li>
+        <li class="reveal-item"><strong>3. Displacement:</strong> A + BC gives AC + B. More reactive displaces less reactive.<br>Fe + CuSO4(aq) gives FeSO4 + Cu (iron is more reactive than copper)</li>
+        <li class="reveal-item"><strong>4. Double Displacement:</strong> AB + CD gives AD + CB. Ion exchange between two compounds.<br>Na2SO4 + BaCl2 gives BaSO4(precipitate) + 2NaCl</li>
+      </ul>
+    </section>
+    <section class="slide">
+      <h2>Exothermic and Endothermic Reactions</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Exothermic (Delta H negative)</h3>
+          <p>Release heat/light to surroundings. Products have lower energy than reactants.</p>
+          <ul>
+            <li>Combustion: C + O2 gives CO2 + Heat</li>
+            <li>Respiration: Glucose + O2 gives CO2 + H2O + Energy (slow combustion)</li>
+            <li>Neutralization: HCl + NaOH gives NaCl + H2O + Heat</li>
+            <li>CaO + H2O gives Ca(OH)2 + Heat (slaking of lime)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Endothermic (Delta H positive)</h3>
+          <p>Absorb heat from surroundings. Products have higher energy than reactants.</p>
+          <ul>
+            <li>CaCO3 gives CaO + CO2 (limestone decomposition, needs 840C)</li>
+            <li>Photosynthesis: CO2 + H2O gives Glucose + O2 (needs sunlight)</li>
+            <li>Evaporation: absorbs latent heat from surroundings</li>
+            <li>Dissolving NH4Cl in water: cools the water</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Oxidation and Reduction</h2>
+      <div class="note-box">
+        <strong>Oxidation:</strong> Loss of electrons / Gain of oxygen / Loss of hydrogen / Increase in oxidation number.<br>
+        <strong>Reduction:</strong> Gain of electrons / Loss of oxygen / Gain of hydrogen / Decrease in oxidation number.<br>
+        <strong>Oxidising Agent:</strong> Causes oxidation of others, itself gets reduced.<br>
+        <strong>Reducing Agent:</strong> Causes reduction of others, itself gets oxidised.
+      </div>
+      <p><strong>CuO + H2 gives Cu + H2O</strong><br>
+      H2 (loses nothing, gains O) is oxidised to H2O. CuO (loses O) is reduced to Cu.<br>
+      H2 = reducing agent | CuO = oxidising agent</p>
+      <p><strong>Zn + CuSO4 gives ZnSO4 + Cu</strong><br>
+      Zn loses 2 electrons (oxidised). Cu2+ gains 2 electrons (reduced).</p>
+    </section>
+    <section class="slide">
+      <h2>Reaction Type Simulator</h2>
+      <p>Launch the lab to step through animated explanations of all reaction types, practice equation balancing, and test your understanding of oxidation states.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 6</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title"><h3>Chemical Reactions Lab Simulator</h3></div>
+        <button id="close-overlay" class="close-btn">&#x2715;</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer" style="flex-direction:column; align-items:flex-start; justify-content:flex-start; padding:1rem;">
+            <h4>Reaction Simulator</h4>
+            <select id="rxn-type" style="width:100%; background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px; margin-bottom:0.5rem;" onchange="loadRxn()">
+              <option value="combination">Combination: CaO + H2O</option>
+              <option value="decomposition">Decomposition: 2H2O (Electrolysis)</option>
+              <option value="displacement">Displacement: Fe + CuSO4</option>
+              <option value="double">Double Displacement: BaCl2 + Na2SO4</option>
+              <option value="exo">Exothermic: Methane Combustion</option>
+              <option value="endo">Endothermic: CaCO3 Decomposition</option>
+            </select>
+            <button style="width:100%; background:linear-gradient(135deg,#38bdf8,#a855f7); border:none; border-radius:8px; color:#000; font-weight:700; padding:0.6rem; cursor:pointer; margin-bottom:0.5rem;" onclick="runRxn()">Run Reaction Step-by-Step</button>
+            <div id="rxn-equation" style="font-size:0.9rem; color:#eab308; margin-bottom:0.5rem; font-weight:bold;"></div>
+            <div id="rxn-steps" style="font-size:0.84rem; color:#e2e8f0; line-height:1.6; overflow-y:auto; max-height:140px; width:100%;"></div>
+          </div>
+          <div class="sim-sidebar">
+            <h3>Balance H2 + O2 gives H2O</h3>
+            <p style="font-size:0.82rem; color:#94a3b8;">Enter coefficients to balance:</p>
+            <div style="display:flex; gap:0.4rem; align-items:center; margin:0.5rem 0; flex-wrap:wrap;">
+              <input type="number" id="h2-c" value="2" min="1" max="8" style="width:40px; background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px; text-align:center;" oninput="checkBal()">
+              <span>H2 +</span>
+              <input type="number" id="o2-c" value="1" min="1" max="8" style="width:40px; background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px; text-align:center;" oninput="checkBal()">
+              <span>O2 gives</span>
+              <input type="number" id="h2o-c" value="2" min="1" max="8" style="width:40px; background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px; text-align:center;" oninput="checkBal()">
+              <span>H2O</span>
+            </div>
+            <div id="bal-result" style="font-size:0.85rem; color:#e2e8f0; margin-top:0.3rem;"></div>
+            <h3 style="margin-top:1rem;">Oxidation State Finder</h3>
+            <select id="ox-compound" style="width:100%; background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px; margin-bottom:0.4rem;" onchange="showOx()">
+              <option value="cuo_h2">CuO + H2 gives Cu + H2O</option>
+              <option value="fe_cuso4">Fe + CuSO4 gives FeSO4 + Cu</option>
+              <option value="2mgo">2Mg + O2 gives 2MgO</option>
+            </select>
+            <div id="ox-result" style="font-size:0.82rem; color:#e2e8f0; line-height:1.5;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/presentation.js"></script>
+  <script>
+
+    const rxnDB={
+      combination:{eq:'CaO + H2O gives Ca(OH)2',steps:['1. Quicklime (CaO) placed in beaker.','2. Water (H2O) added carefully.','3. Vigorous reaction; hissing sound and steam.','4. Slaked lime Ca(OH)2 formed as white solid.','Result: Two reactants give one product = Combination']},
+      decomposition:{eq:'2H2O gives 2H2 + O2 (Electrolysis)',steps:['1. Acidified water in electrolysis apparatus.','2. Electric current passed through.','3. Cathode (-): 4H+ + 4e- gives 2H2 (bubbles).','4. Anode (+): 2H2O gives O2 + 4H+ + 4e-.','Result: H2 volume = 2x O2 volume. One compound breaks into two.']},
+      displacement:{eq:'Fe + CuSO4(aq) gives FeSO4 + Cu',steps:['1. Iron nail placed in blue copper sulphate solution.','2. Fe (more reactive) displaces Cu2+ from solution.','3. Blue colour fades as Fe2+ replaces Cu2+.','4. Reddish-brown copper deposits on nail.','Result: Single displacement. Iron > Copper in reactivity.']},
+      double:{eq:'BaCl2 + Na2SO4 gives BaSO4 + 2NaCl',steps:['1. BaCl2 and Na2SO4 solutions mixed.','2. Ba2+ ions meet SO42- ions.','3. Dense white precipitate of BaSO4 forms immediately.','4. Na+ and Cl- remain in solution as NaCl.','Result: Ions exchange partners = Double Displacement / Precipitation.']},
+      exo:{eq:'CH4 + 2O2 gives CO2 + 2H2O + Heat',steps:['1. Methane gas mixed with oxygen.','2. Ignition provides activation energy.','3. C-H bonds break; C-O and O-H bonds form.','4. Large heat energy released (Delta H = -890 kJ/mol).','Result: Exothermic - products more stable than reactants.']},
+      endo:{eq:'CaCO3 gives CaO + CO2 (heated above 840C)',steps:['1. Limestone CaCO3 placed in a kiln.','2. Continuous heating above 840 degrees C required.','3. Lattice bonds in CaCO3 break (endothermic).','4. CaO (quicklime) and CO2 gas produced.','Result: Endothermic - absorbs 178 kJ/mol from surroundings.']}
+    };
+    let rxnTimeouts = [];
+    function loadRxn(){
+      rxnTimeouts.forEach(clearTimeout);
+      rxnTimeouts = [];
+      const t=document.getElementById('rxn-type').value;
+      document.getElementById('rxn-equation').textContent=rxnDB[t].eq;
+      document.getElementById('rxn-steps').innerHTML='';
+    }
+    function runRxn(){
+      rxnTimeouts.forEach(clearTimeout);
+      rxnTimeouts = [];
+      const t=document.getElementById('rxn-type').value;
+      document.getElementById('rxn-equation').textContent=rxnDB[t].eq;
+      const el=document.getElementById('rxn-steps');
+      el.innerHTML='';
+      rxnDB[t].steps.forEach((s,i)=>{
+        const tid = setTimeout(()=>{
+          const d=document.createElement('div');
+          d.className='rxn-step';
+          d.textContent=s;
+          el.appendChild(d);
+        },i*500);
+        rxnTimeouts.push(tid);
+      });
+    }
+    function checkBal(){
+      const h2=parseInt(document.getElementById('h2-c').value)||0;
+      const o2=parseInt(document.getElementById('o2-c').value)||0;
+      const h2o=parseInt(document.getElementById('h2o-c').value)||0;
+      const ok=h2*2===h2o*2&&o2*2===h2o;
+      document.getElementById('bal-result').innerHTML=ok?'<span style="color:#10b981;">BALANCED! H:'+h2*2+'='+h2o*2+' O:'+o2*2+'='+h2o+'</span>':'<span style="color:#ef4444;">Not balanced. H:'+h2*2+' vs '+h2o*2+' | O:'+o2*2+' vs '+h2o+'</span>';
+    }
+    const oxDB={
+      'cuo_h2':'CuO + H2 gives Cu + H2O<br>Cu in CuO: +2 -> Cu: 0 (REDUCED, gain e-)<br>H in H2: 0 -> H in H2O: +1 (OXIDISED, lose e-)<br>H2 = Reducing Agent | CuO = Oxidising Agent',
+      'fe_cuso4':'Fe + CuSO4 gives FeSO4 + Cu<br>Fe: 0 -> Fe2+: +2 (OXIDISED, loses 2e-)<br>Cu2+: +2 -> Cu: 0 (REDUCED, gains 2e-)<br>Fe = Reducing Agent | Cu2+ = Oxidising Agent',
+      '2mgo':'2Mg + O2 gives 2MgO<br>Mg: 0 -> Mg2+: +2 (OXIDISED, loses 2e-)<br>O: 0 -> O2-: -2 (REDUCED, gains 2e-)<br>Mg = Reducing Agent | O2 = Oxidising Agent'
+    };
+    function showOx(){document.getElementById('ox-result').innerHTML=oxDB[document.getElementById('ox-compound').value];}
+    loadRxn();checkBal();showOx();
+
+  </script>
+</body>
+</html>

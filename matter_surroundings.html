@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matter in Our Surroundings | Class 9</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .sim-tab-header { display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .sim-tab-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+    .sim-canvas { width:100%; height:200px; background:#030712; border-radius:12px; border:1px solid rgba(255,255,255,0.05); }
+  </style>
+</head>
+<body data-theme="solutions">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 9 &middot; Unit I</div>
+      <h1>Matter in Our Surroundings</h1>
+      <p class="subtitle">Physical nature of matter, states of matter, interconversion, evaporation, and the kinetic theory of particles.</p>
+    </section>
+    <section class="slide">
+      <h2>What is Matter?</h2>
+      <p>Matter is anything that has <strong>mass</strong> and occupies <strong>space (volume)</strong>. All matter is made of tiny particles that are in constant motion.</p>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>Particles are in constant random motion</strong> — faster at higher temperature (kinetic energy increases with temperature).</li>
+        <li class="reveal-item"><strong>Particles attract each other</strong> — intermolecular forces hold them together. Stronger forces = more ordered arrangement.</li>
+        <li class="reveal-item"><strong>Particles have spaces between them</strong> — explains why gases are compressible but solids and liquids are not.</li>
+      </ul>
+      <div class="note-box">
+        <strong>Key Experiment — Diffusion:</strong> When a crystal of KMnO4 is added to water, the purple colour gradually spreads throughout — demonstrating that particles are in constant random motion. Similarly, the smell of perfume spreads across a room.
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Three States of Matter</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Solid</h3>
+          <p>Definite shape and volume. Particles are tightly packed in fixed positions with very strong intermolecular forces. Very low kinetic energy. Examples: ice, iron, wood, chalk.</p>
+          <h3>Liquid</h3>
+          <p>Definite volume but no fixed shape (takes the shape of the container). Particles can slide past one another. Moderate intermolecular forces. Examples: water, mercury, alcohol.</p>
+        </div>
+        <div>
+          <h3>Gas</h3>
+          <p>No definite shape or volume. Particles move freely in all directions with high speed. Negligible intermolecular force. Very high kinetic energy. Examples: steam, air, oxygen.</p>
+          <div class="note-box" style="margin-top:1rem;">
+            <strong>Plasma</strong> — fourth state of matter found in stars and lightning. Super-energized ionized gas where electrons separate from atoms.
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Interconversion of States</h2>
+      <p>By changing temperature and pressure, matter converts between states. Heat energy is involved in every change:</p>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>Melting (Fusion):</strong> Solid to Liquid. Melting Point of Ice = 0 degrees C (273 K). Heat absorbed.</li>
+        <li class="reveal-item"><strong>Boiling (Vaporisation):</strong> Liquid to Gas. Boiling Point of Water = 100 degrees C (373 K). Heat absorbed.</li>
+        <li class="reveal-item"><strong>Sublimation:</strong> Solid directly to Gas without passing through liquid state. Examples: Dry Ice (CO2), Ammonium Chloride, Iodine, Camphor.</li>
+        <li class="reveal-item"><strong>Condensation:</strong> Gas to Liquid. Heat energy released to surroundings.</li>
+        <li class="reveal-item"><strong>Freezing (Solidification):</strong> Liquid to Solid. Heat energy released.</li>
+      </ul>
+      <div class="note-box">
+        Latent Heat of Fusion of Ice = 334 J/g (absorbed during melting at 0 degrees C)<br>
+        Latent Heat of Vaporisation of Water = 2260 J/g (absorbed during boiling at 100 degrees C)
+      </div>
+    </section>
+    <section class="slide">
+      <h2>Evaporation and Cooling Effect</h2>
+      <p>Evaporation is a surface phenomenon where high-energy liquid molecules escape into the vapour phase at temperatures below the boiling point. It is a slow process unlike boiling which is a bulk phenomenon.</p>
+      <div class="cols-2">
+        <div>
+          <h3>Factors Increasing Evaporation Rate</h3>
+          <ul>
+            <li>Higher <strong>temperature</strong> — more molecules gain energy to escape</li>
+            <li>Larger <strong>surface area</strong> — more molecules at surface</li>
+            <li>Lower <strong>humidity</strong> — maintains concentration gradient</li>
+            <li>Higher <strong>wind speed</strong> — removes vapour, maintains gradient</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Cooling Effect of Evaporation</h3>
+          <p>During evaporation, high-energy molecules escape the liquid. The remaining particles have lower average kinetic energy — temperature drops.</p>
+          <p><strong>Biological applications:</strong> Sweating cools the human body. Earthen pots (matka) keep water cool through evaporation through pores. Refrigerators use evaporation of refrigerant.</p>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>States of Matter Simulator</h2>
+      <p>Launch the lab to visualise particle motion in solids, liquids, and gases. Observe phase transitions and adjust evaporation factors with interactive sliders.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 6</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title"><h3>Matter in Our Surroundings Lab Simulator</h3></div>
+        <button id="close-overlay" class="close-btn">&#x2715;</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" onclick="setMatterState('solid')">Solid</button>
+              <button class="sim-tab-btn" onclick="setMatterState('liquid')">Liquid</button>
+              <button class="sim-tab-btn" onclick="setMatterState('gas')">Gas</button>
+            </div>
+            <canvas id="matter-canvas" class="sim-canvas" width="500" height="200"></canvas>
+            <div id="matter-label" style="margin-top:0.6rem; font-size:0.85rem; color:#94a3b8; text-align:center;">Solid -- particles vibrate in fixed positions</div>
+          </div>
+          <div class="sim-sidebar">
+            <h3>Evaporation Factors</h3>
+            <div style="margin-top:0.75rem;">
+              <label style="font-size:0.85rem;">Temperature (C)</label>
+              <input type="range" id="temp-slider" min="0" max="100" value="25" style="width:100%;" oninput="updateEvap()">
+              <label style="font-size:0.85rem; margin-top:0.5rem; display:block;">Wind Speed</label>
+              <input type="range" id="wind-slider" min="0" max="100" value="20" style="width:100%;" oninput="updateEvap()">
+              <div id="evap-result" style="margin-top:0.75rem; font-size:0.85rem; color:#e2e8f0; line-height:1.5; background:rgba(56,189,248,0.07); border-radius:8px; padding:0.6rem;">Adjust sliders to see evaporation rate change.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    let matterState = 'solid';
+    const mc = document.getElementById('matter-canvas');
+    const mctx = mc.getContext('2d');
+    const matterParticles = [];
+    function initMatterParticles(state) {
+      matterParticles.length = 0;
+      const count = state === 'gas' ? 28 : state === 'liquid' ? 38 : 48;
+      for (let i = 0; i < count; i++) {
+        const m = 20;
+        matterParticles.push({
+          x: m + Math.random() * (mc.width - m * 2),
+          y: m + Math.random() * (mc.height - m * 2),
+          vx: state === 'solid' ? 0 : (Math.random() - 0.5) * (state === 'gas' ? 3.5 : 1.2),
+          vy: state === 'solid' ? 0 : (Math.random() - 0.5) * (state === 'gas' ? 3.5 : 1.2),
+          ox: 0, oy: 0, r: state === 'gas' ? 5 : 7,
+          color: state === 'solid' ? '#38bdf8' : state === 'liquid' ? '#a855f7' : '#f97316'
+        });
+        matterParticles[i].ox = matterParticles[i].x;
+        matterParticles[i].oy = matterParticles[i].y;
+      }
+    }
+    function setMatterState(state) {
+      matterState = state;
+      document.querySelectorAll('.sim-tab-btn').forEach((b, i) => {
+        b.classList.toggle('active', ['solid','liquid','gas'][i] === state);
+      });
+      const labels = {
+        solid: 'Solid -- particles vibrate in fixed positions, strong intermolecular forces',
+        liquid: 'Liquid -- particles slide and flow past each other, moderate forces',
+        gas: 'Gas -- particles move freely and rapidly in all directions, negligible forces'
+      };
+      document.getElementById('matter-label').textContent = labels[state];
+      initMatterParticles(state);
+    }
+    let simActive = false;
+    function animateMatter() {
+      if (!simActive) return;
+      mctx.clearRect(0, 0, mc.width, mc.height);
+      matterParticles.forEach(p => {
+        if (matterState === 'solid') {
+          p.x = p.ox + (Math.random() - 0.5) * 3;
+          p.y = p.oy + (Math.random() - 0.5) * 3;
+        } else {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < p.r || p.x > mc.width - p.r) p.vx *= -1;
+          if (p.y < p.r || p.y > mc.height - p.r) p.vy *= -1;
+        }
+        mctx.beginPath(); mctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        mctx.fillStyle = p.color; mctx.shadowBlur = 8; mctx.shadowColor = p.color;
+        mctx.fill(); mctx.shadowBlur = 0;
+      });
+      requestAnimationFrame(animateMatter);
+    }
+    document.addEventListener("simulator-opened", () => {
+      simActive = true;
+      animateMatter();
+    });
+    document.addEventListener("simulator-closed", () => {
+      simActive = false;
+    });
+    function updateEvap() {
+      const temp = document.getElementById('temp-slider').value;
+      const wind = document.getElementById('wind-slider').value;
+      const rate = Math.round(temp * 0.6 + wind * 0.4);
+      const label = rate < 30 ? 'Very Slow' : rate < 55 ? 'Moderate' : rate < 80 ? 'Fast' : 'Very Fast';
+      document.getElementById('evap-result').innerHTML =
+        '<strong>Rate: ' + label + ' (' + rate + '%)</strong><br>Temp: ' + temp + 'C | Wind: ' + wind + ' km/h<br>' +
+        (temp > 60 ? '<br>High temperature gives more escape energy.' : '') +
+        (wind > 60 ? '<br>High wind removes vapour, sustaining gradient.' : '') +
+        (temp <= 30 && wind <= 30 ? '<br>Low conditions: minimal evaporation.' : '');
+    }
+    setMatterState('solid'); updateEvap();
+  </script>
+</body>
+</html>

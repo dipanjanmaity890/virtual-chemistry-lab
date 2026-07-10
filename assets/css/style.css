@@ -1,0 +1,882 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap');
+
+:root {
+  --bg-color: #0b0f19;
+  --panel-bg: rgba(17, 25, 40, 0.75);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --transition-speed: 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background Canvas */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+header h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #38bdf8 0%, #a855f7 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+header p {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Chapter Grid */
+.chapters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+/* Chapter Cards with Glassmorphism */
+.chapter-card {
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 2rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--theme-color, #3b82f6);
+  opacity: 0.5;
+  transition: opacity var(--transition-speed);
+}
+
+.chapter-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px -10px var(--glow-color, rgba(59, 130, 246, 0.3));
+}
+
+.chapter-card:hover::before {
+  opacity: 1;
+}
+
+.chapter-num {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--theme-color, #3b82f6);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.chapter-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+}
+
+.chapter-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.chapter-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 1rem;
+}
+
+.chapter-type {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.start-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--theme-color, #3b82f6);
+}
+
+.start-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--transition-speed);
+}
+
+.chapter-card:hover .start-btn svg {
+  transform: translateX(4px);
+}
+
+/* Footer info */
+footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Specific themes for chapters */
+.chapter-card[data-theme="solutions"] {
+  --theme-color: #00f0ff;
+  --glow-color: rgba(0, 240, 255, 0.35);
+}
+
+.chapter-card[data-theme="electrochemistry"] {
+  --theme-color: #39ff14;
+  --glow-color: rgba(57, 255, 20, 0.35);
+}
+
+.chapter-card[data-theme="kinetics"] {
+  --theme-color: #ff3c00;
+  --glow-color: rgba(255, 60, 0, 0.35);
+}
+
+.chapter-card[data-theme="d-f-block"] {
+  --theme-color: #ffd700;
+  --glow-color: rgba(255, 215, 0, 0.35);
+}
+
+.chapter-card[data-theme="coordination"] {
+  --theme-color: #bd00ff;
+  --glow-color: rgba(189, 0, 255, 0.35);
+}
+
+.chapter-card[data-theme="haloalkanes"] {
+  --theme-color: #00f5d4;
+  --glow-color: rgba(0, 245, 212, 0.35);
+}
+
+.chapter-card[data-theme="alcohols"] {
+  --theme-color: #ff9e00;
+  --glow-color: rgba(255, 158, 0, 0.35);
+}
+
+.chapter-card[data-theme="carbonyl"] {
+  --theme-color: #7000ff;
+  --glow-color: rgba(112, 0, 255, 0.35);
+}
+
+.chapter-card[data-theme="amines"] {
+  --theme-color: #ff007f;
+  --glow-color: rgba(255, 0, 127, 0.35);
+}
+
+.chapter-card[data-theme="biomolecules"] {
+  --theme-color: #10b981;
+  --glow-color: rgba(16, 185, 129, 0.35);
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.25rem;
+  }
+  .chapters-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════ Virtual Lab Portal & Navigation ═══════════════════ */
+.top-nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: rgba(11, 15, 25, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.nav-brand span {
+  background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color var(--transition-speed);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #38bdf8;
+}
+
+/* Hero Section Banner */
+.hero-banner {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(168, 85, 247, 0.05) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  text-align: center;
+  margin-bottom: 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-banner::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: rgba(56, 189, 248, 0.1);
+  filter: blur(80px);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-banner h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-banner p {
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 1.5rem auto;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Search bar & Filter tabs */
+.lab-search-container {
+  max-width: 600px;
+  margin: 0 auto 2.5rem auto;
+  position: relative;
+}
+
+.lab-search-input {
+  width: 100%;
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 0.8rem 1rem 0.8rem 2.8rem;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  transition: all var(--transition-speed);
+}
+
+.lab-search-input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  width: 18px;
+  height: 18px;
+}
+
+.lab-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.lab-tab-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.lab-tab-btn:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--text-main);
+}
+
+.lab-tab-btn.active {
+  background: rgba(56, 189, 248, 0.1);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+}
+
+/* Grid of Practical Cards */
+.labs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.lab-card {
+  background: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+  transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lab-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 12px 24px -10px rgba(56, 189, 248, 0.15);
+}
+
+.lab-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.lab-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.lab-class-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #a855f7;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.lab-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.lab-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.lab-start-btn {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 0.6rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all var(--transition-speed);
+}
+
+.lab-start-btn:hover {
+  background: #38bdf8;
+  border-color: #38bdf8;
+  color: #0b0f19;
+}
+
+/* ═══════════════════ Virtual Lab Simulators ═══════════════════ */
+.virtual-lab-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 7, 12, 0.85);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.lab-modal-container {
+  width: 90%;
+  max-width: 900px;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.lab-modal-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lab-modal-header h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.close-modal-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+}
+
+.close-modal-btn:hover {
+  color: var(--text-main);
+}
+
+.lab-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+/* Beaker and Laser Grid styling for Tyndall effect */
+.laser-beam {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  width: calc(100% - 40px);
+  height: 2px;
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.laser-emitter {
+  position: absolute;
+  left: 5px;
+  top: calc(50% - 8px);
+  width: 15px;
+  height: 16px;
+  background: #334155;
+  border-radius: 2px;
+  border: 1px solid #475569;
+}
+
+/* pH color indicator scale */
+.ph-indicator-scale {
+  display: flex;
+  width: 100%;
+  height: 24px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ph-step {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  cursor: pointer;
+}
+
+/* Conical Flask and Titration Burette styling */
+.burette-tube {
+  position: relative;
+  width: 24px;
+  height: 180px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.burette-liquid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(56, 189, 248, 0.15);
+  transition: height 0.3s ease;
+}
+
+.burette-valve {
+  position: absolute;
+  bottom: -15px;
+  left: -4px;
+  width: 32px;
+  height: 15px;
+  background: #475569;
+  border: 1px solid #64748b;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Drop drip effect */
+.drip-drop {
+  position: absolute;
+  width: 4px;
+  height: 8px;
+  background: rgba(56, 189, 248, 0.4);
+  border-radius: 50%;
+  top: 10px;
+  opacity: 0;
+}
+
+@keyframes dropFall {
+  0% { top: 10px; opacity: 1; }
+  100% { top: 90px; opacity: 0; }
+}
+
+.drip-animation {
+  animation: dropFall 0.4s linear infinite;
+}
+
+/* Test tube heating for Silver Mirror */
+.test-tube-heat {
+  position: relative;
+  width: 40px;
+  height: 140px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  transition: background 1.5s;
+}
+
+.test-tube-liquid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 1.5s ease;
+}
+
+.test-tube-mirror {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 50%, #e2e8f0 100%);
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.bunsen-flame {
+  width: 20px;
+  height: 35px;
+  background: radial-gradient(circle at bottom, #3b82f6 0%, #ef4444 60%, transparent 100%);
+  border-radius: 50% 50% 20% 20%;
+  animation: flicker 0.15s infinite;
+  display: none;
+}
+
+@keyframes flicker {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.9, 1.1) skewX(2deg); }
+  100% { transform: scale(1.05, 0.95) skewX(-2deg); }
+}
+
+/* New Simulation Helper Styles */
+.test-tube-liquid.turbid {
+  background: rgba(241, 245, 249, 0.75) !important;
+  backdrop-filter: blur(2px);
+}
+
+.test-tube-liquid.fecl3-complex {
+  background: rgba(120, 53, 4, 0.8) !important; /* deep dark brown-violet */
+}
+
+.test-tube-liquid.violet-complex {
+  background: rgba(139, 92, 246, 0.7) !important; /* violet complex color */
+}
+
+.test-tube-liquid.dnp-ppt {
+  background: rgba(249, 115, 22, 0.6) !important; /* orange-yellow */
+}
+
+/* Precipitation particle styling */
+.ppt-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  bottom: 0;
+  opacity: 0.8;
+  animation: fallToBottom 1s ease-in forwards;
+}
+
+@keyframes fallToBottom {
+  0% { transform: translateY(-30px); opacity: 0.3; }
+  100% { transform: translateY(0); opacity: 0.9; }
+}
+
+/* Bubbling Effervescence styling */
+.gas-bubble {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255,255,255,0.8);
+  bottom: 5px;
+  animation: riseAndFade 1.2s infinite ease-out;
+}
+
+@keyframes riseAndFade {
+  0% { transform: translateY(0) scale(0.6); opacity: 0.8; }
+  100% { transform: translateY(-45px) scale(1.2); opacity: 0; }
+}
+
+/* Flame Test styles */
+.platinum-wire {
+  width: 8px;
+  height: 100px;
+  background: linear-gradient(90deg, #94a3b8, #cbd5e1, #94a3b8);
+  position: absolute;
+  top: 15px;
+  left: calc(50% - 4px);
+  border-radius: 2px;
+  transform-origin: top center;
+  transition: transform 0.5s ease;
+}
+
+.wire-loop-end {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #cbd5e1;
+  border-radius: 50%;
+  position: absolute;
+  bottom: -10px;
+  left: -3px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.platinum-wire.dipped .wire-loop-end {
+  background: #eab308;
+  box-shadow: 0 0 8px #eab308;
+}
+
+/* Flame custom colors */
+.bunsen-flame.flame-normal {
+  background: radial-gradient(circle at bottom, #3b82f6 0%, rgba(59, 130, 246, 0.4) 60%, transparent 100%) !important;
+}
+
+.bunsen-flame.flame-copper {
+  background: radial-gradient(circle at bottom, #06b6d4 0%, #10b981 50%, rgba(16, 185, 129, 0.1) 80%, transparent 100%) !important;
+  box-shadow: 0 -4px 15px rgba(16, 185, 129, 0.6);
+}
+
+.bunsen-flame.flame-calcium {
+  background: radial-gradient(circle at bottom, #ea580c 0%, #dc2626 60%, transparent 100%) !important;
+  box-shadow: 0 -4px 15px rgba(220, 38, 38, 0.6);
+}
+
+.bunsen-flame.flame-barium {
+  background: radial-gradient(circle at bottom, #a3e635 0%, #84cc16 60%, transparent 100%) !important;
+  box-shadow: 0 -4px 15px rgba(132, 204, 22, 0.6);
+}
+
+.bunsen-flame.flame-strontium {
+  background: radial-gradient(circle at bottom, #f43f5e 0%, #e11d48 60%, transparent 100%) !important;
+  box-shadow: 0 -4px 15px rgba(225, 29, 72, 0.6);
+}
+
+.bunsen-flame.flame-potassium {
+  background: radial-gradient(circle at bottom, #c084fc 0%, #a855f7 60%, transparent 100%) !important;
+  box-shadow: 0 -4px 15px rgba(168, 85, 247, 0.6);
+}
+
+.bunsen-flame.flame-sodium {
+  background: radial-gradient(circle at bottom, #fbbf24 0%, #f59e0b 60%, transparent 100%) !important;
+  box-shadow: 0 -4px 15px rgba(245, 158, 11, 0.6);
+}
+
+/* Modal Simulation Action Buttons & Toggles */
+.btn-launch-simulator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, var(--theme-color, #38bdf8) 0%, rgba(59, 130, 246, 0.4) 100%);
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25);
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.btn-launch-simulator:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+}
+
+.btn-launch-simulator:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.toggle-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.toggle-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.toggle-btn.active {
+  background: #38bdf8;
+  color: #000;
+  border-color: #38bdf8;
+}
+
+
+

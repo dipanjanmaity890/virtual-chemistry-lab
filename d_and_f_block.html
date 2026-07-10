@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>d- and f-Block Elements | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* d-f Block custom orbitals visualizer styles */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .orbitals-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+    }
+    .periodic-display {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .element-card-lg {
+      display: inline-block;
+      border: 2px solid var(--accent-color);
+      box-shadow: 0 0 15px var(--accent-glow);
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .el-sym {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .el-name {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+    .el-z {
+      font-size: 0.95rem;
+      color: var(--accent-color);
+    }
+    .subshell-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+    .subshell-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .subshell-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .orbital-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .orbital-box {
+      width: 44px;
+      height: 44px;
+      border: 2px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+    }
+    .orbital-box.exceptional {
+      border-color: #ffd700;
+      box-shadow: 0 0 5px rgba(255, 215, 0, 0.2);
+    }
+    .electron {
+      width: 6px;
+      height: 30px;
+      position: relative;
+    }
+    .electron::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 100%;
+      background-color: var(--accent-color);
+    }
+    .electron-spin-up::after {
+      left: 2px;
+    }
+    .electron-spin-up::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 3px solid transparent;
+      border-right: 3px solid transparent;
+      border-bottom: 6px solid var(--accent-color);
+    }
+    .electron-spin-down::after {
+      right: 2px;
+    }
+    .electron-spin-down::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-left: 3px solid transparent;
+      border-right: 3px solid transparent;
+      border-top: 6px solid var(--accent-color);
+    }
+    .mag-hud-box {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.75rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .sim-sidebar input[type="range"] {
+      width: 100%;
+      accent-color: #ffd700;
+    }
+  </style>
+</head>
+<body data-theme="d-f-block">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">UNIT VIII · INORGANIC CHEMISTRY</div>
+        <h1>d- and f-Block Elements</h1>
+        <h3>CBSE Class 12 Comprehensive Study Slides</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Transition trends, electronic config anomalies, potassium dichromate/permanganate, and lanthanoid contraction consequences.</p>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Orbitals Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Transition metals definition -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Definition of Transition Elements</h2>
+          <span class="chapter-tag">d- and f-Block</span>
+        </div>
+        <div class="slide-body">
+          <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">The d-block contains elements of Groups 3-12, characterized by the filling of d-orbitals in their penultimate shells.</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Definition & Scope</h3>
+              <p>A **transition element** is defined as one which has **partially filled d-orbitals** in its ground state or in any of its common oxidation states.</p>
+              <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">General Electronic Configuration:</p>
+              <div class="formula-box" style="padding: 0.4rem; font-family: monospace; font-size: 0.95rem;">
+                (n-1)d^(1-10) ns^(1-2)
+              </div>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>The Group 12 Exception</h3>
+              <p>• **Zinc (Zn), Cadmium (Cd), and Mercury (Hg)** have completely filled d-subshells (\(d^{10}\)) in both their ground state and common oxidation states (e.g. \(Zn^{2+}\): \(3d^{10} 4s^0\)).</p>
+              <p style="margin-top: 0.5rem; color: #ef4444; font-weight: 600;">Hence, they are d-block elements, but not classified as transition elements.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Electronic Configuration & Anomalies -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Configuration Anomalies (Cr & Cu)</h2>
+          <span class="chapter-tag">d- and f-Block</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height: 1.5; margin-bottom: 1rem;">
+                Electrons enter the \((n-1)d\) orbitals one-by-one. However, energy levels of \((n-1)d\) and \(ns\) are very close, leading to anomalies that maximize subshell symmetry.
+              </p>
+              <div class="formula-box reveal-item" style="padding: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="font-family: monospace;">Chromium (Z=24): [Ar] 3d⁵ 4s¹</span>
+              </div>
+              <p class="reveal-item" style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                (Expected was \(3d^4 4s^2\). Half-filled \(d^5\) and \(s^1\) are exceptionally stable).
+              </p>
+              <div class="formula-box reveal-item" style="padding: 0.5rem;">
+                <span style="font-family: monospace;">Copper (Z=29): [Ar] 3d¹⁰ 4s¹</span>
+              </div>
+              <p class="reveal-item" style="font-size: 0.85rem; color: var(--text-secondary);">
+                (Expected was \(3d^9 4s^2\). Fully-filled \(d^{10}\) offers maximum symmetry).
+              </p>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Why are d⁵ and d¹⁰ Stable?</h3>
+                <p>1. **Symmetrical Distribution:** Symmetrical distribution of charge leads to lower energy and higher stability.</p>
+                <p style="margin-top: 0.5rem;">2. **Exchange Energy:** Electrons with parallel spins can exchange positions, releasing energy. Symmetrical half/fully filled shells maximize the possible exchange pathways, lowering overall energy.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Atomic Size & Enthalpy -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Atomic Size & Enthalpy of Atomization</h2>
+          <span class="chapter-tag">d- and f-Block</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Atomic & Ionic Radii Trends</h3>
+              <p>• **Across a period (Sc ➔ Cu):** Radii initially decrease due to increasing nuclear charge. In the middle, the size becomes almost constant as screening of d-electrons opposes nuclear pull. Near the end (Zn), radii increase slightly due to inter-electronic repulsions in fully-filled \(d^{10}\).</p>
+              <p style="margin-top: 0.5rem;">• **Down a group:** Size increases from 3d to 4d series. However, 4d and 5d series have **almost identical sizes** due to Lanthanoid Contraction (e.g. Zr ≈ Hf).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Enthalpy of Atomization</h3>
+              <p>The energy required to break metal lattices into free atoms. Transition metals have high enthalpies due to strong inter-metallic metallic bonding:</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                • Metallic bond strength increases with the **number of unpaired d-electrons**.
+              </p>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                • Zinc (\(3d^{10}\), no unpaired e⁻) has the lowest enthalpy of atomization.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Oxidation States -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Variable Oxidation States</h2>
+          <span class="chapter-tag">d- and f-Block</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height: 1.5; margin-bottom: 1rem;">
+                Unlike s-block elements, transition metals exhibit **multiple oxidation states** in their compounds because both \((n-1)d\) and \(ns\) electrons can participate in chemical bonding (due to very small energy differences).
+              </p>
+              <ul>
+                <li class="reveal-item">**Manganese (Mn)** exhibits maximum number of oxidation states (+2 to +7) in the 3d series.</li>
+                <li class="reveal-item">**Scandium (Sc)** shows only +3 (not variable, since \(Sc^{3+}\) has noble gas config).</li>
+                <li class="reveal-item">**Zinc (Zn)** shows only +2 (non-variable).</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Stability Rules</h3>
+                <p>• Oxidation states corresponding to noble gas, half-filled (\(d^5\)), or fully-filled (\(d^{10}\)) configurations are more stable.</p>
+                <p style="margin-top: 0.5rem;">• For transition elements, higher oxidation states are more stable down a group (e.g. \(W(VI)\) in \(WO_4^{2-}\) is highly stable, whereas \(Cr(VI)\) in \(CrO_4^{2-}\) is a strong oxidizing agent).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Magnetic & Catalytic Properties -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Magnetic & Catalytic Properties</h2>
+          <span class="chapter-tag">d- and f-Block</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Magnetic Properties</h3>
+              <p>• **Diamagnetic:** All electrons are paired; weakly repelled by magnetic field.</p>
+              <p>• **Paramagnetic:** Unpaired electrons are present; attracted by magnetic field. Spin-only magnetic moment (\(\mu\)) calculated in Bohr Magnetons (B.M.):</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.75rem;">
+                <span style="font-family: monospace; font-size: 1.15rem; color:#ffd700;">μ = √[n(n + 2)] B.M.</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">n = number of unpaired electrons.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Catalytic Activity</h3>
+              <p>Transition metals and their compounds are highly effective catalysts (e.g. \(V_2O_5\) in Contact Process, finely divided \(Fe\) in Haber's Process). Reasons:</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+                1. Ability to adopt **multiple oxidation states** to form unstable intermediate complexes.<br>
+                2. Large surface area provides active sites for adsorption, lowering activation energy.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Color Formation & Alloys -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Color & Alloy Formation</h2>
+          <span class="chapter-tag">d- and f-Block</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>d-d Transition (Color)</h3>
+              <p>Most transition metal complexes are colored. Under the influence of ligands, the degenerate d-orbitals split into t2g and eg groups.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                • Absorption of white light excites an electron from lower d-orbital to higher d-orbital (**d-d transition**).
+              </p>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                • Transmitted light is the complementary color. Note: \(Sc^{3+}\) (\(d^0\)) and \(Zn^{2+}\) (\(d^{10}\)) are colorless.
+              </p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Interstitial Compounds & Alloys</h3>
+              <p>• **Interstitial Compounds:** Formed when small atoms (H, C, N) get trapped in crystal lattices. They are hard, chemically inert, and have higher melting points than pure metals.</p>
+              <p style="margin-top: 0.5rem;">• **Alloys:** Solid solutions formed by mixing metals whose atomic sizes differ by <15% (Hume-Rothery rule). (e.g. Steel, Brass).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Potassium Dichromate -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Potassium Dichromate (K₂Cr₂O₇)</h2>
+          <span class="chapter-tag">d- and f-Block</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">Prepared from chromite ore (\(FeCr_2O_4\)) in three steps: roasting with sodium carbonate, acidification to dichromate, and crystallization with KCl.</p>
+              <p class="reveal-item">Chromate (\(CrO_4^{2-}\), yellow) and Dichromate (\(Cr_2O_7^{2-}\), orange) are interconvertible depending on pH:</p>
+              <div class="formula-box reveal-item" style="padding: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.85rem; line-height: 1.3;">
+                  2CrO₄²⁻ + 2H⁺ ⇌ Cr₂O₇²⁻ + H₂O (Acidic pH ➔ Orange)<br>
+                  Cr₂O₇²⁻ + 2OH⁻ ⇌ 2CrO₄²⁻ + H₂O (Alkaline pH ➔ Yellow)
+                </span>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Oxidizing Properties (Acidic)</h3>
+                <p>Acts as a powerful oxidizing agent. Reduction half-cell reaction:</p>
+                <div class="formula-box" style="padding: 0.5rem; margin-bottom: 0.5rem;">
+                  <span style="font-family: monospace; font-size: 0.8rem; line-height: 1.3;">
+                    Cr₂O₇²⁻ + 14H⁺ + 6e⁻ ➔ 2Cr³⁺ + 7H₂O
+                  </span>
+                </div>
+                <p style="font-size: 0.85rem;">Oxidizes:<br>
+                • \(I^-\) to \(I_2\)<br>
+                • \(Fe^{2+}\) to \(Fe^{3+}\)<br>
+                • \(H_2S\) to sulfur (\(S\))</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Potassium Permanganate -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Potassium Permanganate (KMnO₄)</h2>
+          <span class="chapter-tag">d- and f-Block</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Preparation & Structure</h3>
+              <p>• Prepared by fusing pyrolusite ore (\(MnO_2\)) with KOH in the presence of an oxidizing agent like \(KNO_3\) to form green \(K_2MnO_4\), which is then oxidized electrolytically to purple \(KMnO_4\).</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                • **Manganate (\(MnO_4^{2-}\)):** Green, paramagnetic (1 unpaired e⁻), tetrahedral.<br>
+                • **Permanganate (\(MnO_4^-\)):** Purple, diamagnetic, tetrahedral.
+              </p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Oxidizing Properties</h3>
+              <p>• **Acidic Medium:** \(MnO_4^- + 8H^+ + 5e^- \rightarrow Mn^{2+} + 4H_2O\). (Oxidizes \(Fe^{2+}\) to \(Fe^{3+}\), oxalate to \(CO_2\)).</p>
+              <p style="margin-top: 0.5rem;">• **Neutral/Alkaline Medium:** \(MnO_4^- + 2H_2O + 3e^- \rightarrow MnO_2 + 4OH^-\). (Oxidizes iodide \(I^-\) to iodate \(IO_3^-\)).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Lanthanoid Contraction -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>f-Block: Lanthanoid Contraction</h2>
+          <span class="chapter-tag">d- and f-Block</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item"><strong>Lanthanoid Contraction:</strong> The steady, gradual decrease in atomic and ionic radii of lanthanoids (\(Ln^{3+}\) ions) with increasing atomic number from Lanthanum (57) to Lutetium (71).</p>
+              <p class="reveal-item" style="margin-top: 1rem;"><strong>Cause:</strong> Poor shielding effect of 4f electrons. As nuclear charge increases by 1 at each step, the 4f electrons shield the outer shell poorly, pulling electrons closer to the nucleus.</p>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Key Consequences</h3>
+                <p>1. **Post-Lanthanoid Radii:** 4d and 5d transition elements have identical sizes (e.g. Zr=160pm, Hf=159pm). They occur together in nature, making separation difficult.</p>
+                <p style="margin-top: 0.5rem;">2. **Basicity Decrease:** Size decreases, increasing covalent character of metal-hydroxide bonds (Fajans' rule). Thus, \(La(OH)_3\) is most basic; \(Lu(OH)_3\) is least basic.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>d-Block Laboratory</h2>
+          <span class="chapter-tag">d- and f-Block</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive d-Subshell Configuration Filler</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the orbitals simulator. Fill d-subshells for metals from Scandium (21) to Zinc (30), view Hund's rule/Pauli exclusion configurations, see anomalous Cr/Cu half-filled stability structures, and calculate Bohr magneton spin-only magnetic moments.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Orbitals Simulator
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 11</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">d- and f-Block Virtual Laboratory</h3>
+          <p>Toggle atomic shell configurators or perform redox volumetric titrations</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close orbitals simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="orbitals-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-orbitals">d-Subshell Filler</button>
+              <button class="sim-tab-btn" id="tab-titration">Redox Titration</button>
+            </div>
+
+            <!-- Orbitals Panel -->
+            <div id="orbitals-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <div class="periodic-display">
+                <div class="element-card-lg">
+                  <div class="el-z" id="z-val-display">21</div>
+                  <div class="el-sym" id="symbol-display">Sc</div>
+                  <div class="el-name" id="name-display">Scandium</div>
+                </div>
+              </div>
+
+              <div class="subshell-row">
+                <div class="subshell-box">
+                  <div class="subshell-label">3d Subshell</div>
+                  <div class="orbital-row">
+                    <div class="orbital-box" id="box-3d-0"></div>
+                    <div class="orbital-box" id="box-3d-1"></div>
+                    <div class="orbital-box" id="box-3d-2"></div>
+                    <div class="orbital-box" id="box-3d-3"></div>
+                    <div class="orbital-box" id="box-3d-4"></div>
+                  </div>
+                </div>
+
+                <div class="subshell-box">
+                  <div class="subshell-label">4s Subshell</div>
+                  <div class="orbital-row">
+                    <div class="orbital-box" id="box-4s-0"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mag-hud-box">
+                Unpaired Electrons: <strong id="unpaired-count" style="color: #ffd700;">1</strong> | 
+                Magnetic Moment: <strong id="mag-moment" style="color: #ffd700;">1.73 B.M.</strong>
+              </div>
+            </div>
+
+            <!-- Titration Panel -->
+            <div id="titration-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px); align-items: center; justify-content: center; position: relative;">
+              <div style="display: flex; gap: 40px; align-items: center;">
+                <!-- Burette -->
+                <div style="position: relative; width: 25px; height: 180px; border: 2px solid #94a3b8; border-radius: 4px; overflow: hidden; background: #334155;">
+                  <div id="burette-liquid" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: rgba(147, 51, 234, 0.7); transition: height 0.1s;"></div>
+                  <div style="position: absolute; top: 10px; width: 100%; text-align: center; font-size: 8px; color: #fff; font-family: monospace;">0 mL</div>
+                  <div style="position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 8px; color: #fff; font-family: monospace;">50 mL</div>
+                </div>
+
+                <!-- Conical Flask -->
+                <div style="position: relative; width: 90px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                  <!-- Drop animation -->
+                  <div id="titration-drop" style="position: absolute; top: -50px; width: 6px; height: 6px; border-radius: 50%; background: #a855f7; display: none;"></div>
+                  
+                  <div style="width: 30px; height: 30px; border: 2px solid #94a3b8; border-bottom: none; background: transparent;"></div>
+                  <div id="flask-liquid" style="width: 80px; height: 40px; border: 2px solid #94a3b8; border-radius: 0 0 10px 10px; background: rgba(255, 255, 255, 0.05); transition: background-color 0.5s;"></div>
+                </div>
+              </div>
+
+              <div class="mag-hud-box" style="margin-top: 1rem;">
+                Burette Reading: <strong id="burette-volume" style="color: #ffd700;">0.00</strong> mL | 
+                Solution Color: <strong id="solution-state" style="color: #60a5fa;">Clear (Acidic Fe²⁺)</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Orbitals Controls -->
+            <div id="orbitals-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label for="z-slider">Atomic Number (Z): <span id="slider-z-text">21</span></label>
+                <input type="range" id="z-slider" min="21" max="30" step="1" value="21">
+              </div>
+
+              <div class="kinetics-info-box" id="exception-box" style="border-left-color: #ffd700; display: none;">
+                <strong>Symmetry Stability:</strong><br>
+                <span id="exception-reason"></span>
+              </div>
+            </div>
+
+            <!-- Titration Controls -->
+            <div id="titration-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Volumetric Titration of Fe²⁺</label>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <button class="toggle-btn" id="titrate-drop-btn">Add Drop (0.5 mL)</button>
+                  <button class="toggle-btn" id="titrate-auto-btn">Auto Titrate</button>
+                  <button class="toggle-btn" id="titrate-reset-btn" style="background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%);">Reset Titration</button>
+                </div>
+              </div>
+
+              <div class="kinetics-info-box" style="border-left-color: #ffd700;">
+                <strong>Stoichiometric math:</strong><br>
+                • KMnO₄ acts as **self-indicator**.<br>
+                • Reaction ratio: \(MnO_4^- : Fe^{2+} = 1 : 5\).<br>
+                • Faint pink endpoint marks exact equivalence.
+              </div>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #ffd700;">
+              <strong>d-Block Rules:</strong><br>
+              • Hund's Rule fills orbitals singly with parallel spins first.<br>
+              • **Chromium (Z=24)** and **Copper (Z=29)** exhibit anomalous configurations (\(d^5 s^1\) and \(d^{10} s^1\)) to maximize exchange stability.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabOrbitals = document.getElementById("tab-orbitals");
+    const tabTitration = document.getElementById("tab-titration");
+    const orbitalsPanel = document.getElementById("orbitals-panel");
+    const titrationPanel = document.getElementById("titration-panel");
+    const orbitalsControls = document.getElementById("orbitals-controls");
+    const titrationControls = document.getElementById("titration-controls");
+
+    tabOrbitals.addEventListener("click", () => {
+      tabOrbitals.classList.add("active");
+      tabTitration.classList.remove("active");
+      orbitalsPanel.style.display = "flex";
+      titrationPanel.style.display = "none";
+      orbitalsControls.style.display = "flex";
+      titrationControls.style.display = "none";
+    });
+
+    tabTitration.addEventListener("click", () => {
+      tabTitration.classList.add("active");
+      tabOrbitals.classList.remove("active");
+      titrationPanel.style.display = "flex";
+      orbitalsPanel.style.display = "none";
+      titrationControls.style.display = "flex";
+      orbitalsControls.style.display = "none";
+      resetTitration();
+    });
+
+    // Orbitals Configurator Logic
+    const zSlider = document.getElementById("z-slider");
+    const sliderZText = document.getElementById("slider-z-text");
+    const symbolDisplay = document.getElementById("symbol-display");
+    const nameDisplay = document.getElementById("name-display");
+    const zValDisplay = document.getElementById("z-val-display");
+    const unpairedCount = document.getElementById("unpaired-count");
+    const magMoment = document.getElementById("mag-moment");
+    const exceptionBox = document.getElementById("exception-box");
+    const exceptionReason = document.getElementById("exception-reason");
+
+    const elementsData = {
+      21: { symbol: "Sc", name: "Scandium", d: 1, s: 2, exc: false },
+      22: { symbol: "Ti", name: "Titanium", d: 2, s: 2, exc: false },
+      23: { symbol: "V", name: "Vanadium", d: 3, s: 2, exc: false },
+      24: { symbol: "Cr", name: "Chromium", d: 5, s: 1, exc: true, reason: "Chromium has a 3d⁵ 4s¹ configuration. The half-filled d-subshell (d⁵) and half-filled s-subshell (s¹) are highly symmetrical and offer maximum exchange stability." },
+      25: { symbol: "Mn", name: "Manganese", d: 5, s: 2, exc: false },
+      26: { symbol: "Fe", name: "Iron", d: 6, s: 2, exc: false },
+      27: { symbol: "Co", name: "Cobalt", d: 7, s: 2, exc: false },
+      28: { symbol: "Ni", name: "Nickel", d: 8, s: 2, exc: false },
+      29: { symbol: "Cu", name: "Copper", d: 10, s: 1, exc: true, reason: "Copper has a 3d¹⁰ 4s¹ configuration. The completely filled d-subshell (d¹⁰) is exceptionally stable due to symmetric charge distribution." },
+      30: { symbol: "Zn", name: "Zinc", d: 10, s: 2, exc: false }
+    };
+
+    function updateOrbitals() {
+      const z = parseInt(zSlider.value, 10);
+      sliderZText.textContent = z;
+      zValDisplay.textContent = z;
+      
+      const data = elementsData[z];
+      symbolDisplay.textContent = data.symbol;
+      nameDisplay.textContent = data.name;
+
+      if (data.exc) {
+        exceptionBox.style.display = "block";
+        exceptionReason.textContent = data.reason;
+        document.querySelectorAll(".orbital-box").forEach(b => b.classList.add("exceptional"));
+      } else {
+        exceptionBox.style.display = "none";
+        document.querySelectorAll(".orbital-box").forEach(b => b.classList.remove("exceptional"));
+      }
+
+      const box4s = document.getElementById("box-4s-0");
+      box4s.innerHTML = "";
+      if (data.s >= 1) {
+        box4s.appendChild(createElectronElement(true));
+      }
+      if (data.s === 2) {
+        box4s.appendChild(createElectronElement(false));
+      }
+
+      for (let i = 0; i < 5; i++) {
+        document.getElementById(`box-3d-${i}`).innerHTML = "";
+      }
+
+      let dCount = data.d;
+      let spinUpCount = Math.min(dCount, 5);
+      let spinDownCount = Math.max(0, dCount - 5);
+
+      for (let i = 0; i < spinUpCount; i++) {
+        document.getElementById(`box-3d-${i}`).appendChild(createElectronElement(true));
+      }
+      for (let i = 0; i < spinDownCount; i++) {
+        document.getElementById(`box-3d-${i}`).appendChild(createElectronElement(false));
+      }
+
+      let unpaired = 0;
+      for (let i = 0; i < 5; i++) {
+        const box = document.getElementById(`box-3d-${i}`);
+        if (box.children.length === 1) {
+          unpaired++;
+        }
+      }
+      if (data.s === 1) {
+        unpaired++;
+      }
+
+      unpairedCount.textContent = unpaired;
+      const moment = Math.sqrt(unpaired * (unpaired + 2));
+      magMoment.textContent = `${moment.toFixed(2)} B.M.`;
+    }
+
+    function createElectronElement(isSpinUp) {
+      const el = document.createElement("div");
+      el.className = `electron ${isSpinUp ? 'electron-spin-up' : 'electron-spin-down'}`;
+      return el;
+    }
+
+    zSlider.addEventListener("input", updateOrbitals);
+    updateOrbitals();
+
+    // Titration Lab logic
+    const buretteLiquid = document.getElementById("burette-liquid");
+    const flaskLiquid = document.getElementById("flask-liquid");
+    const titrationDrop = document.getElementById("titration-drop");
+    const buretteVolume = document.getElementById("burette-volume");
+    const solutionState = document.getElementById("solution-state");
+    const dropBtn = document.getElementById("titrate-drop-btn");
+    const autoBtn = document.getElementById("titrate-auto-btn");
+    const resetBtn = document.getElementById("titrate-reset-btn");
+
+    let volumeAdded = 0.0;
+    let autoInterval;
+    let isAutoTitrating = false;
+
+    function resetTitration() {
+      clearInterval(autoInterval);
+      isAutoTitrating = false;
+      autoBtn.textContent = "Auto Titrate";
+      autoBtn.style.background = "";
+      volumeAdded = 0.0;
+      buretteVolume.textContent = "0.00";
+      solutionState.textContent = "Clear (Acidic Fe²⁺)";
+      solutionState.style.color = "#60a5fa";
+      flaskLiquid.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
+      buretteLiquid.style.height = "100%";
+      titrationDrop.style.display = "none";
+    }
+
+    function addDrop() {
+      if (volumeAdded >= 25.0) return;
+      
+      // Trigger drop animation
+      titrationDrop.style.display = "block";
+      titrationDrop.style.top = "-40px";
+      titrationDrop.style.opacity = "1";
+
+      setTimeout(() => {
+        titrationDrop.style.top = "30px";
+        titrationDrop.style.opacity = "0";
+      }, 200);
+
+      setTimeout(() => {
+        volumeAdded += 0.5;
+        if (volumeAdded > 25.0) volumeAdded = 25.0;
+        
+        buretteVolume.textContent = volumeAdded.toFixed(2);
+        buretteLiquid.style.height = `${100 - (volumeAdded / 25) * 50}%`;
+
+        // Update color
+        if (volumeAdded < 20.0) {
+          flaskLiquid.style.backgroundColor = "rgba(255, 255, 255, 0.05)";
+          solutionState.textContent = "Clear (Acidic Fe²⁺)";
+          solutionState.style.color = "#60a5fa";
+        } else if (volumeAdded === 20.0) {
+          flaskLiquid.style.backgroundColor = "rgba(168, 85, 247, 0.25)"; // faint pink
+          solutionState.textContent = "Faint Pink (Equivalence Point Reached!)";
+          solutionState.style.color = "#e9d5ff";
+        } else {
+          flaskLiquid.style.backgroundColor = "rgba(168, 85, 247, 0.6)"; // purple excess
+          solutionState.textContent = "Purple (Excess KMnO₄)";
+          solutionState.style.color = "#c084fc";
+        }
+      }, 220);
+    }
+
+    dropBtn.addEventListener("click", addDrop);
+    
+    autoBtn.addEventListener("click", () => {
+      if (isAutoTitrating) {
+        clearInterval(autoInterval);
+        isAutoTitrating = false;
+        autoBtn.textContent = "Auto Titrate";
+      } else {
+        isAutoTitrating = true;
+        autoBtn.textContent = "Stop Titration";
+        autoInterval = setInterval(() => {
+          if (volumeAdded >= 25.0) {
+            clearInterval(autoInterval);
+            isAutoTitrating = false;
+            autoBtn.textContent = "Auto Titrate";
+            return;
+          }
+          addDrop();
+        }, 400);
+      }
+    });
+
+    resetBtn.addEventListener("click", resetTitration);
+
+    document.addEventListener("simulator-opened", () => {
+      updateOrbitals();
+      resetTitration();
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      resetTitration();
+    });
+  </script>
+</body>
+</html>

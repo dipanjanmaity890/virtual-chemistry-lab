@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Structure of Atom | Class 11</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.2); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+    .orbit { border: 2px dashed rgba(255,255,255,0.2); border-radius: 50%; position: absolute; cursor: pointer; transition: border-color 0.3s; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+    .orbit:hover { border-color: #38bdf8; }
+    .electron { width: 12px; height: 12px; background: #eab308; border-radius: 50%; position: absolute; transition: all 0.5s ease; box-shadow: 0 0 8px #eab308; }
+    .nucleus { width: 28px; height: 28px; background: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+    .sim-tab-header { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .sim-tab-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+  </style>
+</head>
+<body data-theme="solutions">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 11 · Unit II</div>
+      <h1>Structure of Atom</h1>
+      <p class="subtitle">Bohr's model, dual nature of matter, Heisenberg uncertainty, orbital shapes, and quantum configuration filling.</p>
+    </section>
+
+    <section class="slide">
+      <h2>Bohr's Model of Hydrogen Atom</h2>
+      <ul class="reveal-list">
+        <li class="reveal-item">Electrons revolve around nucleus in fixed circular orbits (energy is quantized).</li>
+        <li class="reveal-item">Angular momentum is integral multiple of $h/2\pi$: $$m v r = \frac{n h}{2\pi}$$</li>
+        <li class="reveal-item">Energy changes occur only during transition of electron between orbits: $$\Delta E = E_2 - E_1 = h \nu$$</li>
+        <li class="reveal-item">Wave number formula: $$\bar{\nu} = R_H \left( \frac{1}{n_1^2} - \frac{1}{n_2^2} \right)$$</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>Quantum Numbers</h2>
+      <p>Four quantum numbers describe the address and spin state of an electron in an atom:</p>
+      <div class="cols-2">
+        <div>
+          <h3>1. Principal ($n$)</h3>
+          <p>Main energy level / shell ($n = 1, 2, 3...$).</p>
+          <h3>2. Azimuthal ($l$)</h3>
+          <p>Subshell shape ($l = 0 \text{ to } n-1$). $s=0, p=1, d=2, f=3$.</p>
+        </div>
+        <div>
+          <h3>3. Magnetic ($m_l$)</h3>
+          <p>Orientation of orbital ($m_l = -l \text{ to } +l$).</p>
+          <h3>4. Spin ($m_s$)</h3>
+          <p>Spin direction of electron ($+1/2$ or $-1/2$).</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Rules for Filling Orbitals</h2>
+      <div class="cols-2">
+        <div>
+          <h3>1. Aufbau Principle</h3>
+          <p>Orbitals are filled in order of increasing energy ($n+l$ rule).</p>
+          <h3>2. Pauli Exclusion</h3>
+          <p>An orbital can hold max 2 electrons with opposite spins.</p>
+        </div>
+        <div>
+          <h3>3. Hund's Rule</h3>
+          <p>Electron pairing in degenerate orbitals (like p, d) doesn't start until each orbital is singly filled with parallel spin.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Bohr transitions & Quantum configurations Lab</h2>
+      <p>Launch the simulator to trigger hydrogen orbit jumps with spectrum emissions, and practice filling spins in the Aufbau/Hund orbital configuration filler.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 5</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3>🧪 Bohr's Orbits & Electronic Configurations</h3>
+        </div>
+        <button id="close-overlay" class="close-btn">✕</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-tab-header">
+          <button class="sim-tab-btn active" onclick="switchTab(0)">Bohr Orbit Transitions</button>
+          <button class="sim-tab-btn" onclick="switchTab(1)">Aufbau Configuration Filler</button>
+        </div>
+
+        <div class="sim-grid">
+          <!-- Tab 1 -->
+          <div id="tab-bohr" class="sim-visualizer" style="height:320px; width:100%; position:relative;">
+            <div class="nucleus">p⁺n⁰</div>
+            <div class="orbit" id="orb-1" style="width:70px; height:70px;" onclick="transitionTo(1)"></div>
+            <div class="orbit" id="orb-2" style="width:130px; height:130px;" onclick="transitionTo(2)"></div>
+            <div class="orbit" id="orb-3" style="width:190px; height:190px;" onclick="transitionTo(3)"></div>
+            <div class="orbit" id="orb-4" style="width:250px; height:250px;" onclick="transitionTo(4)"></div>
+            <div class="electron" id="e-node"></div>
+          </div>
+
+          <!-- Tab 2 -->
+          <div id="tab-aufbau" class="sim-visualizer" style="display:none;">
+            <h4>Electronic Configurations up to Neon</h4>
+            <div style="margin-bottom:1rem;">
+              <select id="elem-select" onchange="fillAufbau()" style="background:#1e293b; border:1px solid rgba(255,255,255,0.1); color:#fff; padding:0.5rem; border-radius:8px;">
+                <option value="H">Hydrogen (H) - Z=1</option>
+                <option value="He">Helium (He) - Z=2</option>
+                <option value="Li">Lithium (Li) - Z=3</option>
+                <option value="Be">Beryllium (Be) - Z=4</option>
+                <option value="B">Boron (B) - Z=5</option>
+                <option value="C">Carbon (C) - Z=6</option>
+                <option value="N">Nitrogen (N) - Z=7</option>
+                <option value="O">Oxygen (O) - Z=8</option>
+                <option value="Ne">Neon (Ne) - Z=10</option>
+              </select>
+            </div>
+            
+            <div style="display:flex; gap:1.5rem;">
+              <div style="display:flex; flex-direction:column; align-items:center;">
+                <div style="width:30px; height:30px; border:2px solid #fff; display:flex; align-items:center; justify-content:center;" id="orb-1s"></div>
+                <div style="font-size:0.8rem; margin-top:0.25rem;">1s</div>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center;">
+                <div style="width:30px; height:30px; border:2px solid #fff; display:flex; align-items:center; justify-content:center;" id="orb-2s"></div>
+                <div style="font-size:0.8rem; margin-top:0.25rem;">2s</div>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center;">
+                <div style="display:flex; gap:0.25rem;">
+                  <div style="width:30px; height:30px; border:2px solid #fff; display:flex; align-items:center; justify-content:center;" id="orb-2px"></div>
+                  <div style="width:30px; height:30px; border:2px solid #fff; display:flex; align-items:center; justify-content:center;" id="orb-2py"></div>
+                  <div style="width:30px; height:30px; border:2px solid #fff; display:flex; align-items:center; justify-content:center;" id="orb-2pz"></div>
+                </div>
+                <div style="font-size:0.8rem; margin-top:0.25rem;">2p</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <div>
+              <h3>Orbital HUD</h3>
+              <div id="calc-status" style="margin-top:1rem; font-size:0.85rem; color:#e2e8f0; line-height:1.5;">Click any orbit level in Tab 1 to transition the electron.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    function switchTab(idx) {
+      document.querySelectorAll(".sim-tab-btn").forEach((t, i) => {
+        t.classList.toggle("active", i === idx);
+      });
+      document.getElementById("tab-bohr").style.display = idx === 0 ? "flex" : "none";
+      document.getElementById("tab-aufbau").style.display = idx === 1 ? "flex" : "none";
+    }
+
+    const electron = document.getElementById("e-node");
+    
+    function setElectronPos(n) {
+      const radius = [35, 65, 95, 125][n-1];
+      // Place on right side of orbit circle
+      electron.style.left = `calc(50% + ${radius}px - 6px)`;
+      electron.style.top = `calc(50% - 6px)`;
+    }
+    
+    setElectronPos(1);
+    fillAufbau();
+
+    function transitionTo(n) {
+      setElectronPos(n);
+      const E = -13.6 / (n * n);
+      document.getElementById("calc-status").innerHTML = `
+        <strong>Electron Jumped to n = ${n}!</strong><br>
+        • Energy state: <strong>${E.toFixed(2)} eV</strong><br><br>
+        • Transitions downward will emit light waves of definite frequency corresponding to lines in the atomic hydrogen spectrum.
+      `;
+    }
+
+    function fillAufbau() {
+      const el = document.getElementById("elem-select").value;
+      const s1s = document.getElementById("orb-1s");
+      const s2s = document.getElementById("orb-2s");
+      const px = document.getElementById("orb-2px");
+      const py = document.getElementById("orb-2py");
+      const pz = document.getElementById("orb-2pz");
+
+      s1s.textContent = ""; s2s.textContent = "";
+      px.textContent = ""; py.textContent = ""; pz.textContent = "";
+
+      if (el === "H") {
+        s1s.textContent = "↑";
+        document.getElementById("calc-status").innerHTML = "Hydrogen Z=1. Configuration: 1s¹";
+      } else if (el === "He") {
+        s1s.textContent = "↑↓";
+        document.getElementById("calc-status").innerHTML = "Helium Z=2. Configuration: 1s² (Symmetric and highly stable shell)";
+      } else if (el === "Li") {
+        s1s.textContent = "↑↓"; s2s.textContent = "↑";
+        document.getElementById("calc-status").innerHTML = "Lithium Z=3. Configuration: 1s² 2s¹";
+      } else if (el === "Be") {
+        s1s.textContent = "↑↓"; s2s.textContent = "↑↓";
+        document.getElementById("calc-status").innerHTML = "Beryllium Z=4. Configuration: 1s² 2s²";
+      } else if (el === "B") {
+        s1s.textContent = "↑↓"; s2s.textContent = "↑↓"; px.textContent = "↑";
+        document.getElementById("calc-status").innerHTML = "Boron Z=5. Configuration: 1s² 2s² 2p¹";
+      } else if (el === "C") {
+        s1s.textContent = "↑↓"; s2s.textContent = "↑↓"; px.textContent = "↑"; py.textContent = "↑";
+        document.getElementById("calc-status").innerHTML = "Carbon Z=6. Configuration: 1s² 2s² 2p² (Hund's rule: single electron in px and py)";
+      } else if (el === "N") {
+        s1s.textContent = "↑↓"; s2s.textContent = "↑↓"; px.textContent = "↑"; py.textContent = "↑"; pz.textContent = "↑";
+        document.getElementById("calc-status").innerHTML = "Nitrogen Z=7. Configuration: 1s² 2s² 2p³ (Half-filled p subshell offers extra stability)";
+      } else if (el === "O") {
+        s1s.textContent = "↑↓"; s2s.textContent = "↑↓"; px.textContent = "↑↓"; py.textContent = "↑"; pz.textContent = "↑";
+        document.getElementById("calc-status").innerHTML = "Oxygen Z=8. Configuration: 1s² 2s² 2p⁴";
+      } else if (el === "Ne") {
+        s1s.textContent = "↑↓"; s2s.textContent = "↑↓"; px.textContent = "↑↓"; py.textContent = "↑↓"; pz.textContent = "↑↓";
+        document.getElementById("calc-status").innerHTML = "Neon Z=10. Configuration: 1s² 2s² 2p⁶ (Fully filled noble gas shell)";
+      }
+    }
+  </script>
+</body>
+</html>

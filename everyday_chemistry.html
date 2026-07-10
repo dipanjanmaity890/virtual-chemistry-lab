@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chemistry in Everyday Life | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Everyday Chemistry Custom Simulator CSS */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .micelle-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+    }
+    #micelle-canvas {
+      flex-grow: 1;
+      width: 100%;
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .micelle-stats {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.75rem;
+      border-radius: 12px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+  </style>
+</head>
+<body data-theme="alcohols">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">ORGANIC CHEMISTRY · OPTIONAL UNIT</div>
+        <h1>Chemistry in Everyday Life</h1>
+        <h3>Therapeutic Drugs, Food Preservatives & Soap Micelles Cleansing Action</h3>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Soap Micelle Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Drug Classifications -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Classification of Drugs</h2>
+          <span class="chapter-tag">Everyday Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="margin-bottom: 1rem;"><strong>Drugs:</strong> Low molecular mass chemicals that interact with macromolecular targets to produce a biological response. Classified by:</p>
+              <ul>
+                <li class="reveal-item"><strong>Pharmacological Effect:</strong> Useful for doctors (e.g. analgesics reduce pain, antiseptics kill microbes).</li>
+                <li class="reveal-item"><strong>Drug Action:</strong> Based on action on biochemical process (e.g. antihistamines block histamine receptor).</li>
+                <li class="reveal-item"><strong>Chemical Structure:</strong> Common structural features (e.g., sulfonamides).</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Molecular Targets</h3>
+                <p>Based on target interaction (enzymes, receptors, nucleic acids).</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">• **Enzyme Inhibitors:** block active site or bind allosteric site to change enzyme shape.</p>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">• **Receptor Antagonists:** bind to receptor site and inhibit natural message transmission.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Therapeutic Action I -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Therapeutic Action: Key Classes</h2>
+          <span class="chapter-tag">Everyday Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Antacids</h3>
+              <p>Relieve acidity by neutralizing HCl in stomach. Modern drugs block histamine receptors that trigger acid secretion (e.g. Cimetidine, Ranitidine).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Antihistamines</h3>
+              <p>Block the inflammatory transmitter histamine. Treat allergies (e.g. Brompheniramine, Terfenadine).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Tranquilizers</h3>
+              <p>Neurologically active drugs. Reduce stress, anxiety, or mental illness (e.g., Equanil, Valium, Barbiturates).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Therapeutic Action II -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Analgesics & Antimicrobials</h2>
+          <span class="chapter-tag">Everyday Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Analgesics (Pain Relievers)</h3>
+              <p>• <strong>Non-Narcotic:</strong> Non-addictive. Inhibit prostaglandin synthesis (e.g., Aspirin, Paracetamol). Aspirin also acts as anti-blood clotting agent.</p>
+              <p style="margin-top: 0.5rem;">• <strong>Narcotic:</strong> Addictive morphine derivatives. Relieve severe pain, induce sleep (e.g. Heroin, Codeine).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Antimicrobials</h3>
+              <p>• <strong>Antibiotics:</strong> Kill/inhibit microbes (e.g., Penicillin - narrow spectrum; Chloramphenicol - broad spectrum).</p>
+              <p style="margin-top: 0.5rem;">• <strong>Antiseptics:</strong> Applied to living tissue (e.g. Dettol - chloroxylenol + terpineol, Bithional in soaps).</p>
+              <p style="margin-top: 0.5rem;">• <strong>Disinfectants:</strong> Applied to inanimate objects (e.g. 1% Phenol).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Food Chemicals -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Chemicals in Food</h2>
+          <span class="chapter-tag">Everyday Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">Chemicals are added to food for preservation, appearance, and sweetness.</p>
+              <ul style="margin-top: 0.5rem;">
+                <li class="reveal-item"><strong>Food Preservatives:</strong> Prevent spoilage due to microbial growth (e.g., Sodium benzoate, table salt, vegetable oils).</li>
+                <li class="reveal-item"><strong>Antioxidants:</strong> Prevent oxidation of fats/oils (e.g. BHA - Butylated hydroxyanisole, BHT).</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Artificial Sweetening Agents</h3>
+                <p>Provide sweetness without caloric intake:</p>
+                <p style="margin-top: 0.5rem;">• <strong>Aspartame:</strong> 100 times sweeter than sucrose. Unstable at cooking temp, used in cold foods/drinks.</p>
+                <p>• <strong>Alitame:</strong> High potency sweetener (2000 times sweeter). Control of sweetness level is difficult.</p>
+                <p>• <strong>Sucralose:</strong> Trichloro derivative of sucrose. Stable at cooking temperature.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Cleansing Agents - Soaps -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Cleansing Agents: Soaps</h2>
+          <span class="chapter-tag">Everyday Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">Soaps are sodium or potassium salts of long-chain fatty acids (stearic, palmitic, oleic acids).</p>
+              <p class="reveal-item" style="margin-top: 1rem;"><strong>Saponification:</strong> Prepared by heating fat/oil (glyceryl ester of fatty acid) with aqueous sodium hydroxide.</p>
+              <div class="formula-box reveal-item" style="margin-top: 0.5rem; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.9rem;">Glyceryl ester + 3NaOH ➔ Soap + Glycerol</span>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Hard Water Limitation</h3>
+                <p>Soaps **do not work in hard water** containing calcium and magnesium salts. They react to form insoluble sticky precipitates (scum):</p>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem; border-left-color: #ef4444;">
+                  <span style="font-family: monospace; font-size: 0.85rem; line-height: 1.4;">2C₁₇H₃₅COONa + Ca²⁺ ➔ (C₁₇H₃₅COO)₂Ca(s) + 2Na⁺</span>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-secondary);">This scum sticks to fabric fibers, reducing cleansing power.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Synthetic Detergents -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Synthetic Detergents</h2>
+          <span class="chapter-tag">Everyday Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <p class="reveal-item" style="margin-bottom: 1.5rem; font-size: 1.1rem;">Cleansing agents which have all the properties of soap but **work in both soft and hard water** because their calcium and magnesium salts are soluble in water.</p>
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Anionic</h3>
+              <p>Sodium salts of sulfonated long-chain alcohols. Large anionic active part (e.g. Sodium lauryl sulfate). Used in toothpastes, household washing.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Cationic</h3>
+              <p>Quaternary ammonium salts with chlorides/bromides. Cationic active part (e.g. Cetyltrimethylammonium bromide). Have germicidal properties; used in hair conditioners.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Non-ionic</h3>
+              <p>Do not contain any ions. Formed when stearic acid reacts with polyethylene glycol. Used in liquid dishwashing detergents.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Cleansing Action of Soap -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Cleansing Action & Micelle Formation</h2>
+          <span class="chapter-tag">Everyday Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">A soap molecule (e.g., sodium stearate: C₁₇H₃₅COONa) consists of:</p>
+              <ul style="margin-top: 0.5rem;">
+                <li class="reveal-item"><strong>Hydrophobic Tail:</strong> Long hydrocarbon chain (C₁₇H₃₅-), wetted by grease/oil, repelled by water.</li>
+                <li class="reveal-item"><strong>Hydrophilic Head:</strong> Polar carboxylate group (-COO⁻ Na⁺), wetted by water.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Micelle Mechanism</h3>
+                <p>Around grease/dirt, soap molecules arrange radially: hydrophobic tails insert into the grease droplet, and hydrophilic heads point outwards into water.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">Upon agitation, the wetted heads pull the grease droplet off the fabric surface and suspend it in water as a stable emulsion.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Cleansing Action Lab</h2>
+          <span class="chapter-tag">Everyday Chemistry</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Soap Micelle Lab</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the micelle simulation. Add soap molecules to target grease on a fabric surface, turn on agitation, and watch micelles lift and emulsify the dirt.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Micelle Simulator
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 9</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Everyday Chemistry Laboratory</h3>
+          <p>Toggle soap micelle cleansing action or test competitive/allosteric drug inhibitors</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close everyday chemistry simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="micelle-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-micelle">Soap Micelle Action</button>
+              <button class="sim-tab-btn" id="tab-drugs">Drug Action Lab</button>
+            </div>
+
+            <!-- Micelle Panel -->
+            <div id="micelle-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <canvas id="micelle-canvas" style="flex-grow: 1; min-height: 180px;"></canvas>
+              <div class="micelle-stats" style="margin-top: 0.5rem;">
+                <span id="micelle-status">Dirt wetted on fabric. Add Soap to begin.</span>
+              </div>
+            </div>
+
+            <!-- Drug Action Panel -->
+            <div id="drugs-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <canvas id="drugs-canvas" style="flex-grow: 1; min-height: 180px; background: #020617; border-radius: 12px;"></canvas>
+              <div class="micelle-stats" style="margin-top: 0.5rem;">
+                <span id="drugs-status">Enzyme ready. Substrates (yellow) are trying to bind.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Micelle Controls -->
+            <div id="micelle-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <button class="btn-launch-simulator" id="add-soap-btn" style="justify-content: center; padding: 0.8rem; width: 100%;">
+                Add Soap Molecules
+              </button>
+
+              <button class="btn-launch-simulator" id="wash-btn" style="justify-content: center; padding: 0.8rem; background: linear-gradient(135deg, #10b981 0%, rgba(16, 185, 129, 0.4) 100%); width: 100%; margin-top: 0.5rem;" disabled>
+                Wash / Agitate
+              </button>
+
+              <button class="btn-launch-simulator" id="reset-mic-btn" style="justify-content: center; padding: 0.8rem; background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%); width: 100%; margin-top: 0.5rem;">
+                Reset Lab
+              </button>
+            </div>
+
+            <!-- Drug Controls -->
+            <div id="drugs-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Select Inhibitor Mode</label>
+                <div class="toggle-group" id="inhibitor-toggle" style="flex-direction: column; gap: 0.35rem;">
+                  <button class="toggle-btn active" data-mode="none">None (Free Access)</button>
+                  <button class="toggle-btn" data-mode="competitive">Competitive (Blocks Active Site)</button>
+                  <button class="toggle-btn" data-mode="allosteric">Allosteric (Changes Active Site Shape)</button>
+                </div>
+              </div>
+
+              <button class="btn-launch-simulator" id="reset-drugs-btn" style="justify-content: center; padding: 0.8rem; background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%); width: 100%;">
+                Reset Lab
+              </button>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #ef4444;">
+              <strong>Theoretical Context:</strong><br>
+              • **Soap Micelles** bury hydrophobic tails in grease and project hydrophilic heads out to suspend dirt.<br>
+              • **Competitive inhibitors** bind to the enzyme's active site.<br>
+              • **Allosteric inhibitors** bind to a different site, altering the active site's conformation.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabMic = document.getElementById("tab-micelle");
+    const tabDrug = document.getElementById("tab-drugs");
+    const micPanel = document.getElementById("micelle-panel");
+    const drugPanel = document.getElementById("drugs-panel");
+    const micControls = document.getElementById("micelle-controls");
+    const drugControls = document.getElementById("drugs-controls");
+
+    tabMic.addEventListener("click", () => {
+      tabMic.classList.add("active");
+      tabDrug.classList.remove("active");
+      micPanel.style.display = "flex";
+      drugPanel.style.display = "none";
+      micControls.style.display = "flex";
+      drugControls.style.display = "none";
+      resetLab();
+    });
+
+    tabDrug.addEventListener("click", () => {
+      tabDrug.classList.add("active");
+      tabMic.classList.remove("active");
+      drugPanel.style.display = "flex";
+      micPanel.style.display = "none";
+      drugControls.style.display = "flex";
+      micControls.style.display = "none";
+      resetDrugsLab();
+    });
+
+    // Soap Micelle Lab Logic
+    const canvas = document.getElementById("micelle-canvas");
+    const ctx = canvas.getContext("2d");
+
+    const addSoapBtn = document.getElementById("add-soap-btn");
+    const washBtn = document.getElementById("wash-btn");
+    const resetBtn = document.getElementById("reset-mic-btn");
+    const micelleStatus = document.getElementById("micelle-status");
+
+    let labStage = 0; // 0: start, 1: soap added, 2: washing active
+    let animId;
+    let soaps = [];
+    let greaseY = 0; // grease lift distance
+
+    class SoapMolecule {
+      constructor(index, count) {
+        this.index = index;
+        this.count = count;
+        this.reset();
+      }
+
+      reset() {
+        const w = canvas.width || 360;
+        this.x = Math.random() * (w - 40) + 20;
+        this.y = Math.random() * 80 + 30;
+      }
+
+      update() {
+        const w = canvas.width || 360;
+        const h = canvas.height || 220;
+        const cX = w / 2;
+        const cY = h * 0.65 - greaseY;
+
+        if (labStage === 0) {
+          this.x += (Math.random() - 0.5) * 0.4;
+          this.y += (Math.random() - 0.5) * 0.4;
+          if (this.y > h * 0.4) this.y = h * 0.4;
+        } 
+        else if (labStage === 1) {
+          const angle = (this.index / this.count) * Math.PI * 2;
+          const headTargetX = cX + Math.cos(angle) * 35;
+          const headTargetY = cY + Math.sin(angle) * 35;
+
+          const dx = headTargetX - this.x;
+          const dy = headTargetY - this.y;
+          this.x += dx * 0.08;
+          this.y += dy * 0.08;
+        } 
+        else if (labStage === 2) {
+          const angle = (this.index / this.count) * Math.PI * 2;
+          this.x = cX + Math.cos(angle) * 35;
+          this.y = cY + Math.sin(angle) * 35;
+        }
+      }
+
+      draw() {
+        const w = canvas.width || 360;
+        const h = canvas.height || 220;
+        const cX = w / 2;
+        const cY = h * 0.65 - greaseY;
+
+        ctx.strokeStyle = "#cbd5e1";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        
+        const angle = Math.atan2(cY - this.y, cX - this.x);
+        const dist = 24;
+        
+        for (let i = 0; i <= 4; i++) {
+          const t = i / 4;
+          const wx = this.x + Math.cos(angle) * dist * t + Math.sin(angle) * 3 * Math.sin(t * Math.PI * 2) * (labStage === 2 ? Math.sin(Date.now()*0.02) : 1);
+          const wy = this.y + Math.sin(angle) * dist * t - Math.cos(angle) * 3 * Math.sin(t * Math.PI * 2) * (labStage === 2 ? Math.sin(Date.now()*0.02) : 1);
+          if (i === 0) ctx.moveTo(wx, wy);
+          else ctx.lineTo(wx, wy);
+        }
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = "#ef4444";
+        ctx.fill();
+      }
+    }
+
+    function initLab() {
+      canvas.width = canvas.clientWidth || 360;
+      canvas.height = canvas.clientHeight || 220;
+      greaseY = 0;
+      
+      soaps = [];
+      const count = 16;
+      for (let i = 0; i < count; i++) {
+        soaps.push(new SoapMolecule(i, count));
+      }
+    }
+
+    function resetLab() {
+      labStage = 0;
+      addSoapBtn.disabled = false;
+      washBtn.disabled = true;
+      micelleStatus.textContent = "Grease droplet sits on the fabric. Click Add Soap.";
+      micelleStatus.style.color = "#fff";
+      initLab();
+    }
+
+    function drawApparatus() {
+      const w = canvas.width;
+      const h = canvas.height;
+      const cX = w / 2;
+      const cY = h * 0.65 - greaseY;
+
+      ctx.fillStyle = "#78350f";
+      ctx.fillRect(20, h * 0.75, w - 40, 15);
+
+      ctx.beginPath();
+      ctx.arc(cX, cY, 26, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(100, 116, 139, 0.9)";
+      ctx.fill();
+      
+      ctx.strokeStyle = "rgba(255,255,255,0.1)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 9px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("Grease", cX, cY + 3);
+    }
+
+    function animateLab() {
+      ctx.clearRect(0,0,canvas.width, canvas.height);
+      drawApparatus();
+      soaps.forEach(s => {
+        s.update();
+        s.draw();
+      });
+
+      if (labStage === 2 && greaseY < 100) {
+        greaseY += 0.8;
+        if (greaseY >= 100) {
+          micelleStatus.textContent = "Emulsification complete! Dirt is suspended in water inside the micelle envelope.";
+          micelleStatus.style.color = "#10b981";
+        }
+      }
+      animId = requestAnimationFrame(animateLab);
+    }
+
+    addSoapBtn.addEventListener("click", () => {
+      labStage = 1;
+      addSoapBtn.disabled = true;
+      washBtn.disabled = false;
+      micelleStatus.textContent = "Soap tails embed in non-polar grease; polar heads face outer water.";
+      micelleStatus.style.color = "#ff9e00";
+    });
+
+    washBtn.addEventListener("click", () => {
+      labStage = 2;
+      washBtn.disabled = true;
+      micelleStatus.textContent = "Agitating / Washing... Micelle lifts grease off fabric.";
+      micelleStatus.style.color = "#00f0ff";
+    });
+
+    resetBtn.addEventListener("click", resetLab);
+
+    // Drug Action virtual lab logic
+    const dCanvas = document.getElementById("drugs-canvas");
+    const dCtx = dCanvas.getContext("2d");
+    const inhibToggles = document.querySelectorAll("#inhibitor-toggle .toggle-btn");
+    const resetDrugsBtn = document.getElementById("reset-drugs-btn");
+    const drugsStatus = document.getElementById("drugs-status");
+
+    let dAnimId;
+    let inhibitorMode = "none";
+    let substrates = [];
+    let inhibitors = [];
+    let competitiveBound = false;
+    let allostericBound = false;
+
+    inhibToggles.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        inhibToggles.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        inhibitorMode = e.target.getAttribute("data-mode");
+        resetDrugsLab();
+      });
+    });
+
+    class Substrate {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * dCanvas.width;
+        this.y = Math.random() * 50 + 10;
+        this.vx = (Math.random() - 0.5) * 1.0;
+        this.vy = (Math.random() - 0.5) * 1.0 + 0.5;
+        this.bound = false;
+      }
+      update() {
+        if (this.bound) {
+          // Stay docked
+          this.x = dCanvas.width / 2;
+          this.y = dCanvas.height * 0.55;
+          return;
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Bounce walls
+        if (this.x < 10 || this.x > dCanvas.width - 10) this.vx *= -1;
+        if (this.y < 5) this.vy *= -1;
+
+        // Check active site docking collision
+        if (!competitiveBound && !allostericBound && this.y > dCanvas.height * 0.45) {
+          const dx = (dCanvas.width / 2) - this.x;
+          const dy = (dCanvas.height * 0.55) - this.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 18) {
+            this.bound = true;
+            drugsStatus.innerHTML = "<span style='color: #10b981;'>Substrate bound to active site! Product formation catalyzed.</span>";
+            setTimeout(() => {
+              this.reset();
+              drugsStatus.innerHTML = "Enzyme ready. Substrates (yellow) are trying to bind.";
+            }, 1200);
+          }
+        }
+
+        if (this.y > dCanvas.height - 10) {
+          this.reset();
+        }
+      }
+      draw() {
+        dCtx.beginPath();
+        dCtx.arc(this.x, this.y, 7, 0, Math.PI*2);
+        dCtx.fillStyle = "#eab308"; // substrate is yellow
+        dCtx.fill();
+        dCtx.fillStyle = "#000";
+        dCtx.font = "bold 8px sans-serif";
+        dCtx.textAlign = "center";
+        dCtx.fillText("S", this.x, this.y + 3);
+      }
+    }
+
+    class Inhibitor {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * dCanvas.width;
+        this.y = Math.random() * 40 + 10;
+        this.vx = (Math.random() - 0.5) * 1.2;
+        this.vy = (Math.random() - 0.5) * 1.2 + 0.6;
+        this.bound = false;
+      }
+      update() {
+        if (this.bound) {
+          if (inhibitorMode === "competitive") {
+            this.x = dCanvas.width / 2;
+            this.y = dCanvas.height * 0.55;
+          } else if (inhibitorMode === "allosteric") {
+            this.x = dCanvas.width / 2 - 35;
+            this.y = dCanvas.height * 0.72;
+          }
+          return;
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Bounce walls
+        if (this.x < 10 || this.x > dCanvas.width - 10) this.vx *= -1;
+        if (this.y < 5) this.vy *= -1;
+
+        if (inhibitorMode === "competitive" && this.y > dCanvas.height * 0.45) {
+          const dx = (dCanvas.width / 2) - this.x;
+          const dy = (dCanvas.height * 0.55) - this.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 18) {
+            this.bound = true;
+            competitiveBound = true;
+            drugsStatus.innerHTML = "<span style='color: #fb7185;'>Competitive Inhibitor (Green) blocked Active Site! Substrates cannot bind.</span>";
+          }
+        } else if (inhibitorMode === "allosteric" && this.y > dCanvas.height * 0.6) {
+          const dx = (dCanvas.width / 2 - 35) - this.x;
+          const dy = (dCanvas.height * 0.72) - this.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 20) {
+            this.bound = true;
+            allostericBound = true;
+            drugsStatus.innerHTML = "<span style='color: #ef4444;'>Allosteric Inhibitor (Red) bound! Active site shape altered. Substrates cannot fit.</span>";
+          }
+        }
+
+        if (this.y > dCanvas.height - 10) {
+          this.reset();
+        }
+      }
+      draw() {
+        dCtx.beginPath();
+        dCtx.arc(this.x, this.y, 8, 0, Math.PI*2);
+        dCtx.fillStyle = inhibitorMode === "competitive" ? "#22c55e" : "#ef4444";
+        dCtx.fill();
+        dCtx.fillStyle = "#fff";
+        dCtx.font = "bold 8px sans-serif";
+        dCtx.textAlign = "center";
+        dCtx.fillText(inhibitorMode === "competitive" ? "C" : "A", this.x, this.y + 3);
+      }
+    }
+
+    function resetDrugsLab() {
+      competitiveBound = false;
+      allostericBound = false;
+      dCanvas.width = dCanvas.clientWidth || 360;
+      dCanvas.height = dCanvas.clientHeight || 220;
+
+      substrates = [new Substrate(), new Substrate(), new Substrate()];
+      inhibitors = inhibitorMode !== "none" ? [new Inhibitor()] : [];
+      drugsStatus.innerHTML = inhibitorMode === "none" ? "Enzyme ready. Substrates (yellow) are trying to bind." : `Inhibitor loaded. Watch it target the enzyme...`;
+    }
+
+    function drawEnzyme() {
+      const cX = dCanvas.width / 2;
+      const cY = dCanvas.height * 0.65;
+
+      // Draw main Enzyme outline
+      dCtx.fillStyle = "rgba(79, 70, 229, 0.25)";
+      dCtx.strokeStyle = "#4f46e5";
+      dCtx.lineWidth = 3;
+
+      dCtx.beginPath();
+      // Draw outer body with active site pocket (top) and allosteric pocket (bottom-left)
+      dCtx.arc(cX, cY, 50, 0, Math.PI*2);
+      dCtx.fill();
+      dCtx.stroke();
+
+      // Active Site Pocket (Cutout at top)
+      dCtx.fillStyle = "#020617";
+      dCtx.beginPath();
+      if (allostericBound) {
+        // Aligned active site shape change
+        dCtx.arc(cX, cY - 45, 12, 0, Math.PI*2); // narrower pocket
+      } else {
+        dCtx.arc(cX, cY - 45, 20, 0, Math.PI*2); // normal wide pocket
+      }
+      dCtx.fill();
+      dCtx.stroke();
+
+      // Allosteric Pocket (Cutout at bottom left)
+      dCtx.beginPath();
+      dCtx.arc(cX - 42, cY + 22, 14, 0, Math.PI*2);
+      dCtx.fill();
+      dCtx.stroke();
+
+      dCtx.fillStyle = "#a5b4fc";
+      dCtx.font = "bold 10px sans-serif";
+      dCtx.textAlign = "center";
+      dCtx.fillText("ENZYME", cX, cY + 5);
+      
+      dCtx.font = "8px sans-serif";
+      dCtx.fillText(allostericBound ? "Altered Site" : "Active Site", cX, cY - 30);
+      dCtx.fillText("Allosteric", cX - 44, cY + 45);
+    }
+
+    function animateDrugs() {
+      dCtx.clearRect(0, 0, dCanvas.width, dCanvas.height);
+      drawEnzyme();
+      substrates.forEach(s => {
+        s.update();
+        s.draw();
+      });
+      inhibitors.forEach(i => {
+        i.update();
+        i.draw();
+      });
+      dAnimId = requestAnimationFrame(animateDrugs);
+    }
+
+    resetDrugsBtn.addEventListener("click", resetDrugsLab);
+
+    document.addEventListener("simulator-opened", () => {
+      resetLab();
+      animateLab();
+      resetDrugsLab();
+      animateDrugs();
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      cancelAnimationFrame(animId);
+      cancelAnimationFrame(dAnimId);
+    });
+  </script>
+</body>
+</html>

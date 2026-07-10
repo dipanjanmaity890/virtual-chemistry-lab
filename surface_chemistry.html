@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surface Chemistry | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Surface Chemistry Custom Simulator CSS */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .colloid-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+    }
+    #electrophoresis-canvas {
+      flex-grow: 1;
+      width: 100%;
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .hud-colloid-stats {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.75rem;
+      border-radius: 12px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+  </style>
+</head>
+<body data-theme="solutions">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">PHYSICAL CHEMISTRY · OPTIONAL UNIT</div>
+        <h1>Surface Chemistry</h1>
+        <h3>Adsorption, Catalysis, Colloids & Emulsions</h3>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Electrophoresis Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Adsorption vs Absorption -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Adsorption vs Absorption</h2>
+          <span class="chapter-tag">Surface Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Adsorption</h3>
+              <p>A **surface phenomenon** where substance concentration is higher at the boundary than in the bulk.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem;">• **Adsorbate:** Substance accumulating at the surface.</p>
+              <p style="font-size: 0.9rem;">• **Adsorbent:** Solid surface where adsorption takes place.</p>
+              <p style="font-size: 0.9rem; color: var(--text-secondary);">• Examples: Silica gel adsorbs water vapour.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Absorption</h3>
+              <p>A **bulk phenomenon** where substance is uniformly distributed throughout the body of the solid/liquid.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">• Examples: Sponge absorbs water, anhydrous CaCl₂ absorbs water vapour.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem; color:#00f0ff;">Sorption represents when BOTH processes happen simultaneously.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Physisorption vs Chemisorption -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Physisorption vs Chemisorption</h2>
+          <span class="chapter-tag">Surface Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Physical Adsorption (Physisorption)</h3>
+              <p>• Held by weak **Van der Waals forces**.</p>
+              <p>• Not specific. Reversible.</p>
+              <p>• Low enthalpy of adsorption (20-40 kJ/mol).</p>
+              <p>• Favoured by low temperature.</p>
+              <p>• Forms multi-molecular layers.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Chemical Adsorption (Chemisorption)</h3>
+              <p>• Held by strong **chemical bonds** (covalent/ionic).</p>
+              <p>• Highly specific. Irreversible.</p>
+              <p>• High enthalpy of adsorption (80-240 kJ/mol).</p>
+              <p>• Favoured by high temperature.</p>
+              <p>• Forms monomolecular layer.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Adsorption Isotherms -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Freundlich Adsorption Isotherm</h2>
+          <span class="chapter-tag">Surface Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">Describes the variation in the quantity of gas adsorbed by a unit mass of solid adsorbent with pressure at a constant temperature.</p>
+              <div class="formula-box reveal-item" style="margin-top: 1rem;">
+                <div class="formula-text">x/m = k · p^(1/n)</div>
+                <div class="formula-label">Freundlich Isotherm Equation (n > 1)</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Logarithmic Form</h3>
+                <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                  <span style="font-family: monospace; font-size: 0.95rem;">log(x/m) = log(k) + 1/n log(p)</span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Plotting log(x/m) vs log(p) gives a straight line with slope 1/n and intercept log(k), validating the isotherm.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Colloids -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Colloidal State</h2>
+          <span class="chapter-tag">Surface Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <p class="reveal-item" style="margin-bottom: 1.5rem; font-size: 1.1rem;">A heterogeneous mixture where particle size ranges between **1 nm and 1000 nm** (dispersed phase in dispersion medium).</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Lyophilic Colloids</h3>
+              <p>Liquid loving. Strong affinity between dispersed phase and medium. Reversible. Highly stable, do not coagulate easily (e.g. gum, gelatin, starch).</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Lyophobic Colloids</h3>
+              <p>Liquid hating. Little or no affinity. Irreversible. Unstable, coagulate easily upon addition of electrolytes (e.g. metals and their sulfides sols).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Tyndall & Brownian -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Tyndall Effect & Brownian Motion</h2>
+          <span class="chapter-tag">Surface Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Tyndall Effect</h3>
+              <p>The scattering of light by colloidal particles, rendering the path of the beam visible. Requires:</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">1. Particle diameter is not much smaller than wavelength of light.</p>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">2. Large difference in refractive indices of dispersed phase and medium.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Brownian Movement</h3>
+              <p>Continuous, random, zig-zag motion of colloidal particles in a sol.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">• Caused by unbalanced bombardment of sol particles by molecules of dispersion medium.</p>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">• Prevents particles from settling down, contributing to sol stability.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Electrophoresis & Coagulation -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Electrophoresis & Hardy-Schulze</h2>
+          <span class="chapter-tag">Surface Chemistry</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Electrophoresis</h3>
+              <p>The migration of colloidal particles under the influence of an applied electric field. Confirms the presence of electric charge on sol particles.</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem;">Particles migrate to opposite electrode and discharge.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Hardy-Schulze Rule</h3>
+              <p>The coagulating power of an electrolyte depends on the valency of the active flocculating ion (ion carrying charge opposite to sol):</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem; font-family: monospace; color:#00f0ff;">
+                For negative sol: Al³⁺ > Ba²⁺ > Na⁺
+              </p>
+              <p style="font-size: 0.85rem; font-family: monospace; color:#00f0ff;">
+                For positive sol: [Fe(CN)₆]⁴⁻ > PO₄³⁻ > SO₄²⁻ > Cl⁻
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Colloidal Lab</h2>
+          <span class="chapter-tag">Surface Chemistry</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Electrophoresis Simulator</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the electrophoresis virtual apparatus. Select colloidal sols, apply electric potential, and observe particle migration towards opposite charges.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Open Electrophoresis Lab
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 8</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Surface Chemistry Laboratory</h3>
+          <p>Toggle colloidal electrophoresis or test gold sol coagulation protection</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close surface chemistry simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="colloid-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-electrophoresis">Electrophoresis</button>
+              <button class="sim-tab-btn" id="tab-goldnumber">Gold Number Lab</button>
+            </div>
+
+            <!-- Electrophoresis Panel -->
+            <div id="electrophoresis-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <canvas id="electrophoresis-canvas" style="flex-grow: 1; min-height: 180px;"></canvas>
+              <div class="hud-colloid-stats" style="margin-top: 0.5rem;">
+                <span id="colloid-status">Apparatus ready. Select charge and Apply Voltage.</span>
+              </div>
+            </div>
+
+            <!-- Gold Number Panel -->
+            <div id="goldnumber-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px); align-items: center; justify-content: center;">
+              <div style="position: relative; width: 120px; height: 160px; border: 3px solid #cbd5e1; border-radius: 8px; background: #0f172a; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end;">
+                <!-- Liquid representing Gold Sol -->
+                <div id="gold-liquid" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 110px; background: #ef4444; transition: background 1.5s ease;"></div>
+                <!-- Precipitated coagulated gold particles -->
+                <div id="gold-precip" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 0px; background: #3b82f6; border-top: 1px solid #1d4ed8; transition: height 1.5s ease;"></div>
+              </div>
+              <div class="timer-val" style="margin-top: 0.75rem; font-size: 0.85rem;" id="gold-result-txt">
+                Gold Sol: Ruby Red (Stable, Lyophobic)
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Electrophoresis Controls -->
+            <div id="electrophoresis-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Select Sol Charge</label>
+                <div class="toggle-group" id="sol-toggle">
+                  <button class="toggle-btn active" data-charge="positive">Positive (Fe(OH)₃)</button>
+                  <button class="toggle-btn" data-charge="negative">Negative (As₂S₃)</button>
+                </div>
+              </div>
+
+              <button class="btn-launch-simulator" id="voltage-btn" style="justify-content: center; padding: 0.8rem; background: linear-gradient(135deg, #3b82f6 0%, rgba(59, 130, 246, 0.4) 100%); color: #fff; font-weight: bold; width: 100%;">
+                Apply Voltage
+              </button>
+
+              <button class="btn-launch-simulator" id="reset-lab-btn" style="justify-content: center; padding: 0.8rem; background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%); color: #fff; font-weight: bold; width: 100%; margin-top: 0.5rem;">
+                Reset Lab
+              </button>
+            </div>
+
+            <!-- Gold Number Controls -->
+            <div id="goldnumber-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Add Protective Colloid</label>
+                <div class="toggle-group" id="protector-toggle" style="flex-direction: column; gap: 0.35rem;">
+                  <button class="toggle-btn active" data-prot="none">None (No Protection)</button>
+                  <button class="toggle-btn" data-prot="gelatin">Gelatin (Gold No. = 0.005)</button>
+                  <button class="toggle-btn" data-prot="starch">Starch (Gold No. = 20)</button>
+                </div>
+              </div>
+
+              <button class="btn-launch-simulator" id="add-electrolyte-btn" style="justify-content: center; padding: 0.8rem; width: 100%; background: linear-gradient(135deg, #10b981 0%, rgba(16, 185, 129, 0.4) 100%); color: #fff; font-weight: bold;">
+                Add 10% NaCl Electrolyte
+              </button>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #3b82f6;">
+              <strong>Theoretical Context:</strong><br>
+              • **Electrophoresis** shows that colloidal particles carry electric charges.<br>
+              • **Gold Number** is the minimum mass (mg) of protective colloid to prevent coagulation of 10 mL gold sol by 1 mL of 10% NaCl. Lower Gold Number = Higher protection.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabElec = document.getElementById("tab-electrophoresis");
+    const tabGold = document.getElementById("tab-goldnumber");
+    const elecPanel = document.getElementById("electrophoresis-panel");
+    const goldPanel = document.getElementById("goldnumber-panel");
+    const elecControls = document.getElementById("electrophoresis-controls");
+    const goldControls = document.getElementById("goldnumber-controls");
+
+    tabElec.addEventListener("click", () => {
+      tabElec.classList.add("active");
+      tabGold.classList.remove("active");
+      elecPanel.style.display = "flex";
+      goldPanel.style.display = "none";
+      elecControls.style.display = "flex";
+      goldControls.style.display = "none";
+      resetLab();
+    });
+
+    tabGold.addEventListener("click", () => {
+      tabGold.classList.add("active");
+      tabElec.classList.remove("active");
+      goldPanel.style.display = "flex";
+      elecPanel.style.display = "none";
+      goldControls.style.display = "flex";
+      elecControls.style.display = "none";
+      resetGoldLab();
+    });
+
+    // Electrophoresis virtual apparatus logic
+    const canvas = document.getElementById("electrophoresis-canvas");
+    const ctx = canvas.getContext("2d");
+    const solToggles = document.querySelectorAll("#sol-toggle .toggle-btn");
+    const voltageBtn = document.getElementById("voltage-btn");
+    const resetBtn = document.getElementById("reset-lab-btn");
+    const colloidStatus = document.getElementById("colloid-status");
+
+    let solCharge = "positive";
+    let voltageApplied = false;
+    let animId;
+    let particles = [];
+
+    solToggles.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        solToggles.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        solCharge = e.target.getAttribute("data-charge");
+        resetLab();
+      });
+    });
+
+    class ColloidParticle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.r = 4;
+        this.color = solCharge === "positive" ? "#3b82f6" : "#f59e0b";
+        const w = canvas.width || 360;
+        const h = canvas.height || 220;
+        this.x = w / 2 + (Math.random() - 0.5) * 120;
+        this.y = h * 0.65 + (Math.random() - 0.5) * 40;
+      }
+
+      update() {
+        if (!voltageApplied) {
+          this.x += (Math.random() - 0.5) * 0.5;
+          this.y += (Math.random() - 0.5) * 0.5;
+          return;
+        }
+
+        const targetX = solCharge === "positive" ? canvas.width / 2 + 60 : canvas.width / 2 - 60;
+        const targetY = canvas.height * 0.35;
+
+        const dx = targetX - this.x;
+        const dy = targetY - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist > 10) {
+          this.x += (dx / dist) * 0.6;
+          this.y += (dy / dist) * 0.6;
+        } else {
+          this.y = targetY + 60;
+          this.x = targetX + (Math.random() - 0.5) * 10;
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function initLab() {
+      canvas.width = canvas.clientWidth || 360;
+      canvas.height = canvas.clientHeight || 220;
+      
+      particles = [];
+      for (let i = 0; i < 40; i++) {
+        particles.push(new ColloidParticle());
+      }
+    }
+
+    function resetLab() {
+      voltageApplied = false;
+      voltageBtn.textContent = "Apply Voltage";
+      voltageBtn.disabled = false;
+      colloidStatus.textContent = `Sample: ${solCharge === "positive" ? "Ferric Hydroxide sol" : "Arsenious Sulfide sol"}. Ready.`;
+      colloidStatus.style.color = "#fff";
+      initLab();
+    }
+
+    function drawApparatus() {
+      const w = canvas.width;
+      const h = canvas.height;
+      const cX = w / 2;
+      const cY = h / 2;
+
+      ctx.lineWidth = 15;
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      ctx.beginPath();
+      ctx.moveTo(cX - 60, cY - 70);
+      ctx.lineTo(cX - 60, cY + 30);
+      ctx.arc(cX, cY + 30, 60, Math.PI, 0, true);
+      ctx.lineTo(cX + 60, cY - 70);
+      ctx.stroke();
+
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = "rgba(56, 189, 248, 0.12)";
+      ctx.beginPath();
+      ctx.moveTo(cX - 60, cY - 40);
+      ctx.lineTo(cX - 60, cY + 30);
+      ctx.arc(cX, cY + 30, 60, Math.PI, 0, true);
+      ctx.lineTo(cX + 60, cY - 40);
+      ctx.stroke();
+
+      ctx.fillStyle = voltageApplied ? "#ef4444" : "#64748b";
+      ctx.fillRect(cX - 65, cY - 80, 10, 60);
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 9px sans-serif";
+      ctx.fillText("Anode (+)", cX - 90, cY - 90);
+
+      ctx.fillStyle = voltageApplied ? "#38bdf8" : "#64748b";
+      ctx.fillRect(cX + 55, cY - 80, 10, 60);
+      ctx.fillText("Cathode (-)", cX + 50, cY - 90);
+    }
+
+    function animateLab() {
+      ctx.clearRect(0,0,canvas.width, canvas.height);
+      drawApparatus();
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      animId = requestAnimationFrame(animateLab);
+    }
+
+    voltageBtn.addEventListener("click", () => {
+      voltageApplied = true;
+      voltageBtn.disabled = true;
+      colloidStatus.textContent = `Voltage applied. Colloidal particles migrate towards the ${solCharge === "positive" ? "Cathode (-)" : "Anode (+)"}...`;
+      colloidStatus.style.color = "#00f0ff";
+    });
+
+    resetBtn.addEventListener("click", resetLab);
+
+    // Protective Colloid / Gold Number Logic
+    const protectorToggles = document.querySelectorAll("#protector-toggle .toggle-btn");
+    const addElectrolyteBtn = document.getElementById("add-electrolyte-btn");
+    const goldLiquid = document.getElementById("gold-liquid");
+    const goldPrecip = document.getElementById("gold-precip");
+    const goldResultTxt = document.getElementById("gold-result-txt");
+
+    let selectedProtector = "none";
+
+    protectorToggles.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        protectorToggles.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        selectedProtector = e.target.getAttribute("data-prot");
+        resetGoldLab();
+      });
+    });
+
+    function resetGoldLab() {
+      goldLiquid.style.background = "#ef4444"; // Ruby Red
+      goldPrecip.style.height = "0px";
+      goldResultTxt.innerHTML = "Gold Sol: Ruby Red (Stable, Lyophobic)";
+      goldResultTxt.style.color = "#fff";
+      addElectrolyteBtn.disabled = false;
+    }
+
+    addElectrolyteBtn.addEventListener("click", () => {
+      addElectrolyteBtn.disabled = true;
+      if (selectedProtector === "none") {
+        goldLiquid.style.background = "#1e3a8a"; // Coagulated Blue
+        goldPrecip.style.height = "18px";
+        goldResultTxt.innerHTML = "<strong>Result: Coagulation occurred!</strong><br><span style='color: #3b82f6;'>Red Gold Sol coagulated to blue</span>. NaCl neutralizes charges, causing particle aggregation.";
+        goldResultTxt.style.color = "#ef4444";
+      } else if (selectedProtector === "starch") {
+        goldLiquid.style.background = "#581c87"; // Semi-coagulated Purple
+        goldPrecip.style.height = "8px";
+        goldResultTxt.innerHTML = "<strong>Result: Partial Coagulation.</strong><br>Starch has a **high Gold Number (20)**, meaning weak protective power. Gold Sol partially coagulated.";
+        goldResultTxt.style.color = "#f59e0b";
+      } else {
+        goldLiquid.style.background = "#ef4444";
+        goldPrecip.style.height = "0px";
+        goldResultTxt.innerHTML = `<strong>Result: Protected!</strong><br><span style='color: #10b981;'>Gold Sol remains stable and ruby red</span>. Gelatin (Gold No. = 0.005) forms a protective lyophilic layer around gold particles.`;
+        goldResultTxt.style.color = "#10b981";
+      }
+    });
+
+    document.addEventListener("simulator-opened", () => {
+      resetLab();
+      animateLab();
+      resetGoldLab();
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      cancelAnimationFrame(animId);
+    });
+  </script>
+</body>
+</html>

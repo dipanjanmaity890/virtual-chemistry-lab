@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hydrocarbons | Class 11</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+    .sim-tab-header { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .sim-tab-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+    .mechanism-canvas { width: 100%; height: 200px; background: #030712; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+  </style>
+</head>
+<body data-theme="alcohols">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 11 · Unit XIII</div>
+      <h1>Hydrocarbons</h1>
+      <p class="subtitle">Alkanes, alkenes, alkynes, Markovnikov addition rule, ozonolysis double-bond cleavage, and benzene electrophilic substitution.</p>
+    </section>
+
+    <section class="slide">
+      <h2>Electrophilic Addition to Alkenes</h2>
+      <p>Alkenes contain carbon-carbon double bonds, acting as rich sources of $\pi$ electrons that readily undergo electrophilic additions.</p>
+      <div class="note-box">
+        <strong>Markovnikov's Rule:</strong>
+        During addition of unsymmetrical reagent (e.g., $H-Br$) to unsymmetrical alkene (e.g., propene), the positive part of the reagent ($H^+$) adds to the carbon having more hydrogen atoms.
+      </div>
+      <p>This is guided by the stability of the intermediate carbocation: **$2^\circ$ carbocation (more stable) is formed preferentially over $1^\circ$ carbocation.**</p>
+    </section>
+
+    <section class="slide">
+      <h2>Alkene Ozonolysis Cleavage</h2>
+      <p>Reaction of alkenes with ozone ($O_3$) to form an ozonide intermediate, followed by reductive cleavage with $Zn/H_2O$ to yield aldehydes or ketones.</p>
+      <div class="note-box">
+        <strong>Ozonolysis Mechanism:</strong>
+        $$R-CH=CH-R \xrightarrow{O_3} \text{Ozonide Ring} \xrightarrow{Zn/H_2O} R-CHO + R-CHO$$
+        This reaction is highly valuable to locate positions of double bonds in unknown alkenes.
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Aromaticity & Electrophilic Substitution</h2>
+      <p>Benzene exhibits high resonance stability (aromaticity), favoring electrophilic aromatic substitution ($S_EAr$) over addition:</p>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>1. Halogenation:</strong> Substitution of $H$ by $Cl$ using $Cl_2 + FeCl_3$ catalyst.</li>
+        <li class="reveal-item"><strong>2. Nitration:</strong> Using conc. $HNO_3$ + conc. $H_2SO_4$ to insert nitronium ion ($NO_2^+$).</li>
+        <li class="reveal-item"><strong>3. Friedel-Crafts Alkylation:</strong> Using alkyl chloride ($R-Cl$) + $AlCl_3$ to yield alkylbenzene.</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>Markovnikov & Ozonolysis Lab</h2>
+      <p>Launch the simulator to step through Markovnikov addition carbocations, click-to-cleave alkenes in ozonolysis, and follow electrophilic benzene chlorination paths.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 5</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3>🧪 Hydrocarbons Reaction Simulator</h3>
+        </div>
+        <button id="close-overlay" class="close-btn">✕</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-tab-header">
+          <button class="sim-tab-btn active" onclick="switchTab(0)">Markovnikov's Rule</button>
+          <button class="sim-tab-btn" onclick="switchTab(1)">Ozonolysis Cleavage</button>
+        </div>
+
+        <div class="sim-grid">
+          <!-- Tab 1 -->
+          <div id="tab-mark" class="sim-visualizer">
+            <h4>Addition of H-Br to Propene ($CH_3-CH=CH_2$)</h4>
+            <div style="margin-bottom:1rem; display:flex; gap:0.5rem;">
+              <button onclick="runMarkovnikovStep(1)" style="background:#3b82f6; color:#fff; padding:0.4rem; border:none; border-radius:4px; cursor:pointer;">Step 1: Proton Attack</button>
+              <button onclick="runMarkovnikovStep(2)" style="background:#10b981; color:#fff; padding:0.4rem; border:none; border-radius:4px; cursor:pointer;">Step 2: Bromide Attack</button>
+            </div>
+            <canvas id="mark-canvas" class="mechanism-canvas"></canvas>
+          </div>
+
+          <!-- Tab 2 -->
+          <div id="tab-ozonolysis" class="sim-visualizer" style="display:none;">
+            <h4>Ozonolysis of But-2-ene</h4>
+            <div style="margin-bottom:1rem; display:flex; gap:0.5rem;">
+              <button onclick="runOzo(1)" style="background:#38bdf8; color:#000; padding:0.4rem; border:none; border-radius:4px; cursor:pointer;">Add Ozone (Form Ozonide)</button>
+              <button onclick="runOzo(2)" style="background:#ef4444; color:#fff; padding:0.4rem; border:none; border-radius:4px; cursor:pointer;">Add Zn/H₂O (Cleave Bond)</button>
+            </div>
+            <canvas id="ozo-canvas" class="mechanism-canvas"></canvas>
+          </div>
+
+          <div class="sim-sidebar">
+            <div>
+              <h3>Hydrocarbon HUD</h3>
+              <div id="calc-status" style="margin-top:1rem; font-size:0.85rem; color:#e2e8f0; line-height:1.5;">Click mechanism buttons to animate organic steps.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    function switchTab(idx) {
+      document.querySelectorAll(".sim-tab-btn").forEach((t, i) => {
+        t.classList.toggle("active", i === idx);
+      });
+      document.getElementById("tab-mark").style.display = idx === 0 ? "flex" : "none";
+      document.getElementById("tab-ozonolysis").style.display = idx === 1 ? "flex" : "none";
+      if (idx === 0) runMarkovnikovStep(1);
+      else runOzo(0);
+    }
+
+    const markCanvas = document.getElementById("mark-canvas");
+    const mctx = markCanvas.getContext("2d");
+
+    function runMarkovnikovStep(step) {
+      markCanvas.width = markCanvas.clientWidth || 450;
+      markCanvas.height = markCanvas.clientHeight || 150;
+      mctx.clearRect(0,0, markCanvas.width, markCanvas.height);
+      mctx.fillStyle = "#fff";
+      mctx.font = "14px monospace";
+
+      if (step === 1) {
+        mctx.fillText("CH₃-CH=CH₂ + H⁺", 40, 60);
+        mctx.fillText("Path A ---> CH₃-CH₂-CH₂⁺ (1° Carbocation, unstable)", 40, 95);
+        mctx.fillText("Path B ---> CH₃-CH⁺-CH₃  (2° Carbocation, STABLE)", 40, 125);
+        
+        mctx.strokeStyle = "#3b82f6";
+        mctx.lineWidth = 2;
+        mctx.strokeRect(30, 110, 360, 25); // outline path B
+
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Step 1: Proton ($H^+$) attack:</strong><br>
+          • The $\\pi$ bond breaks.<br>
+          • The $H^+$ adds to terminal $CH_2$, forming a more stable $2^\\circ$ carbocation (Path B) stabilized by +I and hyperconjugation.
+        `;
+      } else {
+        mctx.fillText("CH₃-CH⁺-CH₃ + Br⁻", 40, 65);
+        mctx.fillText("Attack: Br⁻ bonds to C₂ carbon...", 40, 100);
+        mctx.fillText("Product: CH₃-CH(Br)-CH₃ (2-Bromopropane)", 40, 130);
+
+        mctx.fillStyle = "#10b981";
+        mctx.fillText("Major Product", 320, 130);
+
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Step 2: Nucleophilic attack of $Br^-$:</strong><br>
+          • The bromide ion bonds with the stable $2^\\circ$ carbocation.<br>
+          • <strong>Result: 2-Bromopropane is formed as the Major product.</strong>
+        `;
+      }
+    }
+
+    const ozoCanvas = document.getElementById("ozo-canvas");
+    const octx = ozoCanvas.getContext("2d");
+
+    function runOzo(stage) {
+      ozoCanvas.width = ozoCanvas.clientWidth || 450;
+      ozoCanvas.height = ozoCanvas.clientHeight || 150;
+      octx.clearRect(0,0, ozoCanvas.width, ozoCanvas.height);
+      octx.fillStyle = "#fff";
+      octx.font = "14px monospace";
+
+      if (stage === 0) {
+        octx.fillText("Reactant: CH₃-CH = CH-CH₃ (But-2-ene)", 40, 90);
+        document.getElementById("calc-status").innerHTML = "Click Add Ozone to form the intermediate ozonide ring.";
+      } else if (stage === 1) {
+        octx.fillText("Ozonide Intermediate structure:", 40, 50);
+        // Draw ozonide house structure representation
+        octx.fillText("     O", 120, 80);
+        octx.fillText("   /   \\", 120, 100);
+        octx.fillText("CH₃-CH-O-CH-CH₃", 70, 120);
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Ozonide Formed:</strong><br>
+          • Ozone adds across the carbon-carbon double bond to form a five-membered molozonide, rearranges to ozonide.
+        `;
+      } else {
+        octx.fillText("Zinc reduction cleavage: [ Ozonide Cleaved ]", 40, 60);
+        octx.fillText("Products: 2 CH₃-CHO (Ethanal / Acetaldehyde)", 40, 110);
+        
+        octx.fillStyle = "#ef4444";
+        octx.fillText("C=O Bond Formed", 140, 140);
+
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Reductive Cleavage with Zn/H₂O:</strong><br>
+          • The C-C bond is sliced open.<br>
+          • Zinc prevents further oxidation of products.<br>
+          • <strong>Products: 2 molecules of Acetaldehyde (Ethanal).</strong>
+        `;
+      }
+    }
+
+    runMarkovnikovStep(1);
+  </script>
+</body>
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBSE & NCERT Chemistry Academy | Interactive Slides & Simulators</title>
+  <meta name="description" content="Engaging and interactive chapter-wise slide presentations and simulators for CBSE Chemistry Classes 9, 10, 11, and 12, covering all core units.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* Card filter visibility transition */
+    .chapter-card {
+      display: none;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .chapter-card.active-card {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas Background for Chemical Particles -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav">
+    <a href="index.html" class="nav-brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;"><path d="M12 2L2 22h20L12 2z"/></svg>
+      Chem<span>Interactive</span> Labs
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active">Home Dashboard</a>
+      <a href="virtual_lab.html" class="nav-link">Virtual Lab Portal</a>
+    </div>
+  </nav>
+
+  <div class="dashboard-container">
+    <header>
+      <div class="badge">CBSE & NCERT Chemistry Academy</div>
+      <h1>Interactive Slides & Simulators</h1>
+      <p>Dive deep into chemical concepts through visually rich slides, animated chemical mechanisms, and real-time interactive physics/chemistry simulators for Classes 9, 10, 11, and 12.</p>
+    </header>
+
+    <!-- Call-To-Action to Virtual Lab Hub -->
+    <div class="hero-banner" style="margin-bottom: 2rem;">
+      <h2>NCERT Aligned Virtual Chemistry Lab</h2>
+      <p>Step away from theory and run fully interactive CBSE practical modules for Classes 9, 10, 11, and 12 directly in your browser. Perform volumetric titration, pH strip testing, flame cation colors, and organic chemical tests safely.</p>
+      <a href="virtual_lab.html" class="start-btn" style="display: inline-flex; width: auto; padding: 0.8rem 2.2rem; text-decoration: none; font-weight: 700; border-radius: 12px; background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%); color: #0b0f19; justify-content: center; align-items: center; gap: 0.5rem; border: none; cursor: pointer; transition: all 0.3s; margin-top: 0.5rem;">
+        Launch Virtual Lab Portal
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="stroke: #0b0f19;"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+
+    <!-- Class Selector Tabs -->
+    <div class="lab-tabs" style="margin-bottom: 3.5rem;">
+      <button class="lab-tab-btn" data-filter="class9">Class 9</button>
+      <button class="lab-tab-btn" data-filter="class10">Class 10</button>
+      <button class="lab-tab-btn" data-filter="class11">Class 11</button>
+      <button class="lab-tab-btn active" data-filter="class12">Class 12</button>
+    </div>
+
+    <main class="chapters-grid" id="main-chapters-grid">
+      
+      <!-- ═══════════════════ CLASS 9 CHAPTERS ═══════════════════ -->
+      <a href="matter_surroundings.html" class="chapter-card" data-class="class9" data-theme="solutions">
+        <div>
+          <div class="chapter-num">Unit I</div>
+          <h2 class="chapter-title">Matter in Our Surroundings</h2>
+          <p class="chapter-desc">Study the physical nature of matter, states of matter (solids, liquids, gases), and evaporation factors.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 9 Syllabus</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="matter_pure.html" class="chapter-card" data-class="class9" data-theme="solutions">
+        <div>
+          <div class="chapter-num">Unit II</div>
+          <h2 class="chapter-title">Is Matter Around Us Pure</h2>
+          <p class="chapter-desc">Examine mixtures, solutions, suspensions, colloids (Tyndall light scattering), and separation techniques.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 9 Syllabus</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="atoms_molecules.html" class="chapter-card" data-class="class9" data-theme="solutions">
+        <div>
+          <div class="chapter-num">Unit III</div>
+          <h2 class="chapter-title">Atoms and Molecules</h2>
+          <p class="chapter-desc">Understand Dalton's atomic theory, laws of chemical combination, mole concept, and molecular masses.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 9 Syllabus</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="structure_atom_9.html" class="chapter-card" data-class="class9" data-theme="solutions">
+        <div>
+          <div class="chapter-num">Unit IV</div>
+          <h2 class="chapter-title">Structure of the Atom</h2>
+          <p class="chapter-desc">Study subatomic particles (protons, neutrons, electrons), Rutherford scattering, and Bohr's orbit model.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 9 Syllabus</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <!-- ═══════════════════ CLASS 10 CHAPTERS ═══════════════════ -->
+      <a href="chemical_reactions_10.html" class="chapter-card" data-class="class10" data-theme="electrochemistry">
+        <div>
+          <div class="chapter-num">Unit I</div>
+          <h2 class="chapter-title">Chemical Reactions</h2>
+          <p class="chapter-desc">Balance equations, and study combination, decomposition, displacement, and double displacement reactions.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 10 Syllabus</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="acids_bases.html" class="chapter-card" data-class="class10" data-theme="electrochemistry">
+        <div>
+          <div class="chapter-num">Unit II</div>
+          <h2 class="chapter-title">Acids, Bases and Salts</h2>
+          <p class="chapter-desc">Understand pH scale indicators, neutralization reactions, and production of bleaching powder and baking soda.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 10 Syllabus</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="metals_nonmetals.html" class="chapter-card" data-class="class10" data-theme="electrochemistry">
+        <div>
+          <div class="chapter-num">Unit III</div>
+          <h2 class="chapter-title">Metals and Non-Metals</h2>
+          <p class="chapter-desc">Study chemical reactions of metals, reactivity series, ionic bonding, and corrosion protection.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 10 Syllabus</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="carbon_compounds.html" class="chapter-card" data-class="class10" data-theme="electrochemistry">
+        <div>
+          <div class="chapter-num">Unit IV</div>
+          <h2 class="chapter-title">Carbon & its Compounds</h2>
+          <p class="chapter-desc">Master covalent bonding, tetravalency, homologous series, isomerism basics, and soap micelle saponification.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 10 Syllabus</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="periodic_classification_10.html" class="chapter-card" data-class="class10" data-theme="electrochemistry">
+        <div>
+          <div class="chapter-num">Unit V</div>
+          <h2 class="chapter-title">Periodic Classification</h2>
+          <p class="chapter-desc">Trace historical periodic tables (Mendeleev) and modern periodic trends in valency and atomic radii.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 10 Syllabus</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <!-- ═══════════════════ CLASS 11 CHAPTERS ═══════════════════ -->
+      <a href="concepts_11.html" class="chapter-card" data-class="class11" data-theme="solutions">
+        <div>
+          <div class="chapter-num">Unit I</div>
+          <h2 class="chapter-title">Basic Concepts</h2>
+          <p class="chapter-desc">Study the mole concept, empirical/molecular formula calculation, stoichiometry, and limiting reactants.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 Core</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="structure_atom.html" class="chapter-card" data-class="class11" data-theme="solutions">
+        <div>
+          <div class="chapter-num">Unit II</div>
+          <h2 class="chapter-title">Structure of Atom</h2>
+          <p class="chapter-desc">Explore Bohr's atomic model, Planck's theory, quantum numbers, Hund's rule, and atomic line emission spectra.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 Core</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="periodicity.html" class="chapter-card" data-class="class11" data-theme="solutions">
+        <div>
+          <div class="chapter-num">Unit III</div>
+          <h2 class="chapter-title">Periodic Classification</h2>
+          <p class="chapter-desc">Master modern periodic law, shield effects, ionization energy, electron affinity, and electronegativity down periods.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 Core</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="bonding.html" class="chapter-card" data-class="class11" data-theme="electrochemistry">
+        <div>
+          <div class="chapter-num">Unit IV</div>
+          <h2 class="chapter-title">Chemical Bonding</h2>
+          <p class="chapter-desc">Master VSEPR geometry, hybridization models, molecular orbital theory energy levels, and hydrogen bonding.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 Core</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="states_matter.html" class="chapter-card" data-class="class11" data-theme="kinetics">
+        <div>
+          <div class="chapter-num">Unit V</div>
+          <h2 class="chapter-title">States of Matter</h2>
+          <p class="chapter-desc">Study gas laws (Boyle, Charles, Dalton), ideal gas equations, molecular speeds, and intermolecular forces.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 Core</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="thermodynamics.html" class="chapter-card" data-class="class11" data-theme="kinetics">
+        <div>
+          <div class="chapter-num">Unit VI</div>
+          <h2 class="chapter-title">Thermodynamics</h2>
+          <p class="chapter-desc">Learn enthalpy, entropy, Hess's Law, Gibbs energy, and criteria for reaction spontaneity.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 Core</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="equilibrium_11.html" class="chapter-card" data-class="class11" data-theme="kinetics">
+        <div>
+          <div class="chapter-num">Unit VII</div>
+          <h2 class="chapter-title">Equilibrium</h2>
+          <p class="chapter-desc">Analyze Kc/Kp constants, Le Chatelier's equilibrium adjustments, pH calculations, and buffer actions.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 Core</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="redox.html" class="chapter-card" data-class="class11" data-theme="electrochemistry">
+        <div>
+          <div class="chapter-num">Unit VIII</div>
+          <h2 class="chapter-title">Redox Reactions</h2>
+          <p class="chapter-desc">Determine oxidation numbers, balance half-reactions, and study standard hydrogen electrode potentials.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 Core</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="hydrogen.html" class="chapter-card" data-class="class11" data-theme="solutions">
+        <div>
+          <div class="chapter-num">Unit IX</div>
+          <h2 class="chapter-title">Hydrogen</h2>
+          <p class="chapter-desc">Examine molecular hydrogen isotopes, covalent/interstitial hydrides, hard/soft water, and hydrogen peroxide.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 core</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="s_block.html" class="chapter-card" data-class="class11" data-theme="d-f-block">
+        <div>
+          <div class="chapter-num">Unit X</div>
+          <h2 class="chapter-title">s-Block Elements</h2>
+          <p class="chapter-desc">Study Group 1 alkali and Group 2 alkaline earth metal trends, Solvay cycle, and baking soda industrial prep.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 core</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="p_block_11.html" class="chapter-card" data-class="class11" data-theme="d-f-block">
+        <div>
+          <div class="chapter-num">Unit XI</div>
+          <h2 class="chapter-title">p-Block (Group 13 & 14)</h2>
+          <p class="chapter-desc">Explore boron families, borax bead tests, silicates structures, and carbon allotropes (diamond, graphene).</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 core</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="organic_principles.html" class="chapter-card" data-class="class11" data-theme="amines">
+        <div>
+          <div class="chapter-num">Unit XII</div>
+          <h2 class="chapter-title">Organic Principles</h2>
+          <p class="chapter-desc">Master IUPAC naming, structural/stereoisomerism, and electron shifts (inductive, resonance, hyperconjugation).</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 Organic</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="hydrocarbons.html" class="chapter-card" data-class="class11" data-theme="alcohols">
+        <div>
+          <div class="chapter-num">Unit XIII</div>
+          <h2 class="chapter-title">Hydrocarbons</h2>
+          <p class="chapter-desc">Study alkanes/alkenes/alkynes, Markovnikov addition mechanisms, alkene ozonolysis, and aromatic substitution.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 Organic</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="environmental.html" class="chapter-card" data-class="class11" data-theme="biomolecules">
+        <div>
+          <div class="chapter-num">Unit XIV</div>
+          <h2 class="chapter-title">Environmental Chem</h2>
+          <p class="chapter-desc">Study greenhouse effect, global warming carbon traps, smog formation, and acid rain corrosion effects.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Class 11 core</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <!-- ═══════════════════ CLASS 12 CHAPTERS ═══════════════════ -->
+      <a href="solid_state.html" class="chapter-card" data-class="class12" data-theme="solutions">
+        <div>
+          <div class="chapter-num">Unit I</div>
+          <h2 class="chapter-title">The Solid State</h2>
+          <p class="chapter-desc">Study crystalline vs amorphous solids, unit cells, packing efficiency, and point defects (Schottky/Frenkel).</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Physical · Reference</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="solutions.html" class="chapter-card" data-class="class12" data-theme="solutions">
+        <div>
+          <div class="chapter-num">Unit II</div>
+          <h2 class="chapter-title">Solutions</h2>
+          <p class="chapter-desc">Explore solutions, solubility, Raoult's law, colligative properties, and non-ideal vapor pressure deviations.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Physical Chemistry</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="electrochemistry.html" class="chapter-card" data-class="class12" data-theme="electrochemistry">
+        <div>
+          <div class="chapter-num">Unit III</div>
+          <h2 class="chapter-title">Electrochemistry</h2>
+          <p class="chapter-desc">Understand electrochemical cells, Nernst equation, electrolytic conductance, Kohlrausch, and Faraday deposition.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Physical Chemistry</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="chemical_kinetics.html" class="chapter-card" data-class="class12" data-theme="kinetics">
+        <div>
+          <div class="chapter-num">Unit IV</div>
+          <h2 class="chapter-title">Chemical Kinetics</h2>
+          <p class="chapter-desc">Study rates of reaction, order and molecularity, integrated rate equations, half-life, and Arrhenius plots.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Physical Chemistry</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="surface_chemistry.html" class="chapter-card" data-class="class12" data-theme="solutions">
+        <div>
+          <div class="chapter-num">Unit V</div>
+          <h2 class="chapter-title">Surface Chemistry</h2>
+          <p class="chapter-desc">Master adsorption isotherms, catalysis, electrophoresis colloidal migration, and gold Sol protective values.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Physical · Reference</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="isolation_elements.html" class="chapter-card" data-class="class12" data-theme="d-f-block">
+        <div>
+          <div class="chapter-num">Unit VI</div>
+          <h2 class="chapter-title">Isolation of Elements</h2>
+          <p class="chapter-desc">Explore ore froth flotation, pyrometallurgy, Ellingham thermodynamic graphs, and metal refining.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Inorganic · Reference</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="p_block.html" class="chapter-card" data-class="class12" data-theme="d-f-block">
+        <div>
+          <div class="chapter-num">Unit VII</div>
+          <h2 class="chapter-title">p-Block Elements</h2>
+          <p class="chapter-desc">Analyze Group 15-18 synthesis, Haber ammonia yield, and Contact Process catalytic converters.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Inorganic · Reference</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="d_and_f_block.html" class="chapter-card" data-class="class12" data-theme="d-f-block">
+        <div>
+          <div class="chapter-num">Unit VIII</div>
+          <h2 class="chapter-title">d- & f-Block Elements</h2>
+          <p class="chapter-desc">Master transition elements electron orbitals, redox KMnO₄ volumetric titrations, and magnetic moments.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Inorganic Chemistry</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="coordination_compounds.html" class="chapter-card" data-class="class12" data-theme="coordination">
+        <div>
+          <div class="chapter-num">Unit IX</div>
+          <h2 class="chapter-title">Coordination Chemistry</h2>
+          <p class="chapter-desc">Master Crystal Field Theory (CFT) splitting, coordination numbers, isomerism configurations, and nomenclature.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Inorganic Chemistry</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="haloalkanes_haloarenes.html" class="chapter-card" data-class="class12" data-theme="haloalkanes">
+        <div>
+          <div class="chapter-num">Unit X</div>
+          <h2 class="chapter-title">Haloalkanes</h2>
+          <p class="chapter-desc">Study alkyl halides, SN1 vs SN2 substitution steps, stereochemistry, and optical rotation angles.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Organic Chemistry</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="alcohols_phenols_ethers.html" class="chapter-card" data-class="class12" data-theme="alcohols">
+        <div>
+          <div class="chapter-num">Unit XI</div>
+          <h2 class="chapter-title">Alcohols & Phenols</h2>
+          <p class="chapter-desc">Learn Lucas test alcohols distinction, phenols acidity resonance, and industrial dehydration ether reactions.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Organic Chemistry</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="aldehydes_ketones_carboxylic.html" class="chapter-card" data-class="class12" data-theme="carbonyl">
+        <div>
+          <div class="chapter-num">Unit XII</div>
+          <h2 class="chapter-title">Aldehydes & Ketones</h2>
+          <p class="chapter-desc">Study nucleophilic addition mechanism, Aldol condensation, Tollens' silver mirror, and Fehling's tests.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Organic Chemistry</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="amines.html" class="chapter-card" data-class="class12" data-theme="amines">
+        <div>
+          <div class="chapter-num">Unit XIII</div>
+          <h2 class="chapter-title">Amines</h2>
+          <p class="chapter-desc">Understand amine basicity, Hinsberg test separation, carbylamine foul odors, and diazonium coupling dyes.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Organic Chemistry</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="biomolecules.html" class="chapter-card" data-class="class12" data-theme="biomolecules">
+        <div>
+          <div class="chapter-num">Unit XIV</div>
+          <h2 class="chapter-title">Biomolecules</h2>
+          <p class="chapter-desc">Examine carbohydrate structures, peptide zwitterion isoelectric curves, and DNA hydrogen base matches.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Organic Chemistry</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="polymers.html" class="chapter-card" data-class="class12" data-theme="carbonyl">
+        <div>
+          <div class="chapter-num">Unit XV</div>
+          <h2 class="chapter-title">Polymers</h2>
+          <p class="chapter-desc">Analyze chain addition vs condensation Nylon pathways, and sort elastomers vs thermoplastic groups.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Organic · Reference</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+
+      <a href="everyday_chemistry.html" class="chapter-card" data-class="class12" data-theme="alcohols">
+        <div>
+          <div class="chapter-num">Unit XVI</div>
+          <h2 class="chapter-title">Everyday Chemistry</h2>
+          <p class="chapter-desc">Analyze antacids/preservatives, micelle cleaning action, and drug-receptor inhibitors active site blockages.</p>
+        </div>
+        <div class="chapter-meta">
+          <span class="chapter-type">Organic · Reference</span>
+          <span class="start-btn">Start Slides</span>
+        </div>
+      </a>
+    </main>
+
+    <footer>
+      <p>© 2026 · CBSE Chemistry Interactive Slides · Prepared for Class 9-12 Students & Teachers</p>
+    </footer>
+  </div>
+
+  <!-- Background Particle Animation & Filtering Script -->
+  <script>
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+
+    let particles = [];
+    const colors = ["rgba(0, 240, 255, 0.15)", "rgba(57, 255, 20, 0.12)", "rgba(255, 60, 0, 0.1)", "rgba(189, 0, 255, 0.15)", "rgba(16, 185, 129, 0.12)"];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    class ChemicalParticle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 6 + 2;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.type = Math.random() > 0.5 ? "atom" : "bond";
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        if (this.type === "atom") {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius + 6, 0, Math.PI * 2);
+          ctx.strokeStyle = this.color.replace("0.1", "0.02").replace("0.15", "0.03");
+          ctx.stroke();
+        }
+      }
+    }
+
+    for (let i = 0; i < 45; i++) {
+      particles.push(new ChemicalParticle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.05 * (1 - dist / 150)})`;
+            ctx.stroke();
+          }
+        }
+      }
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // ═══════════════════ Tab Filtering Logic ═══════════════════
+    const tabBtns = document.querySelectorAll(".lab-tab-btn");
+    const cards = document.querySelectorAll(".chapter-card");
+
+    function filterClass(selectedClass) {
+      cards.forEach(card => {
+        const cardClass = card.getAttribute("data-class");
+        if (cardClass === selectedClass) {
+          card.classList.add("active-card");
+        } else {
+          card.classList.remove("active-card");
+        }
+      });
+    }
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        tabBtns.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        
+        const filterVal = e.target.getAttribute("data-filter");
+        filterClass(filterVal);
+      });
+    });
+
+    // Default Filter on load (Class 12)
+    filterClass("class12");
+  </script>
+</body>
+</html>

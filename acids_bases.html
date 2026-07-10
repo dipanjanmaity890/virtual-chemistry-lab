@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acids, Bases and Salts | Class 10</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .sim-tab-header { display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .sim-tab-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.4rem 0.9rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+    .sim-canvas { width:100%; height:200px; background:#030712; border-radius:12px; border:1px solid rgba(255,255,255,0.05); }
+    .rxn-step { background: rgba(255,255,255,0.04); border-left: 3px solid #38bdf8; border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.5rem; font-size: 0.88rem; line-height: 1.5; }
+  </style>
+</head>
+<body data-theme="solutions">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 10 &middot; Unit II</div>
+      <h1>Acids, Bases and Salts</h1>
+      <p class="subtitle">Properties of acids and bases, pH scale, neutralization, important salts, and applications in daily life.</p>
+    </section>
+    <section class="slide">
+      <h2>Acids and Bases</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Acids</h3>
+          <p>Produce H+ ions in aqueous solution (Arrhenius). Turn blue litmus red. Sour taste.</p>
+          <ul>
+            <li>HCl: Hydrochloric Acid (gastric acid in stomach)</li>
+            <li>H2SO4: Sulphuric Acid (battery acid, king of chemicals)</li>
+            <li>HNO3: Nitric Acid (fertilizer production)</li>
+            <li>CH3COOH: Ethanoic/Acetic Acid (vinegar)</li>
+            <li>HCOOH: Methanoic Acid (ant/bee sting)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Bases</h3>
+          <p>Produce OH- ions in water. Turn red litmus blue. Bitter taste, soapy feel.</p>
+          <ul>
+            <li>NaOH: Sodium Hydroxide (caustic soda, soap-making)</li>
+            <li>Ca(OH)2: Calcium Hydroxide (lime water, white wash)</li>
+            <li>NH4OH: Ammonium Hydroxide (cleaning agent)</li>
+            <li>Mg(OH)2: Milk of Magnesia (antacid)</li>
+            <li>Al(OH)3: Aluminium Hydroxide (antacid)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>pH Scale and Indicators</h2>
+      <p>pH = -log[H+]. pH scale ranges from 0 (most acidic) to 14 (most basic). pH 7 = neutral.</p>
+      <ul class="reveal-list">
+        <li class="reveal-item">Conc. HCl: pH 0-1 | Lemon/Lime juice: pH 2 | Vinegar: pH 3 | Tomato: pH 4 | Coffee: pH 5</li>
+        <li class="reveal-item">Pure distilled water: pH 7 | Blood: pH 7.4 | Sea water: pH 8 | Baking soda: pH 9</li>
+        <li class="reveal-item">Soap solution: pH 9-10 | Milk of Magnesia: pH 10-11 | Conc. NaOH: pH 13-14</li>
+        <li class="reveal-item"><strong>Universal Indicator:</strong> Shows pH by changing through multiple colours (red to violet).</li>
+        <li class="reveal-item"><strong>Phenolphthalein:</strong> Colourless in acid, pink/magenta in base. Used in titrations.</li>
+        <li class="reveal-item"><strong>Methyl Orange:</strong> Red in acid, yellow in base.</li>
+      </ul>
+    </section>
+    <section class="slide">
+      <h2>Neutralisation and Salts</h2>
+      <p>Acid + Base gives Salt + Water. Neutralisation is exothermic.</p>
+      <div class="note-box">
+        HCl + NaOH gives NaCl + H2O (common salt, neutral pH 7)<br>
+        H2SO4 + 2NaOH gives Na2SO4 + 2H2O (sodium sulphate)
+      </div>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>NaCl (Common Salt, pH 7):</strong> Food preservation, making NaOH by electrolysis, Na, Cl2, NaHCO3 from Chlor-alkali process.</li>
+        <li class="reveal-item"><strong>NaHCO3 (Baking Soda, pH 9-10):</strong> Releases CO2 on heating. Used in baking (CO2 makes dough rise), antacid, fire extinguishers.</li>
+        <li class="reveal-item"><strong>Na2CO3.10H2O (Washing Soda, pH 11-12):</strong> Softens hard water (removes Ca2+/Mg2+), used in glass, soap, paper industries.</li>
+        <li class="reveal-item"><strong>CaOCl2 (Bleaching Powder):</strong> Disinfects water supply, bleaches cotton cloth, used in paper mills.</li>
+        <li class="reveal-item"><strong>CaSO4.0.5H2O (Plaster of Paris):</strong> Sets hard by absorbing water: 2CaSO4.0.5H2O + 3H2O gives 2CaSO4.2H2O. Used for casts/moulds.</li>
+      </ul>
+    </section>
+    <section class="slide">
+      <h2>Acids and Bases in Daily Life</h2>
+      <div class="cols-2">
+        <div>
+          <h3>Biological Examples</h3>
+          <p><strong>Bee/Ant Sting:</strong> Formic acid (HCOOH) injected. Apply baking soda (base) to neutralize pain.</p>
+          <p><strong>Indigestion/Acidity:</strong> Excess HCl in stomach. Antacid containing Mg(OH)2 or NaHCO3 neutralizes acid.</p>
+          <p><strong>Tooth Decay:</strong> Bacteria produce lactic acid. pH drops below 5.5 degrades enamel (calcium phosphate).</p>
+        </div>
+        <div>
+          <h3>Environmental Examples</h3>
+          <p><strong>Acid Rain:</strong> SO2 and NOx react with water to form H2SO4 and HNO3. pH less than 5.6. Damages marble monuments (CaCO3 + H2SO4 gives CaSO4 + H2O + CO2).</p>
+          <p><strong>Soil pH:</strong> Excess acid soil treated with quicklime (CaO) or slaked lime Ca(OH)2. Excess alkaline soil treated with gypsum (CaSO4).</p>
+        </div>
+      </div>
+    </section>
+    <section class="slide">
+      <h2>pH Neutralisation Lab</h2>
+      <p>Launch the lab to test substances with pH indicator, observe neutralisation colour changes, mix HCl and NaOH to reach pH 7, and practice virtual titration.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 6</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title"><h3>Acids, Bases and Salts Lab Simulator</h3></div>
+        <button id="close-overlay" class="close-btn">&#x2715;</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer" style="flex-direction:column; align-items:flex-start; padding:1.2rem; justify-content:flex-start;">
+            <h4>pH Tester and Indicator</h4>
+            <select id="acid-subst" style="width:100%; background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px; margin-bottom:0.5rem;" onchange="testPH()">
+              <option value="0.5">Concentrated HCl (pH ~0-1)</option>
+              <option value="2">Lemon Juice (pH 2)</option>
+              <option value="3">Vinegar / Ethanoic Acid (pH 3)</option>
+              <option value="5">Coffee (pH 5)</option>
+              <option value="7">Pure Water (pH 7)</option>
+              <option value="9">Baking Soda Solution (pH 9)</option>
+              <option value="11">Milk of Magnesia (pH 11)</option>
+              <option value="14">Concentrated NaOH (pH 14)</option>
+            </select>
+            <div id="ph-bar-container" style="width:100%; height:28px; border-radius:12px; overflow:hidden; background:linear-gradient(to right,#ef4444,#f97316,#eab308,#22c55e,#06b6d4,#6366f1); position:relative; margin-bottom:0.4rem;">
+              <div id="ph-marker" style="position:absolute; top:0; width:4px; height:100%; background:#fff; transition:left 0.6s; box-shadow:0 0 8px rgba(255,255,255,0.8);"></div>
+            </div>
+            <div id="ph-value-display" style="font-size:1.4rem; font-weight:bold; text-align:center; width:100%; margin-bottom:0.4rem;"></div>
+            <div id="acid-result" style="font-size:0.83rem; color:#e2e8f0; line-height:1.6; width:100%;"></div>
+          </div>
+          <div class="sim-sidebar">
+            <h3>Neutralisation Mixer</h3>
+            <p style="font-size:0.82rem; color:#94a3b8; margin-bottom:0.5rem;">Mix equal concentrations of HCl + NaOH to reach pH 7:</p>
+            <label style="font-size:0.82rem;">HCl volume (mL)</label>
+            <input type="range" id="hcl-vol" min="0" max="100" value="50" style="width:100%;" oninput="mixNeutral()">
+            <label style="font-size:0.82rem; margin-top:0.4rem; display:block;">NaOH volume (mL)</label>
+            <input type="range" id="naoh-vol" min="0" max="100" value="50" style="width:100%;" oninput="mixNeutral()">
+            <div id="mix-result" style="margin-top:0.6rem; font-size:0.84rem; color:#e2e8f0; line-height:1.5; background:rgba(56,189,248,0.06); border-radius:8px; padding:0.5rem;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/presentation.js"></script>
+  <script>
+
+    function testPH(){
+      const ph=parseFloat(document.getElementById('acid-subst').value);
+      const pct=(ph/14)*100;
+      document.getElementById('ph-marker').style.left='calc('+pct+'% - 2px)';
+      let nature,color,indicator,litmus;
+      if(ph<7){nature='Acidic';color='#ef4444';indicator='Phenolphthalein: Colourless';litmus='Blue litmus turns Red';}
+      else if(ph===7){nature='Neutral';color='#22c55e';indicator='Phenolphthalein: Colourless';litmus='No change in litmus';}
+      else{nature='Basic/Alkaline';color='#6366f1';indicator='Phenolphthalein: Pink/Magenta';litmus='Red litmus turns Blue';}
+      document.getElementById('ph-value-display').innerHTML='<span style="color:'+color+'">pH = '+ph+' ('+nature+')</span>';
+      document.getElementById('acid-result').innerHTML='Nature: <strong>'+nature+'</strong><br>'+litmus+'<br>'+indicator+'<br>[H+] = 10^-'+ph+' mol/L';
+    }
+    function mixNeutral(){
+      const hcl=parseInt(document.getElementById('hcl-vol').value);
+      const naoh=parseInt(document.getElementById('naoh-vol').value);
+      const ex=hcl-naoh;
+      let result,col;
+      if(ex>20){result='Strongly ACIDIC (pH ~2). Excess HCl = '+ex+' mL.';col='#ef4444';}
+      else if(ex>5){result='Mildly ACIDIC (pH ~4-5). Some excess HCl.';col='#f97316';}
+      else if(Math.abs(ex)<=5){result='NEUTRALISED! pH = 7. HCl = NaOH approx. NaCl + H2O formed.';col='#10b981';}
+      else if(ex<-5&&ex>-20){result='Mildly BASIC (pH ~9-10). Some excess NaOH.';col='#06b6d4';}
+      else{result='Strongly BASIC (pH ~12-13). Excess NaOH = '+Math.abs(ex)+' mL.';col='#6366f1';}
+      document.getElementById('mix-result').innerHTML='HCl: '+hcl+' mL | NaOH: '+naoh+' mL<br><span style="color:'+col+'"><strong>'+result+'</strong></span>';
+    }
+    testPH();mixNeutral();
+
+  </script>
+</body>
+</html>

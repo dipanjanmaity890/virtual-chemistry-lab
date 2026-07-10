@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organic Chemistry - Principles & Techniques | Class 11</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+    .sim-tab-header { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .sim-tab-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+    .chem-display { font-family: monospace; font-size: 1.5rem; background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; text-shadow: 0 0 10px rgba(0,240,255,0.3); }
+    .mechanism-canvas { width: 100%; height: 180px; background: #030712; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+  </style>
+</head>
+<body data-theme="amines">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 11 · Unit XII</div>
+      <h1>Organic Chemistry - Principles & Techniques</h1>
+      <p class="subtitle">Tetravalency, IUPAC nomenclature, structural & stereoisomerism, inductive, resonance, electromeric, and hyperconjugation effects.</p>
+    </section>
+
+    <section class="slide">
+      <h2>IUPAC Nomenclature System</h2>
+      <p>IUPAC names of organic compounds consist of three main parts:</p>
+      <div class="note-box">
+        <strong>$$\text{Secondary Prefix} + \text{Primary Prefix} + \text{Word Root} + \text{Primary Suffix} + \text{Secondary Suffix}$$</strong>
+      </div>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>Word Root:</strong> Indicates the number of carbons in the principal chain (Meth, Eth, Prop, But...).</li>
+        <li class="reveal-item"><strong>Primary Suffix:</strong> Indicates saturation/unsaturation (ane, ene, yne).</li>
+        <li class="reveal-item"><strong>Secondary Suffix:</strong> Indicates functional group (ol, al, one, oic acid, amine).</li>
+        <li class="reveal-item"><strong>Prefixes:</strong> Represent substituent alkyl/halo groups.</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>Isomerism in Organic Compounds</h2>
+      <p>Compounds with the same molecular formula but different physical/chemical properties are called isomers.</p>
+      <div class="cols-2">
+        <div>
+          <h3>1. Structural Isomerism</h3>
+          <p>• **Chain**: differing carbon skeleton.<br>
+          • **Position**: functional group on different carbons.<br>
+          • **Functional**: differing functional groups (e.g., Ethanol vs Dimethyl Ether).</p>
+        </div>
+        <div>
+          <h3>2. Stereoisomerism</h3>
+          <p>• **Geometrical**: cis/trans configuration around double bonds (e.g., cis/trans but-2-ene).<br>
+          • **Optical**: mirror image non-superimposable isomers (enantiomers).</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Electronic Displacement Effects</h2>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>Inductive Effect ($I$-effect):</strong> Permanent polarization of $\sigma$ electrons along a carbon chain towards a highly electronegative atom (e.g., $Cl$). Decreases rapidly with distance.</li>
+        <li class="reveal-item"><strong>Resonance Effect ($R$-effect):</strong> Permanent polarity produced by interaction of $\pi$-orbitals or lone pairs. Delocalizes electron density to stabilize charges (e.g., aniline).</li>
+        <li class="reveal-item"><strong>Hyperconjugation:</strong> No-bond resonance. Overlap of $\sigma$-electrons of $C-H$ bond with empty p-orbital of adjacent carbon. Stabilizes alkyl carbocations (Tertiary > Secondary > Primary).</li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>IUPAC & Electron Displacement Lab</h2>
+      <p>Launch the interactive panel to build IUPAC names, examine isomer arrangements, and animate resonance / inductive electron shifts on carbocations.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 5</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3>🧪 IUPAC & Electronic Effects Lab</h3>
+        </div>
+        <button id="close-overlay" class="close-btn">✕</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-tab-header">
+          <button class="sim-tab-btn active" onclick="switchTab(0)">IUPAC Challenge</button>
+          <button class="sim-tab-btn" onclick="switchTab(1)">Electronic Effects</button>
+        </div>
+
+        <div class="sim-grid">
+          <!-- Tab 1 -->
+          <div id="tab-iupac" class="sim-visualizer">
+            <h4>Deduce the IUPAC Name</h4>
+            <div class="chem-display" id="iupac-compound">CH₃ - CH(OH) - CH₂ - CH₃</div>
+            <div style="display:flex; gap:0.5rem; margin-bottom:1rem;">
+              <select id="iupac-prefix" style="background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px;">
+                <option value="none">Prefix: None</option>
+                <option value="methyl">Prefix: 2-methyl</option>
+              </select>
+              <select id="iupac-root" style="background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px;">
+                <option value="prop">Root: Prop</option>
+                <option value="butan">Root: Butan</option>
+              </select>
+              <select id="iupac-suffix" style="background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px;">
+                <option value="ane">Suffix: -ane</option>
+                <option value="ol">Suffix: -2-ol</option>
+                <option value="oic">Suffix: -oic acid</option>
+              </select>
+            </div>
+            <button onclick="checkIupac()" style="background:#38bdf8; color:#000; padding:0.5rem 1rem; border:none; border-radius:6px; cursor:pointer;">Submit IUPAC Name</button>
+          </div>
+
+          <!-- Tab 2 -->
+          <div id="tab-effects" class="sim-visualizer" style="display:none;">
+            <h4>Electronic Displacement Animations</h4>
+            <div style="margin-bottom:1rem; display:flex; gap:0.5rem;">
+              <button onclick="runEffect('inductive')" style="background:#3b82f6; color:#fff; padding:0.4rem; border:none; border-radius:4px; cursor:pointer;">Inductive Effect</button>
+              <button onclick="runEffect('resonance')" style="background:#a855f7; color:#fff; padding:0.4rem; border:none; border-radius:4px; cursor:pointer;">Resonance Effect</button>
+              <button onclick="runEffect('hyper')" style="background:#10b981; color:#fff; padding:0.4rem; border:none; border-radius:4px; cursor:pointer;">Hyperconjugation</button>
+            </div>
+            <canvas id="effect-canvas" class="mechanism-canvas"></canvas>
+          </div>
+
+          <div class="sim-sidebar">
+            <div>
+              <h3>Organic HUD</h3>
+              <div id="calc-status" style="margin-top:1rem; font-size:0.85rem; color:#e2e8f0; line-height:1.5;">Build the correct IUPAC name or trigger electron transfer mechanism animations.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    function switchTab(idx) {
+      document.querySelectorAll(".sim-tab-btn").forEach((t, i) => {
+        t.classList.toggle("active", i === idx);
+      });
+      document.getElementById("tab-iupac").style.display = idx === 0 ? "flex" : "none";
+      document.getElementById("tab-effects").style.display = idx === 1 ? "flex" : "none";
+      if (idx === 1) {
+        runEffect('inductive');
+      } else {
+        if (animId) {
+          cancelAnimationFrame(animId);
+          animId = null;
+        }
+      }
+    }
+
+    function checkIupac() {
+      const p = document.getElementById("iupac-prefix").value;
+      const r = document.getElementById("iupac-root").value;
+      const s = document.getElementById("iupac-suffix").value;
+
+      if (p === "none" && r === "butan" && s === "ol") {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Correct! 🎉</strong><br>
+          • The molecule is <strong>Butan-2-ol</strong>.<br>
+          • Root 'Butan' indicates 4 carbons.<br>
+          • Suffix '-2-ol' marks secondary alcohol.
+        `;
+      } else {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Incorrect.</strong> Please inspect carbon count and functional group locant.
+        `;
+      }
+    }
+
+    const canvas = document.getElementById("effect-canvas");
+    const ctx = canvas.getContext("2d");
+    let animId = null;
+
+    function runEffect(type) {
+      if (animId) cancelAnimationFrame(animId);
+      canvas.width = canvas.clientWidth || 400;
+      canvas.height = canvas.clientHeight || 120;
+      ctx.clearRect(0,0, canvas.width, canvas.height);
+      
+      let t = 0;
+      function animate() {
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+        t += 0.05;
+
+        if (type === "inductive") {
+          // C -> C -> C -> Cl (arrow animation)
+          ctx.fillStyle = "#fff";
+          ctx.font = "14px monospace";
+          ctx.fillText("C  ---  C  ---  C  --->  Cl", 50, 70);
+          
+          const shift = (Math.sin(t) + 1) * 6;
+          // draw partial charges
+          ctx.fillStyle = "#3b82f6";
+          ctx.fillText("δδδ+", 50, 50);
+          ctx.fillText("δδ+", 105, 50);
+          ctx.fillText("δ+", 160, 50);
+          ctx.fillStyle = "#ef4444";
+          ctx.fillText("δ-", 225 + shift, 50);
+
+          document.getElementById("calc-status").innerHTML = `
+            <strong>Inductive Effect:</strong><br>
+            • Highly electronegative chlorine atom pulls covalent $\sigma$-electrons towards itself.<br>
+            • Induces partial positive charges ($\delta+$) on the carbon chain.
+          `;
+        } else if (type === "resonance") {
+          // resonance arrows
+          ctx.fillStyle = "#fff";
+          ctx.font = "14px monospace";
+          ctx.fillText("[ O=C-O⁻  <===>  ⁻O-C=O ]", 40, 70);
+          
+          // oscillating circle highlight
+          const osc = Math.abs(Math.sin(t));
+          ctx.beginPath();
+          ctx.arc(60 + osc * 120, 70, 15, 0, Math.PI*2);
+          ctx.strokeStyle = "rgba(168,85,247,0.4)";
+          ctx.lineWidth = 3;
+          ctx.stroke();
+
+          document.getElementById("calc-status").innerHTML = `
+            <strong>Resonance Effect:</strong><br>
+            • Complete shifting/delocalization of $\pi$ electrons in the conjugated carboxylate group ($R-COO^-$).<br>
+            • Stabilizes the anion through charge dispersion.
+          `;
+        } else if (type === "hyper") {
+          // hyperconjugation overlap
+          ctx.fillStyle = "#fff";
+          ctx.font = "12px monospace";
+          ctx.fillText("H - C(sp³) --- C⁺(empty p-orbital)", 40, 60);
+
+          // animate overlapping lobe
+          ctx.fillStyle = `rgba(16,185,129,${0.3 + 0.3 * Math.sin(t)})`;
+          ctx.beginPath();
+          ctx.ellipse(140, 90, 20, 40, Math.PI/4, 0, Math.PI*2);
+          ctx.fill();
+
+          document.getElementById("calc-status").innerHTML = `
+            <strong>Hyperconjugation (No-bond resonance):</strong><br>
+            • Overlap of adjacent $\sigma(C-H)$ bond with empty p-orbital of $C^+$ carbocation.<br>
+            • Stabilizes carbocation: Tertiary (9 $\alpha$-H) > Secondary (6 $\alpha$-H) > Primary (3 $\alpha$-H).
+          `;
+        }
+
+        animId = requestAnimationFrame(animate);
+      }
+      // do not call animate() here
+    }
+
+    document.addEventListener("simulator-opened", () => {
+      const activeBtn = document.querySelector(".sim-tab-btn.active");
+      const idx = activeBtn ? Array.from(document.querySelectorAll(".sim-tab-btn")).indexOf(activeBtn) : 0;
+      if (idx === 1 && !animId) {
+        runEffect('inductive');
+      }
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      if (animId) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    });
+  </script>
+</body>
+</html>

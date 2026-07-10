@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chemical Bonding | Class 11</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.25); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+    .canvas-container { width: 100%; height: 260px; background: #030712; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+    .sim-tab-header { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .sim-tab-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; }
+    .sim-tab-btn.active { background: #38bdf8; color: #000; border-color: #38bdf8; }
+    .mot-box { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+    .mot-level { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; }
+    .mot-orbitals-container { display: flex; gap: 0.5rem; }
+    .mot-orb { width: 24px; height: 24px; border: 1.5px solid #fff; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; cursor: pointer; }
+  </style>
+</head>
+<body data-theme="electrochemistry">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 11 · Unit IV</div>
+      <h1>Chemical Bonding & Molecular Structure</h1>
+      <p class="subtitle">Octet rule, VSEPR geometries, orbital hybridization, Molecular Orbital Theory (MOT) diagrams, and Hydrogen bonding.</p>
+    </section>
+
+    <section class="slide">
+      <h2>VSEPR Theory Geometries</h2>
+      <p>Valence Shell Electron Pair Repulsion theory predicts molecular shapes based on minimizing electrostatic repulsions between electron pairs (lone pairs and bond pairs).</p>
+      <div class="note-box">
+        <strong>Order of Repulsion:</strong>
+        $$\text{Lone Pair - Lone Pair} > \text{Lone Pair - Bond Pair} > \text{Bond Pair - Bond Pair}$$
+      </div>
+      <p>Lone pairs occupy more space, leading to distorted bond angles (e.g., $104.5^\circ$ in water vs tetrahedral $109.5^\circ$).</p>
+    </section>
+
+    <section class="slide">
+      <h2>Orbital Hybridization</h2>
+      <p>Mixing atomic orbitals to form new hybrid orbitals suitable for pairing electrons to form chemical bonds.</p>
+      <table style="width:100%; border-collapse:collapse; margin-top:1rem;">
+        <thead>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.2);">
+            <th style="padding:0.5rem; text-align:left;">Hybrid State</th>
+            <th style="padding:0.5rem; text-align:left;">Geometry</th>
+            <th style="padding:0.5rem; text-align:left;">Bond Angle</th>
+            <th style="padding:0.5rem; text-align:left;">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:0.5rem;">$sp$</td><td style="padding:0.5rem;">Linear</td><td style="padding:0.5rem;">$180^\circ$</td><td style="padding:0.5rem;">$BeCl_2$</td></tr>
+          <tr><td style="padding:0.5rem;">$sp^2$</td><td style="padding:0.5rem;">Trigonal Planar</td><td style="padding:0.5rem;">$120^\circ$</td><td style="padding:0.5rem;">$BF_3$</td></tr>
+          <tr><td style="padding:0.5rem;">$sp^3$</td><td style="padding:0.5rem;">Tetrahedral</td><td style="padding:0.5rem;">$109.5^\circ$</td><td style="padding:0.5rem;">$CH_4$</td></tr>
+          <tr><td style="padding:0.5rem;">$sp^3d$</td><td style="padding:0.5rem;">Trigonal Bipyramidal</td><td style="padding:0.5rem;">$90^\circ, 120^\circ$</td><td style="padding:0.5rem;">$PCl_5$</td></tr>
+          <tr><td style="padding:0.5rem;">$sp^3d^2$</td><td style="padding:0.5rem;">Octahedral</td><td style="padding:0.5rem;">$90^\circ$</td><td style="padding:0.5rem;">$SF_6$</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="slide">
+      <h2>Molecular Orbital Theory (MOT)</h2>
+      <p>Atomic orbitals of comparable energies combine to form molecular orbitals (bonding and antibonding):</p>
+      <div class="cols-2">
+        <div class="note-box">
+          <strong>Bond Order calculation:</strong>
+          $$\text{Bond Order (B.O.)} = \frac{N_b - N_a}{2}$$
+          Where $N_b$ is bonding and $N_a$ is antibonding electrons.
+        </div>
+        <div class="note-box">
+          <strong>Magnetic properties:</strong>
+          • Unpaired electrons: **Paramagnetic**
+          • All electrons paired: **Diamagnetic**
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Hydrogen Bonding</h2>
+      <p>Attractive force binding hydrogen atom covalently linked to a highly electronegative atom (F, O, N) with another electronegative atom.</p>
+      <div class="cols-2">
+        <div>
+          <h3>1. Intermolecular H-Bonding</h3>
+          <p>Occurs between different molecules of same/different compound (e.g., $H_2O$, $HF$, $NH_3$). Increases boiling points.</p>
+        </div>
+        <div>
+          <h3>2. Intramolecular H-Bonding</h3>
+          <p>Occurs within a single molecule (e.g., o-nitrophenol). Lowers boiling point.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>VSEPR, Hybridization, and MOT Lab</h2>
+      <p>Launch the interactive panel to project 3D shapes of molecular structures, fill molecular orbitals of oxygen vs nitrogen, and animate hydrogen bonding.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 6</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3>🧪 Bonding, Geometries & MOT Lab</h3>
+        </div>
+        <button id="close-overlay" class="close-btn">✕</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-tab-header">
+          <button class="sim-tab-btn active" onclick="switchTab(0)">VSEPR & shapes</button>
+          <button class="sim-tab-btn" onclick="switchTab(1)">MOT Energy Levels</button>
+        </div>
+
+        <div class="sim-grid">
+          <!-- Tab 1 -->
+          <div id="tab-vsepr" class="sim-visualizer">
+            <div style="margin-bottom:0.5rem; display:flex; gap:1rem;">
+              <select id="vsepr-select" onchange="drawVsepr()" style="background:#1e293b; color:#fff; padding:0.4rem; border-radius:6px;">
+                <option value="becl2">BeCl₂ (sp - Linear)</option>
+                <option value="bf3">BF₃ (sp² - Trigonal Planar)</option>
+                <option value="ch4">CH₄ (sp³ - Tetrahedral)</option>
+                <option value="pcl5">PCl₅ (sp³d - Trigonal Bipyramid)</option>
+                <option value="sf6">SF₆ (sp³d² - Octahedral)</option>
+              </select>
+            </div>
+            <canvas id="vsepr-canvas" class="canvas-container"></canvas>
+          </div>
+
+          <!-- Tab 2 -->
+          <div id="tab-mot" class="sim-visualizer" style="display:none;">
+            <h4>MOT Energy Diagram: Nitrogen ($N_2$) vs Oxygen ($O_2$)</h4>
+            <div style="margin-bottom:1rem;">
+              <button onclick="fillMOT('N2')" style="background:#a855f7; color:#fff; padding:0.4rem 0.8rem; border:none; border-radius:4px; cursor:pointer;">Nitrogen (N₂)</button>
+              <button onclick="fillMOT('O2')" style="background:#10b981; color:#fff; padding:0.4rem 0.8rem; border:none; border-radius:4px; cursor:pointer; margin-left:0.5rem;">Oxygen (O₂)</button>
+            </div>
+            <div class="mot-box">
+              <div class="mot-level"><span>$\pi^*_{2p_x}, \pi^*_{2p_y}$</span> <div class="mot-orbitals-container"><div class="mot-orb" id="mot-api-x"></div><div class="mot-orb" id="mot-api-y"></div></div></div>
+              <div class="mot-level"><span>$\sigma^*_{2p_z}$</span> <div class="mot-orbitals-container"><div class="mot-orb" id="mot-asig-z"></div></div></div>
+              <div class="mot-level"><span>$\pi_{2p_x}, \pi_{2p_y}$</span> <div class="mot-orbitals-container"><div class="mot-orb" id="mot-pi-x"></div><div class="mot-orb" id="mot-pi-y"></div></div></div>
+              <div class="mot-level"><span>$\sigma_{2p_z}$</span> <div class="mot-orbitals-container"><div class="mot-orb" id="mot-sig-z"></div></div></div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <div>
+              <h3>Bonding HUD</h3>
+              <div id="calc-status" style="margin-top:1rem; font-size:0.85rem; color:#e2e8f0; line-height:1.5;">Select molecule and analyze molecular geometry or molecular orbital configs.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    function switchTab(idx) {
+      document.querySelectorAll(".sim-tab-btn").forEach((t, i) => {
+        t.classList.toggle("active", i === idx);
+      });
+      document.getElementById("tab-vsepr").style.display = idx === 0 ? "flex" : "none";
+      document.getElementById("tab-mot").style.display = idx === 1 ? "flex" : "none";
+      if (idx === 0) drawVsepr();
+      else if (idx === 1) fillMOT('N2');
+    }
+
+    const canvas = document.getElementById("vsepr-canvas");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = canvas.parentElement.clientWidth - 32;
+      canvas.height = 240;
+    }
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      drawVsepr();
+    });
+
+    function drawAtom(x, y, r, color, label) {
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI*2);
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,0.4)";
+      ctx.stroke();
+
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 12px sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(label, x, y);
+    }
+
+    function drawBond(x1, y1, x2, y2) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.strokeStyle = "rgba(255,255,255,0.6)";
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    function drawVsepr() {
+      resizeCanvas();
+      ctx.clearRect(0,0, canvas.width, canvas.height);
+      const val = document.getElementById("vsepr-select").value;
+      
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      if (val === "becl2") {
+        drawBond(cx - 80, cy, cx + 80, cy);
+        drawAtom(cx, cy, 18, "#ef4444", "Be");
+        drawAtom(cx - 80, cy, 14, "#3b82f6", "Cl");
+        drawAtom(cx + 80, cy, 14, "#3b82f6", "Cl");
+        document.getElementById("calc-status").innerHTML = `
+          <strong>BeCl₂ Shape: Linear</strong><br>
+          • Hybridization: <strong>sp</strong><br>
+          • Bond Angle: <strong>180°</strong><br>
+          • No lone pairs on Central atom.
+        `;
+      } else if (val === "bf3") {
+        drawBond(cx, cy, cx, cy - 80);
+        drawBond(cx, cy, cx - 70, cy + 50);
+        drawBond(cx, cy, cx + 70, cy + 50);
+        drawAtom(cx, cy, 18, "#ec4899", "B");
+        drawAtom(cx, cy - 80, 14, "#a855f7", "F");
+        drawAtom(cx - 70, cy + 50, 14, "#a855f7", "F");
+        drawAtom(cx + 70, cy + 50, 14, "#a855f7", "F");
+        document.getElementById("calc-status").innerHTML = `
+          <strong>BF₃ Shape: Trigonal Planar</strong><br>
+          • Hybridization: <strong>sp²</strong><br>
+          • Bond Angle: <strong>120°</strong><br>
+          • Coplanar bonds with 120° spacing.
+        `;
+      } else if (val === "ch4") {
+        drawBond(cx, cy, cx, cy - 85);
+        drawBond(cx, cy, cx - 60, cy + 60);
+        drawBond(cx, cy, cx + 60, cy + 60);
+        drawBond(cx, cy, cx + 20, cy + 20); // perspective wedge
+        drawAtom(cx, cy, 18, "#10b981", "C");
+        drawAtom(cx, cy - 85, 12, "#cbd5e1", "H");
+        drawAtom(cx - 60, cy + 60, 12, "#cbd5e1", "H");
+        drawAtom(cx + 60, cy + 60, 12, "#cbd5e1", "H");
+        drawAtom(cx + 20, cy + 20, 12, "#cbd5e1", "H");
+        document.getElementById("calc-status").innerHTML = `
+          <strong>CH₄ Shape: Tetrahedral</strong><br>
+          • Hybridization: <strong>sp³</strong><br>
+          • Bond Angle: <strong>109.5°</strong><br>
+          • Highly symmetric tetrahedral geometry.
+        `;
+      } else if (val === "pcl5") {
+        // Equatorial bonds
+        drawBond(cx, cy, cx - 60, cy + 25);
+        drawBond(cx, cy, cx + 60, cy + 25);
+        drawBond(cx, cy, cx + 50, cy - 25);
+        // Axial bonds
+        drawBond(cx, cy, cx, cy - 80);
+        drawBond(cx, cy, cx, cy + 80);
+        drawAtom(cx, cy, 18, "#f59e0b", "P");
+        drawAtom(cx - 60, cy + 25, 14, "#3b82f6", "Cl");
+        drawAtom(cx + 60, cy + 25, 14, "#3b82f6", "Cl");
+        drawAtom(cx + 50, cy - 25, 14, "#3b82f6", "Cl");
+        drawAtom(cx, cy - 80, 14, "#3b82f6", "Cl");
+        drawAtom(cx, cy + 80, 14, "#3b82f6", "Cl");
+        document.getElementById("calc-status").innerHTML = `
+          <strong>PCl₅ Shape: Trigonal Bipyramidal</strong><br>
+          • Hybridization: <strong>sp³d</strong><br>
+          • Equatorial angles: <strong>120°</strong><br>
+          • Axial angles: <strong>90°</strong> (more vulnerable/reactive).
+        `;
+      } else if (val === "sf6") {
+        // Square plane
+        drawBond(cx, cy, cx - 50, cy - 30);
+        drawBond(cx, cy, cx + 50, cy + 30);
+        drawBond(cx, cy, cx - 50, cy + 30);
+        drawBond(cx, cy, cx + 50, cy - 30);
+        // Axial
+        drawBond(cx, cy, cx, cy - 80);
+        drawBond(cx, cy, cx, cy + 80);
+        drawAtom(cx, cy, 18, "#ef4444", "S");
+        drawAtom(cx - 50, cy - 30, 14, "#a855f7", "F");
+        drawAtom(cx + 50, cy + 30, 14, "#a855f7", "F");
+        drawAtom(cx - 50, cy + 30, 14, "#a855f7", "F");
+        drawAtom(cx + 50, cy - 30, 14, "#a855f7", "F");
+        drawAtom(cx, cy - 80, 14, "#a855f7", "F");
+        drawAtom(cx, cy + 80, 14, "#a855f7", "F");
+        document.getElementById("calc-status").innerHTML = `
+          <strong>SF₆ Shape: Octahedral</strong><br>
+          • Hybridization: <strong>sp³d²</strong><br>
+          • All angles: <strong>90°</strong><br>
+          • Fully symmetric octahedral configuration.
+        `;
+      }
+    }
+
+    function fillMOT(molecule) {
+      const apiX = document.getElementById("mot-api-x");
+      const apiY = document.getElementById("mot-api-y");
+      const asigZ = document.getElementById("mot-asig-z");
+      const piX = document.getElementById("mot-pi-x");
+      const piY = document.getElementById("mot-pi-y");
+      const sigZ = document.getElementById("mot-sig-z");
+
+      // Clear
+      apiX.textContent=""; apiY.textContent=""; asigZ.textContent="";
+      piX.textContent=""; piY.textContent=""; sigZ.textContent="";
+
+      if (molecule === "N2") {
+        // N2 valence configuration: 10 electrons in MO (excluding inner shells)
+        // sig2s (2), asig2s (2), pi2px (2), pi2py (2), sig2pz (2)
+        // (we just show top p-bonding subshells here)
+        sigZ.textContent = "↑↓";
+        piX.textContent = "↑↓";
+        piY.textContent = "↑↓";
+        
+        document.getElementById("calc-status").innerHTML = `
+          <strong>N₂ Valence MO Configuration:</strong><br>
+          • Bond Order = <strong>(8 - 2) / 2 = 3.0</strong> (Triple Bond)<br>
+          • Magnetic Property: <strong>Diamagnetic</strong> (all paired)<br>
+          • Very high dissociation energy.
+        `;
+      } else if (molecule === "O2") {
+        // O2: 12 valence MO electrons (p-orbitals fill sig2pz(2), pi2px(2), pi2py(2), api2px(1), api2py(1))
+        sigZ.textContent = "↑↓";
+        piX.textContent = "↑↓";
+        piY.textContent = "↑↓";
+        apiX.textContent = "↑";
+        apiY.textContent = "↑";
+
+        document.getElementById("calc-status").innerHTML = `
+          <strong>O₂ Valence MO Configuration:</strong><br>
+          • Bond Order = <strong>(8 - 4) / 2 = 2.0</strong> (Double Bond)<br>
+          • Magnetic Property: <strong>Paramagnetic</strong> (unpaired in $\pi^*_{2p_x}, \pi^*_{2p_y}$)<br>
+          • Verified experimentally via liquid oxygen attraction to magnets.
+        `;
+      }
+    }
+
+    drawVsepr();
+    fillMOT('N2');
+  </script>
+</body>
+</html>

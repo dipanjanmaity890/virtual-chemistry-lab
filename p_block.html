@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>p-Block Elements | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* p-Block Custom Simulator CSS */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .process-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+    }
+    .furnace-container {
+      flex-grow: 1;
+      width: 100%;
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .gauge-container {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .gauge-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-align: center;
+      flex: 1;
+    }
+    .gauge-val {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #ffd700;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .sim-sidebar input[type="range"] {
+      width: 100%;
+      accent-color: #ffd700;
+    }
+    .reaction-heat {
+      position: absolute;
+      color: #ef4444;
+      font-weight: bold;
+      animation: float-heat 2s infinite linear;
+      opacity: 0;
+    }
+    @keyframes float-heat {
+      0% { transform: translateY(0) scale(0.8); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+    }
+  </style>
+</head>
+<body data-theme="d-f-block">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">INORGANIC CHEMISTRY · OPTIONAL UNIT</div>
+        <h1>p-Block Elements</h1>
+        <h3>Groups 15, 16, 17 & 18 Properties & Oxoacids</h3>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Haber's Optimizer
+        </button>
+      </section>
+
+      <!-- Slide 2: Group 15 -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Group 15 Elements (Nitrogen Family)</h2>
+          <span class="chapter-tag">p-Block Elements</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Dinitrogen & Ammonia</h3>
+              <p>• **N₂** is inert at room temperature due to its strong triple bond (N≡N).</p>
+              <p>• **NH₃ (Ammonia):** Trigonal pyramidal shape with a lone pair. Strong Lewis base.</p>
+              <p style="margin-top: 0.25rem; font-size: 0.85rem; color: var(--text-secondary);">Manufactured by Haber's Process.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Oxoacids of Phosphorus</h3>
+              <p>• **H₃PO₃ (Orthophosphorous acid):** Dibasic acid (contains 2 P-OH bonds and 1 P-H bond).</p>
+              <p>• **H₃PO₄ (Orthophosphoric acid):** Tribasic acid (contains 3 P-OH bonds).</p>
+              <p style="margin-top: 0.5rem; font-size: 0.85rem; color:#ef4444;">P-H bonds are responsible for reducing properties in oxoacids.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Group 16 -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Group 16 Elements (Chalcogens)</h2>
+          <span class="chapter-tag">p-Block Elements</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Dioxygen & Ozone</h3>
+              <p>• **O₂** is paramagnetic despite having even electrons (explained by Molecular Orbital Theory).</p>
+              <p>• **O₃ (Ozone):** Bent structure with resonance stabilizer. Act as strong oxidizing agent.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Oxoacids of Sulfur</h3>
+              <p>• **H₂SO₄ (Sulfuric acid):** Dibasic, strong dehydrating agent (manufactured by Contact Process).</p>
+              <p>• **H₂S₂O₇ (Oleum):** Formed by absorbing SO₃ in H₂SO₄.</p>
+              <p>• **H₂S₂O₈ (Marshall's acid):** Contains peroxo linkage (S-O-O-S).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Group 17 -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Group 17 Elements (Halogens)</h2>
+          <span class="chapter-tag">p-Block Elements</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <ul>
+                <li class="reveal-item"><strong>Acidic strength:</strong> HF < HCl < HBr < HI. Bond dissociation enthalpy decreases down the group.</li>
+                <li class="reveal-item"><strong>Electron Gain Enthalpy:</strong> Chlorine has a more negative value than Fluorine due to small size and inter-electronic repulsion in F.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Interhalogen Compounds</h3>
+                <p>Formed when two different halogens react. General formula: XX'_n (n=1,3,5,7).</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">• **More reactive** than parent halogens (except F₂) because X-X' bonds are polar and weaker than X-X bonds.</p>
+                <p style="font-size: 0.9rem;">• Examples: ClF₃ (T-shaped), IF₇ (Pentagonal bipyramidal).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Group 18 -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Group 18 Elements (Noble Gases)</h2>
+          <span class="chapter-tag">p-Block Elements</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="margin-bottom: 1rem;">Have completely filled valence shells (ns² np⁶), giving them high ionization enthalpies and zero electron gain enthalpies. Inert chemical nature.</p>
+              <ul>
+                <li class="reveal-item">Helium used in cryogenic applications and filling balloons.</li>
+                <li class="reveal-item">Argon provides inert atmospheres in metallurgical processes.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Xenon Compounds</h3>
+                <p>Neil Bartlett prepared the first noble gas compound in 1962. Xenon reacts with fluorine under different temp/pressure to yield:</p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; font-family: monospace; color:#ffd700;">
+                  • XeF₂: Linear geometry (3 lone pairs)<br>
+                  • XeF₄: Square planar (2 lone pairs)<br>
+                  • XeF₆: Distorted octahedral (1 lone pair)
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Haber's Process -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Haber's Process (Ammonia Manufacture)</h2>
+          <span class="chapter-tag">p-Block Elements</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item">Industrial synthesis of Ammonia gas from nitrogen and hydrogen:</p>
+              <div class="formula-box reveal-item">
+                <span style="font-family: monospace; font-size: 0.95rem;">N₂(g) + 3H₂(g) ⇌ 2NH₃(g) + Heat</span>
+                <div class="formula-label">ΔH° = -92.4 kJ/mol (Exothermic)</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Le Chatelier's Constraints</h3>
+                <p>According to Le Chatelier's principle, high yield is favoured by:</p>
+                <p style="margin-top: 0.5rem;">• <strong>High Pressure:</strong> ~200 atm (shifts to side with fewer moles).</p>
+                <p>• <strong>Low Temperature:</strong> Optimum is ~700 K (exothermic reaction, but low temp slows rate, hence catalyst required).</p>
+                <p>• <strong>Catalyst:</strong> Iron oxide with K₂O/Al₂O₃ promoter.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Launch Optimizer -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Process Optimization</h2>
+          <span class="chapter-tag">p-Block Elements</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Haber's Process Optimizer</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the process optimizer. Adjust pressure, temperature, and catalyst settings to find the industrial optimum conditions for synthesizing Ammonia.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Haber's Optimizer
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 7</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">p-Block Industrial Synthesis Laboratory</h3>
+          <p>Optimize Haber's Ammonia synthesis or Contact Process Sulfuric Acid manufacture</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close process lab">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="process-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-habers">Haber's Process</button>
+              <button class="sim-tab-btn" id="tab-contact">Contact Process</button>
+            </div>
+
+            <!-- Haber's Panel -->
+            <div id="habers-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <div class="furnace-container" id="furnace-view" style="flex-grow: 1; min-height: 180px; position: relative;">
+                <div style="font-family: var(--font-title); font-size:1.8rem; font-weight:bold; color: rgba(255,255,255,0.1); position: absolute; top: 40%; left: 10%;" id="bg-formula">N₂ + 3H₂ ⇌ 2NH₃</div>
+                <div class="reaction-heat" id="heat-floater" style="position: absolute; display: none;">Heat</div>
+              </div>
+              <div class="gauge-container" style="margin-top: 0.5rem;">
+                <div class="gauge-card">Rate <div class="gauge-val" id="rate-val">Medium</div></div>
+                <div class="gauge-card">Equil. <div class="gauge-val" id="limit-val">35%</div></div>
+                <div class="gauge-card">Yield <div class="gauge-val" id="yield-val" style="color:#10b981;">15%</div></div>
+              </div>
+            </div>
+
+            <!-- Contact Panel -->
+            <div id="contact-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <div class="furnace-container" id="contact-furnace" style="flex-grow: 1; min-height: 180px; position: relative; background: rgba(56, 189, 248, 0.05);">
+                <div style="font-family: var(--font-title); font-size:1.6rem; font-weight:bold; color: rgba(255,255,255,0.1); position: absolute; top: 40%; left: 10%;">2SO₂ + O₂ ⇌ 2SO₃</div>
+              </div>
+              <div class="gauge-container" style="margin-top: 0.5rem;">
+                <div class="gauge-card">Rate <div class="gauge-val" id="c-rate-val">Medium</div></div>
+                <div class="gauge-card">Equil. <div class="gauge-val" id="c-limit-val">35%</div></div>
+                <div class="gauge-card">SO₃ Yield <div class="gauge-val" id="c-yield-val" style="color:#00f5d4;">15%</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Haber's Controls -->
+            <div id="habers-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label for="temp-range">Chamber Temperature: <span id="temp-txt">500</span> K</label>
+                <input type="range" id="temp-range" min="300" max="900" step="50" value="500">
+              </div>
+
+              <div class="control-group">
+                <label for="press-range">Chamber Pressure: <span id="press-txt">100</span> atm</label>
+                <input type="range" id="press-range" min="50" max="400" step="10" value="100">
+              </div>
+
+              <div class="control-group" style="flex-direction: row; gap: 1rem; align-items: center;">
+                <input type="checkbox" id="cat-check" style="width: 20px; height: 20px; accent-color: #ffd700;">
+                <label for="cat-check" style="cursor: pointer;">Load Fe Catalyst</label>
+              </div>
+            </div>
+
+            <!-- Contact Controls -->
+            <div id="contact-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label for="c-temp">Temperature: <span id="c-temp-txt">450</span> °C</label>
+                <input type="range" id="c-temp" min="200" max="700" step="25" value="450">
+              </div>
+
+              <div class="control-group">
+                <label for="c-press">Pressure: <span id="c-press-txt">2</span> bar</label>
+                <input type="range" id="c-press" min="1" max="10" step="1" value="2">
+              </div>
+
+              <div class="control-group" style="flex-direction: row; gap: 1rem; align-items: center;">
+                <input type="checkbox" id="c-cat-check" style="width: 20px; height: 20px; accent-color: #00f5d4;">
+                <label for="c-cat-check" style="cursor: pointer;">Load V₂O₅ Catalyst</label>
+              </div>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #ffd700;">
+              <strong>Theoretical Notes:</strong><br>
+              • **Exothermic reactions** yield better at lower temperatures, but require catalyst to speed up.<br>
+              • **Optimum Contact conditions:** 720 K temperature, 2 bar pressure, and \(V_2O_5\) catalyst.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabHabers = document.getElementById("tab-habers");
+    const tabContact = document.getElementById("tab-contact");
+    const habersPanel = document.getElementById("habers-panel");
+    const contactPanel = document.getElementById("contact-panel");
+    const habersControls = document.getElementById("habers-controls");
+    const contactControls = document.getElementById("contact-controls");
+
+    tabHabers.addEventListener("click", () => {
+      tabHabers.classList.add("active");
+      tabContact.classList.remove("active");
+      habersPanel.style.display = "flex";
+      contactPanel.style.display = "none";
+      habersControls.style.display = "flex";
+      contactControls.style.display = "none";
+    });
+
+    tabContact.addEventListener("click", () => {
+      tabContact.classList.add("active");
+      tabHabers.classList.remove("active");
+      contactPanel.style.display = "flex";
+      habersPanel.style.display = "none";
+      contactControls.style.display = "flex";
+      habersControls.style.display = "none";
+      runContactCalculation();
+    });
+
+    // Haber's Process Optimizer Logic
+    const tempRange = document.getElementById("temp-range");
+    const pressRange = document.getElementById("press-range");
+    const catCheck = document.getElementById("cat-check");
+
+    const tempTxt = document.getElementById("temp-txt");
+    const pressTxt = document.getElementById("press-txt");
+
+    const rateVal = document.getElementById("rate-val");
+    const limitVal = document.getElementById("limit-val");
+    const yieldVal = document.getElementById("yield-val");
+    const furnaceView = document.getElementById("furnace-view");
+    const heatFloater = document.getElementById("heat-floater");
+
+    let heatInterval;
+
+    function runHaberCalculation() {
+      const temp = parseInt(tempRange.value, 10);
+      const press = parseInt(pressRange.value, 10);
+      const cat = catCheck.checked;
+
+      tempTxt.textContent = temp;
+      pressTxt.textContent = press;
+
+      let equilibriumLimit = (1.0 - (temp - 300) / 700) * 100;
+      equilibriumLimit += (press - 50) * 0.12;
+      equilibriumLimit = Math.max(5, Math.min(99, equilibriumLimit));
+
+      let rateScore = (temp - 300) * 0.15;
+      if (cat) rateScore *= 2.5;
+
+      let rateText = "Extremely Slow";
+      if (rateScore > 20) rateText = "Slow";
+      if (rateScore > 45) rateText = "Moderate";
+      if (rateScore > 75) rateText = "Fast";
+      if (rateScore > 110) rateText = "Very Fast";
+
+      rateVal.textContent = rateText;
+      limitVal.textContent = `${equilibriumLimit.toFixed(0)}%`;
+
+      let rateEfficiency = rateScore / 90;
+      rateEfficiency = Math.min(1.0, rateEfficiency);
+      
+      let finalYield = equilibriumLimit * rateEfficiency;
+      finalYield = Math.max(1, Math.min(98, finalYield));
+
+      yieldVal.textContent = `${finalYield.toFixed(0)}%`;
+
+      const heatIntensity = (temp - 300) / 600;
+      furnaceView.style.backgroundColor = `rgba(239, 68, 68, ${heatIntensity * 0.25})`;
+
+      if (temp > 500) {
+        heatFloater.style.display = "block";
+      } else {
+        heatFloater.style.display = "none";
+      }
+    }
+
+    tempRange.addEventListener("input", runHaberCalculation);
+    pressRange.addEventListener("input", runHaberCalculation);
+    catCheck.addEventListener("change", runHaberCalculation);
+
+    // Contact Process Optimizer Logic
+    const cTemp = document.getElementById("c-temp");
+    const cPress = document.getElementById("c-press");
+    const cCatCheck = document.getElementById("c-cat-check");
+    const cTempTxt = document.getElementById("c-temp-txt");
+    const cPressTxt = document.getElementById("c-press-txt");
+
+    const cRateVal = document.getElementById("c-rate-val");
+    const cLimitVal = document.getElementById("c-limit-val");
+    const cYieldVal = document.getElementById("c-yield-val");
+    const cFurnace = document.getElementById("contact-furnace");
+
+    function runContactCalculation() {
+      const temp = parseInt(cTemp.value, 10);
+      const press = parseInt(cPress.value, 10);
+      const cat = cCatCheck.checked;
+
+      cTempTxt.textContent = temp;
+      cPressTxt.textContent = press;
+
+      let equilibriumLimit = (1.0 - (temp - 200) / 500) * 100;
+      equilibriumLimit += (press - 1) * 3; // pressure boosts slightly
+      equilibriumLimit = Math.max(5, Math.min(99, equilibriumLimit));
+
+      let rateScore = (temp - 200) * 0.2;
+      if (cat) rateScore *= 3.0;
+
+      let rateText = "Very Slow";
+      if (rateScore > 20) rateText = "Slow";
+      if (rateScore > 45) rateText = "Moderate";
+      if (rateScore > 75) rateText = "Fast";
+
+      cRateVal.textContent = rateText;
+      cLimitVal.textContent = `${equilibriumLimit.toFixed(0)}%`;
+
+      let rateEfficiency = rateScore / 80;
+      rateEfficiency = Math.min(1.0, rateEfficiency);
+
+      let finalYield = equilibriumLimit * rateEfficiency;
+      finalYield = Math.max(1, Math.min(99, finalYield));
+
+      cYieldVal.textContent = `${finalYield.toFixed(0)}%`;
+
+      const heatIntensity = (temp - 200) / 500;
+      cFurnace.style.backgroundColor = `rgba(239, 68, 68, ${heatIntensity * 0.25})`;
+    }
+
+    cTemp.addEventListener("input", runContactCalculation);
+    cPress.addEventListener("input", runContactCalculation);
+    cCatCheck.addEventListener("change", runContactCalculation);
+
+    // Initialize
+    runHaberCalculation();
+
+    document.addEventListener("simulator-opened", () => {
+      runHaberCalculation();
+      runContactCalculation();
+      
+      clearInterval(heatInterval);
+      heatInterval = setInterval(() => {
+        heatFloater.style.left = `${Math.random() * 60 + 20}%`;
+        heatFloater.style.top = `60%`;
+      }, 2000);
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      clearInterval(heatInterval);
+    });
+  </script>
+</body>
+</html>

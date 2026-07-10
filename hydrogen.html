@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hydrogen | Class 11</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    .sim-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; width: 100%; height: 100%; }
+    .sim-visualizer { background: rgba(0,0,0,0.2); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+  </style>
+</head>
+<body data-theme="solutions">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+  </a>
+
+  <div class="presentation-container">
+    <section class="slide active">
+      <div class="badge">Class 11 · Unit IX</div>
+      <h1>Hydrogen</h1>
+      <p class="subtitle">Position in periodic table, isotopes, hydrides, water hardness, and hydrogen peroxide.</p>
+    </section>
+
+    <section class="slide">
+      <h2>Isotopes of Hydrogen</h2>
+      <p>Hydrogen has three isotopes with mass numbers 1, 2, and 3:</p>
+      <div class="cols-3">
+        <div class="note-box" style="text-align:center;">
+          <h3>Protium ($^1H$)</h3>
+          <p>No neutrons.<br>99.98% abundance.</p>
+        </div>
+        <div class="note-box" style="text-align:center;">
+          <h3>Deuterium ($^2H$ or $D$)</h3>
+          <p>1 neutron.<br>Used in heavy water ($D_2O$).</p>
+        </div>
+        <div class="note-box" style="text-align:center;">
+          <h3>Tritium ($^3H$ or $T$)</h3>
+          <p>2 neutrons.<br>Radioactive ($\beta^-$ emitter).</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Water Hardness</h2>
+      <p>Hardness in water is due to dissolved hydrogen carbonates, sulfates, and chlorides of Calcium and Magnesium.</p>
+      <div class="cols-2">
+        <div class="note-box">
+          <strong>Temporary Hardness:</strong>
+          Due to Calcium/Magnesium bicarbonates. Removed easily by boiling or adding Clark's lime:
+          $$Ca(HCO_3)_2 \rightarrow CaCO_3 \downarrow + H_2O + CO_2$$
+        </div>
+        <div class="note-box">
+          <strong>Permanent Hardness:</strong>
+          Due to Calcium/Magnesium chlorides/sulfates. Removed using Calgon ($Na_6P_6O_{18}$) or ion-exchange zeolites.
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <h2>Water Hardness Lab</h2>
+      <p>Launch the simulator to perform titration on water samples to measure hardness (ppm) and test ion-exchange zeolite columns.</p>
+      <button class="btn-launch-simulator">Open Lab Panel</button>
+    </section>
+  </div>
+
+  <div class="hud-controls">
+    <div class="hud-slide-number">Slide: <span>1 / 4</span></div>
+    <div class="hud-progress-container"><div class="hud-progress-bar"></div></div>
+    <div class="hud-buttons">
+      <button id="prev-slide" disabled>Prev</button>
+      <button id="launch-sim-btn">Lab Panel</button>
+      <button id="next-slide">Next</button>
+    </div>
+  </div>
+
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3>🧪 Water Hardness Analysis</h3>
+        </div>
+        <button id="close-overlay" class="close-btn">✕</button>
+      </div>
+      <div class="overlay-body">
+        <div class="sim-grid">
+          <div class="sim-visualizer">
+            <h4>Select Water Sample to Test Hardness</h4>
+            <div style="margin-bottom:1rem;">
+              <select id="water-select" style="background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px;">
+                <option value="rain">Rain Water (Soft)</option>
+                <option value="well">Well Water (Permanent Hardness)</option>
+              </select>
+            </div>
+            <button onclick="testHardness()" style="background:#38bdf8; color:#000; padding:0.5rem 1rem; border:none; border-radius:6px; cursor:pointer;">Titrate with EDTA</button>
+          </div>
+
+          <div class="sim-sidebar">
+            <div>
+              <h3>Titration HUD</h3>
+              <div id="calc-status" style="margin-top:1rem; font-size:0.85rem; color:#e2e8f0; line-height:1.5;">Click Titrate to measure total divalent metal ion concentration (ppm hardness).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    function testHardness() {
+      const val = document.getElementById("water-select").value;
+      if (val === "rain") {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Titration Result:</strong><br>
+          • EDTA volume = 1.2 mL<br>
+          • <strong>Hardness = 12 ppm (Soft water)</strong><br><br>
+          • Foams instantly with soap. No scaling.
+        `;
+      } else {
+        document.getElementById("calc-status").innerHTML = `
+          <strong>Titration Result:</strong><br>
+          • EDTA volume = 28.5 mL<br>
+          • <strong>Hardness = 285 ppm (Hard water)</strong><br><br>
+          • Heavy calcium sulfate/chloride content. Form scum with soap. Requires zeolite columns for softening.
+        `;
+      }
+    }
+  </script>
+</body>
+</html>

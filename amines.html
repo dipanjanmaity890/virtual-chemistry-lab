@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amines | CBSE Class 12 Chemistry</title>
+  <link rel="stylesheet" href="assets/css/presentation.css">
+  <style>
+    /* Amines custom simulator styles */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .hinsberg-visualizer {
+      background: #090c15;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      height: 100%;
+      min-height: 380px;
+      justify-content: center;
+      align-items: center;
+    }
+    .testtubes-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      width: 100%;
+      height: 200px;
+      position: relative;
+      margin-top: 1rem;
+    }
+    .testtube {
+      width: 44px;
+      height: 160px;
+      border: 3px solid #cbd5e1;
+      border-top: none;
+      border-radius: 0 0 22px 22px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: rgba(255,255,255,0.02);
+    }
+    .testtube-liquid {
+      width: 100%;
+      height: 50%;
+      background-color: rgba(255, 255, 255, 0.15);
+      transition: background-color 1.5s, height 1.5s;
+    }
+    .precipitate-solid {
+      width: 100%;
+      height: 0px;
+      background-color: #f1f5f9;
+      box-shadow: 0 0 8px #cbd5e1;
+      transition: height 1.5s;
+    }
+    .tube-label {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+    .tube-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .sim-sidebar {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .sim-sidebar button {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body data-theme="organic">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+    Dashboard
+  </a>
+
+  <div class="presentation-viewport">
+    <div class="slides-wrapper">
+      
+      <!-- Slide 1: Title -->
+      <section class="slide title-slide active">
+        <div class="badge">UNIT XIII · ORGANIC CHEMISTRY</div>
+        <h1>Amines</h1>
+        <h3>CBSE Class 12 Comprehensive Study Slides</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Pyramidal geometry repulsions, aqueous basic strength factors, Gabriel synthesis bounds, and Hinsberg distinction tests.</p>
+        <button class="btn-launch-simulator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Open Hinsberg Lab
+        </button>
+      </section>
+
+      <!-- Slide 2: Classification & Structure -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Classification & pyramidal Orbital Structure</h2>
+          <span class="chapter-tag">Amines</span>
+        </div>
+        <div class="slide-body">
+          <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Amines are organic derivatives of ammonia (\(NH_3\)) obtained by replacing one, two, or three hydrogen atoms with alkyl or aryl groups.</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Classification</h3>
+              <p>• **Primary (1°):** One hydrogen replaced (e.g. \(R-NH_2\)).</p>
+              <p>• **Secondary (2°):** Two hydrogens replaced (e.g. \(R_2NH\)).</p>
+              <p>• **Tertiary (3°):** All three hydrogens replaced (e.g. \(R_3N\)).</p>
+              <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.85rem;">
+                Note: Unlike alcohols where class depends on carbon, amine classification depends on the number of groups bound directly to **Nitrogen**.
+              </p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Pyramidal Geometry</h3>
+              <p>• Nitrogen in amines is **\(sp^3\)-hybridized**.</p>
+              <p>• Three orbitals form \(\sigma\) bonds with carbon/hydrogen, while the fourth orbital contains a **lone pair** of electrons.</p>
+              <p>• The geometry is **pyramidal**. Due to lone pair-bonding pair repulsion, the bond angle is compressed to **108°** (less than tetrahedral 109.5°).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Preparation Methods I -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Preparation of Amines: Part I</h2>
+          <span class="chapter-tag">Amines</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>1. Reduction of Nitro Compounds</h3>
+              <p>• Nitrobenzene is reduced to aniline using metals in acidic medium (\(Sn/HCl\) or \(Fe/HCl\)).</p>
+              <p>• **Industrial Preference:** Reduction with **\(Fe + HCl\)** is preferred because \(FeCl_2\) formed gets hydrolyzed to release \(HCl\), requiring only a small initiator amount of hydrochloric acid.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>2. Ammonolysis of Alkyl Halides</h3>
+              <p>• Nucleophilic substitution where ammonia acts as the nucleophile: \(H_3N + R-X \rightarrow R-NH_3^+ X^- \xrightarrow{NaOH} R-NH_2\).</p>
+              <p>• **Limitation:** The product primary amine is also nucleophilic and continues to react with alkyl halide, yielding a mixture of \(1^\circ, 2^\circ, 3^\circ\) amines and quaternary ammonium salts. Excess \(NH_3\) favors primary amine formation.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Preparation Methods II -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Preparation of Amines: Part II</h2>
+          <span class="chapter-tag">Amines</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>1. Gabriel Phthalimide Synthesis</h3>
+              <p>• Phthalimide reacts with KOH to form potassium phthalimide, which undergoes SN2 alkylation with an alkyl halide, followed by alkaline hydrolysis to yield a **pure primary aliphatic amine**:</p>
+              <div class="formula-box" style="margin: 0.3rem 0; padding: 0.35rem; font-family: monospace; font-size: 0.75rem;">
+                Pot. Phthalimide + R-X ➔ N-Alkylphthalimide ➔ R-NH₂
+              </div>
+              <p style="font-size:0.85rem; color:#ef4444; font-weight:600;">
+                **Limitation:** Aryl halides do not undergo SN2 substitution with phthalimide anion. Thus, **Aniline cannot be prepared by this method**.
+              </p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>2. Hofmann Bromamide Degradation</h3>
+              <p>• Treating an amide with bromine in aqueous or ethanolic NaOH degrades the amide carbonyl, yielding a primary amine with **one less carbon**:</p>
+              <div class="formula-box" style="margin: 0.3rem 0; padding: 0.4rem; font-family: monospace; font-size: 0.8rem;">
+                R-CONH₂ + Br₂ + 4NaOH ➔ R-NH₂ + Na₂CO₃ + 2NaBr + 2H₂O
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Physical Properties -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Physical Properties</h2>
+          <span class="chapter-tag">Amines</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-3">
+            <div class="content-card reveal-item">
+              <h3>Boiling Points</h3>
+              <p>Amines form intermolecular hydrogen bonds (except tertiary). Boiling points follow the trend: **Primary > Secondary > Tertiary**.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Hydrogen bonding Limits</h3>
+              <p>Tertiary amines have no hydrogens bonded to nitrogen; they cannot form intermolecular hydrogen bonds and have lower boiling points similar to hydrocarbons.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Water Solubility</h3>
+              <p>Lower aliphatic amines are highly soluble in water because they form H-bonds with H₂O molecules. Solubility decreases as the hydrophobic alkyl chain grows.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Basic Strength: Aliphatic vs Ammonia -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Basic Strength of Aliphatic Amines</h2>
+          <span class="chapter-tag">Amines</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height:1.5;">
+                Amines are basic due to the presence of a **lone pair on nitrogen**.
+              </p>
+              <p class="reveal-item" style="line-height:1.5; margin-top: 0.5rem;">
+                **Aliphatic amines are stronger bases than ammonia** because electron-donating alkyl groups (+I effect) increase electron density on nitrogen, making the lone pair more available for protonation and stabilizing the alkylammonium cation.
+              </p>
+              <div class="formula-box reveal-item" style="margin-top: 0.5rem;">
+                <div class="formula-text">Gas Phase Basicity Order: R₃N > R₂NH > RNH₂ > NH₃</div>
+              </div>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>The Aqueous Phase Anomaly</h3>
+                <p>In water, basicity does not follow the gas phase order. Instead, it is determined by three competing effects:</p>
+                <p style="font-size: 0.85rem; margin-top: 0.4rem;">
+                  1. **Inductive Effect (+I):** Stabilizes cation in order \(3^\circ > 2^\circ > 1^\circ\).<br>
+                  2. **Solvation Effect:** H-bonding with water stabilizes cation in order \(1^\circ > 2^\circ > 3^\circ\).<br>
+                  3. **Steric Hindrance:** Crowding blocks protonation in order \(1^\circ > 2^\circ > 3^\circ\).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 7: Basic Strength in Aqueous Medium -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Aqueous phase Basicity Orders</h2>
+          <span class="chapter-tag">Amines</span>
+        </div>
+        <div class="slide-body">
+          <p class="reveal-item" style="font-size: 1.05rem; margin-bottom: 1.5rem;">Due to the interplay of inductive, solvation, and steric factors, the overall basic strength order in aqueous medium is:</p>
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Methyl (-CH₃) Substituted Amines</h3>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.75rem;">
+                <span style="font-family: monospace; font-size: 1.2rem; color: var(--accent-color); font-weight: bold;">(CH₃)₂NH > CH₃NH₂ > (CH₃)₃N > NH₃</span>
+              </div>
+              <p style="font-size: 0.9rem; margin-top: 0.5rem; text-align: center;">**Basicity Order:** Secondary (2°) > Primary (1°) > Tertiary (3°) > Ammonia</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Ethyl (-C₂H₅) Substituted Amines</h3>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.75rem;">
+                <span style="font-family: monospace; font-size: 1.2rem; color: var(--accent-color); font-weight: bold;">(C₂H₅)₂NH > (C₂H₅)₃N > C₂H₅NH₂ > NH₃</span>
+              </div>
+              <p style="font-size: 0.9rem; margin-top: 0.5rem; text-align: center;">**Basicity Order:** Secondary (2°) > Tertiary (3°) > Primary (1°) > Ammonia</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Basic Strength: Aniline vs Ammonia -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Aniline vs Ammonia Basicity</h2>
+          <span class="chapter-tag">Amines</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div>
+              <p class="reveal-item" style="line-height:1.5;">
+                **Aniline is a much weaker base than ammonia and aliphatic amines** (\(pK_b\) of aniline is 9.4, vs methylamine 3.3).
+              </p>
+              <p class="reveal-item" style="line-height:1.5; margin-top: 0.5rem;">
+                **Reason:** In aniline, the nitrogen lone pair is in conjugation with the \(\pi\) electron cloud of the benzene ring, delocalizing into the ring via resonance. Thus, the lone pair is less available for protonation.
+              </p>
+            </div>
+            <div>
+              <div class="content-card reveal-item">
+                <h3>Anilinium Cation Instability</h3>
+                <p>• Protonation of aniline forms the **Anilinium ion** (\(C_6H_5NH_3^+\)).</p>
+                <p>• Aniline has **five resonance structures**, whereas the anilinium ion has only **two resonance structures** (since there is no lone pair on nitrogen to delocalize into the ring).</p>
+                <p style="margin-top: 0.5rem; color:#ef4444; font-weight:600;">Hence, aniline is much more stable than the anilinium ion, shifting the equilibrium to the left (weaker base).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9: Named Reactions & Hinsberg Test -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Carbylamine & Hinsberg Test</h2>
+          <span class="chapter-tag">Amines</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Carbylamine Reaction</h3>
+              <p>• Diagnostic test **only for primary (\(1^\circ\)) amines** (aliphatic or aromatic).</p>
+              <p>• Heating with chloroform (\(CHCl_3\)) and alcoholic KOH yields extremely foul-smelling **isocyanides (carbylamines)**:</p>
+              <div class="formula-box" style="margin-top: 0.3rem; padding: 0.4rem; font-family: monospace; font-size: 0.75rem;">
+                R-NH₂ + CHCl₃ + 3KOH ➔ R-NC + 3KCl + 3H₂O
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Secondary and tertiary amines do not show this reaction.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Hinsberg Test Distinction</h3>
+              <p>Reacting amines with **Hinsberg Reagent** (benzenesulfonyl chloride, \(C_6H_5SO_2Cl\)):</p>
+              <p style="font-size: 0.85rem;">
+                • **Primary (1°):** Forms sulfonamide containing acidic hydrogen on N, which is **soluble in alkali**.<br>
+                • **Secondary (2°):** Forms sulfonamide lacking acidic hydrogen, which is **insoluble in alkali**.<br>
+                • **Tertiary (3°):** Does not react at all.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: Diazonium Salts -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Diazonium Salts: Preparation & Synthesis</h2>
+          <span class="chapter-tag">Amines</span>
+        </div>
+        <div class="slide-body">
+          <div class="cols-2">
+            <div class="content-card reveal-item">
+              <h3>Preparation: Diazotisation</h3>
+              <p>Prepared by reacting aniline with nitrous acid (produced in situ from \(NaNO_2\) and \(HCl\)) at low temperatures (**273-278 K**):</p>
+              <div class="formula-box" style="margin: 0.5rem 0; padding: 0.5rem;">
+                <span style="font-family: monospace; font-size: 0.8rem; line-height: 1.3;">
+                  C₆H₅NH₂ + NaNO₂ + 2HCl ➔ [0-5°C] ➔ C₆H₅N₂⁺Cl⁻ + NaCl + 2H₂O
+                </span>
+              </div>
+              <p style="font-size:0.85rem; color:#ef4444;">Higher temperatures decompose the salt to form phenol.</p>
+            </div>
+            <div class="content-card reveal-item">
+              <h3>Synthetic Reactions</h3>
+              <p>• **Sandmeyer Reaction:** Diazonium group replaced by Cl, Br, or CN using cuprous salts (\(Cu_2Cl_2, Cu_2Br_2, Cu_2(CN)_2\)).</p>
+              <p>• **Gattermann Reaction:** Halogen insertion using copper powder and halogen acid (\(Cu/HCl\)).</p>
+              <p>• **Coupling Reactions:** Reacting diazonium salts with phenol or aniline yields colored **azo dyes** (e.g. p-hydroxyazobenzene - orange dye).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 11: Launch Lab -->
+      <section class="slide">
+        <div class="slide-header">
+          <h2>Amines Lab</h2>
+          <span class="chapter-tag">Amines</span>
+        </div>
+        <div class="slide-body" style="text-align: center;">
+          <h3 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--font-title);">Interactive Hinsberg Distinction Lab</h3>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; font-size: 1.1rem; line-height: 1.6;">
+            Open the Hinsberg simulator. React primary, secondary, and tertiary amine samples with benzenesulfonyl chloride, add alkali to check sulfonamide solubility, and distinguish classes dynamically.
+          </p>
+          <button class="btn-launch-simulator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            Launch Hinsberg Simulator
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- HUD Controls -->
+    <div class="hud-slide-number">Slide <span>1 / 11</span></div>
+    <div class="hud-controls">
+      <div class="hud-nav">
+        <button class="hud-btn" id="prev-slide" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="hud-btn" id="next-slide" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+      <button class="hud-btn" id="launch-sim-btn" title="Open Simulation Panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+    </div>
+    <div class="hud-progress">
+      <div class="hud-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Interactive Simulator Overlay Panel -->
+  <div class="interactive-overlay" id="sim-overlay">
+    <div class="overlay-container">
+      <div class="overlay-header">
+        <div class="overlay-title">
+          <h3 tabindex="-1">Amines Identification Laboratory</h3>
+          <p>Toggle Hinsberg chemical distinction or run the Carbylamine foul-smelling isocyanide test</p>
+        </div>
+        <button class="close-overlay-btn" id="close-overlay" aria-label="Close amines simulator">✕</button>
+      </div>
+      
+      <div class="overlay-body">
+        <div class="sim-grid">
+          
+          <div class="hinsberg-visualizer">
+            <div class="sim-tab-header">
+              <button class="sim-tab-btn active" id="tab-hinsberg">Hinsberg separation</button>
+              <button class="sim-tab-btn" id="tab-carbylamine">Carbylamine Test</button>
+            </div>
+
+            <!-- Hinsberg Panel -->
+            <div id="hinsberg-panel" style="display: flex; flex-direction: column; width: 100%; height: calc(100% - 60px);">
+              <div class="testtubes-row">
+                <div class="tube-container">
+                  <div class="testtube">
+                    <div class="testtube-liquid" id="liquid-1"></div>
+                    <div class="precipitate-solid" id="precip-1"></div>
+                  </div>
+                  <div class="tube-label">1° Amine</div>
+                </div>
+                <div class="tube-container">
+                  <div class="testtube">
+                    <div class="testtube-liquid" id="liquid-2"></div>
+                    <div class="precipitate-solid" id="precip-2"></div>
+                  </div>
+                  <div class="tube-label">2° Amine</div>
+                </div>
+                <div class="tube-container">
+                  <div class="testtube">
+                    <div class="testtube-liquid" id="liquid-3"></div>
+                    <div class="precipitate-solid" id="precip-3"></div>
+                  </div>
+                  <div class="tube-label">3° Amine</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Carbylamine Panel -->
+            <div id="carbylamine-panel" style="display: none; flex-direction: column; width: 100%; height: calc(100% - 60px); align-items: center; justify-content: center;">
+              <div class="testtube" style="position: relative; width: 60px; height: 150px; border: 3px solid #64748b; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; border-top: none; background: rgba(255,255,255,0.05); overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end;">
+                <!-- Bubbles -->
+                <div id="carb-bubbles" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; background: rgba(168, 85, 247, 0.2); display: none;"></div>
+                <div id="odor-cloud" style="position: absolute; top: 10px; left: 10px; width: 40px; height: 30px; border-radius: 50%; background: rgba(168, 85, 247, 0.4); filter: blur(5px); display: none; animation: pulse 1s infinite alternate;"></div>
+              </div>
+              <div class="timer-val" style="margin-top: 1rem; font-size: 0.85rem;" id="carb-result-txt">
+                Click Heat Sample to start the reaction.
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <!-- Hinsberg Controls -->
+            <div id="hinsberg-controls" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <button class="btn-launch-simulator" id="add-hinsberg-btn" style="background: linear-gradient(135deg, #bd00ff 0%, rgba(189, 0, 255, 0.4) 100%); color: #fff; font-weight: bold; justify-content: center;">1. Add Hinsberg Reagent</button>
+              <button class="btn-launch-simulator" id="add-alkali-btn" style="display: none; background: linear-gradient(135deg, #10b981 0%, rgba(16, 185, 129, 0.4) 100%); justify-content: center; font-weight: bold;">2. Add KOH Alkali</button>
+              <button class="btn-launch-simulator" id="reset-hinsberg-btn" style="display: none; background: linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%); justify-content: center; font-weight: bold;">Reset Test</button>
+
+              <div class="kinetics-info-box" style="border-left-color: #bd00ff; font-size: 0.85rem;" id="hinsberg-explanation-box">
+                Click **Add Hinsberg Reagent** to begin the chemical separation.
+              </div>
+            </div>
+
+            <!-- Carbylamine Controls -->
+            <div id="carbylamine-controls" style="display: none; flex-direction: column; gap: 1.25rem;">
+              <div class="control-group">
+                <label>Select Amine Class</label>
+                <div class="toggle-group" id="carb-amine-toggle">
+                  <button class="toggle-btn active" data-class="1">1° Amine</button>
+                  <button class="toggle-btn" data-class="2">2°/3° Amine</button>
+                </div>
+              </div>
+
+              <button class="btn-launch-simulator" id="heat-carb-btn" style="justify-content: center; padding: 0.8rem; width: 100%; background: linear-gradient(135deg, #a855f7 0%, rgba(168, 85, 247, 0.4) 100%); color: #fff; font-weight: bold;">
+                Heat Sample (CHCl₃ + KOH)
+              </button>
+            </div>
+
+            <div class="kinetics-info-box" style="border-left-color: #bd00ff;">
+              <strong>Theoretical Context:</strong><br>
+              • **Hinsberg Separator** detects primary, secondary, and tertiary amines by sulfonamide solubility.<br>
+              • **Carbylamine Test** yields offensive-smelling isocyanides only from 1° amines.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/presentation.js"></script>
+  <script>
+    // Tab toggling logic
+    const tabHinsberg = document.getElementById("tab-hinsberg");
+    const tabCarbylamine = document.getElementById("tab-carbylamine");
+    const hinsbergPanel = document.getElementById("hinsberg-panel");
+    const carbylaminePanel = document.getElementById("carbylamine-panel");
+    const hinsbergControls = document.getElementById("hinsberg-controls");
+    const carbylamineControls = document.getElementById("carbylamine-controls");
+
+    tabHinsberg.addEventListener("click", () => {
+      tabHinsberg.classList.add("active");
+      tabCarbylamine.classList.remove("active");
+      hinsbergPanel.style.display = "flex";
+      carbylaminePanel.style.display = "none";
+      hinsbergControls.style.display = "flex";
+      carbylamineControls.style.display = "none";
+    });
+
+    tabCarbylamine.addEventListener("click", () => {
+      tabCarbylamine.classList.add("active");
+      tabHinsberg.classList.remove("active");
+      carbylaminePanel.style.display = "flex";
+      hinsbergPanel.style.display = "none";
+      carbylamineControls.style.display = "flex";
+      hinsbergControls.style.display = "none";
+      resetCarbylamine();
+    });
+
+    // Hinsberg Test Logic
+    const addHinsbergBtn = document.getElementById("add-hinsberg-btn");
+    const addAlkaliBtn = document.getElementById("add-alkali-btn");
+    const resetHinsbergBtn = document.getElementById("reset-hinsberg-btn");
+    const explanationBox = document.getElementById("hinsberg-explanation-box");
+
+    const liq1 = document.getElementById("liquid-1");
+    const liq2 = document.getElementById("liquid-2");
+    const liq3 = document.getElementById("liquid-3");
+
+    const prec1 = document.getElementById("precip-1");
+    const prec2 = document.getElementById("precip-2");
+    const prec3 = document.getElementById("precip-3");
+
+    function resetTest() {
+      liq1.style.backgroundColor = "";
+      liq2.style.backgroundColor = "";
+      liq3.style.backgroundColor = "";
+
+      prec1.style.height = "0px";
+      prec2.style.height = "0px";
+      prec3.style.height = "0px";
+
+      addHinsbergBtn.style.display = "block";
+      addAlkaliBtn.style.display = "none";
+      resetHinsbergBtn.style.display = "none";
+      explanationBox.innerHTML = "Click **Add Hinsberg Reagent** to begin the chemical separation.";
+    }
+
+    addHinsbergBtn.addEventListener("click", () => {
+      liq1.style.backgroundColor = "rgba(226, 232, 240, 0.4)";
+      liq2.style.backgroundColor = "rgba(226, 232, 240, 0.4)";
+      
+      prec1.style.height = "25px";
+      prec2.style.height = "25px";
+      prec3.style.height = "0px";
+
+      explanationBox.innerHTML = "• <strong>1° and 2° Amines:</strong> Formed white precipitate sulfonamides.<br>• <strong>3° Amine:</strong> No reaction. Liquid remains clear. <br><br>Now click <strong>Add KOH Alkali</strong> to test solubility.";
+      
+      addHinsbergBtn.style.display = "none";
+      addAlkaliBtn.style.display = "block";
+    });
+
+    addAlkaliBtn.addEventListener("click", () => {
+      prec1.style.height = "0px";
+      liq1.style.backgroundColor = "rgba(16, 185, 129, 0.2)";
+      prec2.style.height = "25px"; 
+      
+      explanationBox.innerHTML = "• <strong>1° Amine:</strong> Acidic H-atom on N allows sulfonamide to dissolve in KOH (clear liquid).<br>• <strong>2° Amine:</strong> Lacks acidic H-atom; precipitate remains insoluble.<br>• <strong>3° Amine:</strong> Remains unreacted.";
+      
+      addAlkaliBtn.style.display = "none";
+      resetHinsbergBtn.style.display = "block";
+    });
+
+    resetHinsbergBtn.addEventListener("click", resetTest);
+
+    // Carbylamine Test Logic
+    const carbAmineToggles = document.querySelectorAll("#carb-amine-toggle .toggle-btn");
+    const heatCarbBtn = document.getElementById("heat-carb-btn");
+    const carbBubbles = document.getElementById("carb-bubbles");
+    const odorCloud = document.getElementById("odor-cloud");
+    const carbResultTxt = document.getElementById("carb-result-txt");
+
+    let selectedCarbClass = "1";
+    let isCarbHeating = false;
+    let carbTimer;
+
+    carbAmineToggles.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        carbAmineToggles.forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        selectedCarbClass = e.target.getAttribute("data-class");
+        resetCarbylamine();
+      });
+    });
+
+    function resetCarbylamine() {
+      clearTimeout(carbTimer);
+      isCarbHeating = false;
+      carbBubbles.style.display = "none";
+      odorCloud.style.display = "none";
+      heatCarbBtn.textContent = "Heat Sample (CHCl₃ + KOH)";
+      heatCarbBtn.style.background = "";
+      carbResultTxt.innerHTML = "Click Heat Sample to start the reaction.";
+    }
+
+    heatCarbBtn.addEventListener("click", () => {
+      if (isCarbHeating) {
+        resetCarbylamine();
+        return;
+      }
+      isCarbHeating = true;
+      heatCarbBtn.textContent = "Reset Test";
+      heatCarbBtn.style.background = "linear-gradient(135deg, #ef4444 0%, rgba(239, 68, 68, 0.4) 100%)";
+      
+      carbBubbles.style.display = "block";
+      carbResultTxt.innerHTML = "Heating chloroform and KOH... nucleophilic carbene attack occurring...";
+
+      carbTimer = setTimeout(() => {
+        if (selectedCarbClass === "1") {
+          odorCloud.style.display = "block";
+          carbResultTxt.innerHTML = "<strong>Result: Positive!</strong><br><span style='color: #a855f7; font-weight: bold;'>Foul-smelling Isocyanide (R-NC) detected!</span> <br>Equation: R-NH₂ + CHCl₃ + 3KOH ➔ R-NC + 3KCl + 3H₂O.";
+        } else {
+          carbResultTxt.innerHTML = "<strong>Result: Negative.</strong><br>No isocyanide formed. Secondary and tertiary amines do not have enough NH protons to form carbylamines.";
+        }
+      }, 2000);
+    });
+
+    document.addEventListener("simulator-opened", () => {
+      resetTest();
+      resetCarbylamine();
+    });
+
+    document.addEventListener("simulator-closed", () => {
+      clearTimeout(carbTimer);
+    });
+  </script>
+</body>
+</html>
