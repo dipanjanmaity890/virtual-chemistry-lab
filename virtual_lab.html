@@ -619,7 +619,7 @@
                 <button class="btn-launch-simulator" id="dip-loop-btn" style="justify-content: center; padding: 0.65rem; background: linear-gradient(135deg, #a855f7 0%, rgba(168, 85, 247, 0.4) 100%);">
                   Dip Platinum Wire Loop
                 </button>
-                <button class="btn-launch-simulator" id="bring-flame-btn" style="justify-content: center; padding: 0.65rem; background: linear-gradient(135deg, #eab308 0%, rgba(234, 179, 8, 0.4) 100%);">
+                <button class="btn-launch-simulator" id="bring-flame-btn" disabled style="justify-content: center; padding: 0.65rem; background: linear-gradient(135deg, #eab308 0%, rgba(234, 179, 8, 0.4) 100%);">
                   Bring to Flame
                 </button>
 
@@ -1482,7 +1482,7 @@
       saltWetBubbleContainer.innerHTML = "";
       addWetReagentBtn.disabled = false;
       dipLoopBtn.disabled = false;
-      bringFlameBtn.disabled = false;
+      bringFlameBtn.disabled = true;
 
       if (saltMode === "flame") {
         saltStatusText.textContent = "Click Dip Platinum Wire Loop to pick up paste with HCl.";
