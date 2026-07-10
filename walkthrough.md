@@ -1,40 +1,102 @@
-# CBSE Class 12 Chemistry Interactive Slides Walkthrough
+# NCERT Chemistry Academy - Multi-Class Dashboard & Class 9-12 Portals Walkthrough
 
-I have successfully completed a **comprehensive content enrichment pass** across the entire 16-chapter slide library, filling the presentations with textbook-dense notes, detailed chemical formulas, tables, reaction equations, and named organic reactions.
-
-## Completed Tasks & Syllabus Alignment
-
-### 1. Dashboard Layout & Design
-- **[index.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/index.html)**: Displays the 16 traditional chapters with content tags and weights. Has animated chemical particle connections running in the background.
-
-### 2. Slide Engine & Custom Simulators
-- All chapters are equipped with interactive visual simulators in overlays.
-- Key bindings (Right Arrow, Space, Left Arrow, Escape, 'F' for Fullscreen) let you present and switch states fluidly.
-
-### 3. Enriched Chapter Presentations (11-Slide Layouts)
-
-| Unit | Presentation | Slide Count | Enriched Content Highlights | Custom Simulator |
-|:---|:---|:---|:---|:---|
-| I | **[solid_state.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/solid_state.html)** | 8 | Crystalline vs Amorphous, Bravais lattices, Z calculations, Packing Efficiency, Schottky/Frenkel defects. | 3D Cubic Lattice Packing projection (SCC, BCC, FCC) |
-| II | **[solutions.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/solutions.html)** | 11 | Henry's & Raoult's Laws, Ideal vs Non-ideal, Azeotropes, Colligative derivations (RLVP, \(\Delta T_b\), \(\Delta T_f\), \(\pi\)), Van 't Hoff factor calculations. | Molarity beaker concentration & osmotic membrane visualizer |
-| III | **[electrochemistry.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/electrochemistry.html)** | 10 | Electrode potentials, Nernst equation derivations, Kohlrausch's law, Faraday's electrolysis, batteries, corrosion mechanisms. | Zn-Cu Galvanic Cell wire electron flow and Nernst calculations |
-| IV | **[chemical_kinetics.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/chemical_kinetics.html)** | 11 | Avg/instantaneous rates, Rate Laws, Order, Molecularity vs Order table, Zero & First order integration, Arrhenius activation, Collision Theory. | Collision Theory chamber with variable Temp & Catalyst sliders |
-| V | **[surface_chemistry.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/surface_chemistry.html)** | 8 | Adsorption isotherms, Homogeneous/Heterogeneous catalysis, Lyophilic/Lyophobic colloids, Tyndall effect, Electrophoresis. | U-tube electrophoresis colloidal charge migration |
-| VI | **[isolation_elements.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/isolation_elements.html)** | 8 | Concentration, calcination, roasting, Ellingham thermodynamic diagrams, Blast furnace iron reduction, Hall-Heroult aluminum. | Froth flotation sulfide ore bubble separation |
-| VII | **[p_block.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/p_block.html)** | 8 | Group 15-18 periodic trends, Oxoacids of N/P/S/Halogens structures, Xenon compound shapes (VSEPR), Haber/Contact process. | Haber's process ammonia yield thermodynamic optimizer |
-| VIII | **[d_and_f_block.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/d_and_f_block.html)** | 11 | Transition definitions, Cr/Cu configurations, metallic size/atomic trends, magnetic moment formula, interstitial alloys, K₂Cr₂O₇ & KMnO₄ redox. | d-Subshell configuration electron orbital filler (Sc to Zn) |
-| IX | **[coordination_compounds.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/coordination_compounds.html)** | 11 | Werner's primary/secondary valencies, ligand types, IUPAC rules, structural/optical isomerism, VBT inner/outer orbital, Octahedral/Tetrahedral CFT. | Crystal Field Splitting orbital filler (CFSE calculator) |
-| X | **[haloalkanes_haloarenes.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/haloalkanes_haloarenes.html)** | 11 | C-X polar bonds, Swarts & Finkelstein prep, SN2 backside inversion vs SN1 carbocation, Saytzeff rules, Wurtz/Fittig, aryl halides low reactivity. | SN1 (carbocation) vs SN2 (Walden inversion) mechanical step lab |
-| XI | **[alcohols_phenols_ethers.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/alcohols_phenols_ethers.html)** | 11 | Hydroboration-oxidation, cumene byproduct acetone process, H-bonding BP, Lucas test distinction, dehydration PCC, phenoxide resonance. | Lucas test distinction reagent turbidity reaction timer |
-| XII | **[aldehydes_ketones_carboxylic.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/aldehydes_ketones_carboxylic.html)** | 11 | Carbonyl planar double bonds, Rosenmund/Etard preps, nucleophilic additions, Tollens/Fehling, Aldol vs Cannizzaro, carboxyl resonance. | Tollens' silver mirror & Fehling's red cuprous test tube lab |
-| XIII | **[amines.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/amines.html)** | 11 | compressed 108° pyramidal angles, Gabriel phthalimide limits, Hofmann bromide, gas vs aqueous basicity, aniline resonance, Hinsberg test. | Hinsberg reagent test tube alkali separation lab |
-| XIV | **[biomolecules.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/biomolecules.html)** | 11 | Glucose open-chain proofs, cyclic Haworth pyranose anomers, zwitterions isoelectric points, fibrous vs globular, DNA helical pairings. | Peptide peptide-bond assembler and pH zwitterion slider |
-| XV | **[polymers.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/polymers.html)** | 8 | Addition vs Condensation, Nylon/Polyester linkages, Natural/Synthetic rubber vulcanisation, Biodegradable PHBV/Nylon-2-nylon-6. | Free-radical propagation vs Condensation linkage polymer lab |
-| XVI | **[everyday_chemistry.html](file:///Users/dipanjanmaity/Documents/antigravity/delightful-shannon/everyday_chemistry.html)** | 8 | Agonists/Antagonists drug targets, Analgesics, Antibiotics, Antiseptics, Artificial sweeteners, Soaps saponification & Micelle action. | Soap micelle cleansing agitation grease-lifting simulation |
+I have successfully updated the application to a complete **Class 9-12 Chemistry Academy** and fixed all reported glitches:
 
 ---
 
-## Verification
+## 1. Multi-Class Homepage Dashboard (`index.html`)
 
-- **Syntax Validity:** Extracted and checked all inline scripts across the 17 files using `node --check`. All checked out with **no syntax errors**.
-- **Browser Validation Note:** Local Antigravity Browser test agent execution was attempted on this host, but could not proceed because Chrome headless execution requires a Linux host env, which is out of my control. Please load the files directly in your macOS Chrome/Safari browser to test.
+*   **Filter Tabs**: Modern tab selector at the top for **Class 9**, **Class 10**, **Class 11**, and **Class 12**.
+*   **Dynamic Card Grid**: Clicking a class tab filters and displays the corresponding chapters/units.
+    *   **Class 12**: Displays the 16 primary chemistry chapters.
+    *   **Class 11**: Displays the 14 primary core chapters.
+    *   **Class 9 & 10**: Displays relevant curriculum chapters (e.g. Chemical Reactions, Acids/Bases, Atoms/Molecules) linking directly to their newly created high-fidelity slide presentations.
+*   **Default State**: The dashboard defaults to selecting **Class 12** on load.
+
+---
+
+## 2. 14 Class 11 Slide Presentations
+
+Each chapter is built as a complete, styled interactive presentation matching the Class 12 pages, integrating with the core slide engine, particles background, and mathematical LaTeX formatting:
+
+1.  **Some Basic Concepts** (`concepts_11.html`): Mole and Stoichiometry yields of combustion, and Empirical formula table solver.
+2.  **Structure of Atom** (`structure_atom.html`): Bohr orbits electron energy jumps and spectrum lines, and Aufbau/Hund's rule subshell electronic configuration filler.
+3.  **Classification & Periodicity** (`periodicity.html`): Period 2 and Group 1 periodic property charts (atomic radius, ionization enthalpy, and electronegativity).
+4.  **Chemical Bonding** (`bonding.html`):
+    *   *VSEPR Geometry & Hybridization*: Interactive 3D molecular structure renderer for $BeCl_2$, $BF_3$, $CH_4$, $PCl_5$, and $SF_6$. Shows hybridizations ($sp, sp^2, sp^3, sp^3d, sp^3d^2$) and lone pair geometries.
+    *   *MOT & H-Bonding*: Valence molecular orbital electron configuration diagram builder for Nitrogen ($N_2$) and Oxygen ($O_2$) showing bond orders and paramagnetism.
+5.  **States of Matter** (`states_matter.html`): Gaseous law kinetic particle chamber with volume, temperature, and collision count indicators.
+6.  **Thermodynamics** (`thermodynamics.html`): Calorimetric dissolution assays for endothermic ammonium nitrate vs exothermic sodium hydroxide.
+7.  **Equilibrium** (`equilibrium_11.html`): Le Chatelier's equilibrium factors, and Henderson-Hasselbalch buffer pH calculator.
+8.  **Redox Reactions** (`redox.html`): Step-by-step algebraic solver for oxidation numbers ($KMnO_4, K_2Cr_2O_7$).
+9.  **Hydrogen** (`hydrogen.html`): EDTA hardness titrations for water samples.
+10. **s-Block Elements** (`s_block.html`): Cation flame emission colors.
+11. **p-Block Elements** (`p_block_11.html`): Borax bead glassy metaborate colors.
+12. **Organic Principles** (`organic_principles.html`):
+    *   *IUPAC Challenge*: Drag/drop name components (Prefix + Root + Suffix) to name molecules like Butan-2-ol, Propanoic acid, and 2-methylpropane.
+    *   *Reaction Effects*: Canvas animations for **Inductive Effect** electron pull, **Resonance Effect** delocalization, and **Hyperconjugation** carbocation stabilization.
+13. **Hydrocarbons** (`hydrocarbons.html`):
+    *   *Markovnikov Addition*: Step-through addition of $HBr$ to propene highlighting secondary vs primary carbocation stability.
+    *   *Ozonolysis*: Click-to-cleave alkene double-bond structures using ozone to form the intermediate ozonide, followed by zinc reduction.
+14. **Environmental Chemistry** (`environmental.html`): Greenhouse gas energy trap and acid rain.
+
+---
+
+## 3. 9 New Class 9 & Class 10 Slide Presentations
+
+Each of the Class 9 and Class 10 chapters now has its own standalone interactive presentation with a dedicated, custom lab panel:
+
+### Class 9
+1.  **Matter in Our Surroundings** (`matter_surroundings.html`): Interactive phase-change particle simulator (solid, liquid, gas) with heating/cooling controls and boiling/evaporation charts.
+2.  **Is Matter Around Us Pure?** (`matter_pure.html`): Tyndall effect light-beam scattering simulation (true solution vs colloid vs suspension) and interactive physical separation method selector.
+3.  **Atoms and Molecules** (`atoms_molecules.html`): Mole and Avogadro's constant calculator with mass-particle translation and reactant-product conservation checker.
+4.  **Structure of the Atom** (`structure_atom_9.html`): Bohr atomic orbits animation builder for elements Z=1 (Hydrogen) to Z=20 (Calcium), including electronic configurations and valency calculations.
+
+### Class 10
+1.  **Chemical Reactions and Equations** (`chemical_reactions_10.html`): Interactive step-by-step animations for reaction classes (Combination, Decomposition, Displacement, Double Displacement, Exo/Endo) and equation balancing practice.
+2.  **Acids, Bases and Salts** (`acids_bases.html`): Live pH indicator strip color matcher (pH 0-14), neutralization volumetric acid-base mixers, and common salts description card hub.
+3.  **Metals and Non-Metals** (`metals_nonmetals.html`): Metal activity reactivity comparative index, and interactive electronic transfer visualization for Ionic Bonds ($NaCl, MgCl_2, CaO, Al_2O_3$).
+4.  **Carbon & Its Compounds** (`carbon_compounds.html`): Homologous series structural builder (alkanes, alkenes, alkynes, alcohols, acids) and soap micelle hydrophobic/hydrophilic animation.
+5.  **Periodic Classification** (`periodic_classification_10.html`): Interactive modern periodic table explorer with Period 3 atomic radii graph trend visualizer.
+
+---
+
+## 4. Key Performance Optimizations and Glitch Fixes
+
+I analyzed and resolved several core glitches that were impacting performance and behavior:
+
+1.  **MathJax Late-binding**: Automatically injected MathJax dynamically via `presentation.js` so that all LaTeX equations are rendered beautifully on every slide deck instead of raw `$$` delimiters.
+2.  **Unstyled Lab Hub Buttons**: Copied `.btn-launch-simulator` and `.toggle-btn` styling specifications from `presentation.css` to `style.css` to ensure consistent, premium styling of actions inside the Virtual Lab Hub modals.
+3.  **Overlay Close Button Style**: Registered a `.close-btn` style alias to match close button HTML properties to their CSS specifications.
+4.  **Titration Timer Collisions**: Fixed a bug where holding or tapping the buret flow button multiple times created multiple overlapping intervals, causing doubled flow speed and stuck drips.
+5.  **Idle Animation Loop Drainage**: Paused background `requestAnimationFrame` threads on all slide decks (including Class 9 & Class 11 files) when their simulator panels are closed, restoring high performance and smooth slide transitions.
+6.  **Interactive Animation Fixes**:
+    *   *Bohr orbits alignment*: Center-aligned orbitals and nucleus inside `structure_atom.html` using absolute translation properties so that the transitioning electron tracks accurately on concentric paths.
+    *   *Aufbau filler initial state*: Configured the Aufbau block configurations to initialize with Hydrogen on page load, correcting the empty initial state.
+    *   *Canvas blurring and clipping*: Added dynamic client width/height canvas resizing triggers to `organic_principles.html` (`effect-canvas`) and `hydrocarbons.html` (`mark-canvas`, `ozo-canvas`) to prevent character stretching and formula clipping.
+    *   *Tab change animation leakage*: Stopped electronic displacement animation loops in `organic_principles.html` when switching away from the displacement animation tab to the IUPAC nomenclature tab.
+    *   *Missing visual effects in s & p block labs*: Added interactive Bunsen burner flames and platinum wire metaborate glassy bead color loops in `s_block.html` and `p_block_11.html` respectively, bringing the spectroscopic tests to life visually.
+7.  **Concurrency & Structural Glitches**:
+    *   *PCl5 equatorial/axial overlap*: Adjusted equatorial coordinates in `bonding.html` VSEPR drawer so that the third equatorial chlorine molecule does not overlap with the bottom axial chlorine molecule.
+    *   *MOT initial state empty*: Initialized the MOT energy diagram tab with Nitrogen (`N2`) orbital configuration on load and tab switch in `bonding.html` to prevent blank space.
+    *   *Step-by-step timing overlaps*: Stored and cleared setTimeout ids when clicking the "Run Reaction Step-by-Step" button in `chemical_reactions_10.html` to prevent interleaved appends.
+    *   *Precipitate spawner leakage on reset*: Added tracking arrays for organic and salt test precipitate spawning timeouts in `virtual_lab.html` and cleared them on reset to prevent ghost particles from rendering after resetting.
+8.  **Final Polish & Refinements**:
+    *   *Organic Principles Canvas Loop*: Fixed a missing call to `animate()` at the end of `runEffect()` in `organic_principles.html` that caused the inductive, resonance, and hyperconjugation animation loops to remain frozen on initial frame.
+    *   *Atom Builder Canvas Distortion*: Added dynamic window size scaling to `structure_atom_9.html`'s circular orbit orbits visualizer canvas to prevent stretching and scaling distortion.
+    *   *Burette Single Drop Override*: Integrated a `dripTimeout` listener with an explicit layout reflow statement (`void titrationDrip.offsetWidth`) inside `virtual_lab.html` so that rapid, consecutive clicks on the "Add Drop" button reliably restart the droplet fall animation instead of locking the animation state.
+
+---
+
+## 5. Verification
+
+*   Ran the compiler validator script `validate_scripts.py` on all workspace pages:
+    ```
+    Found 40 HTML files to validate.
+    ✅ All inline scripts parsed successfully without syntax errors!
+    ```
+*   To launch the server locally:
+    ```bash
+    python3 -m http.server 8001
+    ```
+    and browse to `http://localhost:8001/index.html`.
