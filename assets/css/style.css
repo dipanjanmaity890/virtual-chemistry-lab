@@ -878,5 +878,91 @@ footer {
   border-color: #38bdf8;
 }
 
+@media (max-width: 768px) {
+  .top-nav {
+    padding: 1rem !important;
+  }
+  .nav-links {
+    gap: 1rem !important;
+  }
+  .dashboard-container, .lab-container {
+    padding: 1.5rem 1rem !important;
+  }
+  .hero-banner {
+    padding: 2rem 1rem !important;
+    margin-bottom: 2rem !important;
+  }
+  .hero-banner h2 {
+    font-size: 1.8rem !important;
+  }
+  .lab-search-input {
+    font-size: 0.9rem !important;
+    padding: 0.75rem 1rem 0.75rem 2.5rem !important;
+  }
+  .search-icon {
+    left: 0.75rem !important;
+    width: 16px !important;
+    height: 16px !important;
+  }
+  .lab-tabs {
+    gap: 0.35rem !important;
+    margin-bottom: 2rem !important;
+  }
+  .lab-tab-btn {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.8rem !important;
+  }
+  .chapters-grid, .labs-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+  .chapter-card {
+    height: auto !important;
+    min-height: 240px !important;
+    padding: 1.5rem !important;
+  }
+  .lab-card {
+    height: auto !important;
+    min-height: auto !important;
+    padding: 1.5rem !important;
+  }
+  .chapter-desc, .lab-card p {
+    margin-bottom: 1rem !important;
+  }
+
+  /* Virtual Lab simulator overlays on mobile */
+  .virtual-lab-overlay {
+    align-items: flex-start !important;
+  }
+  .lab-modal-container {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+  .lab-modal-header {
+    padding: 1rem !important;
+  }
+  .lab-modal-body {
+    padding: 1rem !important;
+    overflow-y: auto !important;
+  }
+  .flex-layout {
+    flex-direction: column !important;
+    gap: 1.25rem !important;
+  }
+  .sim-left, .sim-right {
+    width: 100% !important;
+    flex: none !important;
+    min-height: auto !important;
+    padding: 1.25rem !important;
+  }
+  
+  canvas {
+    max-width: 100% !important;
+  }
+}
+
 
 
