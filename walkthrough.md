@@ -98,6 +98,7 @@ I analyzed and resolved several core glitches that were impacting performance an
 *   **Concepts 11 Restoration**: Successfully restored the missing `concepts_11.html` page to resolve homepage 404 errors.
 *   **Bring to Flame Button Workflow**: Disabled the "Bring to Flame" button in the qualitative salt analysis lab on load and reset until the platinum wire loop has been dipped in the HCl/cation paste, preventing click events on inactive states.
 *   **Fluorine Aufbau Restoration**: Restored the missing Fluorine (F, Z=9) element electronic configuration select option and spin-filling logic in the Class 11 `structure_atom.html` Aufbau simulator.
+*   **Cross-Device Mobile Compatibility**: Added extensive `@media (max-width: 768px)` stylesheet rules to both `style.css` and `presentation.css` to gracefully resize slide decks, stack double/triple grids vertically, auto-fit fixed HUD buttons, and launch virtual labs in full-screen mode on phone/tablet viewport widths.
 *   To launch the server locally:
     ```bash
     python3 -m http.server 8001
