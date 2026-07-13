@@ -102,6 +102,13 @@ I analyzed and resolved several core glitches that were impacting performance an
 *   **Bunsen Burner & Tube Animation**: Configured the test tube holder in the Organic Tests lab to slide smoothly directly above the flame when the burner is active, and reset to the side when extinguished or reset.
 *   **Tyndall Particle Scattering**: Added dynamic, floating colloidal starch particles and sinking suspension soil particles. When the laser is turned ON, particles intersecting with the beam highlight/glow red to physically show light scattering (Tyndall Effect).
 *   **Beginner-Friendly Pedagogical Explanations**: Rewrote status feedback messages across the Tyndall Effect, pH strip, Volumetric Titration, Qualitative Flame Test, and Anion Wet Test simulators to describe neutralization, ion concentrations, electron energy emission, precipitates, and effervescence simply for first-time learners.
+*   **Syllabus & Slide Expansion**: Expanded all 39 chemistry chapters to at least **10-12 detailed slides** per presentation deck. Added new sections for NCERT Core Theory, Step-by-Step Solved Problems, and an Interactive MCQ Quiz check for classroom learning verification.
+*   **Multi-Simulation Laboratory Overlays**: Added secondary and tertiary virtual lab modules to chapters to expand user hands-on options:
+    *   *Matter in Our Surroundings* (`matter_surroundings.html`): Added a **Gas Diffusion Rate Lab** (visualizing molecular speeds of $NH_3$ vs $HCl$).
+    *   *Is Matter Around Us Pure* (`matter_pure.html`): Added a **Paper Chromatography separation simulator** with Retention Factor ($R_f$) calculations.
+    *   *Acids, Bases & Salts* (`acids_bases.html`): Added a **Neutralization drop-by-drop pH reaction beaker**.
+    *   *Some Basic Concepts* (`concepts_11.html`): Added a **Molarity Solution Preparation Lab** using volumetric flask measurements.
+    *   *Structure of Atom* (`structure_atom.html`): Added a **Rutherford Gold Foil Scattering Deflection simulator**.
 *   To launch the server locally:
     ```bash
     python3 -m http.server 8001
