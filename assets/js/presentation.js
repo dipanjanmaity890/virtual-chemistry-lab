@@ -250,3 +250,35 @@ document.addEventListener("DOMContentLoaded", () => {
   // Init
   initSlides();
 });
+
+// Global Quiz Answer Checking Function for Slide MCQ Checks
+window.checkQuizAnswer = function(button, isCorrect, feedback) {
+  const optionsContainer = button.parentElement;
+  const allOptions = optionsContainer.querySelectorAll(".quiz-option-btn");
+  
+  // Disable all buttons in this question
+  allOptions.forEach(opt => {
+    opt.disabled = true;
+  });
+  
+  // Style correct/incorrect choice
+  if (isCorrect) {
+    button.classList.add("correct");
+  } else {
+    button.classList.add("incorrect");
+    // Also highlight the correct one
+    allOptions.forEach(opt => {
+      if (opt.getAttribute("data-correct") === "true") {
+        opt.classList.add("correct");
+      }
+    });
+  }
+  
+  // Show Feedback Box
+  const questionBox = optionsContainer.closest(".quiz-question") || optionsContainer.parentElement;
+  const feedbackBox = questionBox.querySelector(".quiz-feedback");
+  if (feedbackBox) {
+    feedbackBox.innerHTML = `<strong>${isCorrect ? "🎉 Correct!" : "❌ Try Again:"}</strong> ${feedback}`;
+    feedbackBox.style.display = "block";
+  }
+};

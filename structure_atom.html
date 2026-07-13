@@ -74,7 +74,45 @@
       </div>
     </section>
 
+        <!-- Expanded Slide: Dual Nature of Matter -->
     <section class="slide">
+      <h2>de Broglie Relation & Heisenberg Uncertainty</h2>
+      <p>Wave-particle duality applies to all moving subatomic particles:</p>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>de Broglie Wavelength:</strong> Moving matter behaves as waves: $$\lambda = \frac{h}{p} = \frac{h}{m v}$$</li>
+        <li class="reveal-item"><strong>Heisenberg Uncertainty Principle:</strong> It is impossible to determine position and momentum simultaneously: $$\Delta x \cdot \Delta p \ge \frac{h}{4\pi}$$</li>
+      </ul>
+    </section>
+
+    <!-- Expanded Slide: Worked Numerical (de Broglie) -->
+    <section class="slide">
+      <h2>NCERT Solved Numerical: de Broglie Wavelength</h2>
+      <p><strong>Problem:</strong> Calculate the de Broglie wavelength of an electron (mass = $9.11 \times 10^{-31}\text{ kg}$) moving with a velocity of $2.0 \times 10^6\text{ m/s}$. ($h = 6.626 \times 10^{-34}\text{ J}\cdot\text{s}$).</p>
+      <div class="note-box">
+        <strong>Calculation:</strong>
+        $$\lambda = \frac{6.626 \times 10^{-34}}{9.11 \times 10^{-31} \times 2.0 \times 10^6}$$
+        $$\lambda = \frac{6.626 \times 10^{-34}}{1.822 \times 10^{-24}} = 3.63 \times 10^{-10}\text{ m} = 363\text{ pm}$$
+      </div>
+    </section>
+
+    <!-- Expanded Slide: Interactive Classroom Quiz -->
+    <section class="slide">
+      <h2>Classroom Check: Subshell Shapes</h2>
+      <p>Select the correct answer to check your understanding:</p>
+      <div class="quiz-container">
+        <div class="quiz-question">
+          <strong>Q. What is the value of Azimuthal quantum number ($l$) for a d-subshell orbital?</strong>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. l = 1 represents a p-subshell.')">A. $l = 1$</button>
+            <button class="quiz-option-btn" data-correct="true" onclick="checkQuizAnswer(this, true, 'Correct! For s-subshell l=0, p-subshell l=1, d-subshell l=2, and f-subshell l=3.')">B. $l = 2$</button>
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. l = 3 represents an f-subshell.')">C. $l = 3$</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </section>
+
+<section class="slide">
       <h2>Bohr transitions & Quantum configurations Lab</h2>
       <p>Launch the simulator to trigger hydrogen orbit jumps with spectrum emissions, and practice filling spins in the Aufbau/Hund orbital configuration filler.</p>
       <button class="btn-launch-simulator">Open Lab Panel</button>
@@ -103,7 +141,8 @@
         <div class="sim-tab-header">
           <button class="sim-tab-btn active" onclick="switchTab(0)">Bohr Orbit Transitions</button>
           <button class="sim-tab-btn" onclick="switchTab(1)">Aufbau Configuration Filler</button>
-        </div>
+          <button class="sim-tab-btn" onclick="switchTab(2)">Rutherford Foil</button>
+          </div>
 
         <div class="sim-grid">
           <!-- Tab 1 -->
@@ -245,6 +284,110 @@
         document.getElementById("calc-status").innerHTML = "Neon Z=10. Configuration: 1s² 2s² 2p⁶ (Fully filled noble gas shell)";
       }
     }
-  </script>
+  
+
+
+    let rutherfordInterval;
+    let rutherfordCanvas;
+    let rutherfordCtx;
+    let foilAlphaParticles = [];
+    
+    const originalSwitchTab = window.switchTab;
+    window.switchTab = function(idx) {
+      if (idx === 2) {
+        document.querySelectorAll(".sim-tab-btn").forEach((btn, i) => {
+          btn.classList.toggle("active", i === 2);
+        });
+        document.getElementById("tab-bohr").style.display = "none";
+        document.getElementById("tab-aufbau").style.display = "none";
+        
+        let tabRutherford = document.getElementById("tab-rutherford");
+        if (!tabRutherford) {
+          tabRutherford = document.createElement("div");
+          tabRutherford.id = "tab-rutherford";
+          tabRutherford.className = "sim-visualizer";
+          tabRutherford.innerHTML = `
+            <h4>Rutherford Gold Foil Scattering</h4>
+            <canvas id="rutherford-canvas" width="480" height="220" style="background:#030712; border-radius:8px; border:1px solid rgba(255,255,255,0.05);"></canvas>
+            <p style="font-size:0.8rem; color:#9ca3af; margin-top:0.5rem;">Alpha particles (+) fired at gold nuclei (+). Notice deflection angles!</p>
+          `;
+          document.querySelector(".sim-grid").insertBefore(tabRutherford, document.querySelector(".sim-sidebar"));
+          rutherfordCanvas = document.getElementById("rutherford-canvas");
+          rutherfordCtx = rutherfordCanvas.getContext("2d");
+        } else {
+          tabRutherford.style.display = "block";
+        }
+        
+        clearInterval(rutherfordInterval);
+        foilAlphaParticles = [];
+        rutherfordInterval = setInterval(() => {
+          // Spawn alpha particles
+          if (foilAlphaParticles.length < 30) {
+            foilAlphaParticles.push({
+              x: 0,
+              y: Math.random() * (rutherfordCanvas.height - 40) + 20,
+              vx: 4,
+              color: '#38bdf8'
+            });
+          }
+          
+          drawRutherford();
+        }, 30);
+      } else {
+        const tabRutherford = document.getElementById("tab-rutherford");
+        if (tabRutherford) tabRutherford.style.display = "none";
+        clearInterval(rutherfordInterval);
+        if (originalSwitchTab) originalSwitchTab(idx);
+      }
+    };
+    
+    function drawRutherford() {
+      rutherfordCtx.clearRect(0, 0, rutherfordCanvas.width, rutherfordCanvas.height);
+      
+      // Draw gold nucleus at center
+      let cx = rutherfordCanvas.width / 2;
+      let cy = rutherfordCanvas.height / 2;
+      
+      rutherfordCtx.fillStyle = '#ffd700';
+      rutherfordCtx.beginPath();
+      rutherfordCtx.arc(cx, cy, 18, 0, Math.PI*2);
+      rutherfordCtx.fill();
+      rutherfordCtx.fillStyle = '#000';
+      rutherfordCtx.font = '10px sans-serif';
+      rutherfordCtx.fillText("+79", cx - 8, cy + 3);
+      
+      // Draw particles
+      foilAlphaParticles.forEach((p, idx) => {
+        p.x += p.vx;
+        
+        // Rutherford scattering math: deflection angle increases as proximity to nucleus decreases
+        let dx = p.x - cx;
+        let dy = p.y - cy;
+        let dist = Math.sqrt(dx*dx + dy*dy);
+        
+        if (dist < 40 && p.x < cx + 20) {
+          // Calculate deflection
+          let deflectionStrength = (40 - dist) / 5;
+          if (p.y > cy) {
+            p.y += deflectionStrength;
+          } else {
+            p.y -= deflectionStrength;
+          }
+        }
+        
+        rutherfordCtx.fillStyle = '#ef4444';
+        rutherfordCtx.beginPath();
+        rutherfordCtx.arc(p.x, p.y, 3, 0, Math.PI*2);
+        rutherfordCtx.fill();
+        
+        // Reset particle when offscreen
+        if (p.x > rutherfordCanvas.width) {
+          p.x = 0;
+          p.y = Math.random() * (rutherfordCanvas.height - 40) + 20;
+        }
+      });
+    }
+        
+</script>
 </body>
 </html>

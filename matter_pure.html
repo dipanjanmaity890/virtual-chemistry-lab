@@ -86,7 +86,52 @@
         </div>
       </div>
     </section>
+        <!-- Expanded Slide: Types of Solutions -->
     <section class="slide">
+      <h2>Saturated vs Unsaturated Solutions</h2>
+      <p>Understanding concentration limits is vital for separating mixtures:</p>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>Saturated Solution:</strong> No more solute can dissolve at that particular temperature.</li>
+        <li class="reveal-item"><strong>Solubility:</strong> The maximum mass of solute that dissolves in 100g of solvent at a specific temperature.</li>
+        <li class="reveal-item"><strong>Suspension:</strong> Heterogeneous mixture with large particles (> 1000 nm) that settle down.</li>
+      </ul>
+    </section>
+
+    <!-- Expanded Slide: Worked Numerical (Concentration) -->
+    <section class="slide">
+      <h2>NCERT Solved Numerical: Solution Concentration</h2>
+      <div class="formula-box">
+        <strong>Formula:</strong> Mass percentage of solution
+        $$\text{Mass } \% = \frac{\text{Mass of Solute}}{\text{Mass of Solution}} \times 100$$
+        $$\text{Mass of Solution} = \text{Mass of Solute} + \text{Mass of Solvent}$$
+      </div>
+      <p><strong>Problem:</strong> A solution contains 40g of common salt dissolved in 320g of water. Calculate the concentration of the solution.</p>
+      <div class="note-box">
+        <strong>Step-by-step Calculation:</strong>
+        $$\text{Mass of solute} = 40\text{g},\ \text{Mass of solvent (water)} = 320\text{g}$$
+        $$\text{Mass of solution} = 40 + 320 = 360\text{g}$$
+        $$\text{Mass } \% = \frac{40}{360} \times 100 = 11.11\%$$
+      </div>
+    </section>
+
+    <!-- Expanded Slide: Interactive Classroom Quiz -->
+    <section class="slide">
+      <h2>Classroom Check: Solutions & Mixtures</h2>
+      <p>Select the correct answer to check your understanding:</p>
+      <div class="quiz-container">
+        <div class="quiz-question">
+          <strong>Q. Which of the following is a physical change?</strong>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. Burning wood changes the chemical composition.')">A. Burning of wood</button>
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. Rusting is oxidation of iron into iron oxide.')">B. Rusting of iron</button>
+            <button class="quiz-option-btn" data-correct="true" onclick="checkQuizAnswer(this, true, 'Correct! Melting ice only changes its physical state from solid to liquid water without creating new chemical substances.')">C. Melting of ice into water</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </section>
+
+<section class="slide">
       <h2>Mixture Classification Lab</h2>
       <p>Launch the simulator to classify solutions by particle size, observe the Tyndall Effect in colloids (visible light beam), and test which separation technique works for which mixture.</p>
       <button class="btn-launch-simulator">Open Lab Panel</button>
@@ -109,13 +154,19 @@
       </div>
       <div class="overlay-body">
         <div class="sim-grid">
+          <!-- Expanded Simulation Tab -->
+          <div id="tab-expanded" class="sim-visualizer" style="display:none;">
+            <h4>Interactive Simulator Extra Module</h4>
+            <div style="font-size:0.85rem; color:#9ca3af; margin-top:1rem;">Extra Lab Simulator loaded dynamically. Click tabs to swap.</div>
+          </div>
           <div class="sim-visualizer">
             <h4 style="margin-bottom:0.5rem;">Tyndall Effect Classifier</h4>
             <div class="sim-tab-header">
               <button class="sim-tab-btn active" onclick="setPure('solution')">Salt Water</button>
               <button class="sim-tab-btn" onclick="setPure('colloid')">Milk</button>
               <button class="sim-tab-btn" onclick="setPure('suspension')">Muddy Water</button>
-            </div>
+              <button class="sim-tab-btn" onclick="setMatterTab('chroma')">Chromatography</button>
+          </div>
             <canvas id="pure-canvas" class="sim-canvas" width="500" height="200"></canvas>
             <div id="pure-label" style="margin-top:0.5rem; font-size:0.82rem; color:#94a3b8; text-align:center;"></div>
           </div>
@@ -177,6 +228,96 @@
     function runSep(){const mix=document.getElementById('sep-select').value,method=document.getElementById('method-select').value;if(!mix||!method)return;document.getElementById('sep-result').innerHTML='<strong>Result:</strong><br>'+(smap[mix+'-'+method]||'Select a valid combination.');}
     setPure('solution');
 
-  </script>
+  
+
+
+    let chromaPercent = 0;
+    let chromaInterval;
+    let matterTab = 'solid';
+    
+    window.setMatterTab = function(tab) {
+      const container = document.getElementById('matter-canvas');
+      const label = document.getElementById('matter-label');
+      matterTab = tab;
+      
+      if (tab === 'chroma') {
+        label.innerHTML = "<strong>Chromatography Lab:</strong> Dipping filter paper with black ink into solvent. Dyes separate by solubility: Red travels fastest (highest solubility), Yellow moderate, Blue slowest.";
+        clearInterval(chromaInterval);
+        chromaPercent = 0;
+        chromaInterval = setInterval(() => {
+          chromaPercent += 1.5;
+          if (chromaPercent >= 100) {
+            clearInterval(chromaInterval);
+          }
+          drawChromatography();
+        }, 80);
+      } else {
+        clearInterval(chromaInterval);
+        if (window.setMatterState) window.setMatterState(tab);
+      }
+    };
+    
+    function drawChromatography() {
+      if (matterTab !== 'chroma') return;
+      mctx.clearRect(0, 0, mc.width, mc.height);
+      
+      // Solvent level
+      mctx.fillStyle = 'rgba(56, 189, 248, 0.2)';
+      mctx.fillRect(0, mc.height - 25, mc.width, 25);
+      mctx.fillStyle = '#38bdf8';
+      mctx.font = '10px monospace';
+      mctx.fillText("Solvent", 10, mc.height - 10);
+      
+      // Paper strip
+      mctx.fillStyle = '#f8fafc';
+      mctx.fillRect(mc.width/2 - 40, 10, 80, mc.height - 30);
+      
+      // Solvent front line rising
+      let frontY = (mc.height - 35) - (chromaPercent / 100) * (mc.height - 70);
+      mctx.strokeStyle = 'rgba(56, 189, 248, 0.8)';
+      mctx.lineWidth = 2;
+      mctx.beginPath();
+      mctx.moveTo(mc.width/2 - 40, frontY);
+      mctx.lineTo(mc.width/2 + 40, frontY);
+      mctx.stroke();
+      mctx.fillStyle = '#38bdf8';
+      mctx.fillText("Solvent Front", mc.width/2 + 45, frontY + 3);
+      
+      // Original ink spot
+      let startY = mc.height - 45;
+      mctx.fillStyle = '#0f172a';
+      mctx.beginPath();
+      mctx.arc(mc.width/2, startY, 5, 0, Math.PI*2);
+      mctx.fill();
+      
+      // Dyes separating
+      if (chromaPercent > 0) {
+        // Red dye (R_f = 0.8)
+        let redY = startY - (chromaPercent / 100) * (mc.height - 70) * 0.8;
+        mctx.fillStyle = '#ef4444';
+        mctx.beginPath();
+        mctx.arc(mc.width/2, redY, 4, 0, Math.PI*2);
+        mctx.fill();
+        mctx.fillText("Red Dye (Rf=0.8)", mc.width/2 - 120, redY + 3);
+        
+        // Yellow dye (R_f = 0.5)
+        let yellowY = startY - (chromaPercent / 100) * (mc.height - 70) * 0.5;
+        mctx.fillStyle = '#eab308';
+        mctx.beginPath();
+        mctx.arc(mc.width/2, yellowY, 4, 0, Math.PI*2);
+        mctx.fill();
+        mctx.fillText("Yellow Dye (Rf=0.5)", mc.width/2 - 130, yellowY + 3);
+        
+        // Blue dye (R_f = 0.25)
+        let blueY = startY - (chromaPercent / 100) * (mc.height - 70) * 0.25;
+        mctx.fillStyle = '#3b82f6';
+        mctx.beginPath();
+        mctx.arc(mc.width/2, blueY, 4, 0, Math.PI*2);
+        mctx.fill();
+        mctx.fillText("Blue Dye (Rf=0.25)", mc.width/2 - 120, blueY + 3);
+      }
+    }
+        
+</script>
 </body>
 </html>

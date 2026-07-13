@@ -100,7 +100,47 @@
     </section>
 
     <!-- Slide 8: Interactive Lab Callout -->
+        <!-- Expanded Slide: Concentration Terminology -->
     <section class="slide">
+      <h2>Solution Concentrations: Molarity vs Molality</h2>
+      <p>Concentration terms describe solute-solvent ratios in chemical reactions:</p>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>Molarity ($M$):</strong> Moles of solute per litre of solution. Temp dependent. $$M = \frac{n_{\text{solute}}}{V_{\text{solution (L)}}}$$</li>
+        <li class="reveal-item"><strong>Molality ($m$):</strong> Moles of solute per kilogram of solvent. Temp independent. $$m = \frac{n_{\text{solute}}}{\text{Mass of solvent (kg)}}$$</li>
+      </ul>
+    </section>
+
+    <!-- Expanded Slide: Worked Numerical (Molarity) -->
+    <section class="slide">
+      <h2>NCERT Solved Numerical: Molarity Math</h2>
+      <p><strong>Problem:</strong> Calculate the molarity of NaOH in a solution prepared by dissolving 4g of NaOH in enough water to form 250 mL of solution.</p>
+      <div class="note-box">
+        <strong>Calculation:</strong>
+        * Molar mass of NaOH = $23 + 16 + 1 = 40\text{ g/mol}$.
+        * Moles of NaOH = $4\text{g} / 40\text{ g/mol} = 0.1\text{ mol}$.
+        * Volume of solution = $250\text{ mL} = 0.25\text{ L}$.
+        * Molarity = $0.1\text{ mol} / 0.25\text{ L} = 0.40\text{ M}$.
+      </div>
+    </section>
+
+    <!-- Expanded Slide: Interactive Classroom Quiz -->
+    <section class="slide">
+      <h2>Classroom Check: Concentration units</h2>
+      <p>Select the correct answer to check your understanding:</p>
+      <div class="quiz-container">
+        <div class="quiz-question">
+          <strong>Q. Which of the following concentration terms changes with temperature?</strong>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" data-correct="true" onclick="checkQuizAnswer(this, true, 'Correct! Molarity involves the volume of the solution. Since liquids expand/contract with temperature, Molarity is temperature-dependent.')">A. Molarity (M)</button>
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. Molality is based on masses which do not change with temperature.')">B. Molality (m)</button>
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. Mole fraction is a ratio of moles (mass-dependent), hence independent of temperature.')">C. Mole Fraction ($x_i$)</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </section>
+
+<section class="slide">
       <h2>Interactive Mole & Stoichiometry Lab</h2>
       <p>Launch the laboratory overlay to simulate mole conversions, empirical formula table building, and limiting reactant combustion assays.</p>
       <button class="btn-launch-simulator">Open Lab Panel</button>
@@ -131,7 +171,8 @@
         <div class="sim-tab-header">
           <button class="sim-tab-btn active" onclick="switchTab(0)">Stoichiometry & LR</button>
           <button class="sim-tab-btn" onclick="switchTab(1)">Empirical Formula Solver</button>
-        </div>
+          <button class="sim-tab-btn" onclick="switchTab(2)">Molarity Prep</button>
+          </div>
 
         <div class="sim-grid">
           <!-- Tab 1 -->
@@ -260,6 +301,74 @@
     }
 
     runStoichiometry();
-  </script>
+  
+
+
+    let molarityWeight = 40.0; // grams
+    
+    // Extend switchTab to render Molarity tab
+    const originalSwitchTab = window.switchTab;
+    window.switchTab = function(idx) {
+      if (idx === 2) {
+        document.querySelectorAll(".sim-tab-btn").forEach((btn, i) => {
+          btn.classList.toggle("active", i === 2);
+        });
+        document.getElementById("tab-lr").style.display = "none";
+        document.getElementById("tab-emp").style.display = "none";
+        
+        // Show Molarity prep visual
+        let tabMolarity = document.getElementById("tab-molarity");
+        if (!tabMolarity) {
+          tabMolarity = document.createElement("div");
+          tabMolarity.id = "tab-molarity";
+          tabMolarity.className = "sim-visualizer";
+          tabMolarity.innerHTML = `
+            <h4>Molarity Solution Preparation</h4>
+            <p style="font-size:0.8rem; color:#9ca3af;">Dissolving NaOH in a 500 mL volumetric flask.</p>
+            <div style="margin-top:1rem;">
+              <label>Weigh NaOH (grams):</label>
+              <input type="range" id="molarity-weight-slider" min="2" max="100" value="40" style="width:100%;" oninput="updateMolarityCalc(this.value)">
+              <span id="molarity-weight-label" style="font-weight:bold; color:#38bdf8;">40.0 g</span>
+            </div>
+            <div id="molarity-flask-prep" style="margin-top:1.5rem; text-align:center;">
+              <div style="width:50px; height:120px; border:3px solid #fff; border-radius:0 0 10px 10px; margin:0 auto; background:rgba(56,189,248,0.15); display:flex; align-items:flex-end;">
+                <div id="molarity-liquid-level" style="width:100%; height:80px; background:rgba(56,189,248,0.4); transition: background 0.3s;"></div>
+              </div>
+            </div>
+          `;
+          document.querySelector(".sim-grid").insertBefore(tabMolarity, document.querySelector(".sim-sidebar"));
+        } else {
+          tabMolarity.style.display = "block";
+        }
+        updateMolarityCalc(molarityWeight);
+      } else {
+        const tabMolarity = document.getElementById("tab-molarity");
+        if (tabMolarity) tabMolarity.style.display = "none";
+        if (originalSwitchTab) originalSwitchTab(idx);
+      }
+    };
+    
+    window.updateMolarityCalc = function(val) {
+      molarityWeight = parseFloat(val);
+      const label = document.getElementById("molarity-weight-label");
+      if (label) label.textContent = molarityWeight.toFixed(1) + " g";
+      
+      const moles = molarityWeight / 40.0; // NaOH molar mass = 40
+      const molarity = moles / 0.5; // Flask volume = 500 mL = 0.5 L
+      
+      const hud = document.getElementById("hud-output-list") || document.querySelector(".sim-sidebar");
+      if (hud) {
+        hud.innerHTML = `
+          <h3>Molarity Calculation</h3>
+          <p><strong>Compound:</strong> NaOH (40 g/mol)</p>
+          <p><strong>Mass:</strong> ${molarityWeight.toFixed(1)} g</p>
+          <p><strong>Moles:</strong> ${moles.toFixed(3)} mol</p>
+          <p><strong>Flask Volume:</strong> 0.50 Litres</p>
+          <p style="color:#22c55e; font-size:1.1rem; font-weight:bold; border-top:1px solid rgba(255,255,255,0.1); padding-top:0.5rem; margin-top:0.5rem;">Molarity: ${molarity.toFixed(3)} M</p>
+        `;
+      }
+    };
+        
+</script>
 </body>
 </html>

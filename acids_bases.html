@@ -95,7 +95,51 @@
         </div>
       </div>
     </section>
+        <!-- Expanded Slide: Strengths of Acids and Bases -->
     <section class="slide">
+      <h2>Understanding Acid-Base Strengths</h2>
+      <p>The strength depends on the extent of ionization (splitting into ions):</p>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>Strong Acids:</strong> Split completely in water. Example: $HCl, H_2SO_4$.</li>
+        <li class="reveal-item"><strong>Weak Acids:</strong> Split partially. Example: Citric acid, Acetic acid ($CH_3COOH$).</li>
+        <li class="reveal-item"><strong>Neutralization:</strong> Reaction between acid and base to form salt and water:
+        $$\text{Acid} + \text{Base} \rightarrow \text{Salt} + \text{Water} + \text{Heat}$$</li>
+      </ul>
+    </section>
+
+    <!-- Expanded Slide: Worked Numerical (pH Calculation) -->
+    <section class="slide">
+      <h2>NCERT Solved Numerical: pH Calculation</h2>
+      <div class="formula-box">
+        <strong>Formula:</strong> Logarithmic acidity scale
+        $$\text{pH} = -\log_{10}[H^+]$$
+      </div>
+      <p><strong>Problem:</strong> An aqueous solution has a hydrogen ion concentration $[H^+] = 10^{-3}\text{ M}$. Calculate its pH and identify its nature.</p>
+      <div class="note-box">
+        <strong>Calculation:</strong>
+        $$\text{pH} = -\log_{10}[10^{-3}] = -(-3) = 3$$
+        * Since the pH value ($3$) is less than $7$, the solution is **highly acidic**.
+      </div>
+    </section>
+
+    <!-- Expanded Slide: Interactive Classroom Quiz -->
+    <section class="slide">
+      <h2>Classroom Check: Acid-Base pH</h2>
+      <p>Select the correct answer to check your understanding:</p>
+      <div class="quiz-container">
+        <div class="quiz-question">
+          <strong>Q. Tooth decay starts when the pH of our mouth is:</strong>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. pH 7 is neutral and does not harm enamel.')">A. Above 7.0</button>
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. Enamel is resistant until pH falls further.')">B. Between 5.5 and 6.5</button>
+            <button class="quiz-option-btn" data-correct="true" onclick="checkQuizAnswer(this, true, 'Correct! Tooth enamel is made of calcium hydroxyapatite. It begins to corrode when the mouth pH falls below 5.5 due to acid-producing bacteria.')">C. Below 5.5</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </section>
+
+<section class="slide">
       <h2>pH Neutralisation Lab</h2>
       <p>Launch the lab to test substances with pH indicator, observe neutralisation colour changes, mix HCl and NaOH to reach pH 7, and practice virtual titration.</p>
       <button class="btn-launch-simulator">Open Lab Panel</button>
@@ -118,6 +162,11 @@
       </div>
       <div class="overlay-body">
         <div class="sim-grid">
+          <!-- Expanded Simulation Tab -->
+          <div id="tab-expanded" class="sim-visualizer" style="display:none;">
+            <h4>Interactive Simulator Extra Module</h4>
+            <div style="font-size:0.85rem; color:#9ca3af; margin-top:1rem;">Extra Lab Simulator loaded dynamically. Click tabs to swap.</div>
+          </div>
           <div class="sim-visualizer" style="flex-direction:column; align-items:flex-start; padding:1.2rem; justify-content:flex-start;">
             <h4>pH Tester and Indicator</h4>
             <select id="acid-subst" style="width:100%; background:#1e293b; color:#fff; padding:0.5rem; border-radius:8px; margin-bottom:0.5rem;" onchange="testPH()">
@@ -177,6 +226,69 @@
     }
     testPH();mixNeutral();
 
-  </script>
+  
+
+
+    let neutralDropCount = 0;
+    let acidTab = 'ph';
+    
+    window.setAcidTab = function(tab) {
+      acidTab = tab;
+      const label = document.getElementById('matter-label');
+      if (tab === 'neutralize') {
+        neutralDropCount = 0;
+        label.innerHTML = "<strong>Neutralization Lab:</strong> Click anywhere on the beaker to add NaOH drops to HCl. Watch the indicator shift from acidic (clear) to neutral (pH 7, light pink) and basic (magenta).";
+        drawNeutralize();
+      } else {
+        if (window.setMatterState) window.setMatterState(tab);
+      }
+    };
+    
+    function addNaOHDrop() {
+      if (acidTab !== 'neutralize') return;
+      neutralDropCount++;
+      drawNeutralize();
+    }
+    
+    // Add click listener on canvas for drop additions
+    mc.addEventListener('click', (e) => {
+      if (acidTab === 'neutralize') {
+        addNaOHDrop();
+      }
+    });
+    
+    function drawNeutralize() {
+      if (acidTab !== 'neutralize') return;
+      mctx.clearRect(0, 0, mc.width, mc.height);
+      
+      // Draw beaker
+      mctx.strokeStyle = '#cbd5e1';
+      mctx.lineWidth = 4;
+      mctx.strokeRect(mc.width/2 - 50, 50, 100, 110);
+      
+      // Determine liquid color based on NaOH drops added
+      let color = 'rgba(255, 255, 255, 0.15)'; // colorless acid
+      let status = "Acidic (pH = 1.0)";
+      if (neutralDropCount === 7) {
+        color = 'rgba(236, 72, 153, 0.25)'; // faint pink (neutral equivalence)
+        status = "Perfect Neutrality! (pH = 7.0)";
+      } else if (neutralDropCount > 7) {
+        color = 'rgba(219, 39, 119, 0.7)'; // magenta (strongly basic)
+        status = "Basic Excess! (pH = 12.0)";
+      }
+      
+      // Draw liquid
+      mctx.fillStyle = color;
+      mctx.fillRect(mc.width/2 - 48, 100, 96, 58);
+      
+      // Draw label
+      mctx.fillStyle = '#fff';
+      mctx.font = '11px sans-serif';
+      mctx.fillText("NaOH Drops: " + neutralDropCount, mc.width/2 - 38, 40);
+      mctx.fillStyle = '#38bdf8';
+      mctx.fillText(status, mc.width/2 - 42, 125);
+    }
+        
+</script>
 </body>
 </html>

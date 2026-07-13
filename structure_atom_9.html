@@ -84,7 +84,51 @@
         </div>
       </div>
     </section>
+        <!-- Expanded Slide: Electron Distribution Rules -->
     <section class="slide">
+      <h2>Bohr-Bury Electron Distribution Rules</h2>
+      <p>The arrangement of electrons in different orbits (shells) follows simple rules:</p>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>Max Capacity:</strong> In a shell, the maximum electrons is $2n^2$, where $n$ is the shell number.</li>
+        <li class="reveal-item"><strong>Shell Limits:</strong> $K$ shell ($n=1$) holds 2, $L$ shell ($n=2$) holds 8, $M$ shell ($n=3$) holds 18.</li>
+        <li class="reveal-item"><strong>Outer Limit:</strong> The outermost shell can hold a maximum of 8 electrons (Octet rule).</li>
+      </ul>
+    </section>
+
+    <!-- Expanded Slide: Worked Numerical (Valency) -->
+    <section class="slide">
+      <h2>NCERT Solved Numerical: Valency Deduction</h2>
+      <div class="formula-box">
+        <strong>Rule:</strong> Valency is the valence electrons ($V$) if $V \le 4$, else Valency $= 8 - V$.
+      </div>
+      <p><strong>Problem:</strong> An element has atomic number 17 (Chlorine). Deduce its configuration, valence electrons, and valency.</p>
+      <div class="note-box">
+        <strong>Deduction:</strong>
+        * Atomic Number = 17 $\rightarrow$ 17 protons and 17 electrons.
+        * Shell configuration = 2, 8, 7 ($K=2$, $L=8$, $M=7$).
+        * Valence electrons = 7.
+        * Valency = $8 - 7 = 1$. (Needs 1 electron to complete its octet).
+      </div>
+    </section>
+
+    <!-- Expanded Slide: Interactive Classroom Quiz -->
+    <section class="slide">
+      <h2>Classroom Check: Atomic Structure</h2>
+      <p>Select the correct answer to check your understanding:</p>
+      <div class="quiz-container">
+        <div class="quiz-question">
+          <strong>Q. What are isotopes of an element?</strong>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. Atoms with different atomic numbers are different elements.')">A. Atoms with different atomic numbers but same mass</button>
+            <button class="quiz-option-btn" data-correct="true" onclick="checkQuizAnswer(this, true, 'Correct! Isotopes are atoms of the same element having the same atomic number (same protons) but different mass numbers (different neutrons).')">B. Atoms with same atomic number but different mass numbers</button>
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. Isobars have the same mass number but different atomic numbers.')">C. Atoms with same mass and same protons</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </section>
+
+<section class="slide">
       <h2>Bohr Atom Builder Simulator</h2>
       <p>Launch the lab to build animated Bohr models for elements from H to Ca. View shell-by-shell electron configuration, calculate valency, and see isotope information.</p>
       <button class="btn-launch-simulator">Open Lab Panel</button>

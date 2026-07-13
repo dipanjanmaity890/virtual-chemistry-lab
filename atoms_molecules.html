@@ -72,7 +72,61 @@
       </div>
       <p>Why is the mole useful? Atoms are too small to count individually. The mole links atomic mass (in u) to laboratory masses (in grams).</p>
     </section>
+        <!-- Expanded Slide: Writing Chemical Formulas -->
     <section class="slide">
+      <h2>Criss-Cross Valency Rules</h2>
+      <p>Valency is the combining capacity of an atom. We write chemical formulas by crossing valencies:</p>
+      <div class="cols-2">
+        <div class="note-box">
+          <strong>Aluminium Oxide:</strong>
+          * Symbol: $Al$ and $O$
+          * Valency: $+3$ and $-2$
+          * Cross-over: **$Al_2O_3$**
+        </div>
+        <div class="note-box">
+          <strong>Calcium Chloride:</strong>
+          * Symbol: $Ca$ and $Cl$
+          * Valency: $+2$ and $-1$
+          * Cross-over: **$CaCl_2$**
+        </div>
+      </div>
+    </section>
+
+    <!-- Expanded Slide: Worked Numerical (Molecular Mass) -->
+    <section class="slide">
+      <h2>NCERT Solved Numerical: Molecular Mass</h2>
+      <div class="formula-box">
+        <strong>Formula:</strong> Sum of atomic masses of all atoms present
+        $$\text{Mass of } A_xB_y = x \times \text{Mass}(A) + y \times \text{Mass}(B)$$
+      </div>
+      <p><strong>Problem:</strong> Calculate the molecular mass of Nitric Acid ($HNO_3$). (Atomic masses: $H=1$, $N=14$, $O=16$).</p>
+      <div class="note-box">
+        <strong>Step-by-step Calculation:</strong>
+        $$\text{Mass of } H = 1 \times 1\text{ u}$$
+        $$\text{Mass of } N = 1 \times 14\text{ u} = 14\text{ u}$$
+        $$\text{Mass of } O = 3 \times 16\text{ u} = 48\text{ u}$$
+        $$\text{Molecular Mass} = 1 + 14 + 48 = 63\text{ u}$$
+      </div>
+    </section>
+
+    <!-- Expanded Slide: Interactive Classroom Quiz -->
+    <section class="slide">
+      <h2>Classroom Check: Mole Conversions</h2>
+      <p>Select the correct answer to check your understanding:</p>
+      <div class="quiz-container">
+        <div class="quiz-question">
+          <strong>Q. What is the mass of 0.5 moles of Water ($H_2O$)? (Molar mass of $H_2O$ = 18 g/mol)</strong>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. 18g is the mass of 1 mole of water.')">A. 18 grams</button>
+            <button class="quiz-option-btn" data-correct="true" onclick="checkQuizAnswer(this, true, 'Correct! Mass = Moles x Molar Mass = 0.5 x 18 = 9 grams.')">B. 9 grams</button>
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. 36g is the mass of 2 moles of water.')">C. 36 grams</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </section>
+
+<section class="slide">
       <h2>Mole Concept Calculator</h2>
       <p>Launch the simulator to calculate moles from given mass, find number of molecules, and verify the Law of Conservation of Mass with interactive inputs.</p>
       <button class="btn-launch-simulator">Open Lab Panel</button>

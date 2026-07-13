@@ -89,7 +89,55 @@
         </div>
       </div>
     </section>
+        <!-- Expanded Slide: Kinetic Molecular Theory of Gases -->
     <section class="slide">
+      <h2>Kinetic Molecular Theory of Gases</h2>
+      <p>The behavior of matter in different states is explained by the Kinetic Theory:</p>
+      <ul class="reveal-list">
+        <li class="reveal-item"><strong>Intermolecular Spaces:</strong> Gases have the largest spaces between particles, while solids have almost none.</li>
+        <li class="reveal-item"><strong>Kinetic Energy (K.E.):</strong> Directly proportional to Temperature. Heating increases particle speed: $$K.E. = \frac{3}{2} k_B T$$</li>
+        <li class="reveal-item"><strong>Gas Pressure:</strong> Caused by gas particles colliding with the container walls. More collisions = higher pressure.</li>
+      </ul>
+    </section>
+
+    <!-- Expanded Slide: Worked Numerical (Temp Scales) -->
+    <section class="slide">
+      <h2>NCERT Solved Numerical: Temperature Scales</h2>
+      <div class="formula-box">
+        <strong>Formula:</strong> Kelvin and Celsius Conversion
+        $$K = ^\circ\text{C} + 273.15$$
+      </div>
+      <p><strong>Problem:</strong> Convert the following temperatures to Kelvin scale: (a) $25^\circ\text{C}$ (Room Temp), (b) $373^\circ\text{C}$ (Superheated Steam).</p>
+      <div class="cols-2">
+        <div class="note-box">
+          <strong>(a) For $25^\circ\text{C}$:</strong>
+          $$T_K = 25 + 273.15 = 298.15\text{ K}$$
+        </div>
+        <div class="note-box">
+          <strong>(b) For $373^\circ\text{C}$:</strong>
+          $$T_K = 373 + 273.15 = 646.15\text{ K}$$
+        </div>
+      </div>
+    </section>
+
+    <!-- Expanded Slide: Interactive Classroom Quiz -->
+    <section class="slide">
+      <h2>Classroom Check: Matter Basics</h2>
+      <p>Select the correct answer to check your understanding:</p>
+      <div class="quiz-container">
+        <div class="quiz-question">
+          <strong>Q. Why does a desert cooler cool better on a hot dry day?</strong>
+          <div class="quiz-options">
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. High humidity actually slows down evaporation.')">A. Humidity is very high</button>
+            <button class="quiz-option-btn" data-correct="true" onclick="checkQuizAnswer(this, true, 'Correct! High temperature and low humidity on a dry day speed up the rate of water evaporation, causing a stronger cooling effect.')">B. High temp & low humidity speed up evaporation</button>
+            <button class="quiz-option-btn" onclick="checkQuizAnswer(this, false, 'Incorrect. Coolers rely on water vaporization, not wind speed alone.')">C. Water boiling point increases</button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+      </div>
+    </section>
+
+<section class="slide">
       <h2>States of Matter Simulator</h2>
       <p>Launch the lab to visualise particle motion in solids, liquids, and gases. Observe phase transitions and adjust evaporation factors with interactive sliders.</p>
       <button class="btn-launch-simulator">Open Lab Panel</button>
@@ -112,12 +160,18 @@
       </div>
       <div class="overlay-body">
         <div class="sim-grid">
+          <!-- Expanded Simulation Tab -->
+          <div id="tab-expanded" class="sim-visualizer" style="display:none;">
+            <h4>Interactive Simulator Extra Module</h4>
+            <div style="font-size:0.85rem; color:#9ca3af; margin-top:1rem;">Extra Lab Simulator loaded dynamically. Click tabs to swap.</div>
+          </div>
           <div class="sim-visualizer">
             <div class="sim-tab-header">
               <button class="sim-tab-btn active" onclick="setMatterState('solid')">Solid</button>
               <button class="sim-tab-btn" onclick="setMatterState('liquid')">Liquid</button>
               <button class="sim-tab-btn" onclick="setMatterState('gas')">Gas</button>
-            </div>
+              <button class="sim-tab-btn" onclick="setMatterState('diffusion')">Gas Diffusion</button>
+          </div>
             <canvas id="matter-canvas" class="sim-canvas" width="500" height="200"></canvas>
             <div id="matter-label" style="margin-top:0.6rem; font-size:0.85rem; color:#94a3b8; text-align:center;">Solid -- particles vibrate in fixed positions</div>
           </div>
@@ -209,6 +263,80 @@
         (temp <= 30 && wind <= 30 ? '<br>Low conditions: minimal evaporation.' : '');
     }
     setMatterState('solid'); updateEvap();
-  </script>
+  
+
+
+    // Gas Diffusion Simulator variables
+    let diffPercent = 0;
+    let diffInterval;
+    
+    // Override setMatterState to handle Gas Diffusion rate
+    const originalSetMatterState = window.setMatterState;
+    window.setMatterState = function(state) {
+      if (state === 'diffusion') {
+        matterState = 'diffusion';
+        diffPercent = 0;
+        document.getElementById('matter-label').innerHTML = "<strong>Diffusion Lab:</strong> NH₃ gas (left) and HCl gas (right) diffuse in a tube. NH₃ is lighter (17 g/mol) and travels faster than HCl (36.5 g/mol).";
+        
+        clearInterval(diffInterval);
+        diffInterval = setInterval(() => {
+          diffPercent += 2;
+          if (diffPercent >= 100) {
+            clearInterval(diffInterval);
+          }
+          drawDiffusion();
+        }, 100);
+      } else {
+        clearInterval(diffInterval);
+        if (originalSetMatterState) originalSetMatterState(state);
+      }
+    };
+    
+    function drawDiffusion() {
+      if (matterState !== 'diffusion') return;
+      mctx.clearRect(0, 0, mc.width, mc.height);
+      
+      // Draw tube
+      mctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      mctx.lineWidth = 4;
+      mctx.strokeRect(50, 80, mc.width - 100, 40);
+      
+      // Draw NH3 gas moving from left (faster: NH3 travel distance = 68%)
+      let nh3X = 50 + (diffPercent / 100) * (mc.width - 100) * 0.68;
+      mctx.fillStyle = 'rgba(56, 189, 248, 0.4)';
+      for (let i = 0; i < 15; i++) {
+        mctx.beginPath();
+        mctx.arc(50 + Math.random() * (nh3X - 50), 85 + Math.random() * 30, 3, 0, Math.PI * 2);
+        mctx.fill();
+      }
+      mctx.fillStyle = '#38bdf8';
+      mctx.font = '10px monospace';
+      mctx.fillText("NH₃ Gas", 60, 75);
+      
+      // Draw HCl gas moving from right (slower: HCl travel distance = 32%)
+      let hclX = (mc.width - 50) - (diffPercent / 100) * (mc.width - 100) * 0.32;
+      mctx.fillStyle = 'rgba(249, 115, 22, 0.4)';
+      for (let i = 0; i < 15; i++) {
+        mctx.beginPath();
+        mctx.arc(hclX + Math.random() * (mc.width - 50 - hclX), 85 + Math.random() * 30, 3, 0, Math.PI * 2);
+        mctx.fill();
+      }
+      mctx.fillStyle = '#f97316';
+      mctx.fillText("HCl Gas", mc.width - 110, 75);
+      
+      // If met, draw white NH4Cl ring
+      if (diffPercent >= 100) {
+        mctx.strokeStyle = '#fff';
+        mctx.lineWidth = 6;
+        mctx.beginPath();
+        mctx.moveTo(nh3X, 80);
+        mctx.lineTo(nh3X, 120);
+        mctx.stroke();
+        mctx.fillStyle = '#fff';
+        mctx.fillText("NH₄Cl White Ring", nh3X - 45, 140);
+      }
+    }
+        
+</script>
 </body>
 </html>
