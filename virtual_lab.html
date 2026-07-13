@@ -645,6 +645,100 @@
 
   <!-- Background Canvas Particle Animation Script -->
   <script>
+    // Custom premium popup dialog replacement for native alert()
+    window.alert = function(message) {
+      let overlay = document.getElementById("custom-alert-overlay");
+      if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.id = "custom-alert-overlay";
+        overlay.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(5, 7, 12, 0.85);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          z-index: 9999;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+          font-family: 'Outfit', sans-serif;
+        `;
+        
+        const box = document.createElement("div");
+        box.id = "custom-alert-box";
+        box.style.cssText = `
+          background: #0f172a;
+          border: 1px solid rgba(56, 189, 248, 0.2);
+          border-radius: 16px;
+          padding: 2rem;
+          max-width: 450px;
+          width: 90%;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+          transform: scale(0.9);
+          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        `;
+        
+        const icon = document.createElement("div");
+        icon.innerHTML = `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
+        icon.style.marginBottom = "1.25rem";
+        box.appendChild(icon);
+        
+        const msgEl = document.createElement("p");
+        msgEl.id = "custom-alert-message";
+        msgEl.style.cssText = `
+          color: #f1f5f9;
+          font-size: 0.95rem;
+          line-height: 1.6;
+          margin: 0 0 1.5rem 0;
+        `;
+        box.appendChild(msgEl);
+        
+        const btn = document.createElement("button");
+        btn.textContent = "Got it";
+        btn.style.cssText = `
+          background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+          color: #0b0f19;
+          border: none;
+          padding: 0.6rem 2.2rem;
+          border-radius: 8px;
+          font-weight: 700;
+          font-size: 0.85rem;
+          cursor: pointer;
+          transition: all 0.2s;
+          outline: none;
+        `;
+        btn.onmouseover = () => { btn.style.transform = "translateY(-1px)"; };
+        btn.onmouseout = () => { btn.style.transform = "translateY(0)"; };
+        btn.onclick = () => {
+          overlay.style.opacity = "0";
+          box.style.transform = "scale(0.9)";
+          overlay.style.pointerEvents = "none";
+        };
+        box.appendChild(btn);
+        
+        overlay.appendChild(box);
+        document.body.appendChild(overlay);
+      }
+      
+      const msgEl = document.getElementById("custom-alert-message");
+      msgEl.innerHTML = message;
+      
+      overlay.style.pointerEvents = "auto";
+      overlay.style.opacity = "1";
+      const box = document.getElementById("custom-alert-box");
+      box.style.transform = "scale(1)";
+    };
+
     // Dashboard particles background animation
     const canvas = document.getElementById("bg-canvas");
     const ctx = canvas.getContext("2d");
