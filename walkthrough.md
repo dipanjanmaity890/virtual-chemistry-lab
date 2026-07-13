@@ -110,6 +110,7 @@ I analyzed and resolved several core glitches that were impacting performance an
     *   *Some Basic Concepts* (`concepts_11.html`): Added a **Molarity Solution Preparation Lab** using volumetric flask measurements.
     *   *Structure of Atom* (`structure_atom.html`): Added a **Rutherford Gold Foil Scattering Deflection simulator**.
 *   **Custom Premium Dialog Popups**: Overrode the native window.alert() function inside `virtual_lab.html` with a modern, glassmorphic floating modal popup featuring custom SVG info icons, dark background blur overlays, and themed gradient action buttons.
+*   **Interceptive Action Confirmation**: Implemented an automated click interceptor in `virtual_lab.html` that captures every tap on a "Launch Simulator" or "Open Lab Guide" button (`.lab-start-btn`). Shows a custom confirmation popup: `"dipanjanmaity890.github.io says: Would you like to proceed?"` with Proceed/Cancel actions to prevent accidental triggers.
 *   To launch the server locally:
     ```bash
     python3 -m http.server 8001
