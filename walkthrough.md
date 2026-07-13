@@ -109,6 +109,7 @@ I analyzed and resolved several core glitches that were impacting performance an
     *   *Acids, Bases & Salts* (`acids_bases.html`): Added a **Neutralization drop-by-drop pH reaction beaker**.
     *   *Some Basic Concepts* (`concepts_11.html`): Added a **Molarity Solution Preparation Lab** using volumetric flask measurements.
     *   *Structure of Atom* (`structure_atom.html`): Added a **Rutherford Gold Foil Scattering Deflection simulator**.
+*   **Custom Premium Dialog Popups**: Overrode the native window.alert() function inside `virtual_lab.html` with a modern, glassmorphic floating modal popup featuring custom SVG info icons, dark background blur overlays, and themed gradient action buttons.
 *   To launch the server locally:
     ```bash
     python3 -m http.server 8001
