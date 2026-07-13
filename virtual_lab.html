@@ -469,7 +469,7 @@
         <div class="flex-layout">
           <!-- Simulation View -->
           <div class="sim-left" style="flex-direction: row; gap: 3rem;">
-            <div style="display: flex; flex-direction: column; align-items: center; position: relative;">
+            <div id="organic-tube-holder" style="display: flex; flex-direction: column; align-items: center; position: relative; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); z-index: 10;">
               <div class="test-tube-heat" style="width: 45px; height: 150px;">
                 <div class="test-tube-liquid" id="organic-liquid" style="height: 60px; background: rgba(255,255,255,0.15); transition: background 0.5s;"></div>
                 <!-- Container for precipitate particles -->
@@ -843,22 +843,44 @@
         tyndallStatusText.style.color = "#fff";
       } else if (tyndallSample === "starch") {
         tyndallLiquid.style.background = "rgba(226, 232, 240, 0.25)";
-        tyndallStatusText.innerHTML = "<strong>Starch (Colloid):</strong> Heterogeneous mixture. Colloidal particles are sized 1–1000 nm and remain suspended.";
+        tyndallStatusText.innerHTML = "<strong>Starch (Colloid):</strong> Medium-sized starch particles (1–1000 nm) stay floating suspended in water. Turn on the laser pointer to see them glow red as they scatter the light!";
         tyndallStatusText.style.color = "#fff";
+        
+        for (let i = 0; i < 30; i++) {
+          const p = document.createElement("div");
+          p.className = "tyndall-particle";
+          const size = Math.random() * 3 + 2;
+          p.style.width = `${size}px`;
+          p.style.height = `${size}px`;
+          p.style.left = `${Math.random() * 90 + 5}%`;
+          const topVal = Math.random() * 50 + 40;
+          p.style.top = `${topVal}%`;
+          if (topVal >= 56 && topVal <= 64) {
+            p.classList.add("in-beam");
+          }
+          p.style.animationDelay = `${Math.random() * 3}s`;
+          p.style.animationDuration = `${Math.random() * 2 + 3}s`;
+          particlesContainer.appendChild(p);
+        }
       } else if (tyndallSample === "soil") {
         tyndallLiquid.style.background = "rgba(120, 53, 4, 0.4)";
-        tyndallStatusText.innerHTML = "<strong>Soil (Suspension):</strong> Heterogeneous mixture. Solid particles are larger than 1000 nm and are clearly visible.";
+        tyndallStatusText.innerHTML = "<strong>Soil (Suspension):</strong> Large solid soil particles (>1000 nm) sink slowly to the bottom. They block the laser light heavily and scatter it randomly as they fall through the path.";
         tyndallStatusText.style.color = "#fff";
 
         for (let i = 0; i < 20; i++) {
           const p = document.createElement("div");
-          p.style.position = "absolute";
-          p.style.width = `${Math.random() * 4 + 2}px`;
-          p.style.height = `${Math.random() * 4 + 2}px`;
-          p.style.background = "#451a03";
-          p.style.borderRadius = "50%";
+          p.className = "suspension-particle";
+          const size = Math.random() * 5 + 4;
+          p.style.width = `${size}px`;
+          p.style.height = `${size}px`;
           p.style.left = `${Math.random() * 90 + 5}%`;
-          p.style.bottom = `${Math.random() * 20}px`;
+          const topVal = Math.random() * 50 + 40;
+          p.style.top = `${topVal}%`;
+          if (topVal >= 56 && topVal <= 64) {
+            p.classList.add("in-beam");
+          }
+          p.style.animationDelay = `${Math.random() * 6}s`;
+          p.style.animationDuration = `${Math.random() * 4 + 6}s`;
           particlesContainer.appendChild(p);
         }
       }
@@ -866,22 +888,24 @@
 
     laserToggleBtn.addEventListener("click", () => {
       laserOn = !laserOn;
+      const particlesContainer = document.getElementById("tyndall-particles-container");
       if (laserOn) {
         laserGlow.style.display = "block";
         tyndallLaserStatus.textContent = "Laser Pointer: ON";
         tyndallLaserStatus.style.color = "#ef4444";
+        particlesContainer.classList.add("laser-active");
 
         if (tyndallSample === "salt") {
           laserPathLine.style.opacity = "0";
-          tyndallStatusText.innerHTML = "<strong>Laser is ON:</strong> No light scattering observed. True solution particles are too small to scatter light.";
+          tyndallStatusText.innerHTML = "<strong>Laser is ON:</strong> The beaker stays dark. Why? Salt particles are tiny dissolved ions (under 1 nm) that do not block or reflect the laser light at all, letting the beam pass through invisible.";
           tyndallStatusText.style.color = "#a855f7";
         } else if (tyndallSample === "starch") {
           laserPathLine.style.opacity = "0.85";
-          tyndallStatusText.innerHTML = "<strong>Tyndall Effect Observed!</strong><br><span style='color: #38bdf8;'>Light path is clearly visible in the colloidal starch sol</span>. Colloidal particles scatter the laser beam.";
+          tyndallStatusText.innerHTML = "<strong>Tyndall Effect Observed!</strong> The laser beam glows bright red inside the liquid. Why? The medium-sized starch particles bounce the light in all directions (scattering), mapping the light path!";
           tyndallStatusText.style.color = "#38bdf8";
         } else if (tyndallSample === "soil") {
           laserPathLine.style.opacity = "0.2";
-          tyndallStatusText.innerHTML = "<strong>Laser blocked:</strong> Large suspended soil particles cause massive scattering and block the light path entirely.";
+          tyndallStatusText.innerHTML = "<strong>Laser blocked!</strong> The light is scattered heavily at the entry point but cannot pass through. Why? Large soil particles (>1000 nm) act as solid barriers, completely absorbing and blocking the beam.";
           tyndallStatusText.style.color = "#fb7185";
         }
       } else {
@@ -889,7 +913,8 @@
         laserGlow.style.display = "none";
         tyndallLaserStatus.textContent = "Laser Pointer: OFF";
         tyndallLaserStatus.style.color = "#9ca3af";
-        tyndallStatusText.textContent = "Laser pointer turned off.";
+        particlesContainer.classList.remove("laser-active");
+        tyndallStatusText.textContent = "Laser pointer turned off. Select another sample or turn on the laser again to study light scattering.";
         tyndallStatusText.style.color = "#fff";
       }
     });
@@ -986,8 +1011,20 @@
 
         const chosenVal = parseInt(e.target.getAttribute("data-val"), 10);
         if (chosenVal === currentTargetPh) {
-          phStatusText.innerHTML = `<strong>Match Found! pH = ${chosenVal}</strong><br><span style='color: #22c55e;'>Correct! ${selectedSubstanceName} has a pH of ${chosenVal} (${chosenVal < 7 ? "Acidic" : chosenVal > 7 ? "Basic" : "Neutral"}).</span>`;
-          phStatusText.style.color = "#22c55e";
+          let explanation = "";
+          if (chosenVal === 1) {
+            explanation = "HCl is a strong acid. It completely splits into H⁺ ions in water. The high concentration of H⁺ turns the pH paper bright red, showing a pH of 1.";
+          } else if (chosenVal === 3) {
+            explanation = "Lemon juice contains weak citric acid. It has fewer H⁺ ions than HCl, giving it a moderate orange-red pH of 3.";
+          } else if (chosenVal === 7) {
+            explanation = "Pure water has equal amounts of H⁺ and OH⁻ ions. It is perfectly neutral and doesn't change the yellow pH indicator paper, keeping it green (pH 7).";
+          } else if (chosenVal === 9) {
+            explanation = "Baking soda (NaHCO₃) is a weak base. It generates OH⁻ (hydroxide) ions, turning the pH strip cyan-blue (pH 9).";
+          } else if (chosenVal === 14) {
+            explanation = "NaOH is a very strong base. It splits completely to release a huge amount of OH⁻ ions, turning the pH paper deep purple (pH 14).";
+          }
+          phStatusText.innerHTML = `<strong>Correct Match! pH = ${chosenVal}</strong><br><span style='color: #38bdf8;'>${selectedSubstanceName} is ${chosenVal < 7 ? "Acidic" : chosenVal > 7 ? "Basic" : "Neutral"}.</span><br><p style='font-size:0.8rem; color:#9ca3af; margin-top:0.5rem;'>${explanation}</p>`;
+          phStatusText.style.color = "#38bdf8";
         } else {
           phStatusText.innerHTML = `<strong>Mismatch!</strong> The pH strip color does not match pH ${chosenVal}. Examine the colors closely.`;
           phStatusText.style.color = "#ef4444";
@@ -1036,15 +1073,19 @@
 
       if (volumeAdded < 24.5) {
         titrationLiquid.style.background = "rgba(255, 255, 255, 0.15)";
+        titrationStatusText.innerHTML = "<strong>Titration in progress...</strong> Acid (HCl) inside the flask is being neutralized by base (NaOH) from the burette. The solution is still acidic, so the indicator stays colorless.";
+        titrationStatusText.style.color = "#fff";
       } else if (volumeAdded >= 24.5 && volumeAdded < 25.0) {
         titrationLiquid.style.background = "rgba(236, 72, 153, 0.15)";
+        titrationStatusText.innerHTML = "<strong>Almost neutralized!</strong> Localized pink colors appear but disappear on stirring. The pH is climbing rapidly close to 7.";
+        titrationStatusText.style.color = "#fb7185";
       } else if (volumeAdded === 25.0) {
         titrationLiquid.style.background = "rgba(236, 72, 153, 0.35)";
-        titrationStatusText.innerHTML = "<strong>Equivalence Point Reached! (Vol = 25.0 mL)</strong><br><span style='color:#10b981;'>Perfect permanent faint pink color obtained! Neutralization stoichiometry: N₁V₁ = N₂V₂. NaOH Molarity = 0.10 M.</span>";
+        titrationStatusText.innerHTML = "<strong>Equivalence Point Reached! (Vol = 25.00 mL)</strong><br><span style='color:#10b981;'>Perfect faint pink color obtained! The acid and base have neutralized each other perfectly (Moles of Acid = Moles of Base). One extra drop would turn it dark pink.</span>";
         titrationStatusText.style.color = "#10b981";
       } else {
         titrationLiquid.style.background = "rgba(219, 39, 119, 0.8)";
-        titrationStatusText.innerHTML = "<strong>Over-titrated! (Vol = " + volumeAdded.toFixed(2) + " mL)</strong><br><span style='color:#ef4444;'>Acid completely neutralized. Solution is now strongly basic, turning phenolphthalein dark pink. Reset and try again.</span>";
+        titrationStatusText.innerHTML = "<strong>Over-titrated! (Vol = " + volumeAdded.toFixed(2) + " mL)</strong><br><span style='color:#ef4444;'>Too much base added! All H⁺ ions are neutralized, leaving excess OH⁻ (hydroxide) ions. This alkaline solution turns the phenolphthalein indicator bright magenta. Reset and add NaOH slower near 25 mL!</span>";
         titrationStatusText.style.color = "#ef4444";
       }
     }
@@ -1193,6 +1234,11 @@
       organicBurnerActive = false;
       organicHeatProgress = 0;
       
+      const tubeHolder = document.getElementById("organic-tube-holder");
+      if (tubeHolder) {
+        tubeHolder.style.transform = "translateX(0) translateY(0)";
+      }
+
       clearInterval(organicHeatInterval);
       clearInterval(organicBubbleInterval);
       organicPptTimeouts.forEach(clearTimeout);
@@ -1334,11 +1380,15 @@
       }
 
       organicBurnerActive = !organicBurnerActive;
+      const tubeHolder = document.getElementById("organic-tube-holder");
       if (organicBurnerActive) {
         organicFlameViz.style.display = "block";
+        if (tubeHolder) {
+          tubeHolder.style.transform = "translateX(110px) translateY(10px)";
+        }
         organicHeatBtn.textContent = "Extinguish Burner";
         organicHeatBtn.style.background = "linear-gradient(135deg, #f97316 0%, rgba(249, 115, 22, 0.4) 100%)";
-        organicStatusText.textContent = "Heating tube... Observe chemical reaction.";
+        organicStatusText.innerHTML = "<strong>Heating Analyte...</strong> The test tube moves smoothly above the Bunsen burner flame. Heat speeds up the chemical reaction!";
         organicStatusText.style.color = "#eab308";
 
         organicHeatInterval = setInterval(() => {
@@ -1347,6 +1397,9 @@
             clearInterval(organicHeatInterval);
             organicBurnerActive = false;
             organicFlameViz.style.display = "none";
+            if (tubeHolder) {
+              tubeHolder.style.transform = "translateX(0) translateY(0)";
+            }
             
             // Execute heating outcomes
             if (organicTest === "lucas" && organicSample === "lucas_secondary") {
@@ -1385,6 +1438,10 @@
         }, 200);
       } else {
         organicFlameViz.style.display = "none";
+        const tubeHolder = document.getElementById("organic-tube-holder");
+        if (tubeHolder) {
+          tubeHolder.style.transform = "translateX(0) translateY(0)";
+        }
         organicHeatBtn.textContent = "Light Bunsen Burner";
         organicHeatBtn.style.background = "linear-gradient(135deg, #eab308 0%, rgba(234, 179, 8, 0.4) 100%)";
         clearInterval(organicHeatInterval);
@@ -1525,31 +1582,40 @@
       platinumWireDevice.style.transform = "translateY(95px) rotate(-15deg)";
 
       setTimeout(() => {
+        let metal = "";
+        let colorDesc = "";
         if (cation === "copper") {
           saltFlameViz.className = "bunsen-flame flame-copper";
-          saltStatusText.innerHTML = "<strong>Result: Greenish Blue Flame!</strong><br><span style='color:#06b6d4;'>Copper cations (Cu²⁺) excite to release blue-green visible light radiation.</span>";
+          metal = "Copper (Cu²⁺)";
+          colorDesc = "greenish-blue. When copper is heated in the flame, its electrons absorb energy and jump to higher energy levels. As they cool down, they release this energy as blue-green light.";
           saltStatusText.style.color = "#06b6d4";
         } else if (cation === "calcium") {
           saltFlameViz.className = "bunsen-flame flame-calcium";
-          saltStatusText.innerHTML = "<strong>Result: Brick Red Flame!</strong><br><span style='color:#f97316;'>Calcium cations (Ca²⁺) release characteristic orange brick-red light spectrum.</span>";
+          metal = "Calcium (Ca²⁺)";
+          colorDesc = "brick red. Heating excites calcium's electrons, which emit characteristic orange/red visible light waves when dropping back down.";
           saltStatusText.style.color = "#f97316";
         } else if (cation === "barium") {
           saltFlameViz.className = "bunsen-flame flame-barium";
-          saltStatusText.innerHTML = "<strong>Result: Apple Green Flame!</strong><br><span style='color:#a3e635;'>Barium cations (Ba²⁺) yield evolution spectra in the light-green wavelength range.</span>";
+          metal = "Barium (Ba²⁺)";
+          colorDesc = "apple green. The energy release from heated barium electrons matches the wavelength of green light.";
           saltStatusText.style.color = "#a3e635";
         } else if (cation === "strontium") {
           saltFlameViz.className = "bunsen-flame flame-strontium";
-          saltStatusText.innerHTML = "<strong>Result: Crimson Red Flame!</strong><br><span style='color:#f43f5e;'>Strontium cations (Sr²⁺) yield deep ruby-crimson flame emissions.</span>";
+          metal = "Strontium (Sr²⁺)";
+          colorDesc = "crimson red. Heated strontium atoms release bright red light rays, which are also used to make emergency flares glow red!";
           saltStatusText.style.color = "#f43f5e";
         } else if (cation === "potassium") {
           saltFlameViz.className = "bunsen-flame flame-potassium";
-          saltStatusText.innerHTML = "<strong>Result: Lilac/Violet Flame!</strong><br><span style='color:#c084fc;'>Potassium cations (K⁺) excite to release violet/lilac wavelengths.</span>";
+          metal = "Potassium (K⁺)";
+          colorDesc = "lilac/violet. The high energy release of potassium electrons emits high-frequency violet light.";
           saltStatusText.style.color = "#c084fc";
         } else if (cation === "sodium") {
           saltFlameViz.className = "bunsen-flame flame-sodium";
-          saltStatusText.innerHTML = "<strong>Result: Golden Yellow Flame!</strong><br><span style='color:#fbbf24;'>Sodium cations (Na⁺) release intense yellow D-line emission light.</span>";
+          metal = "Sodium (Na⁺)";
+          colorDesc = "golden yellow. Sodium is incredibly active in flames, emitting a highly intense yellow light (yellow D-line).";
           saltStatusText.style.color = "#fbbf24";
         }
+        saltStatusText.innerHTML = `<strong>Result: ${metal} turns the flame ${colorDesc.split('.')[0]}!</strong><br><span style="font-size: 0.8rem; color: #cbd5e1;">How it works: ${colorDesc}</span>`;
       }, 500);
     }
 
@@ -1574,8 +1640,7 @@
 
       const anion = anionSaltSelect.value;
       if (anion === "carbonate") {
-        // dilute acid adds: CO2 release
-        saltStatusText.innerHTML = "<strong>Result: Brisk Effervescence (CO₂)!</strong><br><span style='color:#10b981;'>Dilute HCl decomposes Carbonates to release CO₂ gas, turning lime water milky.</span>";
+        saltStatusText.innerHTML = "<strong>Result: Rapid Gas Bubbles (Brisk Effervescence)!</strong><br><span style='color:#10b981;'>Acid reacting with carbonate salts produces Carbon Dioxide gas (CO₂). You see bubbles rising inside the tube, just like when opening a soda bottle!</span>";
         saltStatusText.style.color = "#10b981";
         
         saltWetBubbleInterval = setInterval(() => {
@@ -1586,16 +1651,14 @@
           setTimeout(() => b.remove(), 1200);
         }, 150);
       } else if (anion === "chloride") {
-        // AgNO3 + Conc H2SO4: white AgCl ppt
         saltWetLiquid.classList.add("turbid");
         spawnWetPpt(30, "#fff");
-        saltStatusText.innerHTML = "<strong>Result: Thick Curdy White Precipitate (AgCl)!</strong><br><span style='color:#10b981;'>Chloride ions react with Silver Nitrate reagent to deposit insoluble silver chloride, soluble in ammonium hydroxide.</span>";
+        saltStatusText.innerHTML = "<strong>Result: White Precipitate (AgCl)!</strong><br><span style='color:#10b981;'>Chloride ions bind with Silver Nitrate reagent to form a solid powder (precipitate) of silver chloride (AgCl) that does not dissolve in water, turning the tube milky-white.</span>";
         saltStatusText.style.color = "#10b981";
       } else if (anion === "sulfate") {
-        // BaCl2 -> dense white BaSO4 ppt
         saltWetLiquid.classList.add("turbid");
         spawnWetPpt(30, "#f8fafc");
-        saltStatusText.innerHTML = "<strong>Result: Dense White Precipitate (BaSO₄)!</strong><br><span style='color:#10b981;'>Sulfate anions react with Barium Chloride to yield BaSO₄ precipitate, insoluble in concentrated acids.</span>";
+        saltStatusText.innerHTML = "<strong>Result: Dense White Precipitate (BaSO₄)!</strong><br><span style='color:#10b981;'>Sulfate anions react with Barium Chloride reagent, instantly forming solid Barium Sulfate (BaSO₄) powder which settles down at the bottom of the tube.</span>";
         saltStatusText.style.color = "#10b981";
       }
     }

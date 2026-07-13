@@ -964,5 +964,47 @@ footer {
   }
 }
 
+/* Tyndall Effect particle scattering styles */
+.tyndall-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: rgba(226, 232, 240, 0.4);
+  transition: all 0.3s ease;
+  animation: floatParticle 4s infinite ease-in-out;
+}
+
+@keyframes floatParticle {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(12px, -12px); }
+  100% { transform: translate(0, 0); }
+}
+
+.laser-active .tyndall-particle.in-beam {
+  background: #ef4444 !important;
+  box-shadow: 0 0 8px #ef4444, 0 0 15px #ef4444 !important;
+}
+
+.suspension-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: #78350f;
+  opacity: 0.8;
+  animation: sinkParticle 8s infinite ease-in-out;
+}
+
+@keyframes sinkParticle {
+  0% { transform: translateY(-120px) translateX(0); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translateY(0) translateX(5px); opacity: 0.2; }
+}
+
+.laser-active .suspension-particle.in-beam {
+  background: #ef4444 !important;
+  box-shadow: 0 0 8px #ef4444 !important;
+}
+
 
 
